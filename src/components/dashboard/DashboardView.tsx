@@ -13,6 +13,7 @@ import { SystemHealthPanel } from './SystemHealthPanel';
 import { LatencyComparison } from './LatencyComparison';
 import { ManeuverLog } from './ManeuverLog';
 import { DataSelectorPanel } from './DataSelectorPanel';
+import { LiveDataPanel } from './LiveDataPanel';
 import debrisScenariosData from '../../data/debrisScenarios.json';
 import constellationData from '../../data/constellation.json';
 
@@ -191,6 +192,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
 
       {/* Massive Orbital Dataset Ingestion Selector */}
       <DataSelectorPanel />
+      
+      <LiveDataPanel />
     </div>
   );
 };

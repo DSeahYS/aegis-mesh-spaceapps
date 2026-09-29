@@ -35,5 +35,11 @@ Thumbs.db
 .env.*
 !.env.example
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
 # IDE & Antigravity internal runtime
 .antigravity/

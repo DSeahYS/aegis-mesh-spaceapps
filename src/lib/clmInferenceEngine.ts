@@ -342,3 +342,124 @@ export function getActionMetadata(actionIndex: number): ActionMetadata {
     fuelCostKg: 0.3,
   };
 }
+
+// -------------------------------------------------------------
+// Live FastAPI Edge Hardware Integration (PolarFire SWaP Backend)
+// -------------------------------------------------------------
+
+export interface LiveInferenceAction {
+  action: string;
+  confidence: number;
+  score: number;
+}
+
+export interface LiveInferenceResult {
+  top_actions: LiveInferenceAction[];
+  latency_ms: number;
+  source: 'polarfire-backend' | 'in-browser-fallback';
+}
+
+export type TelemetryInputState =
+  | number[]
+  | {
+      tca?: number;
+      missDistance?: number;
+      relVelocity?: number;
+      debrisMass?: number;
+      [key: string]: unknown;
+    };
+
+/**
+ * Executes live CLM similarity inference against the Microchip PolarFire Edge FastAPI backend
+ * (/api/inference) with seamless client-side fallback if the edge container is offline.
+ */
+export async function fetchLiveInference(
+  state: TelemetryInputState
+): Promise<LiveInferenceResult> {
+  let telemetryVector: number[];
+
+  if (Array.isArray(state)) {
+    if (state.length === CLM_EMBEDDING_DIM) {
+      telemetryVector = [...state];
+    } else if (state.length === 4) {
+      telemetryVector = encodeState(state);
+    } else if (state.length < CLM_EMBEDDING_DIM) {
+      telemetryVector = [...state, ...new Array(CLM_EMBEDDING_DIM - state.length).fill(0)];
+    } else {
+      telemetryVector = state.slice(0, CLM_EMBEDDING_DIM);
+    }
+  } else if (typeof state === 'object' && state !== null) {
+    const raw = [
+      Number(state.tca ?? 40.0),
+      Number(state.missDistance ?? 0.2),
+      Number(state.relVelocity ?? 11.0),
+      Number(state.debrisMass ?? 45.0),
+    ];
+    telemetryVector = encodeState(raw);
+  } else {
+    telemetryVector = new Array(CLM_EMBEDDING_DIM).fill(0.1);
+  }
+
+  // Ensure normalized 16-D unit embedding
+  telemetryVector = l2Normalize(telemetryVector);
+
+  const startTime = performance.now();
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+    const response = await fetch('/api/inference', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ telemetry: telemetryVector }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (response.ok) {
+      const data = await response.json();
+      const elapsedMs = performance.now() - startTime;
+      return {
+        top_actions: data.top_actions || [],
+        latency_ms: typeof data.latency_ms === 'number' ? data.latency_ms : elapsedMs,
+        source: 'polarfire-backend',
+      };
+    }
+  } catch {
+    // Backend unreachable or timeout: fall back gracefully to client-side CLM
+  }
+
+  // Local fallback InfoNCE similarity evaluation
+  const localResult = computeSimilarities(telemetryVector);
+  const elapsedMs = performance.now() - startTime;
+
+  const topActions: LiveInferenceAction[] = localResult.topIndices.slice(0, 3).map((idx, rank) => {
+    const meta = getActionMetadata(idx);
+    return {
+      action: `${meta.label} [${meta.category.toUpperCase()}] dv=${meta.deltaV.magnitude}m/s`,
+      confidence: Math.round((localResult.softmaxProbabilities[rank] ?? 0.9) * 1000) / 1000,
+      score: Math.round((localResult.similarities[rank] ?? 0.8) * 1000) / 1000,
+    };
+  });
+
+  return {
+    top_actions: topActions,
+    latency_ms: elapsedMs,
+    source: 'in-browser-fallback',
+  };
+}
+
+/**
+ * Asynchronous variant of computeSimilarities for non-blocking UI pipelines.
+ */
+export async function computeSimilaritiesAsync(
+  stateVector: number[],
+  temperature: number = DEFAULT_TEMPERATURE
+): Promise<CLMSimilarityResult> {
+  return Promise.resolve(computeSimilarities(stateVector, temperature));
+}
+
