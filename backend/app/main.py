@@ -104,7 +104,8 @@ async def screen_conjunctions(req: ScreenRequest):
     for debris_id in req.debris_tles:
         result = conjunction_service.screen(req.primary_tle, debris_id, req.window_hours)
         results.append(result)
-    return {"primary": req.primary_tle, "screened": len(results), "conjunctions": results}
+    primary_name = next((r.get("primary") for r in results if r.get("primary")), req.primary_tle)
+    return {"primary": primary_name, "screened": len(results), "conjunctions": results}
 
 
 @app.get("/api/tle/propagate")
@@ -144,9 +145,17 @@ async def get_health():
 
 @app.get("/api/benchmark/results")
 async def get_benchmark_results():
-    try:
-        import json
-        with open("/app/benchmark/results/benchmark_report.json", "r") as f:
-            return json.load(f)
-    except Exception:
-        return {"error": "Benchmark results not found. Run benchmark first."}
+    import json
+    from pathlib import Path
+    # Docker container path first, then repo-relative path for local runs
+    candidates = [
+        Path("/app/benchmark/results/benchmark_report.json"),
+        Path(__file__).resolve().parent.parent.parent / "benchmark" / "results" / "benchmark_report.json",
+    ]
+    for path in candidates:
+        try:
+            with open(path, "r") as f:
+                return json.load(f)
+        except Exception:
+            continue
+    return {"error": "Benchmark results not found. Run benchmark first."}
