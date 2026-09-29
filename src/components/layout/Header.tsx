@@ -106,7 +106,7 @@ export const Header: FC = () => {
         <div className="flex items-center gap-2 px-2.5 py-1 rounded bg-space-800/60 border border-space-700 text-xs font-mono">
           {/* Green: Nominal Systems */}
           <div className="flex items-center gap-1.5" title="Systems: Nominal">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyber-green shadow-md" />
+            <span className="w-2.5 h-2.5 rounded-full bg-cyber-green shadow-md animate-pulse" />
             <span className="hidden lg:inline text-[11px] text-slate-300">NOM</span>
           </div>
 

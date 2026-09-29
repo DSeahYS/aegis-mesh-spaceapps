@@ -63,7 +63,7 @@ export const StatusBar: FC = () => {
           <Radio className="w-3.5 h-3.5 text-cyber-green" />
           <span className="text-slate-400">NODES:</span>
           <span className="text-cyber-green font-bold tracking-wider">12/12 ONLINE</span>
-          <span className="w-2 h-2 rounded-full bg-cyber-green shadow-md " />
+          <span className="w-2 h-2 rounded-full bg-cyber-green shadow-md animate-pulse" />
         </div>
 
         <span className="text-space-600">|</span>
