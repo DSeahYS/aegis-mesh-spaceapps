@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-space-900: #0a0f18; /* Slightly deeper, desaturated navy */
+  --color-space-800: #131b2b; /* Muted slate for panels */
+  --color-space-700: #1e293b;
+  --color-space-600: #334155;
+  --color-cyber-green: #10b981; /* Emerald 500 - Professional nominal green */
+  --color-cyber-blue: #3b82f6; /* Blue 500 - Solid tactical blue */
+  --color-alert-red: #ef4444; /* Red 500 - Standard warning red */
+  --color-alert-amber: #f59e0b; /* Amber 500 - Standard caution amber */
+  --color-accent-purple: #8b5cf6;
+}
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #e2e8f0;
+  background-color: #0a0e1a;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111827;
+}
+::-webkit-scrollbar-thumb {
+  background: #2d3a4f;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3d4a5f;
+}
+
+/* Glow effects */
+.glow-green {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+.glow-blue {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+.glow-red {
+  box-shadow: 0 0 20px rgba(255, 51, 85, 0.3);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
