@@ -3,6 +3,8 @@ import debrisScenariosData from '../../data/debrisScenarios.json';
 import { BPlaneViz } from './BPlaneViz';
 import { PcGauge } from './PcGauge';
 import { StateVectorPanel } from './StateVectorPanel';
+import { PcVolatilityChart } from './PcVolatilityChart';
+import { TradeSpacePlot } from './TradeSpacePlot';
 import { ShieldAlert, Satellite, Target, Flame, ChevronDown } from 'lucide-react';
 
 export interface DebrisScenario {
@@ -156,6 +158,7 @@ export const ConjunctionView: React.FC = () => {
           <PcGauge
             pc={activeScenario.conjunction.pc}
             threshold={1e-4}
+            missDistance={activeScenario.conjunction.missDistance}
           />
 
           <StateVectorPanel
@@ -172,6 +175,12 @@ export const ConjunctionView: React.FC = () => {
             }}
           />
         </div>
+      </div>
+
+      {/* Analytics Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <PcVolatilityChart />
+        <TradeSpacePlot />
       </div>
     </div>
   );

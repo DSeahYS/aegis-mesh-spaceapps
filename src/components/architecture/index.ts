@@ -6,3 +6,4 @@ export * from './CLMExplainer';
 export * from './HardwareStack';
 export * from './PipelineDiagram';
 export * from './ArchitectureView';
+export * from './CLMGpuDashboard';

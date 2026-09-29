@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Shield,
   BrainCircuit,
+  Terminal,
 } from 'lucide-react';
 import { useSimulationStore, type ActiveView } from '../../store/simulationStore';
 
@@ -58,6 +59,12 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Stanford CLM Lab',
     shortLabel: 'CLM Lab',
     icon: BrainCircuit,
+  },
+  {
+    id: 'clm-gpu',
+    label: 'GPU Inference Proof',
+    shortLabel: 'GPU Metrics',
+    icon: Terminal,
     badge: 'NEW',
   },
 ];

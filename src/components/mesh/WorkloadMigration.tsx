@@ -68,18 +68,17 @@ export const WorkloadMigration: React.FC = () => {
   useEffect(() => {
     if (!isPlaying) return;
 
+    if (progress >= 100) {
+      setIsPlaying(false);
+      return;
+    }
+
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          // Pause slightly when complete, then loop
-          return 0;
-        }
-        return Math.min(100, prev + 1.2);
-      });
+      setProgress((prev) => Math.min(100, prev + 1.2));
     }, 100);
 
     return () => clearInterval(interval);
-  }, [isPlaying]);
+  }, [isPlaying, progress]);
 
   // Determine current active stage
   const getStageStatus = (stage: MigrationStageInfo) => {

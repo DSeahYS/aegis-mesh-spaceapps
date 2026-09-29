@@ -196,38 +196,52 @@ $$\mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(t_i, v_i)/\tau)}{\s
 
 ## 🖥️ Interactive Platform Overview
 
-The repository includes a production-grade, interactive mission control dashboard built with **React 18**, **Three.js**, and **Tailwind CSS v4**:
+The platform features an advanced 7-view mission control and engineering analysis suite built with **React 18**, **Three.js / React Three Fiber**, **Recharts**, and **Tailwind CSS v4**:
 
 ```
- ┌────────────────────────────────────────────────────────────────────────┐
- │ [🛰️ AEGIS-MESH]  Dashboard   3D Orbit   Conjunction   Mesh   Architecture │
- ├────────────────────────────────────────────────────────────────────────┤
- │ [Mission Control Dashboard]                                            │
- │  • 12/12 Constellation Nodes Active • 4 Active Conjunction Scenarios   │
- │  • Latency Comparison: 16ms (AEGIS-MESH) vs 16h (Legacy Ground STM)     │
- │  • Real-time SAA Radiation Flux, Propellant Budgets, Maneuver Logs    │
- ├────────────────────────────────────────────────────────────────────────┤
- │ [3D Orbital View]                                                      │
- │  • Interactive WebGL Earth Globe with Day/Night Terminator             │
- │  • 12 Satellites in 3 Orbital Planes (550 km LEO, 53.2° Inclination)  │
- │  • 500+ ORDEM 3.2 Debris Fragments (Cataloged vs "Dark Flux")          │
- │  • Real-Time Keplerian Orbit Propagation & Laser ISL Network Pulses   │
- ├────────────────────────────────────────────────────────────────────────┤
- │ [Conjunction Assessment View]                                          │
- │  • 2D B-Plane Target Plot with Hard Body Radius (HBR) Envelope         │
- │  • Circular Pc Radial Gauge with 1e-4 Threshold Breaching Alarm        │
- │  • 6-DOF Cartesian Relative Telemetry & ISO 19389 TraCSS CDM Export   │
- ├────────────────────────────────────────────────────────────────────────┤
- │ [Mesh Network & Migration View]                                        │
- │  • Constellation Topology Graph with Laser Latencies & Compute Loads   │
- │  • 4-Stage Wasm Live Migration: Checkpoint -> Serialize -> Laser -> Run│
- │  • SpeQtral Quantum Key Distribution (QKD) Channel Monitor             │
- ├────────────────────────────────────────────────────────────────────────┤
- │ [Architecture Deep-Dive]                                               │
- │  • End-to-End Optical-to-Burn Pipeline Flowchart                       │
- │  • Contrastive Latent Retrieval & Product Quantization Breakdown       │
- │  • COTS vs Space Hardware Comparison & ZES100 Micro-SEL Circuitry      │
- └────────────────────────────────────────────────────────────────────────┘
+ ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+ │ [🛰️ AEGIS-MESH]  Dashboard  3D Orbit  Conjunction  Mesh  Architecture  CLM Lab  GPU Proof [NEW] │
+ ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ 1. Mission Control Dashboard                                                                    │
+ │    • 12/12 Constellation Nodes Active • 4 Live Conjunction Scenarios                            │
+ │    • Log-Scale Latency Benchmark: 16ms (AEGIS-MESH) vs 16h (Legacy Ground STM)                  │
+ │    • Real-time SAA Radiation Flux, Propellant Budgets, Hardware Health, Maneuver Audit Trail   │
+ ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ 2. 3D Orbital Swarm Canvas                                                                     │
+ │    • Interactive WebGL Earth Globe with Day/Night Terminator & Atmospheric Scattering          │
+ │    • 12 Satellites across 3 Orbital Planes (550 km LEO, 53.2° Inclination)                     │
+ │    • 500+ ORDEM 3.2 Debris Fragments (Cataloged RSOs vs Uncataloged "Dark Flux")               │
+ │    • Real-Time Keplerian Orbit Propagation & 10 Gbps Laser ISL Network Pulses                  │
+ ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ 3. Conjunction Assessment & Collision Avoidance (UPGRADED)                                      │
+ │    • 2D B-Plane Target Plot with Hard Body Radius (HBR) Envelope & Covariance Ellipses         │
+ │    • Circular Pc Radial Gauge with 1e-4 Threshold Alarm & Sensor Dilution Warning               │
+ │    • NEW: Pc Volatility & Drop-off Forecast: Predicts natural risk resolution vs covariance    │
+ │    • NEW: Multi-Objective Trade Space Plot: Delta-V vs Time-to-TCA Pareto Frontier             │
+ │    • 6-DOF Cartesian Relative Telemetry & ISO 19389 TraCSS CDM Export                          │
+ ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ 4. Mesh Network & Workload Migration View                                                       │
+ │    • Dynamic Constellation Topology Graph with Speed-of-Light Laser Latencies & Compute Loads   │
+ │    • 4-Stage Live Wasm Migration: Linear Snapshot -> CBOR Compression -> Laser Transfer -> Run│
+ │    • SpeQtral Quantum Key Distribution (QKD) Monitor with QBER < 3.2% Telemetry                │
+ ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ 5. System Architecture & Hardware Stack                                                         │
+ │    • End-to-End Optical-to-Burn Pipeline Flowchart (Radon Transform -> Foster -> CLM -> CBF)   │
+ │    • Contrastive Latent Retrieval & Product Quantization (PQ) 75MB Cache Breakdown             │
+ │    • COTS vs Space Hardware Comparison & ZES100 Micro-SEL Analog Latchup Protection            │
+ ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ 6. Stanford CLM Research Lab                                                                    │
+ │    • Latent Embedding Space Visualization & High-Dimensional Manifold Projection               │
+ │    • Real-time Cosine Similarity Heatmaps for State-Action Verification                        │
+ │    • Comparative Decision AI Benchmarks: Julia 1 vs Laya vs CLM Decision Models               │
+ ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ 7. GPU Inference Proof & Hardware Profiling (NEW)                                               │
+ │    • Live 16ms Inference Latency Telemetry Frames with Real-Time Frame Jitter Analysis         │
+ │    • Training & Validation InfoNCE Loss Convergence Curves (0 to 500k Steps)                   │
+ │    • Action Retrieval Success Rate Trends vs Standard Deep RL Baselines                        │
+ │    • Hardware Envelopes: Core Clock, VRAM Allocation, Thermal Dissipation, Power (W)           │
+ │    • Real-time Streaming Terminal with Automated Profiler Controls (Play/Pause/Reset)          │
+ └─────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -240,34 +254,78 @@ NASASpaceApps2026/
 │   └── skills/
 │       └── swarm-coding/           # Swarm multi-agent orchestration skill
 ├── Research/
-│   ├── Concept.md                  # Executive concept and design pillars
-│   ├── research.md                 # Full 42,000-character peer-level academic research
-│   └── AEGIS-MESH Space Apps...    # Source research document
+│   ├── Concept.md                  # Executive concept, architectural innovations, and references
+│   ├── research.md                 # Full 42,000-character peer-level academic research paper
+│   └── AEGIS-MESH Space Apps...    # Source research documentation
 ├── src/
 │   ├── components/
-│   │   ├── architecture/           # Hardware stack, pipeline diagrams, CLM explainer
-│   │   ├── conjunction/            # 2D B-Plane viz, Pc radial gauge, state vectors
-│   │   ├── dashboard/              # Mission control, latency comparison, threat matrix
-│   │   ├── layout/                 # Header, sidebar navigation, real-time status bar
-│   │   ├── mesh/                   # Topology graph, Wasm migration, QKD monitors
-│   │   ├── three/                  # Three.js 3D Earth, satellites, debris, orbit rings
-│   │   └── views/                  # Primary view container wrappers
+│   │   ├── architecture/
+│   │   │   ├── CLMEvasionSim.tsx   # Evasion trajectory simulator
+│   │   │   ├── CLMExplainer.tsx    # Contrastive latent retrieval & PQ breakdown
+│   │   │   ├── CLMGpuDashboard.tsx # NEW: Real-time GPU inference proof & telemetry
+│   │   │   ├── CLMLab.tsx          # Stanford CLM latent space research lab
+│   │   │   ├── HardwareStack.tsx   # PolarFire vs Myriad X vs Jetson comparison
+│   │   │   ├── HeatmapViz.tsx      # Cosine similarity state-action heatmap
+│   │   │   ├── LatentSpaceViz.tsx  # 2D/3D state embedding projection
+│   │   │   └── PipelineDiagram.tsx # End-to-end 5-stage pipeline diagram
+│   │   ├── conjunction/
+│   │   │   ├── BPlaneViz.tsx       # 2D B-Plane encounter target visualizer
+│   │   │   ├── ConjunctionView.tsx # Conjunction master view
+│   │   │   ├── PcGauge.tsx         # Circular radial Pc gauge with dilution alarm
+│   │   │   ├── PcVolatilityChart.tsx# NEW: Pc forecast & covariance shrinkage chart
+│   │   │   ├── StateVectorPanel.tsx# 6-DOF telemetry & TraCSS CDM generator
+│   │   │   └── TradeSpacePlot.tsx  # NEW: Delta-V vs TCA Pareto trade-space scatter
+│   │   ├── dashboard/
+│   │   │   ├── DashboardView.tsx   # Mission control overview panel
+│   │   │   ├── DataSelectorPanel.tsx# Conjunction scenario switcher
+│   │   │   ├── LatencyComparison.tsx# 16ms vs 16h log-scale latency chart
+│   │   │   ├── ManeuverLog.tsx     # Autonomous avoidance burn audit log
+│   │   │   ├── SystemHealthPanel.tsx# Radiation, battery, and propellant monitors
+│   │   │   └── ThreatMatrix.tsx    # Live active conjunction event table
+│   │   ├── layout/
+│   │   │   ├── Header.tsx          # Top navigation & system status indicators
+│   │   │   ├── Sidebar.tsx         # Primary 7-view navigation bar
+│   │   │   └── StatusBar.tsx       # Bottom telemetry ticker and ISL indicators
+│   │   ├── mesh/
+│   │   │   ├── MeshView.tsx        # ISL constellation network view
+│   │   │   ├── QKDIndicator.tsx    # SpeQtral Quantum Key Distribution monitor
+│   │   │   ├── TopologyGraph.tsx   # 2D mesh graph with optical link latencies
+│   │   │   └── WorkloadMigration.tsx# 4-stage Wasm linear memory migration simulator
+│   │   ├── three/
+│   │   │   ├── ConjunctionEvent.tsx# 3D animated encounter trajectories
+│   │   │   ├── DebrisField.tsx     # ORDEM 3.2 500+ fragment particle field
+│   │   │   ├── Earth.tsx           # Textured 3D Earth globe with shaders
+│   │   │   ├── ISLLink.tsx         # Animated optical laser inter-satellite links
+│   │   │   ├── ManeuverTrail.tsx   # Delta-V avoidance burn particle trails
+│   │   │   ├── OrbitRing.tsx       # 3D Keplerian orbit plane rings
+│   │   │   ├── OrbitalScene.tsx    # Master Three.js WebGL scene
+│   │   │   └── SatelliteNode.tsx   # Detailed satellite bus & solar array models
+│   │   └── views/                  # Primary router view components
+│   │       ├── ArchitectureView.tsx
+│   │       ├── CLMGpuView.tsx      # NEW: GPU Inference Proof view wrapper
+│   │       ├── CLMLabView.tsx      # Stanford CLM Lab view wrapper
+│   │       ├── ConjunctionView.tsx
+│   │       ├── DashboardView.tsx
+│   │       ├── MeshView.tsx
+│   │       └── OrbitalView.tsx
 │   ├── data/
 │   │   ├── constellation.json      # 12-satellite Keplerian orbital ephemerides
-│   │   ├── debrisScenarios.json    # Flight conjunction scenarios (Fengyun, Cosmos, etc.)
+│   │   ├── debrisScenarios.json    # Flight conjunction scenarios
 │   │   ├── hardwareSpecs.json      # Edge compute processor benchmarks
 │   │   └── maneuverLibrary.json    # Pre-calculated astrodynamic delta-V cache
 │   ├── lib/
-│   │   ├── clmSimulator.ts         # Latent state encoding & cosine similarity search
+│   │   ├── catalogGenerator.ts     # Debris scenario and catalog utilities
+│   │   ├── clmInferenceEngine.ts   # Edge CLM retrieval & cosine scoring
+│   │   ├── clmSimulator.ts         # Latent state encoding & product quantization
 │   │   ├── conjunctionEngine.ts    # Foster (1992) B-plane & 2D Gaussian Pc integrals
 │   │   ├── constants.ts            # Astrodynamic constants (Earth mu, c, tolerances)
 │   │   ├── debrisModel.ts          # ORDEM 3.2 log-normal debris generator
 │   │   ├── meshNetwork.ts          # Constellation topology builder & Wasm migration
 │   │   └── orbitalMechanics.ts     # Keplerian propagation & Newton-Raphson solvers
 │   ├── store/
-│   │   └── simulationStore.ts      # Zustand global state (clock, alerts, selection)
-│   ├── App.tsx                     # Main layout and animation clock loop
-│   ├── index.css                   # Custom theme styles
+│   │   └── simulationStore.ts      # Zustand global state (clock, alerts, navigation)
+│   ├── App.tsx                     # Main layout & simulation clock loop
+│   ├── index.css                   # Custom theme styles & Tailwind v4 imports
 │   └── main.tsx                    # React DOM entry point
 ├── index.html                      # HTML5 container
 ├── package.json                    # Project dependencies & scripts

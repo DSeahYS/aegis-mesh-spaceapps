@@ -4,13 +4,17 @@ import { Gauge, AlertTriangle, ShieldCheck, AlertOctagon } from 'lucide-react';
 export interface PcGaugeProps {
   pc: number;
   threshold?: number;
+  missDistance?: number;
 }
 
 export const PcGauge: React.FC<PcGaugeProps> = ({
   pc,
   threshold = 1e-4,
+  missDistance,
 }) => {
   const isExceeded = pc >= threshold;
+  
+  const showDilutionWarning = missDistance !== undefined && missDistance < 800 && pc < 1e-4;
 
   // Logarithmic scale mapping: 1e-7 to 1e-1
   const logMin = -7;
@@ -277,6 +281,15 @@ export const PcGauge: React.FC<PcGaugeProps> = ({
           T_EXEC: IMMEDIATE
         </span>
       </div>
+
+      {showDilutionWarning && (
+        <div className="px-4 py-3 bg-orange-950/60 border-t border-orange-500/50 flex items-start space-x-2">
+          <AlertTriangle className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
+          <p className="text-orange-300 text-[10px] font-mono leading-relaxed">
+            <span className="font-bold text-orange-400">WARNING: DILUTION REGION DETECTED.</span> Probability density artificially diluted by high sensor uncertainty (large covariance).
+          </p>
+        </div>
+      )}
     </div>
   );
 };
