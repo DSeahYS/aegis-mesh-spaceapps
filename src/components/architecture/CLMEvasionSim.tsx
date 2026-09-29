@@ -367,43 +367,50 @@ const TrajectoryLines: React.FC<{
     return new THREE.BufferGeometry().setFromPoints(curvePoints);
   }, [isEvading, deltaVDirection]);
 
+  // Build full THREE.Line objects so we can render via <primitive>,
+  // avoiding the JSX <line> / SVG element type collision.
+  const nominalLine = useMemo(() => {
+    const mat = new THREE.LineDashedMaterial({
+      color: '#475569',
+      dashSize: 0.3,
+      gapSize: 0.2,
+      transparent: true,
+      opacity: 0.4,
+    });
+    const line = new THREE.Line(nominalLineGeom, mat);
+    line.computeLineDistances();
+    return line;
+  }, [nominalLineGeom]);
+
+  const debrisLine = useMemo(() => {
+    const mat = new THREE.LineBasicMaterial({
+      color: '#f43f5e',
+      transparent: true,
+      opacity: 0.65,
+    });
+    return new THREE.Line(debrisLineGeom, mat);
+  }, [debrisLineGeom]);
+
+  const evasiveLine = useMemo(() => {
+    if (!evasiveLineGeom) return null;
+    const mat = new THREE.LineBasicMaterial({
+      color: '#38bdf8',
+      transparent: true,
+      opacity: 0.9,
+    });
+    return new THREE.Line(evasiveLineGeom, mat);
+  }, [evasiveLineGeom]);
+
   return (
     <group>
       {/* Nominal Ballistic Line (Dashed Slate) */}
-      {/* @ts-ignore */}
-      <line geometry={nominalLineGeom}>
-        <lineDashedMaterial
-          color="#475569"
-          dashSize={0.3}
-          gapSize={0.2}
-          transparent
-          opacity={0.4}
-        />
-      </line>
+      <primitive object={nominalLine} />
 
       {/* Debris Trajectory (Red) */}
-      {/* @ts-ignore */}
-      <line geometry={debrisLineGeom}>
-        <lineBasicMaterial
-          color="#f43f5e"
-          transparent
-          opacity={0.65}
-          linewidth={2}
-        />
-      </line>
+      <primitive object={debrisLine} />
 
       {/* Evasive Arc (Bright Cyan) */}
-      {evasiveLineGeom && (
-        // @ts-ignore
-        <line geometry={evasiveLineGeom}>
-          <lineBasicMaterial
-            color="#38bdf8"
-            transparent
-            opacity={0.9}
-            linewidth={3}
-          />
-        </line>
-      )}
+      {evasiveLine && <primitive object={evasiveLine} />}
     </group>
   );
 };

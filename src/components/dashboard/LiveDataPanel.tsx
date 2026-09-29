@@ -22,7 +22,7 @@ export function LiveDataPanel() {
 
   const handleFetchTLEs = async () => {
     setLoading(true);
-    const data = await fetchTLEs({ constellation: 'AEGIS', includeDebris: true });
+    const data = await fetchTLEs({ group: 'stations' });
     setTles(data);
     setLoading(false);
   };
@@ -106,8 +106,9 @@ export function LiveDataPanel() {
           </button>
           {benchmark && (
             <div className="mt-4 text-sm text-slate-300">
-              <div>Latency: {benchmark.latency}ms</div>
-              <div>Throughput: {benchmark.throughput} ops/sec</div>
+              <div>Mean Latency: {benchmark.latency_ms?.mean?.toFixed(3) ?? 'N/A'}ms</div>
+              <div>Peak Memory: {benchmark.memory_bytes ? Math.round(benchmark.memory_bytes.peak / 1024) : 'N/A'}KB</div>
+              <div>Est Power: {benchmark.power_watts?.estimated ?? 'N/A'}W</div>
             </div>
           )}
         </div>

@@ -129,26 +129,6 @@ export const CLMLab: React.FC = () => {
     return computeSimilarities(stateVector, temperature);
   }, [stateVector, temperature]);
 
-  // Step 2b: Microchip PolarFire Edge Hardware Backend Integration (FastAPI SWaP Proof)
-  // const [liveBackendInference, setLiveBackendInference] = useState<LiveInferenceResult | null>(null);
-
-  // useEffect(() => {
-  //   let isSubscribed = true;
-  //   fetchLiveInference(stateVector)
-  //     .then((res) => {
-  //       if (isSubscribed) {
-  //         // setLiveBackendInference(res);
-  //       }
-  //     })
-  //     .catch(() => {
-  //       // Handled internally by fetchLiveInference fallback
-  //     });
-  //
-  //   return () => {
-  //     isSubscribed = false;
-  //   };
-  // }, [stateVector]);
-
   // Determine active action (selected or argmax top-1)
   const activeActionId = selectedActionIndex !== null ? selectedActionIndex : inferenceResult.bestIndex;
   const activeActionMeta: ActionMetadata = useMemo(() => {

@@ -93,6 +93,58 @@ export const CATALOG_DEFINITIONS: Record<string, CatalogMeta> = {
     badge: 'STATISTICAL SWARM',
     dangerLevel: 'HIGH',
   },
+  'kuiper': {
+    id: 'kuiper',
+    name: 'Project Kuiper Constellation',
+    category: 'constellation',
+    count: 3236,
+    description: 'Amazon broadband mega-constellation nodes in low earth orbit',
+    nominalAltitudeKm: '590 - 630 km',
+    inclination: '33.0° / 42.0° / 51.9°',
+    color: '#fbbf24',
+    accentBg: 'bg-amber-500/10 border-amber-500/30 text-amber-300',
+    badge: 'ACTIVE COOPERATIVE',
+    dangerLevel: 'LOW',
+  },
+  'guowang': {
+    id: 'guowang',
+    name: 'Guowang (GW) Network',
+    category: 'constellation',
+    count: 12992,
+    description: 'Massive Chinese national broadband mega-constellation (planned deployment)',
+    nominalAltitudeKm: '500 - 1,145 km',
+    inclination: '30.0° - 85.0°',
+    color: '#ef4444',
+    accentBg: 'bg-red-500/10 border-red-500/30 text-red-300',
+    badge: 'ACTIVE UNCOOPERATIVE',
+    dangerLevel: 'MED',
+  },
+  'iridium-next': {
+    id: 'iridium-next',
+    name: 'Iridium NEXT',
+    category: 'constellation',
+    count: 75,
+    description: 'L-band satellite constellation in 6 polar orbital planes',
+    nominalAltitudeKm: '780 km',
+    inclination: '86.4°',
+    color: '#8b5cf6',
+    accentBg: 'bg-purple-500/10 border-purple-500/30 text-purple-300',
+    badge: 'ACTIVE COOPERATIVE',
+    dangerLevel: 'LOW',
+  },
+  'gps-nav': {
+    id: 'gps-nav',
+    name: 'GPS / GLONASS / Galileo',
+    category: 'constellation',
+    count: 98,
+    description: 'Global Navigation Satellite Systems operating in MEO',
+    nominalAltitudeKm: '19,100 - 23,200 km',
+    inclination: '55.0° - 64.8°',
+    color: '#3b82f6',
+    accentBg: 'bg-blue-500/10 border-blue-500/30 text-blue-300',
+    badge: 'ACTIVE COOPERATIVE',
+    dangerLevel: 'LOW',
+  },
 };
 
 // In-memory catalog cache to avoid recalculating massive arrays on every render
@@ -413,6 +465,158 @@ function generateUncataloguedCatalog(count: number = 10000): CatalogObject[] {
 }
 
 /**
+ * Generate procedural Kuiper constellation (~3,236 satellites)
+ * Walker-Delta broadband constellation across 3 shell altitudes
+ */
+function generateKuiperCatalog(count: number = 3236): CatalogObject[] {
+  const rng = createSeededRandom(443322);
+  const items: CatalogObject[] = new Array(count);
+
+  for (let i = 0; i < count; i++) {
+    const altKm = 590 + (rng() - 0.5) * 40;
+    const incDeg = 51.9 + (rng() - 0.5) * 2;
+    const a = EARTH_RADIUS_KM + altKm;
+    const e = 0.001;
+    const iRad = (incDeg * Math.PI) / 180;
+    const elements: OrbitalElements = {
+      semiMajorAxis: a,
+      eccentricity: e,
+      inclination: iRad,
+      raan: rng() * 2 * Math.PI,
+      argPerigee: 0,
+      trueAnomaly: rng() * 2 * Math.PI,
+    };
+    const { position, velocity } = keplerianToCartesian(elements, EARTH_MU);
+    items[i] = {
+      id: `KUIPER-${i}`,
+      position,
+      velocity,
+      type: 'kuiper',
+      name: `Kuiper-${i}`,
+      altitudeKm: Math.round(altKm * 10) / 10,
+      inclinationDeg: Math.round(incDeg * 10) / 10,
+      sizeCm: 250,
+      rcs: 'large',
+    };
+  }
+  return items;
+}
+
+/**
+ * Generate procedural Guowang (GW) Network (~12,992 satellites planned)
+ * Massive Chinese national broadband mega-constellation
+ */
+function generateGuowangCatalog(count: number = 12992): CatalogObject[] {
+  const rng = createSeededRandom(998877);
+  const items: CatalogObject[] = new Array(count);
+
+  for (let i = 0; i < count; i++) {
+    const altKm = 500 + (rng() * 645);
+    const incDeg = 30 + (rng() * 55);
+    const a = EARTH_RADIUS_KM + altKm;
+    const e = 0.001;
+    const iRad = (incDeg * Math.PI) / 180;
+    const elements: OrbitalElements = {
+      semiMajorAxis: a,
+      eccentricity: e,
+      inclination: iRad,
+      raan: rng() * 2 * Math.PI,
+      argPerigee: 0,
+      trueAnomaly: rng() * 2 * Math.PI,
+    };
+    const { position, velocity } = keplerianToCartesian(elements, EARTH_MU);
+    items[i] = {
+      id: `GW-${i}`,
+      position,
+      velocity,
+      type: 'guowang',
+      name: `GW-${i}`,
+      altitudeKm: Math.round(altKm * 10) / 10,
+      inclinationDeg: Math.round(incDeg * 10) / 10,
+      sizeCm: 200,
+      rcs: 'large',
+    };
+  }
+  return items;
+}
+
+/**
+ * Generate procedural Iridium NEXT constellation (~75 active satellites)
+ * 6 polar orbital planes at 780 km
+ */
+function generateIridiumCatalog(count: number = 75): CatalogObject[] {
+  const rng = createSeededRandom(112233);
+  const items: CatalogObject[] = new Array(count);
+
+  for (let i = 0; i < count; i++) {
+    const altKm = 780 + (rng() - 0.5) * 5;
+    const incDeg = 86.4 + (rng() - 0.5) * 0.1;
+    const a = EARTH_RADIUS_KM + altKm;
+    const e = 0.001;
+    const iRad = (incDeg * Math.PI) / 180;
+    const elements: OrbitalElements = {
+      semiMajorAxis: a,
+      eccentricity: e,
+      inclination: iRad,
+      raan: rng() * 2 * Math.PI,
+      argPerigee: 0,
+      trueAnomaly: rng() * 2 * Math.PI,
+    };
+    const { position, velocity } = keplerianToCartesian(elements, EARTH_MU);
+    items[i] = {
+      id: `IRIDIUM-${i}`,
+      position,
+      velocity,
+      type: 'iridium-next',
+      name: `Iridium-${i}`,
+      altitudeKm: Math.round(altKm * 10) / 10,
+      inclinationDeg: Math.round(incDeg * 10) / 10,
+      sizeCm: 300,
+      rcs: 'large',
+    };
+  }
+  return items;
+}
+
+/**
+ * Generate procedural GNSS navigation satellites (~98 across GPS, GLONASS, Galileo)
+ * Medium Earth Orbit at ~20,000 km
+ */
+function generateGpsCatalog(count: number = 98): CatalogObject[] {
+  const rng = createSeededRandom(556677);
+  const items: CatalogObject[] = new Array(count);
+
+  for (let i = 0; i < count; i++) {
+    const altKm = 20000 + (rng() - 0.5) * 1000;
+    const incDeg = 55.0 + (rng() * 10);
+    const a = EARTH_RADIUS_KM + altKm;
+    const e = 0.001;
+    const iRad = (incDeg * Math.PI) / 180;
+    const elements: OrbitalElements = {
+      semiMajorAxis: a,
+      eccentricity: e,
+      inclination: iRad,
+      raan: rng() * 2 * Math.PI,
+      argPerigee: 0,
+      trueAnomaly: rng() * 2 * Math.PI,
+    };
+    const { position, velocity } = keplerianToCartesian(elements, EARTH_MU);
+    items[i] = {
+      id: `GNSS-${i}`,
+      position,
+      velocity,
+      type: 'gps-nav',
+      name: `GNSS-${i}`,
+      altitudeKm: Math.round(altKm * 10) / 10,
+      inclinationDeg: Math.round(incDeg * 10) / 10,
+      sizeCm: 400,
+      rcs: 'large',
+    };
+  }
+  return items;
+}
+
+/**
  * Main procedural catalog generator
  * @param type 'starlink' | 'oneweb' | 'cosmos-1408' | 'fengyun-1c' | 'uncatalogued'
  */
@@ -449,6 +653,22 @@ export function generateCatalog(type: string): CatalogObject[] {
     case 'microdebris':
     case 'micro-debris':
       generated = generateUncataloguedCatalog(10000);
+      break;
+
+    case 'kuiper':
+      generated = generateKuiperCatalog(3236);
+      break;
+
+    case 'guowang':
+      generated = generateGuowangCatalog(12992);
+      break;
+
+    case 'iridium-next':
+      generated = generateIridiumCatalog(75);
+      break;
+
+    case 'gps-nav':
+      generated = generateGpsCatalog(98);
       break;
 
     default:
