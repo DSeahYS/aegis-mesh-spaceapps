@@ -6,6 +6,9 @@
 [![React 18](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![Three.js](https://img.shields.io/badge/Three.js-r170-black?style=for-the-badge&logo=three.js)](https://threejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.141-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-green.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
 
@@ -26,9 +29,10 @@
 6. [Mathematical Formulations](#-mathematical-formulations)
 7. [Hardware Acceleration Trade-offs & Benchmarks](#-hardware-acceleration-trade-offs--benchmarks)
 8. [Interactive Platform Overview](#-interactive-platform-overview)
-9. [Repository Directory Structure](#-repository-directory-structure)
-10. [Quickstart & Local Installation](#-quickstart--local-installation)
-11. [Academic References & Works Cited](#-academic-references--works-cited)
+9. [Edge Backend API Reference](#-edge-backend-api-reference)
+10. [Repository Directory Structure](#-repository-directory-structure)
+11. [Quickstart & Local Installation](#-quickstart--local-installation)
+12. [Academic References & Works Cited](#-academic-references--works-cited)
 
 ---
 
@@ -196,16 +200,17 @@ $$\mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(\text{sim}(t_i, v_i)/\tau)}{\s
 
 ## 🖥️ Interactive Platform Overview
 
-The platform features an advanced 7-view mission control and engineering analysis suite built with **React 18**, **Three.js / React Three Fiber**, **Recharts**, and **Tailwind CSS v4**:
+The platform features an advanced 8-view mission control and engineering analysis suite built with **React 18**, **Three.js / React Three Fiber**, **Recharts**, and **Tailwind CSS v4**:
 
 ```
  ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
- │ [🛰️ AEGIS-MESH]  Dashboard  3D Orbit  Conjunction  Mesh  Architecture  CLM Lab  GPU Proof [NEW] │
+ │ [🛰️ AEGIS-MESH] Dashboard 3D Orbit Conjunction Mesh Architecture CLM Lab GPU Proof Backend [NEW]│
  ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
  │ 1. Mission Control Dashboard                                                                    │
  │    • 12/12 Constellation Nodes Active • 4 Live Conjunction Scenarios                            │
  │    • Log-Scale Latency Benchmark: 16ms (AEGIS-MESH) vs 16h (Legacy Ground STM)                  │
  │    • Real-time SAA Radiation Flux, Propellant Budgets, Hardware Health, Maneuver Audit Trail   │
+ │    • Live Data Feed Panel: backend health, Celestrak TLE fetch, CDM parsing, benchmarks        │
  ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
  │ 2. 3D Orbital Swarm Canvas                                                                     │
  │    • Interactive WebGL Earth Globe with Day/Night Terminator & Atmospheric Scattering          │
@@ -222,7 +227,7 @@ The platform features an advanced 7-view mission control and engineering analysi
  ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
  │ 4. Mesh Network & Workload Migration View                                                       │
  │    • Dynamic Constellation Topology Graph with Speed-of-Light Laser Latencies & Compute Loads   │
- │    • 4-Stage Live Wasm Migration: Linear Snapshot -> CBOR Compression -> Laser Transfer -> Run│
+ │    • 4-Stage Live Wasm Migration: Linear Snapshot -> CBOR Compression -> Laser Transfer -> Run │
  │    • SpeQtral Quantum Key Distribution (QKD) Monitor with QBER < 3.2% Telemetry                │
  ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
  │ 5. System Architecture & Hardware Stack                                                         │
@@ -235,14 +240,52 @@ The platform features an advanced 7-view mission control and engineering analysi
  │    • Real-time Cosine Similarity Heatmaps for State-Action Verification                        │
  │    • Comparative Decision AI Benchmarks: Julia 1 vs Laya vs CLM Decision Models               │
  ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
- │ 7. GPU Inference Proof & Hardware Profiling (NEW)                                               │
+ │ 7. GPU Inference Proof & Hardware Profiling                                                     │
  │    • Live 16ms Inference Latency Telemetry Frames with Real-Time Frame Jitter Analysis         │
  │    • Training & Validation InfoNCE Loss Convergence Curves (0 to 500k Steps)                   │
  │    • Action Retrieval Success Rate Trends vs Standard Deep RL Baselines                        │
  │    • Hardware Envelopes: Core Clock, VRAM Allocation, Thermal Dissipation, Power (W)           │
  │    • Real-time Streaming Terminal with Automated Profiler Controls (Play/Pause/Reset)          │
+ ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ 8. Backend Live Console (NEW)                                                                   │
+ │    • Live FastAPI Health Polling with Uptime Counter & ONLINE/OFFLINE Indicator                │
+ │    • One-Click CLM Edge Inference: top-3 actions, confidence, source & per-call latency        │
+ │    • Live Celestrak TLE Catalog Fetch (ISS, CSS, MIR...) with NORAD IDs & SGP4 propagation     │
+ │    • SGP4 + Foster B-Plane Conjunction Assessment with Pc & Relative Velocity Readouts         │
+ │    • PolarFire Benchmark Report: mean/P95 latency, peak memory, estimated power draw           │
+ │    • CCSDS CDM Parser with Pre-Loaded Sample & Scrolling Backend API Activity Log              │
  └─────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## ⚙️ Edge Backend API Reference
+
+A **FastAPI** microservice (`backend/`) simulates the Microchip PolarFire SoC edge node, enforcing the mission's SWaP-C envelope via Docker (**0.5 CPU cores, 256 MB RAM**). All endpoints are also reachable from the Vite dev server through the `/api` proxy.
+
+| Endpoint | Method | Description |
+| :--- | :--- | :--- |
+| `/api/inference` | `POST` | CLM forward pass: 4-D telemetry or 16-D latent → top-3 maneuver actions with InfoNCE confidence and per-call latency |
+| `/api/conjunction/assess` | `POST` | SGP4 propagation of two TLEs to a common epoch, Foster 2D B-plane geometry and Pc computation |
+| `/api/conjunction/screen` | `POST` | Screens a primary NORAD ID against a debris list over a rolling time window (TCA search at 60 s steps) |
+| `/api/tle/query` | `GET` | Live Celestrak GP query (`FORMAT=TLE`), returns structured JSON with `norad_id`, `name`, `line1`, `line2` |
+| `/api/tle/propagate` | `GET` | SGP4 propagation of a TLE to an ISO-8601 epoch → ECI position/velocity state vector |
+| `/api/cdm/parse` | `POST` | CCSDS CDM text parser → header / metadata / data / covariance sections |
+| `/api/benchmark/results` | `GET` | Serves the generated `benchmark_report.json` from the benchmark suite |
+| `/api/health` | `GET` | Liveness probe with process uptime |
+
+### Benchmark Suite (`benchmark/`)
+
+The benchmark suite emulates the PolarFire SWaP envelope and measures the full CLM retrieval pipeline over **1,000 iterations**:
+
+| Metric | Measured Value |
+| :--- | :--- |
+| Mean inference latency | **0.024 ms** |
+| P95 latency | **0.025 ms** |
+| Peak traced memory | **37 KB** |
+| Estimated power draw | **4.2 W** |
+
+Run it locally with `python run_benchmark.py` (see Quickstart). The `validate_swap.py` and `profile_memory.py` utilities verify the 0.5-core / 256 MB container envelope.
 
 ---
 
@@ -250,6 +293,27 @@ The platform features an advanced 7-view mission control and engineering analysi
 
 ```text
 NASASpaceApps2026/
+├── backend/                         # FastAPI PolarFire edge-node simulation
+│   ├── app/
+│   │   ├── main.py                  # FastAPI app: 8 REST endpoints + CORS
+│   │   ├── models.py                # Pydantic request/response models
+│   │   ├── clm_engine.py            # CLM forward pass + 256x16 action codebook
+│   │   ├── cara_engine.py           # Foster 2D B-plane & Pc computation
+│   │   ├── cdm_parser.py            # CCSDS CDM text parser
+│   │   ├── tle_client.py            # Celestrak GP query + SGP4 propagation
+│   │   ├── conjunction_service.py   # SGP4 screening & assessment service
+│   │   └── requirements.txt         # fastapi, uvicorn, numpy, scipy, sgp4
+│   ├── Dockerfile                   # python:3.10-slim, uvicorn on :8000
+│   └── .dockerignore
+├── benchmark/                       # PolarFire SWaP benchmark suite
+│   ├── run_benchmark.py             # 1000-iteration CLM latency benchmark
+│   ├── validate_swap.py             # 0.5-core / 256MB container validation
+│   ├── profile_memory.py            # Traced memory profiling utility
+│   ├── generate_report.py           # Report generator
+│   ├── results/benchmark_report.json# Generated benchmark output
+│   ├── Dockerfile / docker-compose.yml
+│   └── README.md
+├── docker-compose.yml               # Backend container: 0.5 CPU / 256MB limits
 ├── .agents/
 │   └── skills/
 │       └── swarm-coding/           # Swarm multi-agent orchestration skill
@@ -262,7 +326,7 @@ NASASpaceApps2026/
 │   │   ├── architecture/
 │   │   │   ├── CLMEvasionSim.tsx   # Evasion trajectory simulator
 │   │   │   ├── CLMExplainer.tsx    # Contrastive latent retrieval & PQ breakdown
-│   │   │   ├── CLMGpuDashboard.tsx # NEW: Real-time GPU inference proof & telemetry
+│   │   │   ├── CLMGpuDashboard.tsx # Real-time GPU inference proof & telemetry
 │   │   │   ├── CLMLab.tsx          # Stanford CLM latent space research lab
 │   │   │   ├── HardwareStack.tsx   # PolarFire vs Myriad X vs Jetson comparison
 │   │   │   ├── HeatmapViz.tsx      # Cosine similarity state-action heatmap
@@ -272,19 +336,20 @@ NASASpaceApps2026/
 │   │   │   ├── BPlaneViz.tsx       # 2D B-Plane encounter target visualizer
 │   │   │   ├── ConjunctionView.tsx # Conjunction master view
 │   │   │   ├── PcGauge.tsx         # Circular radial Pc gauge with dilution alarm
-│   │   │   ├── PcVolatilityChart.tsx# NEW: Pc forecast & covariance shrinkage chart
+│   │   │   ├── PcVolatilityChart.tsx# Pc forecast & covariance shrinkage chart
 │   │   │   ├── StateVectorPanel.tsx# 6-DOF telemetry & TraCSS CDM generator
-│   │   │   └── TradeSpacePlot.tsx  # NEW: Delta-V vs TCA Pareto trade-space scatter
+│   │   │   └── TradeSpacePlot.tsx  # Delta-V vs TCA Pareto trade-space scatter
 │   │   ├── dashboard/
 │   │   │   ├── DashboardView.tsx   # Mission control overview panel
-│   │   │   ├── DataSelectorPanel.tsx# Conjunction scenario switcher
+│   │   │   ├── DataSelectorPanel.tsx# Massive catalog dataset switcher
 │   │   │   ├── LatencyComparison.tsx# 16ms vs 16h log-scale latency chart
+│   │   │   ├── LiveDataPanel.tsx   # NEW: live backend data feed panel
 │   │   │   ├── ManeuverLog.tsx     # Autonomous avoidance burn audit log
 │   │   │   ├── SystemHealthPanel.tsx# Radiation, battery, and propellant monitors
 │   │   │   └── ThreatMatrix.tsx    # Live active conjunction event table
 │   │   ├── layout/
 │   │   │   ├── Header.tsx          # Top navigation & system status indicators
-│   │   │   ├── Sidebar.tsx         # Primary 7-view navigation bar
+│   │   │   ├── Sidebar.tsx         # Primary 8-view navigation bar
 │   │   │   └── StatusBar.tsx       # Bottom telemetry ticker and ISL indicators
 │   │   ├── mesh/
 │   │   │   ├── MeshView.tsx        # ISL constellation network view
@@ -302,7 +367,8 @@ NASASpaceApps2026/
 │   │   │   └── SatelliteNode.tsx   # Detailed satellite bus & solar array models
 │   │   └── views/                  # Primary router view components
 │   │       ├── ArchitectureView.tsx
-│   │       ├── CLMGpuView.tsx      # NEW: GPU Inference Proof view wrapper
+│   │       ├── BackendView.tsx     # NEW: Backend Live Console view
+│   │       ├── CLMGpuView.tsx      # GPU Inference Proof view wrapper
 │   │       ├── CLMLabView.tsx      # Stanford CLM Lab view wrapper
 │   │       ├── ConjunctionView.tsx
 │   │       ├── DashboardView.tsx
@@ -314,8 +380,9 @@ NASASpaceApps2026/
 │   │   ├── hardwareSpecs.json      # Edge compute processor benchmarks
 │   │   └── maneuverLibrary.json    # Pre-calculated astrodynamic delta-V cache
 │   ├── lib/
-│   │   ├── catalogGenerator.ts     # Debris scenario and catalog utilities
-│   │   ├── clmInferenceEngine.ts   # Edge CLM retrieval & cosine scoring
+│   │   ├── apiClient.ts            # NEW: typed REST client for the FastAPI backend
+│   │   ├── catalogGenerator.ts     # Procedural catalogs (Starlink, OneWeb, Kuiper, Guowang, Iridium, GNSS, debris)
+│   │   ├── clmInferenceEngine.ts   # Edge CLM retrieval & cosine scoring + live backend fallback
 │   │   ├── clmSimulator.ts         # Latent state encoding & product quantization
 │   │   ├── conjunctionEngine.ts    # Foster (1992) B-plane & 2D Gaussian Pc integrals
 │   │   ├── constants.ts            # Astrodynamic constants (Earth mu, c, tolerances)
@@ -327,10 +394,12 @@ NASASpaceApps2026/
 │   ├── App.tsx                     # Main layout & simulation clock loop
 │   ├── index.css                   # Custom theme styles & Tailwind v4 imports
 │   └── main.tsx                    # React DOM entry point
+├── eslint.config.js                # ESLint 9 flat config
+├── .env.example                    # Environment variable template
 ├── index.html                      # HTML5 container
 ├── package.json                    # Project dependencies & scripts
 ├── tsconfig.json                   # TypeScript compiler configuration
-└── vite.config.ts                  # Vite 6 build configuration
+└── vite.config.ts                  # Vite 6 build config + /api proxy to :8000
 ```
 
 ---
@@ -340,6 +409,8 @@ NASASpaceApps2026/
 ### Prerequisites
 * **Node.js**: v18.0.0 or higher
 * **npm**: v9.0.0 or higher
+* **Python**: v3.10 or higher (for the edge backend)
+* **Docker** *(optional)*: for the containerized PolarFire SWaP emulation
 
 ### 1. Clone the Repository
 ```bash
@@ -347,22 +418,48 @@ git clone https://github.com/DSeahYS/Nasa-Space-Apps-Test.git
 cd Nasa-Space-Apps-Test
 ```
 
-### 2. Install Dependencies
+### 2. Frontend — Install Dependencies & Launch
 ```bash
 npm install
-```
-
-### 3. Launch Development Server
-```bash
 npm run dev
 ```
-Open your browser and navigate to `http://localhost:5173`.
+Open your browser and navigate to `http://localhost:5173`. The dev server proxies all `/api/*` requests to the backend on port 8000.
 
-### 4. Build for Production
+### 3. Backend — Start the Edge API
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate        # Windows  (Linux/macOS: source venv/bin/activate)
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+Verify with `http://localhost:8000/api/health` → `{"status": "ok", ...}`.
+
+### 4. Docker — PolarFire SWaP Emulation (Optional)
+Run the backend inside the 0.5-core / 256 MB resource envelope:
+```bash
+docker compose up --build
+```
+
+### 5. Benchmark Suite (Optional)
+```bash
+cd benchmark
+pip install -r requirements.txt
+python run_benchmark.py
+```
+Generates `benchmark/results/benchmark_report.json` served by `/api/benchmark/results`.
+
+### 6. Build for Production
 ```bash
 npm run build
 ```
 Generates an optimized, minified production bundle in the `dist/` directory.
+
+### 7. Lint & Type Check
+```bash
+npm run lint
+npx tsc -b
+```
 
 ---
 
@@ -385,5 +482,6 @@ Generates an optimized, minified production bundle in the `dist/` directory.
 
 <p align="center">
   <b>Project AEGIS-MESH</b> • Developed for the <b>NASA Space Apps Challenge 2026</b><br>
-  <i>Decentralizing Space Domain Awareness for a Sustainable Orbital Future.</i>
+  <i>Decentralizing Space Domain Awareness for a Sustainable Orbital Future.</i><br>
+  <sub>React 18 + Three.js Frontend • FastAPI Edge Backend • PolarFire SWaP Emulation</sub>
 </p>
