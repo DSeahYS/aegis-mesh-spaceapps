@@ -14,6 +14,8 @@ export interface ConjunctionResult {
   probability: number;
   timeOfClosestApproach: string;
   missDistance: number;
+  relativeVelocityKmS: number;
+  bPlaneB: number;
 }
 
 export interface CDMData {
@@ -90,11 +92,25 @@ export async function assessConjunction(
   epoch: string,
   hardBodyRadius: number = 10.0
 ): Promise<ConjunctionResult | null> {
-  return fetchWithTimeout("/api/conjunction/assess", {
+  const raw = await fetchWithTimeout<{
+    miss_distance_km: number;
+    probability_of_collision: number;
+    tca: string;
+    b_plane: { xi: number; zeta: number; b_mag: number };
+    relative_velocity_km_s: number;
+  }>("/api/conjunction/assess", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ primary_tle: primary, secondary_tle: secondary, epoch, hard_body_radius: hardBodyRadius }),
   });
+  if (!raw) return null;
+  return {
+    probability: raw.probability_of_collision,
+    timeOfClosestApproach: raw.tca,
+    missDistance: raw.miss_distance_km,
+    relativeVelocityKmS: raw.relative_velocity_km_s,
+    bPlaneB: raw.b_plane?.b_mag ?? 0,
+  };
 }
 
 export async function parseCDM(cdmText: string): Promise<CDMData | null> {

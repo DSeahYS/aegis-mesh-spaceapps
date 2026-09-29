@@ -11,6 +11,7 @@ import { MeshView } from './components/views/MeshView';
 import { ArchitectureView } from './components/views/ArchitectureView';
 import { CLMLabView } from './components/views/CLMLabView';
 import { CLMGpuView } from './components/views/CLMGpuView';
+import { BackendView } from './components/views/BackendView';
 
 export const App: FC = () => {
   const activeView = useSimulationStore((state) => state.activeView);
@@ -49,6 +50,8 @@ export const App: FC = () => {
         return <CLMLabView />;
       case 'clm-gpu':
         return <CLMGpuView />;
+      case 'backend':
+        return <BackendView />;
       default:
         return <DashboardView />;
     }

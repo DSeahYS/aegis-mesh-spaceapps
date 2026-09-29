@@ -11,6 +11,7 @@ import {
   Shield,
   BrainCircuit,
   Terminal,
+  Server,
 } from 'lucide-react';
 import { useSimulationStore, type ActiveView } from '../../store/simulationStore';
 
@@ -66,6 +67,13 @@ const NAV_ITEMS: NavItem[] = [
     shortLabel: 'GPU Metrics',
     icon: Terminal,
     badge: 'NEW',
+  },
+  {
+    id: 'backend',
+    label: 'Backend Live Console',
+    shortLabel: 'Backend',
+    icon: Server,
+    badge: 'API',
   },
 ];
 
