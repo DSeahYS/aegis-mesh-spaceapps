@@ -140,9 +140,11 @@ Because their radar cross-section is too small to return detectable echoes throu
 In Low Earth Orbit, encounter geometries are characterized by crossing orbital planes with relative velocities $v_{\text{rel}}$ between **$10\text{ km/s}$ and $15\text{ km/s}$** ($36,000\text{ km/h to } 54,000\text{ km/h}$).
 
 The kinetic energy delivered during impact scales quadratically with velocity:
+
 $$E_k = \frac{1}{2} m v_{\text{rel}}^2$$
 
 For a typical $5\text{ cm}$ aluminum debris fragment ($m \approx 100\text{ g}$) moving at $v_{\text{rel}} = 10\text{ km/s}$:
+
 $$E_k = \frac{1}{2} \cdot (0.100\text{ kg}) \cdot (10,000\text{ m/s})^2 = 5,000,000\text{ Joules} = 5.0\text{ MJ}$$
 
 Even a tiny $2\text{ cm}$ particle at $11\text{ km/s}$ delivers over **$500\text{ kJ}$** of concentrated kinetic energy—equivalent to the impact of a military-grade anti-tank armor-piercing kinetic projectile. Upon impact, the energy density creates localized plasma vaporization, hypervelocity shockwaves, and catastrophic structural disintegration.
@@ -366,7 +368,9 @@ graph TD
 
 ### Stage 5: High-Order Control Barrier Functions (HOCBF)
 - **Relative Degree 2 Safety Envelope:** Because thruster acceleration acts on the second time derivative of relative separation, AEGIS-MESH enforces a relative degree 2 barrier condition via class-$\mathcal{K}$ pole placement:
+
   $$\ddot{h}(x, u) + (\alpha_1 + \alpha_2)\dot{h}(x) + \alpha_1 \alpha_2 h(x) \ge 0$$
+
 - **Quadratic Program (QP) Filtering:** Nominal thruster commands are minimally adjusted via a real-time QP filter to mathematically guarantee forward invariance of the safe set $\mathcal{C} = \{x \mid h(x) \ge 0\}$.
 
 ### Swarm Workload Migration & TraCSS CDM Broadcast
@@ -423,7 +427,9 @@ AEGIS-MESH integrates an **OpenSPG (Semantic-Enhanced Programmable Graph)** hybr
 To guarantee physical safety during the execution of an evasive burn:
 - **The Relative Degree Problem:** For orbital collision avoidance, the safe distance barrier is defined as $h(x) = \|\mathbf{r}_{\text{rel}}\|^2 - R_{\text{safe}}^2 \ge 0$. Because thruster force acts on acceleration ($\ddot{\mathbf{r}}$), $h(x)$ has **relative degree 2**. Standard degree-1 barrier functions cannot directly constrain control inputs.
 - **Class-$\mathcal{K}$ Pole Placement:** AEGIS-MESH constructs a relative degree 2 barrier condition:
+
   $$\ddot{h}(x, u) + (\alpha_1 + \alpha_2)\dot{h}(x) + \alpha_1 \alpha_2 h(x) \ge 0$$
+
 - **QP Safety Filter:** Nominal control inputs $u_{\text{nom}}$ from the CLM are passed through a real-time Quadratic Program (QP) projective filter. If nominal thrust violates the safety boundary, the filter minimally perturbs $u$ to enforce safety.
 - **Forward Invariance:** Mathematically guarantees that if the satellite begins outside the keep-out zone, the closed-loop trajectory will remain strictly outside the keep-out zone for all future time ($h(t) \ge 0 \quad \forall t$).
 
@@ -464,39 +470,51 @@ AEGIS-MESH incorporates the **ZES100 Latchup Detection and Protection (LDAP)** m
 ### 1. Orbit Propagation & SGP4 Ephemerides
 
 Given Keplerian orbital elements $(a, e, i, \Omega, \omega, \nu)$, the eccentric anomaly $E$ is solved from mean anomaly $M$ via Newton-Raphson iteration:
+
 $$f(E) = E - e\sin E - M = 0, \quad E_{k+1} = E_k - \frac{E_k - e\sin E_k - M}{1 - e\cos E_k}$$
 
 The position $\mathbf{r}_{PQW}$ and velocity $\mathbf{v}_{PQW}$ in the perifocal coordinate system are:
+
 $$\mathbf{r}_{PQW} = \begin{bmatrix} a(\cos E - e) \\ a\sqrt{1-e^2}\sin E \\ 0 \end{bmatrix}, \quad \mathbf{v}_{PQW} = \frac{\sqrt{\mu a}}{r}\begin{bmatrix} -\sin E \\ \sqrt{1-e^2}\cos E \\ 0 \end{bmatrix}$$
 
 Transformed into the Earth-Centered Inertial (ECI J2000) frame using the orbital rotation matrix:
+
 $$\mathbf{R}_{ECI \leftarrow PQW} = \mathbf{R}_z(-\Omega)\mathbf{R}_x(-i)\mathbf{R}_z(-\omega)$$
+
 $$\mathbf{r}_{ECI} = \mathbf{R}_{ECI \leftarrow PQW} \mathbf{r}_{PQW}, \quad \mathbf{v}_{ECI} = \mathbf{R}_{ECI \leftarrow PQW} \mathbf{v}_{PQW}$$
 
 ### 2. Foster (1992) 2D B-Plane Geometry
 
 At Time of Closest Approach (TCA), the relative velocity vector is $\mathbf{v}_{\text{rel}} = \mathbf{v}_2 - \mathbf{v}_1$. The orthonormal B-plane encounter triad is:
+
 $$\hat{\eta} = \frac{\mathbf{v}_{\text{rel}}}{\|\mathbf{v}_{\text{rel}}\|}, \quad \hat{\xi} = \frac{\mathbf{h} \times \hat{\eta}}{\|\mathbf{h} \times \hat{\eta}\|}, \quad \hat{\zeta} = \hat{\eta} \times \hat{\xi}$$
+
 where $\mathbf{h} = \mathbf{r}_1 \times \mathbf{v}_1$ is the orbital angular momentum vector of the primary spacecraft.
 
 The relative displacement vector in the encounter frame is:
+
 $$\mathbf{x}_e = \begin{bmatrix} x_e \\ z_e \end{bmatrix} = \begin{bmatrix} (\mathbf{r}_2 - \mathbf{r}_1) \cdot \hat{\xi} \\ (\mathbf{r}_2 - \mathbf{r}_1) \cdot \hat{\zeta} \end{bmatrix}$$
 
 The combined $3\times 3$ inertial positional covariance $\mathbf{P} = \mathbf{P}_1 + \mathbf{P}_2$ is projected onto the B-plane via projection matrix $\mathbf{M} = \begin{bmatrix} \hat{\xi}^T \\ \hat{\zeta}^T \end{bmatrix}$:
+
 $$\mathbf{P}_p = \mathbf{M} \mathbf{P} \mathbf{M}^T = \begin{bmatrix} \sigma_\xi^2 & \rho \sigma_\xi \sigma_\zeta \\ \rho \sigma_\xi \sigma_\zeta & \sigma_\zeta^2 \end{bmatrix}$$
 
 ### 3. Gauss-Legendre Polar Quadrature for $P_c$
 
 The Probability of Collision ($P_c$) is the integral of the 2D Gaussian probability density over the circular Hard Body Radius ($R = r_1 + r_2$):
+
 $$P_c = \frac{1}{2\pi \sqrt{\det \mathbf{P}_p}} \iint_{\text{HBR}} \exp\left(-\frac{1}{2} (\mathbf{x} - \mathbf{x}_e)^T \mathbf{P}_p^{-1} (\mathbf{x} - \mathbf{x}_e)\right) d\xi \, d\zeta$$
 
 In `backend/app/cara_engine.py`, this is evaluated numerically via polar substitution $(\xi = r\cos\theta, \zeta = r\sin\theta)$:
+
 $$P_c = \frac{1}{2\pi \sigma_\xi \sigma_\zeta \sqrt{1 - \rho^2}} \int_0^{2\pi} \int_0^R r \exp\left( -\frac{1}{2(1-\rho^2)} \left[ \frac{(r\cos\theta - x_e)^2}{\sigma_\xi^2} - \frac{2\rho(r\cos\theta - x_e)(r\sin\theta - z_e)}{\sigma_\xi \sigma_\zeta} + \frac{(r\sin\theta - z_e)^2}{\sigma_\zeta^2} \right] \right) dr \, d\theta$$
 
 ### 4. InfoNCE Loss Optimization
 
 Let $\mathbf{t}_i$ denote the embedded state context (6-DOF telemetry, relative velocity, miss vector), $\mathbf{v}_i$ the ground-truth optimal evasion action, and $\mathbf{v}_j$ alternative candidate actions. The InfoNCE contrastive loss is:
+
 $$\mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp\left(\frac{\mathbf{t}_i^T \mathbf{v}_i}{\|\mathbf{t}_i\| \|\mathbf{v}_i\| \tau}\right)}{\sum_{j=1}^K \exp\left(\frac{\mathbf{t}_i^T \mathbf{v}_j}{\|\mathbf{t}_i\| \|\mathbf{v}_j\| \tau}\right)}$$
+
 where $\tau$ is the softmax temperature parameter (calibrated to $\tau = 0.07$).
 
 ### 5. Product Quantization & Asymmetric Distance Computation
@@ -504,24 +522,36 @@ where $\tau$ is the softmax temperature parameter (calibrated to $\tau = 0.07$).
 An action embedding $\mathbf{v} \in \mathbb{R}^D$ ($D=16$) is partitioned into $M=4$ sub-vectors $\mathbf{v} = [\mathbf{v}^{(1)}, \mathbf{v}^{(2)}, \mathbf{v}^{(3)}, \mathbf{v}^{(4)}]$ where each $\mathbf{v}^{(m)} \in \mathbb{R}^{D/M}$.
 
 Each sub-vector is quantized to its nearest codebook centroid index $c_k^{(m)} \in \mathcal{C}^{(m)}$:
+
 $$q(\mathbf{v}) = [k_1, k_2, k_3, k_4], \quad k_m = \arg\min_{k} \|\mathbf{v}^{(m)} - \mathbf{c}_k^{(m)}\|^2$$
 
 The Asymmetric Distance between continuous query $\mathbf{t}$ and quantized action $q(\mathbf{v})$ is:
+
 $$d_{\text{ADC}}(\mathbf{t}, q(\mathbf{v})) = \sum_{m=1}^M \|\mathbf{t}^{(m)} - \mathbf{c}_{k_m}^{(m)}\|^2$$
+
 evaluated in microseconds using pre-computed distance lookup tables.
 
 ### 6. OpenSPG Deterministic Physics Rules (R1, R2, R3)
 
 1. **Rule R1: Tsiolkovsky Propellant Mass Budget Boundary**
+
    $$\Delta v_{\text{req}} = \|\Delta \mathbf{v}\| \le 0.90 \cdot I_{\text{sp}} g_0 \ln\left(\frac{m_{\text{dry}} + m_{\text{prop}}}{m_{\text{dry}}}\right)$$
+
 2. **Rule R2: Thruster Thermal Duty Cycle & Solenoid Protection**
+
    $$t_{\text{burn}} = \frac{m_{\text{dry}} \Delta v_{\text{req}}}{F_{\text{thrust}}} \le t_{\text{max\_burn}} \quad (300\text{ s})$$
+
 3. **Rule R3: Orbital Perigee Safety Floor**
    Post-burn specific orbital energy and semi-major axis:
+
    $$\varepsilon = \frac{\|\mathbf{v}_0 + \Delta \mathbf{v}\|^2}{2} - \frac{\mu}{r_0}, \quad a = -\frac{\mu}{2\varepsilon}$$
+
    Specific angular momentum and eccentricity:
+
    $$\mathbf{h}_+ = \mathbf{r}_0 \times (\mathbf{v}_0 + \Delta \mathbf{v}), \quad e = \sqrt{1 - \frac{\|\mathbf{h}_+\|^2}{\mu a}}$$
+
    Perigee floor constraint:
+
    $$r_{\text{perigee}} = a(1 - e) \ge R_{\text{Earth}} + h_{\text{floor}} = 6378.137\text{ km} + 200\text{ km} = 6578.137\text{ km}$$
 
 ### 7. HOCBF Relative Degree 2 Barrier Formulation
@@ -529,26 +559,35 @@ evaluated in microseconds using pre-computed distance lookup tables.
 For relative position $\mathbf{r}_{\text{rel}}$, the safe set is $\mathcal{C} = \{x \mid h(x) \ge 0\}$ with $h(x) = \|\mathbf{r}_{\text{rel}}\|^2 - R_{\text{safe}}^2$.
 
 First and second time derivatives:
+
 $$\dot{h}(x) = 2 \mathbf{r}_{\text{rel}} \cdot \mathbf{v}_{\text{rel}}$$
+
 $$\ddot{h}(x, \mathbf{u}) = 2 \|\mathbf{v}_{\text{rel}}\|^2 + 2 \mathbf{r}_{\text{rel}} \cdot (\mathbf{a}_{\text{dyn}} + \mathbf{u})$$
 
 Forward invariance condition with class-$\mathcal{K}$ gains $\alpha_1, \alpha_2 > 0$:
+
 $$\ddot{h}(x, \mathbf{u}) + (\alpha_1 + \alpha_2)\dot{h}(x) + \alpha_1 \alpha_2 h(x) \ge 0$$
 
 Quadratic Program (QP) projective safety filter:
+
 $$\mathbf{u}^*(x) = \arg\min_{\mathbf{u} \in \mathcal{U}} \frac{1}{2}\|\mathbf{u} - \mathbf{u}_{\text{nom}}\|^2 \quad \text{s.t.} \quad 2 \mathbf{r}_{\text{rel}} \cdot \mathbf{u} \ge -2\|\mathbf{v}_{\text{rel}}\|^2 - 2\mathbf{r}_{\text{rel}}\cdot\mathbf{a}_{\text{dyn}} - (\alpha_1+\alpha_2)\dot{h} - \alpha_1\alpha_2 h$$
 
 ### 8. Hamilton-Jacobi-Isaacs (HJI) PDE Game Formulation
 
 Relative orbital motion in the Hill-Clohessy-Wiltshire (HCW) frame:
+
 $$\dot{\mathbf{x}} = \mathbf{A}_{\text{HCW}} \mathbf{x} + \mathbf{B}_u \mathbf{u} + \mathbf{B}_d \mathbf{d}$$
+
 $$\mathbf{A}_{\text{HCW}} = \begin{bmatrix} 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 3\omega^2 & 0 & 0 & 2\omega \\ 0 & 0 & -2\omega & 0 \end{bmatrix}, \quad \mathbf{B}_u = \mathbf{B}_d = \begin{bmatrix} 0 & 0 \\ 0 & 0 \\ 1 & 0 \\ 0 & 1 \end{bmatrix}$$
+
 where $\omega = \sqrt{\mu / r_0^3}$ is orbital mean motion.
 
 Target collision set $\mathcal{T} = \{\mathbf{x} \mid \ell(\mathbf{x}) \le 0\}$ where $\ell(\mathbf{x}) = \|\mathbf{r}_{\text{rel}}\| - R_{\text{safe}}$. The value function $V(\mathbf{x}, t)$ satisfies the Hamilton-Jacobi-Isaacs PDE:
+
 $$\frac{\partial V}{\partial t} + \min\left(0, \max_{\mathbf{u} \in \mathcal{U}} \min_{\mathbf{d} \in \mathcal{D}} \nabla_\mathbf{x} V \cdot (\mathbf{A}_{\text{HCW}}\mathbf{x} + \mathbf{B}_u \mathbf{u} + \mathbf{B}_d \mathbf{d})\right) = 0, \quad V(\mathbf{x}, 0) = \ell(\mathbf{x})$$
 
 The Backward Reachable Tube (BRT) is the zero sub-level set:
+
 $$\mathcal{BRT}(\tau) = \{\mathbf{x} \mid V(\mathbf{x}, \tau) \le 0\}$$
 
 ---
@@ -584,9 +623,13 @@ backend/simulators/
 ### 1. NASA SPICE Orbit Simulator (`spice_orbit_sim.py`)
 - **Gravitational Perturbations:** Computes Earth oblateness harmonics ($J_2, J_3, J_4$) using Legendre polynomial expansions.
 - **Third-Body Gravity:** Queries Sun and Moon positions via SPICE SPK kernels or analytical ephemerides to compute differential third-body gravitational accelerations:
+
   $$\mathbf{a}_{3\text{rd}} = \mu_{\text{body}} \left( \frac{\mathbf{r}_{\text{body}} - \mathbf{r}}{\|\mathbf{r}_{\text{body}} - \mathbf{r}\|^3} - \frac{\mathbf{r}_{\text{body}}}{\|\mathbf{r}_{\text{body}}\|^3} \right)$$
+
 - **Solar Radiation Pressure (SRP):** Models radiation pressure with cylindrical and conical Earth shadow functions:
+
   $$\mathbf{a}_{\text{SRP}} = -P_{\text{sun}} C_R \frac{A}{m} \nu_{\text{shadow}} \frac{\mathbf{r}_{\text{sun}} - \mathbf{r}}{\|\mathbf{r}_{\text{sun}} - \mathbf{r}\|}$$
+
 - **Earth Albedo & Thermal IR:** Computes diffuse planetary reflection and thermal radiation pressure.
 - **Atmospheric Drag:** Uses Jacchia/exponential scale height density models: $\mathbf{a}_{\text{drag}} = -\frac{1}{2} C_D \frac{A}{m} \rho v_{\text{rel}} \mathbf{v}_{\text{rel}}$.
 - **Numerical Integrator:** 4th-Order Runge-Kutta (RK4) integrator with fixed and adaptive step sizes.
@@ -595,7 +638,9 @@ backend/simulators/
 ### 2. TraCSS / Space-Track CDM Traffic Pipeline (`cdm_traffic_pipeline.py`)
 - **Space-Track API Client:** Authenticates and queries live CDMs from the 18th Space Defense Squadron REST API, with embedded fallback datasets (`fallback_cdm_data.json` & `.xml`).
 - **Mahalanobis Distance Metric:** Computes statistical encounter distance accounting for full 3D positional covariance:
+
   $$d_M = \sqrt{\Delta \mathbf{r}^T (\mathbf{P}_1 + \mathbf{P}_2)^{-1} \Delta \mathbf{r}}$$
+
 - **CARA MDSS Urgency Classification:** Classifies close approaches into operational tiers:
   - **Tier 1 (Critical):** $P_c \ge 10^{-4}$ and $\text{TCA} \le 24\text{ h}$ (Immediate autonomous maneuver required).
   - **Tier 2 (High):** $10^{-5} \le P_c < 10^{-4}$ (Maneuver planned; active monitoring).
