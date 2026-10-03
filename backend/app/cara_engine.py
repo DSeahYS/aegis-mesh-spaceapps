@@ -16,28 +16,34 @@ def b_plane_frame(r_p, v_p, r_s, v_s):
     r_s = np.asarray(r_s, dtype=float)
     v_s = np.asarray(v_s, dtype=float)
 
+    if not (np.all(np.isfinite(r_p)) and np.all(np.isfinite(v_p)) and np.all(np.isfinite(r_s)) and np.all(np.isfinite(v_s))):
+        return np.array([1.0, 0.0, 0.0]), np.array([0.0, 1.0, 0.0]), np.array([0.0, 0.0, 1.0])
+
     dv = v_s - v_p
     v_rel_mag = np.linalg.norm(dv)
-    if v_rel_mag < 1e-8:
+    if v_rel_mag < 1e-8 or not np.isfinite(v_rel_mag):
         eta = np.array([0.0, 0.0, 1.0])
     else:
         eta = dv / v_rel_mag
 
     h = np.cross(r_p, v_p)
-    if np.linalg.norm(h) < 1e-6:
-        h = r_p.copy()
+    if np.linalg.norm(h) < 1e-6 or not np.all(np.isfinite(h)):
+        h = r_p.copy() if np.all(np.isfinite(r_p)) and np.linalg.norm(r_p) >= 1e-6 else np.array([0.0, 0.0, 1.0])
 
     xi = np.cross(h, eta)
-    if np.linalg.norm(xi) < 1e-6:
+    if np.linalg.norm(xi) < 1e-6 or not np.all(np.isfinite(xi)):
         fallback = np.array([0.0, 0.0, 1.0]) if abs(eta[2]) < 0.9 else np.array([1.0, 0.0, 0.0])
         xi = np.cross(fallback, eta)
 
-    xi = xi / np.linalg.norm(xi)
+    xi_norm = np.linalg.norm(xi)
+    xi = xi / (xi_norm if xi_norm > 1e-8 else 1.0)
     zeta = np.cross(eta, xi)
-    zeta = zeta / np.linalg.norm(zeta)
+    zeta_norm = np.linalg.norm(zeta)
+    zeta = zeta / (zeta_norm if zeta_norm > 1e-8 else 1.0)
 
     # Re-normalize and ensure exact right-handed triad
-    eta = eta / np.linalg.norm(eta)
+    eta_norm = np.linalg.norm(eta)
+    eta = eta / (eta_norm if eta_norm > 1e-8 else 1.0)
     return xi, zeta, eta
 
 
@@ -67,18 +73,23 @@ def pc_small_hbr(b_plane, cov, hbr, basis=None) -> float:
     else:
         mu = np.asarray(b_plane, dtype=float)[:2]
 
-    det_c = float(np.linalg.det(cov_arr))
-    if det_c <= 0.0 or hbr <= 0.0:
+    if not (np.all(np.isfinite(mu)) and np.all(np.isfinite(cov_arr))):
         return 0.0
 
-    inv_c = np.linalg.inv(cov_arr)
+    det_c = float(np.linalg.det(cov_arr))
+    if not np.isfinite(det_c) or det_c <= 0.0 or hbr <= 0.0:
+        return 0.0
+
+    inv_c = np.linalg.pinv(cov_arr)
     mahal_sq = float(mu @ inv_c @ mu)
     exponent = -0.5 * mahal_sq
-    if exponent < -100.0:
+    if exponent < -100.0 or not np.isfinite(exponent):
         return 0.0
 
     r = float(hbr)
     asymptote = (r ** 2 / (2.0 * np.sqrt(det_c))) * np.exp(exponent)
+    if not np.isfinite(asymptote):
+        return 0.0
     return float(min(1.0, max(0.0, asymptote)))
 
 
@@ -148,21 +159,33 @@ class CARAEngine:
                 mu = np.asarray(b_plane, dtype=float)[:2]
 
             r_hbr = float(hbr_km)
-            if r_hbr <= 0.0:
+            if r_hbr <= 0.0 or not np.isfinite(r_hbr):
+                return 0.0
+
+            if not (np.all(np.isfinite(mu)) and np.all(np.isfinite(cov_arr))):
                 return 0.0
 
             det_cov = float(np.linalg.det(cov_arr))
             if det_cov <= 1e-18 or not np.isfinite(det_cov):
                 return 0.0
 
-            inv_cov = np.linalg.inv(cov_arr)
+            inv_cov = np.linalg.pinv(cov_arr)
+            eigvals = np.linalg.eigvalsh(cov_arr)
+            sigma_max = np.sqrt(max(1e-12, float(np.max(eigvals))))
+            norm_mu = float(np.linalg.norm(mu))
+
+            # If HBR completely covers the uncertainty distribution (> 8 sigma beyond center)
+            if r_hbr >= norm_mu + 8.0 * sigma_max:
+                return 1.0
+
+            r_effective = min(r_hbr, norm_mu + 8.0 * sigma_max)
 
             # High-order Gauss-Legendre polar quadrature (n_r=50, n_th=100)
             n_r = 50
             n_th = 100
             x_r, w_r = np.polynomial.legendre.leggauss(n_r)
-            r = 0.5 * r_hbr * (x_r + 1.0)
-            w_r = 0.5 * r_hbr * w_r
+            r = 0.5 * r_effective * (x_r + 1.0)
+            w_r = 0.5 * r_effective * w_r
 
             x_th, w_th = np.polynomial.legendre.leggauss(n_th)
             th = np.pi * (x_th + 1.0)
@@ -175,10 +198,16 @@ class CARAEngine:
             y = R_grid * np.sin(TH_grid) - mu[1]
 
             Q = inv_cov[0, 0] * x ** 2 + 2.0 * inv_cov[0, 1] * x * y + inv_cov[1, 1] * y ** 2
-            integrand = R_grid * np.exp(-0.5 * Q)
+            integrand = R_grid * np.exp(-0.5 * np.maximum(0.0, Q))
             integral_val = float(np.sum(W_grid * integrand))
 
-            pc = integral_val / (2.0 * np.pi * np.sqrt(det_cov))
+            denom = 2.0 * np.pi * np.sqrt(det_cov)
+            if denom <= 0.0 or not np.isfinite(denom):
+                return 0.0
+
+            pc = integral_val / denom
+            if not np.isfinite(pc):
+                return 0.0
             return float(min(1.0, max(0.0, pc)))
         except Exception:
             return 0.0

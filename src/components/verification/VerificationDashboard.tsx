@@ -15,10 +15,11 @@ import { VVHeaderStatus } from './VVHeaderStatus';
 import { SelfTestPanel } from './SelfTestPanel';
 import { PipelinePanel } from './PipelinePanel';
 import { CDMValidatorPanel } from './CDMValidatorPanel';
+import { OpenSPGGraph } from './OpenSPGGraph';
 
 export const VerificationDashboard: React.FC = () => {
   const [health, setHealth] = useState<HealthStatus | null>(null);
-  const [activeTab, setActiveTab] = useState<'pipeline' | 'selftest' | 'cdm' | 'all'>('pipeline');
+  const [activeTab, setActiveTab] = useState<'pipeline' | 'openspg' | 'selftest' | 'cdm' | 'all'>('pipeline');
 
   // Compute provenance states
   const [lastRunId, setLastRunId] = useState<string | null>(null);
@@ -134,6 +135,13 @@ export const VerificationDashboard: React.FC = () => {
           data={pipelineData}
           loading={pipelineLoading}
           onRunPipeline={handleRunPipeline}
+          isBackendOnline={isOnline}
+        />
+      )}
+
+      {(activeTab === 'openspg' || activeTab === 'all') && (
+        <OpenSPGGraph
+          pipelineData={pipelineData}
           isBackendOnline={isOnline}
         />
       )}

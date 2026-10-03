@@ -50,6 +50,7 @@ export interface SimulationState {
   toggleCatalog: (id: string) => void;
   addAlert: (alert: Omit<ActiveAlert, 'id'>) => void;
   dismissAlert: (id: string) => void;
+  clearAlerts: () => void;
   addTelemetryMessage: (msg: Omit<TelemetryMessage, 'id'>) => void;
 }
 
@@ -158,9 +159,11 @@ export const useSimulationStore = create<SimulationState>((set) => ({
           ...alert,
           id: `alert-${alertCounter++}`,
         },
-        ...state.activeAlerts,
+        ...state.activeAlerts.slice(0, 99),
       ],
     })),
+
+  clearAlerts: () => set({ activeAlerts: [] }),
 
   dismissAlert: (id: string) =>
     set((state) => ({

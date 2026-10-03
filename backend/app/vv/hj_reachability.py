@@ -26,17 +26,14 @@ def solve_hj_grid(
         (V, y_grid, v_grid, solve_ms)
         V has shape (N, N), indexing='ij' (axis 0 = y, axis 1 = v).
     """
-    u_max = float(u_max)
-    d_max = float(d_max)
-    R = float(R)
-    horizon_s = float(horizon_s)
-    dt_s = float(dt_s)
-    grid_n = int(grid_n)
-    Y_m = float(Y_m)
-    Vm_mps = float(Vm_mps)
-
-    steps = max(1, int(round(horizon_s / dt_s)))
-    dt_actual = horizon_s / steps
+    u_max = max(0.0, float(u_max)) if np.isfinite(u_max) else 0.0
+    d_max = max(0.0, float(d_max)) if np.isfinite(d_max) else 0.0
+    R = max(0.0, float(R)) if np.isfinite(R) else 0.0
+    horizon_s = float(horizon_s) if np.isfinite(horizon_s) else 0.0
+    dt_s = max(1e-4, float(dt_s)) if np.isfinite(dt_s) else 0.25
+    grid_n = max(3, int(grid_n))
+    Y_m = max(10.0, float(Y_m)) if np.isfinite(Y_m) else 600.0
+    Vm_mps = max(1.0, float(Vm_mps)) if np.isfinite(Vm_mps) else 12.0
 
     y_arr = np.linspace(-Y_m, Y_m, grid_n)
     v_arr = np.linspace(-Vm_mps, Vm_mps, grid_n)
@@ -44,6 +41,12 @@ def solve_hj_grid(
 
     # Terminal cost l = |y| - R
     V = np.abs(Y_grid) - R
+
+    if horizon_s <= 0.0:
+        return V, y_arr, v_arr, 0.0
+
+    steps = min(200, max(1, int(round(horizon_s / dt_s))))
+    dt_actual = horizon_s / steps
 
     u_set = np.array([-u_max, 0.0, u_max])
     d_set = np.array([-d_max, 0.0, d_max])
@@ -113,17 +116,20 @@ def solve_hj_reachability(
     interp_final = RegularGridInterpolator((y_arr, v_arr), V, method="linear", bounds_error=False, fill_value=None)
 
     # Initial state (y=|miss|, v=0)
-    state_y = float(miss_norm_m)
+    state_y = float(miss_norm_m) if np.isfinite(miss_norm_m) else 0.0
     state_v = 0.0
-    val_num = float(interp_final(np.array([[state_y, state_v]]))[0])
-    val_analytic = analytic_value_oracle(state_y, state_v, tau, u_max, d_max, R)
+    val_num_raw = float(interp_final(np.array([[state_y, state_v]]))[0])
+    val_num = val_num_raw if np.isfinite(val_num_raw) else 0.0
+    val_analytic_raw = analytic_value_oracle(state_y, state_v, tau, u_max, d_max, R)
+    val_analytic = val_analytic_raw if np.isfinite(val_analytic_raw) else 0.0
 
     # Post-maneuver state (y=|p_tca|, v=|dv_lat|)
-    post_y = float(p_tca_norm_m)
-    post_v = float(dv_lat_norm_mps)
+    post_y = float(p_tca_norm_m) if np.isfinite(p_tca_norm_m) else 0.0
+    post_v = float(dv_lat_norm_mps) if np.isfinite(dv_lat_norm_mps) else 0.0
 
     # Guaranteed miss: |p_tca| - 0.5 * d_max * tau^2 - R
-    guaranteed_miss = post_y - 0.5 * d_max * (tau ** 2) - R
+    guaranteed_miss_raw = post_y - 0.5 * d_max * (tau ** 2) - R
+    guaranteed_miss = guaranteed_miss_raw if np.isfinite(guaranteed_miss_raw) else 0.0
     maneuver_certified = bool(guaranteed_miss > 0.0)
     in_brt = bool(val_num <= 0.0)
 
@@ -132,7 +138,7 @@ def solve_hj_reachability(
     sub_y = [float(round(y, 2)) for y in y_arr[::step_sub]]
     sub_v = [float(round(v, 2)) for v in v_arr[::step_sub]]
     # Format: rows = v index, cols = y index -> V.T[::step_sub, ::step_sub]
-    sub_val = [[float(round(V[i, j], 2)) for i in range(0, grid_n, step_sub)] for j in range(0, grid_n, step_sub)]
+    sub_val = [[float(round(V[i, j], 2)) if np.isfinite(V[i, j]) else 0.0 for i in range(0, grid_n, step_sub)] for j in range(0, grid_n, step_sub)]
 
     return {
         "method": "Semi-Lagrangian Isaacs DP (HJ PDE)",

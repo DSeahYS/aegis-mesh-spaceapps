@@ -446,3 +446,99 @@ export async function validateCDM(cdmText: string): Promise<CDMValidationRespons
     DEFAULT_TIMEOUT
   );
 }
+
+export interface OpenSPGNode {
+  id: string;
+  label: string;
+  type: 'concept' | 'rule' | 'instance';
+  properties: Record<string, unknown>;
+  description?: string;
+}
+
+export interface OpenSPGEdge {
+  source: string;
+  target: string;
+  relation: string;
+  properties?: Record<string, unknown>;
+}
+
+export interface OpenSPGReasoningState {
+  clm_vector: {
+    id: number;
+    label: string;
+    category: string;
+    delta_v_mps: number;
+    direction_rtn: number[];
+    confidence: number;
+    score: number;
+  };
+  propellant_evaluation: {
+    node_id: string;
+    rule_id: string;
+    initial_propellant_kg: number;
+    consumed_propellant_kg: number | null;
+    remaining_propellant_kg: number;
+    delta_v_required_mps: number;
+    delta_v_allowable_mps: number;
+    margin_mps: number;
+    status: 'PASSED' | 'VIOLATED';
+  };
+  thrust_evaluation: {
+    node_id: string;
+    rule_id: string;
+    max_thrust_n: number;
+    max_acceleration_mps2: number;
+    burn_time_s: number | null;
+    max_allowable_burn_time_s: number;
+    margin_s: number;
+    status: 'PASSED' | 'VIOLATED';
+  };
+  rule_results: Array<{
+    id: string;
+    name: string;
+    passed: boolean;
+    value: number;
+    limit: number;
+    unit: string;
+    detail: string;
+  }>;
+  verdict: 'ACCEPTED' | 'PRUNED';
+  pruning_stats?: {
+    total_candidates_screened: number;
+    candidates_pruned: number;
+    selected_rank_index: number;
+  };
+}
+
+export interface OpenSPGGraphResponse {
+  nodes: OpenSPGNode[];
+  edges: OpenSPGEdge[];
+  reasoning_state: OpenSPGReasoningState;
+  schema: Record<string, unknown>;
+  graph: {
+    nodes: OpenSPGNode[];
+    edges: OpenSPGEdge[];
+  };
+  summary: {
+    total_nodes: number;
+    concept_nodes: number;
+    rule_nodes: number;
+    instance_nodes: number;
+    total_edges: number;
+    evaluation_verdict: string;
+  };
+}
+
+export async function fetchOpenSPGGraph(
+  params?: Record<string, unknown>
+): Promise<OpenSPGGraphResponse | null> {
+  const query = params
+    ? '?' +
+      new URLSearchParams(
+        Object.entries(params)
+          .filter(([_, v]) => v !== undefined && v !== null)
+          .map(([k, v]) => [k, String(v)])
+      ).toString()
+    : '';
+  return fetchWithTimeout<OpenSPGGraphResponse>(`/api/openspg/graph${query}`, {}, DEFAULT_TIMEOUT);
+}

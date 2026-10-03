@@ -28,10 +28,11 @@ export const HJHeatmapCanvas: React.FC<HJHeatmapCanvasProps> = ({ hj }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    if (!hj || !hj.grid) return;
     const { grid, state, post_maneuver_state } = hj;
-    const yArr = grid.y_m;
-    const vArr = grid.v_mps;
-    const values = grid.value_m;
+    const yArr = grid.y_m ?? [];
+    const vArr = grid.v_mps ?? [];
+    const values = grid.value_m ?? [];
 
     if (!yArr.length || !vArr.length || !values.length) return;
 
@@ -75,10 +76,13 @@ export const HJHeatmapCanvas: React.FC<HJHeatmapCanvasProps> = ({ hj }) => {
     let maxVal = 0;
     for (let r = 0; r < values.length; r++) {
       const row = values[r];
+      if (!row) continue;
       for (let c = 0; c < row.length; c++) {
         const val = row[c];
-        if (val < minVal) minVal = val;
-        if (val > maxVal) maxVal = val;
+        if (typeof val === 'number' && Number.isFinite(val)) {
+          if (val < minVal) minVal = val;
+          if (val > maxVal) maxVal = val;
+        }
       }
     }
     const absMin = Math.abs(minVal) || 1;

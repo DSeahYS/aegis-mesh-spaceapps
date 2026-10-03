@@ -24,6 +24,7 @@ import { formatProbability, formatDurationMs } from './formatters';
 import { CandidatesTable } from './CandidatesTable';
 import { HJHeatmapCanvas } from './HJHeatmapCanvas';
 import { CBFCharts } from './CBFCharts';
+import { OpenSPGGraph } from './OpenSPGGraph';
 
 interface PipelinePanelProps {
   data: PipelineResponse | null;
@@ -545,6 +546,12 @@ export const PipelinePanel: React.FC<PipelinePanelProps> = ({
             candidates={data.validation.candidates}
             selectedIndex={data.validation.selected_index}
             selectedCandidate={data.selected}
+          />
+
+          {/* OpenSPG Neuro-Symbolic Knowledge Graph */}
+          <OpenSPGGraph
+            pipelineData={data}
+            isBackendOnline={isBackendOnline}
           />
 
           {/* Grid Layout: HJ Heatmap + CBF Invariance */}

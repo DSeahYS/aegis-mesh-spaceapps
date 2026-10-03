@@ -6,6 +6,7 @@ from .cdm_validator import validate_cdm
 from .physics_validator import evaluate_candidate, validate_candidates, compute_keepout_k
 from .hj_reachability import solve_hj_reachability, solve_hj_grid
 from .cbf_filter import run_cbf_filter
+from .openspg import build_openspg_knowledge_graph, OPENSPG_SCHEMA
 
 __all__ = [
     "run_vv_pipeline",
@@ -17,4 +18,6 @@ __all__ = [
     "solve_hj_reachability",
     "solve_hj_grid",
     "run_cbf_filter",
+    "build_openspg_knowledge_graph",
+    "OPENSPG_SCHEMA",
 ]

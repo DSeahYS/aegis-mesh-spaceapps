@@ -10,6 +10,7 @@ import {
   Layers,
   CheckCircle,
   FileCode,
+  Network,
 } from 'lucide-react';
 import { formatDurationMs } from './formatters';
 
@@ -19,8 +20,8 @@ interface VVHeaderStatusProps {
   lastRunId: string | null;
   lastRunTimestamp: string | null;
   lastRoundTripMs: number | null;
-  activeTab: 'pipeline' | 'selftest' | 'cdm' | 'all';
-  onTabChange: (tab: 'pipeline' | 'selftest' | 'cdm' | 'all') => void;
+  activeTab: 'pipeline' | 'openspg' | 'selftest' | 'cdm' | 'all';
+  onTabChange: (tab: 'pipeline' | 'openspg' | 'selftest' | 'cdm' | 'all') => void;
 }
 
 export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
@@ -147,6 +148,19 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
         >
           <Layers className="w-4 h-4" />
           <span>AUTONOMOUS EVASION PIPELINE</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => onTabChange('openspg')}
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg border transition-all ${
+            activeTab === 'openspg'
+              ? 'bg-amber-500/15 border-amber-500 text-amber-300 font-bold shadow-md shadow-amber-500/10'
+              : 'bg-space-800/60 border-space-700 text-slate-400 hover:text-slate-200 hover:bg-space-800'
+          }`}
+        >
+          <Network className="w-4 h-4 text-amber-400" />
+          <span>OPENSPG KNOWLEDGE GRAPH</span>
         </button>
 
         <button

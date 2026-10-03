@@ -14,49 +14,65 @@ def compute_keepout_k(cov_2x2: np.ndarray, hard_body_radius_m: float, pc_thresho
     k^2 = 2 * ln(R^2 / (2 * sqrt(|C|) * pc_threshold)), k=0 if arg <= 1.
     """
     det_c = float(np.linalg.det(cov_2x2))
-    if det_c <= 0.0 or pc_threshold <= 0.0:
+    if not np.isfinite(det_c) or det_c <= 0.0 or pc_threshold <= 0.0 or hard_body_radius_m <= 0.0:
         return 0.0
-    arg = (float(hard_body_radius_m) ** 2) / (2.0 * np.sqrt(det_c) * float(pc_threshold))
-    if arg <= 1.0:
+    denom = 2.0 * np.sqrt(det_c) * float(pc_threshold)
+    if denom <= 0.0 or not np.isfinite(denom):
         return 0.0
-    return float(np.sqrt(2.0 * np.log(arg)))
+    arg = (float(hard_body_radius_m) ** 2) / denom
+    if not np.isfinite(arg) or arg <= 1.0:
+        return 0.0
+    log_arg = np.log(arg)
+    if not np.isfinite(log_arg) or log_arg <= 0.0:
+        return 0.0
+    k_val = float(np.sqrt(2.0 * log_arg))
+    return k_val if np.isfinite(k_val) else 0.0
 
 
 def evaluate_orbit_perigee(altitude_km: float, dv_mps: float, direction_rtn: list[float]) -> float:
-    """Compute post-maneuver perigee altitude (km) using two-body vis-viva equations.
+    """Compute post-maneuver perigee altitude (km) using two-body orbital dynamics.
     
     mu = 398600.4418 km^3/s^2, Re = 6378.137 km.
     Initial orbit is circular at altitude_km.
     """
     mu = 398600.4418
     re = 6378.137
-    r0 = re + float(altitude_km)
+    r0 = max(1.0, re + (float(altitude_km) if np.isfinite(altitude_km) else 500.0))
     v0 = np.sqrt(mu / r0)
 
-    dir_norm = np.linalg.norm(direction_rtn)
-    if dir_norm < 1e-8:
-        dir_u = np.zeros(3)
+    if not (direction_rtn and np.all(np.isfinite(direction_rtn))):
+        dir_u = np.array([0.0, 1.0, 0.0])
     else:
-        dir_u = np.asarray(direction_rtn, dtype=float) / dir_norm
+        dir_norm = np.linalg.norm(direction_rtn)
+        if dir_norm < 1e-8 or not np.isfinite(dir_norm):
+            dir_u = np.array([0.0, 1.0, 0.0])
+        else:
+            dir_u = np.asarray(direction_rtn, dtype=float) / dir_norm
 
-    dv_km_s = (float(dv_mps) / 1000.0) * dir_u
+    dv_val = float(dv_mps) if np.isfinite(dv_mps) else 0.0
+    dv_km_s = (dv_val / 1000.0) * dir_u
     v_r = dv_km_s[0]
     v_t = v0 + dv_km_s[1]
     v_n = dv_km_s[2]
 
     v_sq = v_r ** 2 + v_t ** 2 + v_n ** 2
     eps = 0.5 * v_sq - mu / r0
-    if eps >= 0.0:
-        # Parabolic/hyperbolic escape
-        return float("inf")
-
-    a = -mu / (2.0 * eps)
     h = r0 * np.sqrt(v_t ** 2 + v_n ** 2)
-    e_sq = max(0.0, 1.0 - (h ** 2) / (mu * a))
-    e = np.sqrt(e_sq)
-    r_p = a * (1.0 - e)
+
+    if eps >= 0.0:
+        # Parabolic/hyperbolic escape: periapsis is p / (1 + e)
+        p = (h ** 2) / mu
+        e_sq = max(0.0, 1.0 + (2.0 * eps * (h ** 2)) / (mu ** 2))
+        e = np.sqrt(e_sq)
+        r_p = p / (1.0 + e) if (1.0 + e) > 0.0 and p > 1e-6 else r0
+    else:
+        a = -mu / (2.0 * eps)
+        e_sq = max(0.0, 1.0 - (h ** 2) / (mu * a))
+        e = np.sqrt(e_sq)
+        r_p = a * (1.0 - e)
+
     perigee_alt_km = r_p - re
-    return float(perigee_alt_km)
+    return float(perigee_alt_km) if np.isfinite(perigee_alt_km) else 0.0
 
 
 def evaluate_candidate(candidate: dict, params: dict, k_keepout: float, inv_cov_2x2: np.ndarray) -> dict:
@@ -89,7 +105,8 @@ def evaluate_candidate(candidate: dict, params: dict, k_keepout: float, inv_cov_
     norm_miss = float(np.linalg.norm(miss_vec))
 
     # Post-maneuver Mahalanobis distance
-    mahal_post = float(np.sqrt(max(0.0, p_tca @ inv_cov_2x2 @ p_tca)))
+    mahal_val = float(p_tca @ inv_cov_2x2 @ p_tca) if np.all(np.isfinite(p_tca)) and np.all(np.isfinite(inv_cov_2x2)) else 0.0
+    mahal_post = float(np.sqrt(max(0.0, mahal_val))) if np.isfinite(mahal_val) else 0.0
 
     rules = []
 
@@ -113,7 +130,7 @@ def evaluate_candidate(candidate: dict, params: dict, k_keepout: float, inv_cov_
         "id": "R2",
         "name": "BURN_TIME_FEASIBLE",
         "passed": bool(passed_r2),
-        "value": float(round(t_burn, 2)),
+        "value": float(round(t_burn, 2)) if np.isfinite(t_burn) else None,
         "limit": float(round(limit_r2, 2)),
         "unit": "s",
         "detail": f"Burn duration {t_burn:.2f} s vs allowable window {limit_r2:.2f} s (TCA={tca_s:.1f} s minus 5.0 s slew allowance)",
@@ -177,7 +194,7 @@ def validate_candidates(candidates: list[dict], params: dict, cov_2x2: np.ndarra
     top_k = int(params.get("top_k", 10))
 
     k_keepout = compute_keepout_k(cov_2x2, hbr_m, pc_threshold)
-    inv_cov_2x2 = np.linalg.inv(cov_2x2)
+    inv_cov_2x2 = np.linalg.pinv(cov_2x2)
 
     evaluated_candidates = []
     selected_candidate = None

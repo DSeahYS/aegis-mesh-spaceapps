@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   LineChart,
   Line,
@@ -58,13 +58,37 @@ const CustomChartTooltip: React.FC<CustomTooltipProps> = ({ active, payload, lab
 };
 
 export const CBFCharts: React.FC<CBFChartsProps> = ({ cbf }) => {
-  const chartData = cbf.t_s.map((t, idx) => ({
-    t,
-    h_filtered: cbf.h_filtered[idx] ?? 0,
-    h_nominal: cbf.h_nominal[idx] ?? 0,
-    miss_filtered: cbf.miss_filtered_m[idx] ?? 0,
-    miss_nominal: cbf.miss_nominal_m[idx] ?? 0,
-  }));
+  const chartData = useMemo(() => {
+    const t_s = cbf?.t_s ?? [];
+    const len = t_s.length;
+    if (len === 0) return [];
+
+    // Intelligently downsample to at most 500 points for silky-smooth 60fps Recharts rendering
+    const step = len > 500 ? Math.ceil(len / 500) : 1;
+    const result = [];
+    for (let i = 0; i < len; i += step) {
+      result.push({
+        t: t_s[i],
+        h_filtered: cbf.h_filtered?.[i] ?? 0,
+        h_nominal: cbf.h_nominal?.[i] ?? 0,
+        miss_filtered: cbf.miss_filtered_m?.[i] ?? 0,
+        miss_nominal: cbf.miss_nominal_m?.[i] ?? 0,
+      });
+    }
+
+    // Always include the final point to ensure exact terminal values
+    if (step > 1 && (len - 1) % step !== 0) {
+      const last = len - 1;
+      result.push({
+        t: t_s[last],
+        h_filtered: cbf.h_filtered?.[last] ?? 0,
+        h_nominal: cbf.h_nominal?.[last] ?? 0,
+        miss_filtered: cbf.miss_filtered_m?.[last] ?? 0,
+        miss_nominal: cbf.miss_nominal_m?.[last] ?? 0,
+      });
+    }
+    return result;
+  }, [cbf]);
 
   return (
     <div className="space-y-4 font-mono">

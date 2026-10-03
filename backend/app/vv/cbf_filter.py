@@ -24,7 +24,7 @@ def run_cbf_simulation(
     alpha2: float = 0.6,
 ):
     """Run closed-loop simulation over [0, tca_s] with semi-implicit Euler integration."""
-    M = np.linalg.inv(cov_2x2)
+    M = np.linalg.pinv(cov_2x2)
     k2 = k_keepout ** 2
 
     p = np.array(miss_vec, dtype=float)
@@ -43,8 +43,8 @@ def run_cbf_simulation(
         dir_lat = np.zeros(2)
         t_burn = 0.0
 
-    steps = max(1, int(round(tca_s / dt_s)))
-    dt_actual = tca_s / steps
+    steps = min(500, max(1, int(round(abs(tca_s) / dt_s))))
+    dt_actual = tca_s / steps if steps > 0 else 0.0
 
     t_hist = []
     p_hist = []

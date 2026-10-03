@@ -7,3 +7,5 @@ sgp4
 requests
 httpx
 pytest
+spiceypy
+matplotlib

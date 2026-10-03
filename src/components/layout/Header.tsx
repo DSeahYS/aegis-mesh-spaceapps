@@ -1,13 +1,17 @@
 import type { FC } from 'react';
-import { Play, Pause, Clock, AlertCircle } from 'lucide-react';
+import { Play, Pause, Clock, AlertCircle, ShieldCheck } from 'lucide-react';
 import { useSimulationStore } from '../../store/simulationStore';
 
 const VIEW_TITLES: Record<string, string> = {
-  dashboard: 'Dashboard',
+  dashboard: 'Mission Dashboard',
   orbital: '3D Orbital View',
   conjunction: 'Conjunction Assessment',
-  mesh: 'Mesh Network',
-  architecture: 'Architecture',
+  mesh: 'Mesh Network & ISL',
+  architecture: 'System Architecture',
+  'clm-lab': 'Stanford CLM Lab',
+  'clm-gpu': 'GPU Inference Proof',
+  backend: 'Backend Console',
+  verification: 'V&V Proof & Math Engine',
 };
 
 const TIME_SCALES = [1, 10, 100, 1000] as const;
@@ -26,6 +30,7 @@ function formatUtcTime(epochSeconds: number): string {
 
 export const Header: FC = () => {
   const activeView = useSimulationStore((state) => state.activeView);
+  const setActiveView = useSimulationStore((state) => state.setActiveView);
   const simulationTime = useSimulationStore((state) => state.simulationTime);
   const timeScale = useSimulationStore((state) => state.timeScale);
   const isPlaying = useSimulationStore((state) => state.isPlaying);
@@ -39,18 +44,25 @@ export const Header: FC = () => {
 
   return (
     <header className="h-14 bg-space-900 border-b border-space-700/60 px-4 flex items-center justify-between z-20 shrink-0 select-none">
-      {/* Left: AEGIS-MESH Title + Current View Name */}
-      <div className="flex items-center gap-3">
+      {/* Left: AEGIS-MESH Title + NASA Space Apps Badge + Current View Name */}
+      <div className="flex items-center gap-2 sm:gap-3">
         <div className="flex items-center gap-2">
           <span className="font-mono font-black text-base tracking-widest text-slate-100">
             AEGIS<span className="text-cyber-green">-</span>MESH
           </span>
           <span className="text-space-600 font-mono">/</span>
-          <span className="font-mono text-sm font-semibold text-cyber-green uppercase tracking-wider">
+          <span className="font-mono text-xs sm:text-sm font-semibold text-cyber-green uppercase tracking-wider">
             {VIEW_TITLES[activeView] || activeView}
           </span>
         </div>
-        <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono tracking-wider bg-space-800 border border-space-600 text-slate-300">
+
+        {/* NASA Space Apps 2026 Badge */}
+        <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-950/80 border border-blue-500/50 text-[10px] font-mono tracking-wider text-blue-200 shadow-[0_0_12px_rgba(59,130,246,0.2)]">
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+          <span className="font-bold tracking-wider text-slate-100">NASA SPACE APPS 2026</span>
+        </div>
+
+        <span className="hidden 2xl:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono tracking-wider bg-space-800 border border-space-600 text-slate-300">
           AUTONOMOUS CLM v4.2
         </span>
       </div>
@@ -153,6 +165,21 @@ export const Header: FC = () => {
           <AlertCircle className="w-3.5 h-3.5" />
           <span>{totalAlerts} ALERTS</span>
         </div>
+
+        {/* Quick Link to V&V Proof Tab for Judges */}
+        <button
+          type="button"
+          onClick={() => setActiveView('verification')}
+          className={`hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded border text-xs font-mono font-bold transition-all cursor-pointer ${
+            activeView === 'verification'
+              ? 'bg-cyber-green/20 border-cyber-green text-cyber-green shadow-[0_0_10px_rgba(16,185,129,0.25)]'
+              : 'bg-space-800 hover:bg-cyber-green/10 border-space-600 hover:border-cyber-green/50 text-slate-300 hover:text-cyber-green'
+          }`}
+          title="Verify live astrodynamics math (Foster B-plane, Hamilton-Jacobi, CBF) in the V&V Proof pipeline"
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-cyber-green" />
+          <span>V&V PROOF</span>
+        </button>
       </div>
     </header>
   );

@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import { CheckCircle2, XCircle, Award } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import {
+  CheckCircle2,
+  XCircle,
+  Award,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from 'lucide-react';
 import type { PipelineCandidate, PipelineRuleResult } from '../../lib/apiClient';
 import { formatNumberSmart } from './formatters';
 
@@ -9,11 +17,15 @@ interface CandidatesTableProps {
   selectedCandidate: PipelineCandidate | null;
 }
 
+const PAGE_SIZE_OPTIONS = [25, 50, 100, 250];
+
 export const CandidatesTable: React.FC<CandidatesTableProps> = ({
   candidates,
   selectedIndex,
   selectedCandidate,
 }) => {
+  const [pageSize, setPageSize] = useState<number>(25);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [activeTooltip, setActiveTooltip] = useState<{
     candidateId: number;
     ruleId: string;
@@ -21,6 +33,33 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
     x: number;
     y: number;
   } | null>(null);
+
+  const totalCandidates = candidates ? candidates.length : 0;
+  const totalPages = Math.max(1, Math.ceil(totalCandidates / pageSize));
+
+  // If a candidate is selected, automatically jump to the page containing that candidate
+  useEffect(() => {
+    if (selectedIndex !== null && selectedIndex >= 0 && selectedIndex < totalCandidates) {
+      const targetPage = Math.floor(selectedIndex / pageSize) + 1;
+      if (targetPage !== currentPage && targetPage <= totalPages) {
+        setCurrentPage(targetPage);
+      }
+    }
+  }, [selectedIndex, pageSize, totalCandidates, totalPages, currentPage]);
+
+  // Ensure currentPage remains valid if candidates list shrinks
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
+
+  // Paginated slice
+  const paginatedCandidates = useMemo(() => {
+    if (!candidates || candidates.length === 0) return [];
+    const startIndex = (currentPage - 1) * pageSize;
+    return candidates.slice(startIndex, startIndex + pageSize);
+  }, [candidates, currentPage, pageSize]);
 
   if (!candidates || candidates.length === 0) {
     return (
@@ -49,20 +88,55 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
     setActiveTooltip(null);
   };
 
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = Math.min(startIndex + pageSize, totalCandidates);
+
   return (
     <div className="space-y-2 relative">
-      <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+      {/* Header controls: Title & Pagination controls */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-slate-400">
         <div className="flex items-center gap-2">
           <span className="font-bold text-slate-200">CLM CANDIDATE MANEUVER EVALUATION</span>
-          <span className="text-[10px] px-2 py-0.5 rounded bg-space-700 text-slate-300">
-            {candidates.length} MANEUVERS EVALUATED
+          <span className="text-[10px] px-2 py-0.5 rounded bg-space-700 text-slate-300 font-bold">
+            {totalCandidates.toLocaleString()} MANEUVERS
           </span>
+          {totalCandidates > pageSize && (
+            <span className="text-[10px] text-cyan-400 font-mono hidden md:inline">
+              (Viewing {startIndex + 1}–{endIndex})
+            </span>
+          )}
         </div>
-        <div className="text-[10px] text-slate-400">
-          Hover rule chips (R1–R5) for threshold &amp; constraint details
+
+        {/* Page size selector & hover instruction */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 text-[10px]">
+            <span className="text-slate-500">Rows:</span>
+            {PAGE_SIZE_OPTIONS.map((size) => (
+              <button
+                key={size}
+                type="button"
+                onClick={() => {
+                  setPageSize(size);
+                  setCurrentPage(1);
+                }}
+                className={`px-1.5 py-0.5 rounded transition-colors ${
+                  pageSize === size
+                    ? 'bg-cyber-green text-space-950 font-bold'
+                    : 'bg-space-900 text-slate-400 hover:text-white border border-space-700'
+                }`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+
+          <div className="text-[10px] text-slate-500 hidden lg:inline">
+            Hover R1–R5 for details
+          </div>
         </div>
       </div>
 
+      {/* Main Table */}
       <div className="overflow-x-auto rounded-lg border border-space-700 bg-space-950">
         <table className="w-full text-left text-xs border-collapse font-mono">
           <thead>
@@ -78,17 +152,29 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
             </tr>
           </thead>
           <tbody className="divide-y divide-space-800 text-[11px]">
-            {candidates.map((cand, idx) => {
+            {paginatedCandidates.map((cand, pageIdx) => {
+              const globalIdx = startIndex + pageIdx;
               const isSelected =
-                selectedIndex === idx ||
+                selectedIndex === globalIdx ||
                 (selectedCandidate && selectedCandidate.id === cand.id) ||
-                (cand.accepted && selectedIndex === null && idx === 0);
+                (cand.accepted && selectedIndex === null && globalIdx === 0);
 
               const isRejected = !cand.accepted;
+              const rules = Array.isArray(cand.rules) ? cand.rules : [];
+              const rtn = Array.isArray(cand.direction_rtn) ? cand.direction_rtn : [0, 0, 0];
+              const dv = typeof cand.delta_v_mps === 'number' && Number.isFinite(cand.delta_v_mps)
+                ? cand.delta_v_mps.toFixed(2)
+                : '—';
+              const conf = typeof cand.confidence === 'number' && Number.isFinite(cand.confidence)
+                ? `${(cand.confidence * 100).toFixed(1)}%`
+                : '—';
+              const score = typeof cand.score === 'number' && Number.isFinite(cand.score)
+                ? cand.score.toFixed(3)
+                : '—';
 
               return (
                 <tr
-                  key={`${cand.id}-${idx}`}
+                  key={`${cand.id}-${globalIdx}`}
                   className={`transition-colors ${
                     isSelected
                       ? 'bg-cyber-green/15 border-l-4 border-l-cyber-green font-semibold'
@@ -100,7 +186,7 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
                   {/* Rank */}
                   <td className="py-2 px-3 text-center">
                     <span className={isSelected ? 'text-cyber-green font-bold' : 'text-slate-500'}>
-                      #{cand.rank ?? idx + 1}
+                      #{cand.rank ?? globalIdx + 1}
                     </span>
                   </td>
 
@@ -108,10 +194,10 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
                   <td className="py-2 px-3">
                     <div className="flex items-center gap-2">
                       <span className={`font-bold ${isSelected ? 'text-white' : isRejected ? 'text-slate-400' : 'text-slate-200'}`}>
-                        {cand.label}
+                        {cand.label || `CLM-CAND-${cand.id}`}
                       </span>
                       <span className="text-[9px] px-1.5 py-0.2 rounded bg-space-800 text-slate-400 border border-space-700 uppercase">
-                        {cand.category}
+                        {cand.category || 'generic'}
                       </span>
                     </div>
                   </td>
@@ -119,30 +205,30 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
                   {/* Delta-V */}
                   <td className="py-2 px-3 text-right">
                     <span className={isSelected ? 'text-cyan-300 font-bold' : isRejected ? 'text-slate-500' : 'text-slate-300'}>
-                      {cand.delta_v_mps.toFixed(2)}
+                      {dv}
                     </span>
                   </td>
 
                   {/* RTN Direction */}
                   <td className="py-2 px-3 text-center text-[10px] text-slate-400">
-                    [{cand.direction_rtn.map((v) => v.toFixed(2)).join(', ')}]
+                    [{rtn.map((v) => (typeof v === 'number' && Number.isFinite(v) ? v.toFixed(2) : '0.00')).join(', ')}]
                   </td>
 
                   {/* Confidence */}
                   <td className="py-2 px-3 text-right text-slate-400">
-                    {(cand.confidence * 100).toFixed(1)}%
+                    {conf}
                   </td>
 
                   {/* Score */}
                   <td className="py-2 px-3 text-right text-slate-400">
-                    {cand.score.toFixed(3)}
+                    {score}
                   </td>
 
                   {/* Rule Chips R1..R5 */}
                   <td className="py-2 px-4">
                     <div className="flex items-center justify-center gap-1.5">
-                      {cand.rules.map((rule) => {
-                        const passed = rule.passed;
+                      {rules.map((rule) => {
+                        const passed = Boolean(rule.passed);
                         return (
                           <button
                             key={rule.id}
@@ -154,7 +240,7 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
                                 ? 'bg-cyber-green/10 text-cyber-green border-cyber-green/40 hover:bg-cyber-green/20'
                                 : 'bg-alert-red/10 text-alert-red border-alert-red/40 hover:bg-alert-red/20'
                             }`}
-                            title={`${rule.id} (${rule.name}): ${passed ? 'PASSED' : 'FAILED'} — Val: ${formatNumberSmart(rule.value)} / Lim: ${formatNumberSmart(rule.limit)} ${rule.unit ?? ''}\n${rule.detail}`}
+                            title={`${rule.id} (${rule.name}): ${passed ? 'PASSED' : 'FAILED'} — Val: ${formatNumberSmart(rule.value)} / Lim: ${formatNumberSmart(rule.limit)} ${rule.unit ?? ''}\n${rule.detail || ''}`}
                           >
                             <span>{rule.id}</span>
                             {passed ? (
@@ -191,6 +277,66 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Footer Controls */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between px-2 py-1.5 bg-space-900/60 border border-space-700 rounded-lg text-xs font-mono text-slate-400">
+          <div className="text-[11px]">
+            Showing <span className="text-white font-bold">{startIndex + 1}</span> to{' '}
+            <span className="text-white font-bold">{endIndex}</span> of{' '}
+            <span className="text-cyber-green font-bold">{totalCandidates.toLocaleString()}</span> maneuvers
+          </div>
+
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => setCurrentPage(1)}
+              disabled={currentPage === 1}
+              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 transition-colors"
+              title="First Page"
+              aria-label="First Page"
+            >
+              <ChevronsLeft className="w-3.5 h-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 transition-colors"
+              title="Previous Page"
+              aria-label="Previous Page"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+            </button>
+
+            <span className="px-2 text-[11px] text-slate-300">
+              Page <span className="font-bold text-white">{currentPage}</span> of{' '}
+              <span className="font-bold text-slate-400">{totalPages}</span>
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 transition-colors"
+              title="Next Page"
+              aria-label="Next Page"
+            >
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage(totalPages)}
+              disabled={currentPage === totalPages}
+              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 transition-colors"
+              title="Last Page"
+              aria-label="Last Page"
+            >
+              <ChevronsRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Floating Rule Tooltip */}
       {activeTooltip && (
