@@ -8,7 +8,8 @@ from .tle_client import TLEClient, ts_to_jday
 from .conjunction_service import ConjunctionService
 import time
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
+from .vv import run_selftest, run_vv_pipeline, validate_cdm
 
 app = FastAPI(title="AEGIS-MESH Backend")
 
@@ -159,3 +160,40 @@ async def get_benchmark_results():
         except Exception:
             continue
     return {"error": "Benchmark results not found. Run benchmark first."}
+
+
+class PipelineRequest(BaseModel):
+    tca_s: Optional[float] = 40.0
+    miss_xi_m: Optional[float] = 160.0
+    miss_zeta_m: Optional[float] = 120.0
+    rel_velocity_km_s: Optional[float] = 11.0
+    debris_mass_kg: Optional[float] = 45.0
+    sigma_xi_m: Optional[float] = 120.0
+    sigma_zeta_m: Optional[float] = 60.0
+    rho: Optional[float] = 0.2
+    hard_body_radius_m: Optional[float] = 15.0
+    sat_mass_kg: Optional[float] = 150.0
+    propellant_mass_kg: Optional[float] = 2.0
+    isp_s: Optional[float] = 220.0
+    max_thrust_n: Optional[float] = 22.0
+    altitude_km: Optional[float] = 550.0
+    min_perigee_km: Optional[float] = 300.0
+    d_max_mps2: Optional[float] = 0.01
+    pc_threshold: Optional[float] = 1e-4
+    top_k: Optional[int] = 10
+
+
+@app.get("/api/vv/selftest")
+async def get_vv_selftest():
+    return run_selftest()
+
+
+@app.post("/api/vv/pipeline")
+async def execute_vv_pipeline(req: Optional[PipelineRequest] = None):
+    params = req.model_dump() if req else {}
+    return run_vv_pipeline(params, cara_engine=cara, clm_engine=clm)
+
+
+@app.post("/api/vv/validate-cdm")
+async def validate_cdm_route(req: CDMRequest):
+    return validate_cdm(req.cdmText)

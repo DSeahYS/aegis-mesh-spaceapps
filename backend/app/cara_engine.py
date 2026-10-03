@@ -1,67 +1,193 @@
 import numpy as np
+import scipy.stats
 from scipy.integrate import dblquad
+
+
+def b_plane_frame(r_p, v_p, r_s, v_s):
+    """Compute orthonormal B-plane coordinate frame (xi_hat, zeta_hat, eta_hat).
+    
+    r_p, v_p: primary position and velocity (numpy 3-vectors)
+    r_s, v_s: secondary position and velocity (numpy 3-vectors)
+    Returns:
+        (xi_hat, zeta_hat, eta_hat) as unit numpy 3-vectors.
+    """
+    r_p = np.asarray(r_p, dtype=float)
+    v_p = np.asarray(v_p, dtype=float)
+    r_s = np.asarray(r_s, dtype=float)
+    v_s = np.asarray(v_s, dtype=float)
+
+    dv = v_s - v_p
+    v_rel_mag = np.linalg.norm(dv)
+    if v_rel_mag < 1e-8:
+        eta = np.array([0.0, 0.0, 1.0])
+    else:
+        eta = dv / v_rel_mag
+
+    h = np.cross(r_p, v_p)
+    if np.linalg.norm(h) < 1e-6:
+        h = r_p.copy()
+
+    xi = np.cross(h, eta)
+    if np.linalg.norm(xi) < 1e-6:
+        fallback = np.array([0.0, 0.0, 1.0]) if abs(eta[2]) < 0.9 else np.array([1.0, 0.0, 0.0])
+        xi = np.cross(fallback, eta)
+
+    xi = xi / np.linalg.norm(xi)
+    zeta = np.cross(eta, xi)
+    zeta = zeta / np.linalg.norm(zeta)
+
+    # Re-normalize and ensure exact right-handed triad
+    eta = eta / np.linalg.norm(eta)
+    return xi, zeta, eta
+
+
+def project_covariance(cov3, xi_hat, zeta_hat):
+    """Project a 3x3 covariance matrix onto the 2D B-plane.
+    
+    B = [xi_hat, zeta_hat] (3x2)
+    cov2 = B^T * cov3 * B (2x2)
+    """
+    B = np.column_stack([xi_hat, zeta_hat])
+    cov3_arr = np.asarray(cov3, dtype=float)
+    return B.T @ cov3_arr @ B
+
+
+def pc_small_hbr(b_plane, cov, hbr, basis=None) -> float:
+    """Asymptotic small-HBR collision probability:
+    R^2 / (2 * sqrt(|C|)) * exp(-0.5 * mu^T * C^-1 * mu).
+    """
+    cov_arr = np.asarray(cov, dtype=float)
+    if cov_arr.shape == (3, 3):
+        if basis is None:
+            raise ValueError("basis=(xi_hat, zeta_hat) required for 3x3 covariance")
+        cov_arr = project_covariance(cov_arr, basis[0], basis[1])
+
+    if isinstance(b_plane, dict):
+        mu = np.array([float(b_plane["xi"]), float(b_plane["zeta"])], dtype=float)
+    else:
+        mu = np.asarray(b_plane, dtype=float)[:2]
+
+    det_c = float(np.linalg.det(cov_arr))
+    if det_c <= 0.0 or hbr <= 0.0:
+        return 0.0
+
+    inv_c = np.linalg.inv(cov_arr)
+    mahal_sq = float(mu @ inv_c @ mu)
+    exponent = -0.5 * mahal_sq
+    if exponent < -100.0:
+        return 0.0
+
+    r = float(hbr)
+    asymptote = (r ** 2 / (2.0 * np.sqrt(det_c))) * np.exp(exponent)
+    return float(min(1.0, max(0.0, asymptote)))
+
+
+def pc_isotropic_exact(miss: float, sigma: float, R: float) -> float:
+    """Exact Rician oracle for isotropic covariance:
+    scipy.stats.ncx2.cdf((R/sigma)^2, df=2, nc=(miss/sigma)^2).
+    """
+    return float(scipy.stats.ncx2.cdf((R / sigma) ** 2, df=2, nc=(miss / sigma) ** 2))
+
+
+def pc_monte_carlo(miss, C, R: float, n: int = 400_000, seed: int = 42):
+    """Monte Carlo 2D collision probability estimation with standard error."""
+    rng = np.random.default_rng(seed)
+    if isinstance(miss, dict):
+        mu = np.array([float(miss["xi"]), float(miss["zeta"])], dtype=float)
+    else:
+        mu = np.asarray(miss, dtype=float)[:2]
+
+    C_arr = np.asarray(C, dtype=float)
+    samples = rng.multivariate_normal(mu, C_arr, size=n)
+    dists_sq = np.sum(samples ** 2, axis=1)
+    hits = int(np.count_nonzero(dists_sq <= float(R) ** 2))
+    pc = hits / float(n)
+    se = float(np.sqrt(pc * (1.0 - pc) / n))
+    return float(pc), se
+
 
 class CARAEngine:
     def __init__(self):
         pass
 
-    def compute_b_plane(self, r_p, v_p, r_s, v_s):
-        r_p = np.array(r_p)
-        v_p = np.array(v_p)
-        r_s = np.array(r_s)
-        v_s = np.array(v_s)
+    def b_plane_frame(self, r_p, v_p, r_s, v_s):
+        return b_plane_frame(r_p, v_p, r_s, v_s)
 
-        dr = r_s - r_p
-        dv = v_s - v_p
-        
-        v_rel_mag = np.linalg.norm(dv)
-        if v_rel_mag < 1e-8:
-            return {"xi": np.linalg.norm(dr), "zeta": 0.0, "b_mag": np.linalg.norm(dr)}
-            
-        eta = dv / v_rel_mag
-        
-        h = np.cross(r_p, v_p)
-        if np.linalg.norm(h) < 1e-6:
-            h = r_p
-            
-        xi = np.cross(h, eta)
-        if np.linalg.norm(xi) < 1e-6:
-            fallback = np.array([0, 0, 1]) if abs(eta[2]) < 0.9 else np.array([1, 0, 0])
-            xi = np.cross(fallback, eta)
-            
-        xi = xi / np.linalg.norm(xi)
-        zeta = np.cross(eta, xi)
-        
-        b_xi = np.dot(dr, xi)
-        b_zeta = np.dot(dr, zeta)
-        
+    def project_covariance(self, cov3, xi_hat, zeta_hat):
+        return project_covariance(cov3, xi_hat, zeta_hat)
+
+    def compute_b_plane(self, r_p, v_p, r_s, v_s):
+        dr = np.asarray(r_s, dtype=float) - np.asarray(r_p, dtype=float)
+        xi, zeta, eta = self.b_plane_frame(r_p, v_p, r_s, v_s)
+
+        b_xi = float(np.dot(dr, xi))
+        b_zeta = float(np.dot(dr, zeta))
+
         return {
             "xi": float(b_xi),
             "zeta": float(b_zeta),
-            "b_mag": float(np.sqrt(b_xi**2 + b_zeta**2))
+            "b_mag": float(np.sqrt(b_xi ** 2 + b_zeta ** 2)),
         }
 
-    def compute_probability(self, b_plane: dict, combined_cov: np.ndarray, hbr_km: float) -> float:
+    def compute_probability(self, b_plane, combined_cov, hbr_km: float, basis=None) -> float:
+        """Foster (1992) 2D B-plane collision probability via high-order Gauss-Legendre polar quadrature.
+        
+        (1/(2π√|C|)) ∬_{|x|≤R} exp(-½ (x-μ)ᵀ C⁻¹ (x-μ)) dA, μ=(xi, zeta).
+        If combined_cov is 3x3, projects using basis=(xi_hat, zeta_hat).
+        """
         try:
-            det_cov = np.linalg.det(combined_cov)
-            if det_cov <= 1e-18 or hbr_km <= 0:
+            cov_arr = np.asarray(combined_cov, dtype=float)
+            if cov_arr.shape == (3, 3):
+                if basis is None:
+                    raise ValueError("basis=(xi_hat, zeta_hat) required for 3x3 covariance projection")
+                cov_arr = self.project_covariance(cov_arr, basis[0], basis[1])
+
+            if isinstance(b_plane, dict):
+                mu = np.array([float(b_plane["xi"]), float(b_plane["zeta"])], dtype=float)
+            else:
+                mu = np.asarray(b_plane, dtype=float)[:2]
+
+            r_hbr = float(hbr_km)
+            if r_hbr <= 0.0:
                 return 0.0
-                
-            inv_cov = np.linalg.inv(combined_cov)
-            xi = b_plane['xi']
-            zeta = b_plane['zeta']
-            
-            mahal_sq = inv_cov[0,0]*xi**2 + 2*inv_cov[0,1]*xi*zeta + inv_cov[1,1]*zeta**2
-            
-            sigma_prod = np.sqrt(max(1e-18, det_cov))
-            exponent = -0.5 * mahal_sq
-            
-            if exponent < -50:
+
+            det_cov = float(np.linalg.det(cov_arr))
+            if det_cov <= 1e-18 or not np.isfinite(det_cov):
                 return 0.0
-                
-            scale = 1 - np.exp(-(hbr_km**2) / (2 * sigma_prod))
-            pc = scale * np.exp(exponent)
-            
+
+            inv_cov = np.linalg.inv(cov_arr)
+
+            # High-order Gauss-Legendre polar quadrature (n_r=50, n_th=100)
+            n_r = 50
+            n_th = 100
+            x_r, w_r = np.polynomial.legendre.leggauss(n_r)
+            r = 0.5 * r_hbr * (x_r + 1.0)
+            w_r = 0.5 * r_hbr * w_r
+
+            x_th, w_th = np.polynomial.legendre.leggauss(n_th)
+            th = np.pi * (x_th + 1.0)
+            w_th = np.pi * w_th
+
+            R_grid, TH_grid = np.meshgrid(r, th, indexing="ij")
+            W_grid = np.outer(w_r, w_th)
+
+            x = R_grid * np.cos(TH_grid) - mu[0]
+            y = R_grid * np.sin(TH_grid) - mu[1]
+
+            Q = inv_cov[0, 0] * x ** 2 + 2.0 * inv_cov[0, 1] * x * y + inv_cov[1, 1] * y ** 2
+            integrand = R_grid * np.exp(-0.5 * Q)
+            integral_val = float(np.sum(W_grid * integrand))
+
+            pc = integral_val / (2.0 * np.pi * np.sqrt(det_cov))
             return float(min(1.0, max(0.0, pc)))
         except Exception:
             return 0.0
+
+    def pc_small_hbr(self, b_plane, cov, hbr, basis=None) -> float:
+        return pc_small_hbr(b_plane, cov, hbr, basis)
+
+    def pc_isotropic_exact(self, miss: float, sigma: float, R: float) -> float:
+        return pc_isotropic_exact(miss, sigma, R)
+
+    def pc_monte_carlo(self, miss, C, R: float, n: int = 400_000, seed: int = 42):
+        return pc_monte_carlo(miss, C, R, n, seed)

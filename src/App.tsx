@@ -12,6 +12,7 @@ import { ArchitectureView } from './components/views/ArchitectureView';
 import { CLMLabView } from './components/views/CLMLabView';
 import { CLMGpuView } from './components/views/CLMGpuView';
 import { BackendView } from './components/views/BackendView';
+import { VerificationView } from './components/views/VerificationView';
 
 export const App: FC = () => {
   const activeView = useSimulationStore((state) => state.activeView);
@@ -52,6 +53,8 @@ export const App: FC = () => {
         return <CLMGpuView />;
       case 'backend':
         return <BackendView />;
+      case 'verification':
+        return <VerificationView />;
       default:
         return <DashboardView />;
     }

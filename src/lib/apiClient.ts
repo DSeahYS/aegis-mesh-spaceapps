@@ -58,9 +58,13 @@ export interface BenchmarkReport {
 
 const DEFAULT_TIMEOUT = 5000;
 
-async function fetchWithTimeout<T = any>(url: string, options: RequestInit = {}): Promise<T | null> {
+async function fetchWithTimeout<T = unknown>(
+  url: string,
+  options: RequestInit = {},
+  timeoutMs: number = DEFAULT_TIMEOUT
+): Promise<T | null> {
   const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT);
+  const id = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(url, {
       ...options,
@@ -165,9 +169,280 @@ export async function screenConjunctions(
 }
 
 export async function getHealth(): Promise<HealthStatus | null> {
-  return fetchWithTimeout("/api/health");
+  return fetchWithTimeout<HealthStatus>("/api/health");
 }
 
 export async function getBenchmarkResults(): Promise<BenchmarkReport | null> {
-  return fetchWithTimeout("/api/benchmark/results");
+  return fetchWithTimeout<BenchmarkReport>("/api/benchmark/results");
+}
+
+// -------------------------------------------------------------
+// V&V Proof API Interfaces & Functions (CCSDS / AIAA / Isaacs HJ / HOCBF)
+// -------------------------------------------------------------
+
+export interface PipelineRequest {
+  tca_s: number;
+  miss_xi_m: number;
+  miss_zeta_m: number;
+  rel_velocity_km_s: number;
+  debris_mass_kg: number;
+  sigma_xi_m: number;
+  sigma_zeta_m: number;
+  rho: number;
+  hard_body_radius_m: number;
+  sat_mass_kg: number;
+  propellant_mass_kg: number;
+  isp_s: number;
+  max_thrust_n: number;
+  altitude_km: number;
+  min_perigee_km: number;
+  d_max_mps2: number;
+  pc_threshold: number;
+  top_k: number;
+}
+
+export interface PipelineRuleResult {
+  id: string;
+  name: string;
+  passed: boolean;
+  value: number;
+  limit: number;
+  unit: string;
+  detail: string;
+}
+
+export interface PipelineCandidate {
+  rank: number;
+  id: number;
+  label: string;
+  category: string;
+  delta_v_mps: number;
+  direction_rtn: [number, number, number];
+  confidence: number;
+  score: number;
+  accepted: boolean;
+  rules: PipelineRuleResult[];
+}
+
+export interface PipelineDerived {
+  u_max_mps2: number;
+  dv_available_mps: number;
+  miss_m: number;
+  covariance_2x2: [[number, number], [number, number]];
+}
+
+export interface PipelineAssessment {
+  pc_pre: number;
+  pc_post: number | null;
+  threshold: number;
+  triggered: boolean;
+  method: string;
+  miss_post_m: number | null;
+  miss_vector_pre_m: [number, number];
+  miss_vector_post_m: [number, number] | null;
+}
+
+export interface PipelineValidation {
+  engine: string;
+  evaluated: number;
+  rejected: number;
+  selected_index: number | null;
+  candidates: PipelineCandidate[];
+}
+
+export interface HJGrid {
+  y_m: number[];
+  v_mps: number[];
+  value_m: number[][]; // rows = v index, cols = y index
+}
+
+export interface HJState {
+  y_m: number;
+  v_mps: number;
+}
+
+export interface HJSolverStats {
+  grid_n: number;
+  dt_s: number;
+  steps: number;
+  solve_ms: number;
+}
+
+export interface PipelineHJ {
+  method: string;
+  u_max_mps2: number;
+  d_max_mps2: number;
+  horizon_s: number;
+  in_brt: boolean;
+  value_at_state_m: number;
+  value_at_state_analytic_m: number;
+  maneuver_certified: boolean;
+  maneuver_guaranteed_miss_m: number;
+  grid: HJGrid;
+  state: HJState;
+  post_maneuver_state: HJState;
+  solver: HJSolverStats;
+}
+
+export interface PipelineCBF {
+  keepout_k: number;
+  alpha1: number;
+  alpha2: number;
+  t_s: number[];
+  h_filtered: number[];
+  h_nominal: number[];
+  miss_filtered_m: number[];
+  miss_nominal_m: number[];
+  u_filtered_norm: number[];
+  u_nominal_norm: number[];
+  interventions: number;
+  saturated_steps: number;
+  entered_safe_set_at_s: number | null;
+  min_h_after_entry: number;
+  forward_invariant: boolean;
+  nominal_min_h_after_entry: number;
+  final_pc_filtered: number;
+  final_pc_nominal: number;
+}
+
+export type VerdictStatus =
+  | 'EXECUTE'
+  | 'NO_ACTION_REQUIRED'
+  | 'ABORT_NO_SAFE_MANEUVER'
+  | 'UNVERIFIED';
+
+export interface PipelineVerdict {
+  status: VerdictStatus;
+  reasons: string[];
+}
+
+export interface PipelineStageTimings {
+  assess: number;
+  clm: number;
+  validation: number;
+  hj: number;
+  cbf: number;
+  total: number;
+}
+
+export interface PipelineResponse {
+  run_id: string;
+  timestamp: string;
+  inputs: PipelineRequest;
+  derived: PipelineDerived;
+  assessment: PipelineAssessment;
+  validation: PipelineValidation;
+  selected: PipelineCandidate | null;
+  hj: PipelineHJ;
+  cbf: PipelineCBF;
+  verdict: PipelineVerdict;
+  stage_timings_ms: PipelineStageTimings;
+}
+
+export interface SelfTestItem {
+  id: string;
+  category: 'verification' | 'validation';
+  name: string;
+  description: string;
+  method: string;
+  reference: string;
+  expected: number | string;
+  actual: number | string;
+  error: number | string | null;
+  tolerance: number | string | null;
+  unit: string;
+  passed: boolean;
+  duration_ms: number;
+  details?: Record<string, unknown> | null;
+}
+
+export interface SelfTestSummary {
+  total: number;
+  passed: number;
+  failed: number;
+}
+
+export interface SelfTestEnvironment {
+  python: string;
+  numpy: string;
+  scipy: string;
+  sgp4: string;
+  platform: string;
+  [key: string]: string;
+}
+
+export interface SelfTestResponse {
+  run_id: string;
+  timestamp: string;
+  total_duration_ms: number;
+  environment: SelfTestEnvironment;
+  summary: SelfTestSummary;
+  tests: SelfTestItem[];
+}
+
+export interface CDMCheckItem {
+  id: string;
+  name: string;
+  severity: 'error' | 'warning' | 'info';
+  passed: boolean;
+  detail: string;
+}
+
+export interface CDMValidationResponse {
+  valid: boolean;
+  errors: number;
+  warnings: number;
+  checks: CDMCheckItem[];
+  parsed: Record<string, unknown>;
+}
+
+export const DEFAULT_PIPELINE_REQUEST: PipelineRequest = {
+  tca_s: 40.0,
+  miss_xi_m: 160.0,
+  miss_zeta_m: 120.0,
+  rel_velocity_km_s: 11.0,
+  debris_mass_kg: 45.0,
+  sigma_xi_m: 120.0,
+  sigma_zeta_m: 60.0,
+  rho: 0.2,
+  hard_body_radius_m: 15.0,
+  sat_mass_kg: 150.0,
+  propellant_mass_kg: 2.0,
+  isp_s: 220.0,
+  max_thrust_n: 22.0,
+  altitude_km: 550.0,
+  min_perigee_km: 300.0,
+  d_max_mps2: 0.01,
+  pc_threshold: 1e-4,
+  top_k: 10,
+};
+
+export async function runVVSelfTest(): Promise<SelfTestResponse | null> {
+  return fetchWithTimeout<SelfTestResponse>('/api/vv/selftest', {}, 30000);
+}
+
+export async function runVVPipeline(
+  req: Partial<PipelineRequest> = {}
+): Promise<PipelineResponse | null> {
+  return fetchWithTimeout<PipelineResponse>(
+    '/api/vv/pipeline',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req),
+    },
+    20000
+  );
+}
+
+export async function validateCDM(cdmText: string): Promise<CDMValidationResponse | null> {
+  return fetchWithTimeout<CDMValidationResponse>(
+    '/api/vv/validate-cdm',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cdmText }),
+    },
+    DEFAULT_TIMEOUT
+  );
 }

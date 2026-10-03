@@ -6,3 +6,4 @@ pydantic
 sgp4
 requests
 httpx
+pytest

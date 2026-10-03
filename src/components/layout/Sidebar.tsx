@@ -12,6 +12,7 @@ import {
   BrainCircuit,
   Terminal,
   Server,
+  ShieldCheck,
 } from 'lucide-react';
 import { useSimulationStore, type ActiveView } from '../../store/simulationStore';
 
@@ -74,6 +75,13 @@ const NAV_ITEMS: NavItem[] = [
     shortLabel: 'Backend',
     icon: Server,
     badge: 'API',
+  },
+  {
+    id: 'verification',
+    label: 'V&V Proof',
+    shortLabel: 'V&V Proof',
+    icon: ShieldCheck,
+    badge: 'V&V',
   },
 ];
 

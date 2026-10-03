@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type ActiveView = 'dashboard' | 'orbital' | 'conjunction' | 'mesh' | 'architecture' | 'clm-lab' | 'clm-gpu' | 'backend';
+export type ActiveView = 'dashboard' | 'orbital' | 'conjunction' | 'mesh' | 'architecture' | 'clm-lab' | 'clm-gpu' | 'backend' | 'verification';
 export type AlertType = 'conjunction' | 'radiation' | 'migration' | 'maneuver';
 export type AlertSeverity = 'low' | 'medium' | 'high' | 'critical';
 export type TelemetryType = 'info' | 'warning' | 'critical';

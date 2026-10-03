@@ -147,3 +147,46 @@ class CLMEngine:
             })
             
         return results
+
+    def rank_candidates(self, telemetry: list, k: int = None) -> list[dict]:
+        """Rank the action codebook by dot score given telemetry.
+        
+        Returns:
+            list of dicts with keys: rank, id, label, category, delta_v_mps, direction_rtn, confidence, score.
+        """
+        if len(telemetry) == self.embedding_dim:
+            state_vector = l2_normalize(np.array(telemetry))
+        elif len(telemetry) == 4:
+            state_vector = self.encode_state(telemetry)
+        elif len(telemetry) < self.embedding_dim:
+            padded = list(telemetry) + [0] * (self.embedding_dim - len(telemetry))
+            state_vector = l2_normalize(np.array(padded))
+        else:
+            state_vector = l2_normalize(np.array(telemetry[:self.embedding_dim]))
+
+        dots = np.dot(self.action_codebook, state_vector)
+        logits = dots / self.temperature
+
+        max_logit = np.max(logits)
+        exp_vals = np.exp(np.maximum(-50, logits - max_logit))
+        softmax_probs = exp_vals / np.sum(exp_vals)
+
+        ranked_indices = np.argsort(dots)[::-1]
+        if k is not None:
+            ranked_indices = ranked_indices[:k]
+
+        results = []
+        for rank, idx in enumerate(ranked_indices, 1):
+            meta = self.action_metadata[idx]
+            dir_vec = [float(x) for x in meta["deltaV"]["direction"]]
+            results.append({
+                "rank": int(rank),
+                "id": int(meta["id"]),
+                "label": str(meta["label"]),
+                "category": str(meta["category"]),
+                "delta_v_mps": float(meta["deltaV"]["magnitude"]),
+                "direction_rtn": dir_vec,
+                "confidence": float(round(float(softmax_probs[idx]), 4)),
+                "score": float(round(float(dots[idx]), 4)),
+            })
+        return results

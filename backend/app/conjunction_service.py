@@ -90,12 +90,14 @@ class ConjunctionService:
             return {"error": "Propagation failed", "probability_of_collision": 0.0}
 
         b_plane = self.cara_engine.compute_b_plane(r1, v1, r2, v2)
+        xi_hat, zeta_hat, eta_hat = self.cara_engine.b_plane_frame(r1, v1, r2, v2)
         miss_dist = float(np.linalg.norm(np.array(r2) - np.array(r1)))
         rel_speed = float(np.linalg.norm(np.array(v2) - np.array(v1)))
 
-        # Combined covariance (identity approximation for demo)
-        combined_cov = np.eye(3) * 100.0
-        pc = self.cara_engine.compute_probability(b_plane, combined_cov, hard_body_radius / 1000.0)
+        # Combined covariance (identity approximation for demo, projected 3x3 -> 2x2)
+        combined_cov_3x3 = np.eye(3) * 100.0
+        cov2 = self.cara_engine.project_covariance(combined_cov_3x3, xi_hat, zeta_hat)
+        pc = self.cara_engine.compute_probability(b_plane, cov2, hard_body_radius / 1000.0)
 
         return {
             "miss_distance_km": round(miss_dist, 4),
