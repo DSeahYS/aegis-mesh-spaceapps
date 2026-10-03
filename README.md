@@ -85,11 +85,12 @@
    - [5. SPARK 2022 Star Tracker Edge Vision Simulator (`star_tracker_vision.py`)](#5-spark-2022-star-tracker-edge-vision-simulator-star_tracker_visionpy)
 8. [Hardware Acceleration Trade-offs & SWaP-C Envelopes](#-hardware-acceleration-trade-offs--swap-c-envelopes)
 9. [Interactive Platform Overview (The 9 Specialized Views)](#-interactive-platform-overview-the-9-specialized-views)
-10. [Edge Backend API Reference](#-edge-backend-api-reference)
-11. [Repository Directory Structure](#-repository-directory-structure)
-12. [Quickstart & Local Installation](#-quickstart--local-installation)
-13. [Future Roadmap & Hardware-in-the-Loop (HIL) Testbeds](#-future-roadmap--hardware-in-the-loop-hil-testbeds)
-14. [Academic References & Works Cited](#-academic-references--works-cited)
+10. [AEGIS-MESH Kinetic Pitch Video & Presentation (`motion graphics/`)](#-aegis-mesh-kinetic-pitch-video--motion-presentation-motion-graphics)
+11. [Edge Backend API Reference](#-edge-backend-api-reference)
+12. [Repository Directory Structure](#-repository-directory-structure)
+13. [Quickstart & Local Installation](#-quickstart--local-installation)
+14. [Future Roadmap & Hardware-in-the-Loop (HIL) Testbeds](#-future-roadmap--hardware-in-the-loop-hil-testbeds)
+15. [Academic References & Works Cited](#-academic-references--works-cited)
 
 ---
 
@@ -696,6 +697,22 @@ The AEGIS-MESH frontend is a mission control suite built with **React 18**, **Th
 
 ---
 
+## 🎬 AEGIS-MESH Kinetic Pitch Video & Motion Presentation (`motion graphics/`)
+
+To deliver an impactful, broadcast-grade presentation for the NASA Space Apps Challenge 2026 judging committee, AEGIS-MESH includes an autonomous, code-driven kinetic typography pitch suite:
+
+* 🎥 **Kinetic Video Render:** [`motion graphics/aegis-mesh-kinetic-pitch.mp4`](file:///c:/VSCode%20Folder/NASASpaceApps2026/motion%20graphics/aegis-mesh-kinetic-pitch.mp4) — High-impact $1920\times 1080$ 60fps kinetic motion typography pitch video visualizing the micro-debris threat, the $16\text{ ms}$ latency advantage, and autonomous collision avoidance.
+* 🌐 **Interactive Motion Deck:** [`motion graphics/index.html`](file:///c:/VSCode%20Folder/NASASpaceApps2026/motion%20graphics/index.html) — Standalone GSAP-driven browser animation presentation featuring Archivo Black & Inter kinetic typography, sound effect triggers, and dynamic scene transitions.
+* 🤖 **Autonomous Motion Design Skills (`.agents/skills/`):**
+  - `launch-video`: High-energy product reveal and cinematic pace.
+  - `vox-explainer`: Analytical, evidence-driven motion typography.
+  - `apple-launch-film`: Restrained, typography-forward kinetic sequences.
+  - `animated-chart`: Data-driven animated bar charts and trajectory curves.
+  - `milestone-reveal`: Counter ticks, bold metric highlights, and impact statistics.
+  - `motion-effects`: Glow shaders, speed lines, chromatic aberration, and hyper-kinetic impact accents.
+
+---
+
 ## ⚙️ Edge Backend API Reference
 
 The AEGIS-MESH backend (`backend/`) is a high-performance **FastAPI** application exposing **15+ REST endpoints**:
@@ -799,6 +816,20 @@ NASASpaceApps2026/
 │   ├── App.tsx                          # Root layout & simulation clock loop
 │   ├── index.css                        # Theme tokens & Tailwind CSS v4 directives
 │   └── main.tsx                         # React DOM entry point
+├── .agents/                             # Agentic AI configuration & skills
+│   └── skills/                          # Autonomous skills (Swarm & Kinetic Motion)
+│       ├── swarm-coding/                # Multi-agent coordination skill
+│       ├── launch-video/                # High-energy product reveal motion skill
+│       ├── vox-explainer/               # Analytical typography motion skill
+│       ├── apple-launch-film/           # Typography-forward kinetic motion skill
+│       ├── animated-chart/              # Data-driven animated chart skill
+│       ├── milestone-reveal/            # Counter ticks and metric highlights
+│       └── motion-effects/              # Glow, speed lines, chromatic aberration
+├── motion graphics/                     # Broadcast-grade kinetic pitch presentation
+│   ├── aegis-mesh-kinetic-pitch.mp4     # Rendered 1080p 60fps kinetic pitch video
+│   ├── index.html                       # Standalone GSAP interactive motion presentation
+│   ├── fonts/                           # Archivo Black & Inter web fonts
+│   └── assets/                          # Kinetic presentation graphics & keyframes
 ├── test_ui_data_flow.mjs                # Red-Team UI stress test (69 checks)
 ├── eslint.config.js                     # ESLint 9 flat configuration
 ├── package.json                         # Node dependencies & scripts

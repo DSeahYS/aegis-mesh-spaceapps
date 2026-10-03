@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-hf-gsap-fallback>
+(function(){
+  var cdnBase="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/";
+  var loaded={};
+  function loadFallback(file){
+    if(loaded[file])return loaded[file];
+    return loaded[file]=new Promise(function(ok,fail){
+      var s=document.createElement("script");
+      s.src=cdnBase+file;s.onload=ok;s.onerror=fail;
+      document.head.appendChild(s);
+    });
+  }
+  document.addEventListener("error",function(e){
+    var t=e.target;
+    if(!t||t.tagName!=="SCRIPT"||!t.src)return;
+    var m=t.src.match(/gsap[^/]*\/dist\/(.+\.js)/);
+    if(m)loadFallback(m[1]);
+  },true);
+})();
+</script>
+<meta name="hyperframes-studio-preview">
+<base href="/api/projects/motion%20graphics/preview/"><style data-hyperframes-text-rendering="true">html,body,*{text-rendering:geometricPrecision}</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0">
+  <title>AEGIS-MESH Kinetic Pitch</title>
+  <style>
+    @font-face {
+      font-family: 'Archivo Black';
+      src: url('fonts/ArchivoBlack-400.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('fonts/Inter-700.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    html, body {
+      width: 1920px;
+      height: 1080px;
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Archivo Black', sans-serif;
+      overflow: hidden;
+    }
+
+    #stage {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      background: #000000;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      display: none;
+      transform-origin: center center;
+      padding: 0 60px;
+    }
+
+    /* Kinetic typography styles */
+    .title-huge {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 200px;
+      line-height: 0.95;
+      text-transform: uppercase;
+      text-align: center;
+      letter-spacing: -2px;
+      white-space: nowrap;
+    }
+
+    .title-massive {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 260px;
+      line-height: 0.9;
+      text-transform: uppercase;
+      text-align: center;
+      letter-spacing: -4px;
+      white-space: nowrap;
+    }
+
+    .title-block {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 140px;
+      line-height: 1.05;
+      text-transform: uppercase;
+      text-align: center;
+      letter-spacing: -1px;
+    }
+
+    .sub-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 42px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 35px;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .footer-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 25px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Color Tokens */
+    .red { color: #ff2a2a; }
+    .cyan { color: #00f0ff; }
+    .white { color: #ffffff; }
+
+    /* Helper for split-letter animations */
+    .char {
+      display: inline-block;
+      transform-origin: center center;
+    }
+  </style>
+<script data-hyperframes-preview-runtime="1" src="/api/runtime.js"></script>
+<meta name="hyperframes-project-signature" content="ad1eb080df63085fc1a1abfe">
+</head>
+<body>
+  <div data-hf-id="hf-yfzt" id="stage" data-composition-id="aegis-mesh-kinetic-pitch" data-duration="30" data-width="1920" data-height="1080" data-no-timeline="true">
+    
+    <!-- Scene 1: The Crisis (0s - 5s) -->
+    <div data-hf-id="hf-zet7" id="scene1" class="scene">
+      <div data-hf-id="hf-axfe" id="s1-number" class="title-massive red">0</div>
+      <div data-hf-id="hf-g8ff" id="s1-subtext" class="sub-text white">COLLISION MANEUVERS IN 2025.</div>
+    </div>
+
+    <!-- Scene 2A: The Speed - AT 15 KM/S (5s - 7s) -->
+    <div data-hf-id="hf-i0dt" id="scene2a" class="scene">
+      <div data-hf-id="hf-vovh" id="s2a-at" class="title-huge white" style="display:none;">AT</div>
+      <div data-hf-id="hf-tkq7" id="s2a-fifteen" class="title-massive red" style="display:none;">15</div>
+      <div data-hf-id="hf-p7ok" id="s2a-kms" class="title-huge red" style="display:none;">KM/S</div>
+    </div>
+
+    <!-- Scene 2B: 24-HOUR RADAR WARNINGS (7s - 8.5s) -->
+    <div data-hf-id="hf-lyhu" id="scene2b" class="scene">
+      <div data-hf-id="hf-tkvw" id="s2b-text" class="title-block white">
+        24-HOUR RADAR<br data-hf-id="hf-x5px">WARNINGS
+      </div>
+    </div>
+
+    <!-- Scene 2C: ARE OBSOLETE (8.5s - 10s) -->
+    <div data-hf-id="hf-pwlv" id="scene2c" class="scene">
+      <div data-hf-id="hf-cf8u" id="s2c-text" class="title-huge">
+        <span data-hf-id="hf-0o4a" class="white">ARE </span><span data-hf-id="hf-pccl" class="red">OBSOLETE.</span>
+      </div>
+    </div>
+
+    <!-- Scene 3: The Pivot - AEGIS-MESH (10s - 14s) -->
+    <div data-hf-id="hf-ril5" id="scene3" class="scene">
+      <div data-hf-id="hf-5fap" id="s3-title" class="title-huge cyan">AEGIS-MESH</div>
+      <div data-hf-id="hf-05jo" id="s3-subtext" class="sub-text white">INSTANT EDGE-AI AVOIDANCE.</div>
+    </div>
+
+    <!-- Scene 4A: 0.023 MS LATENCY (14s - 17.33s) -->
+    <div data-hf-id="hf-j7gb" id="scene4a" class="scene">
+      <div data-hf-id="hf-1op3" id="s4a-stat" class="title-huge cyan">0.023 MS</div>
+      <div data-hf-id="hf-p5ng" id="s4a-label" class="sub-text white">LATENCY</div>
+    </div>
+
+    <!-- Scene 4B: 38 KB MEMORY (17.33s - 20.66s) -->
+    <div data-hf-id="hf-8byo" id="scene4b" class="scene">
+      <div data-hf-id="hf-502q" id="s4b-stat" class="title-massive cyan">38 KB</div>
+      <div data-hf-id="hf-ya6e" id="s4b-label" class="sub-text white">MEMORY</div>
+    </div>
+
+    <!-- Scene 4C: 4.2 W ON POLARFIRE SOC (20.66s - 24s) -->
+    <div data-hf-id="hf-93mh" id="scene4c" class="scene">
+      <div data-hf-id="hf-6qbv" id="s4c-stat" class="title-huge cyan">4.2 W</div>
+      <div data-hf-id="hf-293i" id="s4c-label" class="sub-text white">ON POLARFIRE SOC</div>
+    </div>
+
+    <!-- Scene 5: The Close (24s - 30s) -->
+    <div data-hf-id="hf-kl7j" id="scene5" class="scene">
+      <div data-hf-id="hf-8oxb" id="s5-title" class="title-huge cyan">AEGIS-MESH</div>
+      <div data-hf-id="hf-mt1e" id="s5-subtitle" class="sub-text white">THE IMMUNE SYSTEM FOR LOW EARTH ORBIT.</div>
+      <div data-hf-id="hf-ixm3" id="s5-footer" class="footer-text white">NASA SPACE APPS 2026.</div>
+    </div>
+
+  </div>
+
+  
+<script>window.duration = 30;
+function clamp(val, min, max) {
+  return Math.max(min, Math.min(max, val));
+}
+function lerp(start, end, t) {
+  return start + (end - start) * t;
+}
+function power4Out(t) {
+  t = clamp(t, 0, 1);
+  return 1 - Math.pow(1 - t, 4);
+}
+function power4In(t) {
+  t = clamp(t, 0, 1);
+  return Math.pow(t, 4);
+}
+const scene1 = document.getElementById("scene1");
+const s1Number = document.getElementById("s1-number");
+const s1Subtext = document.getElementById("s1-subtext");
+const scene2a = document.getElementById("scene2a");
+const s2aAt = document.getElementById("s2a-at");
+const s2aFifteen = document.getElementById("s2a-fifteen");
+const s2aKms = document.getElementById("s2a-kms");
+const scene2b = document.getElementById("scene2b");
+const s2bText = document.getElementById("s2b-text");
+const scene2c = document.getElementById("scene2c");
+const s2cText = document.getElementById("s2c-text");
+const scene3 = document.getElementById("scene3");
+const s3Title = document.getElementById("s3-title");
+const s3Subtext = document.getElementById("s3-subtext");
+const scene4a = document.getElementById("scene4a");
+const s4aStat = document.getElementById("s4a-stat");
+const s4aLabel = document.getElementById("s4a-label");
+const scene4b = document.getElementById("scene4b");
+const s4bStat = document.getElementById("s4b-stat");
+const s4bLabel = document.getElementById("s4b-label");
+const scene4c = document.getElementById("scene4c");
+const s4cStat = document.getElementById("s4c-stat");
+const s4cLabel = document.getElementById("s4c-label");
+const scene5 = document.getElementById("scene5");
+const s5Title = document.getElementById("s5-title");
+const s5Subtitle = document.getElementById("s5-subtitle");
+const s5Footer = document.getElementById("s5-footer");
+function hideAll() {
+  const scenes = [scene1, scene2a, scene2b, scene2c, scene3, scene4a, scene4b, scene4c, scene5];
+  scenes.forEach((s) => {
+    s.style.opacity = "0";
+    s.style.visibility = "hidden";
+    s.style.transform = "none";
+  });
+}
+window.seek = function(t) {
+  hideAll();
+  if (t < 0 || t >= 30) {
+    return;
+  }
+  if (t >= 0 && t < 5) {
+    scene1.style.opacity = "1";
+    scene1.style.visibility = "visible";
+    const entryP = power4Out(t / 0.35);
+    const scaleY = lerp(0.2, 1, entryP);
+    const scaleX = lerp(1.5, 1, entryP);
+    const countProgress = power4Out((t - 0.2) / 3);
+    const currentNum = Math.floor(lerp(0, 3e5, countProgress));
+    s1Number.innerText = currentNum.toLocaleString("en-US");
+    let pulseScale = 1;
+    if (t >= 3.2) {
+      pulseScale = 1 + 0.015 * Math.sin((t - 3.2) * 12);
+    }
+    s1Number.style.transform = `scale(${scaleX * pulseScale}, ${scaleY * pulseScale})`;
+    const subP = power4Out((t - 0.6) / 0.4);
+    const subY = lerp(50, 0, subP);
+    s1Subtext.style.opacity = subP.toFixed(3);
+    s1Subtext.style.transform = `translateY(${subY}px)`;
+  } else if (t >= 5 && t < 7) {
+    scene2a.style.opacity = "1";
+    scene2a.style.visibility = "visible";
+    if (t >= 5 && t < 5.6) {
+      s2aAt.style.display = "block";
+      s2aFifteen.style.display = "none";
+      s2aKms.style.display = "none";
+      const p = power4Out((t - 5) / 0.25);
+      const s = lerp(2.2, 1, p);
+      s2aAt.style.transform = `scale(${s})`;
+      s2aAt.style.opacity = p.toFixed(3);
+    } else if (t >= 5.6 && t < 6.2) {
+      s2aAt.style.display = "none";
+      s2aFifteen.style.display = "block";
+      s2aKms.style.display = "none";
+      const p = power4Out((t - 5.6) / 0.25);
+      const sy = lerp(2.8, 1, p);
+      const sx = lerp(0.3, 1, p);
+      s2aFifteen.style.transform = `scale(${sx}, ${sy})`;
+      s2aFifteen.style.opacity = p.toFixed(3);
+    } else {
+      s2aAt.style.display = "none";
+      s2aFifteen.style.display = "none";
+      s2aKms.style.display = "block";
+      const p = power4Out((t - 6.2) / 0.25);
+      const s = lerp(1.8, 1, p);
+      s2aKms.style.transform = `scale(${s})`;
+      s2aKms.style.opacity = p.toFixed(3);
+    }
+  } else if (t >= 7 && t < 8.5) {
+    scene2b.style.opacity = "1";
+    scene2b.style.visibility = "visible";
+    const p = power4Out((t - 7) / 0.3);
+    const s = lerp(2, 1, p);
+    const rot = lerp(-4, 0, p);
+    s2bText.style.transform = `scale(${s}) rotate(${rot}deg)`;
+    s2bText.style.opacity = p.toFixed(3);
+  } else if (t >= 8.5 && t < 10) {
+    scene2c.style.opacity = "1";
+    scene2c.style.visibility = "visible";
+    const p = power4Out((t - 8.5) / 0.3);
+    const sy = lerp(0.2, 1, p);
+    const sx = lerp(1.6, 1, p);
+    s2cText.style.transform = `scale(${sx}, ${sy})`;
+    s2cText.style.opacity = p.toFixed(3);
+  } else if (t >= 10 && t < 14) {
+    scene3.style.opacity = "1";
+    scene3.style.visibility = "visible";
+    const p = power4Out((t - 10) / 0.35);
+    const s = lerp(2.4, 1, p);
+    const letterSpacing = lerp(40, -2, p);
+    s3Title.style.transform = `scale(${s})`;
+    s3Title.style.letterSpacing = `${letterSpacing}px`;
+    s3Title.style.opacity = p.toFixed(3);
+    const subP = power4Out((t - 10.4) / 0.4);
+    const subY = lerp(60, 0, subP);
+    s3Subtext.style.opacity = subP.toFixed(3);
+    s3Subtext.style.transform = `translateY(${subY}px)`;
+  } else if (t >= 14 && t < 17.333) {
+    scene4a.style.opacity = "1";
+    scene4a.style.visibility = "visible";
+    let translateX = 0;
+    let opacity = 1;
+    if (t < 14.35) {
+      const p = power4Out((t - 14) / 0.35);
+      translateX = lerp(-1200, 0, p);
+      opacity = p;
+    } else if (t >= 17) {
+      const p = power4In((t - 17) / 0.333);
+      translateX = lerp(0, 1200, p);
+      opacity = 1 - p;
+    }
+    scene4a.style.transform = `translateX(${translateX}px)`;
+    scene4a.style.opacity = opacity.toFixed(3);
+  } else if (t >= 17.333 && t < 20.666) {
+    scene4b.style.opacity = "1";
+    scene4b.style.visibility = "visible";
+    let scale = 1;
+    let opacity = 1;
+    if (t < 17.683) {
+      const p = power4Out((t - 17.333) / 0.35);
+      scale = lerp(2.8, 1, p);
+      opacity = p;
+    } else if (t >= 20.333) {
+      const p = power4In((t - 20.333) / 0.333);
+      scale = lerp(1, 0.1, p);
+      opacity = 1 - p;
+    }
+    scene4b.style.transform = `scale(${scale})`;
+    scene4b.style.opacity = opacity.toFixed(3);
+  } else if (t >= 20.666 && t < 24) {
+    scene4c.style.opacity = "1";
+    scene4c.style.visibility = "visible";
+    let translateY = 0;
+    let opacity = 1;
+    if (t < 21.016) {
+      const p = power4Out((t - 20.666) / 0.35);
+      translateY = lerp(800, 0, p);
+      opacity = p;
+    } else if (t >= 23.666) {
+      const p = power4In((t - 23.666) / 0.334);
+      translateY = lerp(0, -800, p);
+      opacity = 1 - p;
+    }
+    scene4c.style.transform = `translateY(${translateY}px)`;
+    scene4c.style.opacity = opacity.toFixed(3);
+  } else if (t >= 24 && t < 30) {
+    scene5.style.opacity = "1";
+    scene5.style.visibility = "visible";
+    if (t >= 29.95) {
+      scene5.style.opacity = "0";
+      scene5.style.visibility = "hidden";
+      return;
+    }
+    const p = power4Out((t - 24) / 0.35);
+    const s = lerp(1.8, 1, p);
+    s5Title.style.transform = `scale(${s})`;
+    s5Title.style.opacity = p.toFixed(3);
+    const subP = power4Out((t - 24.3) / 0.4);
+    const subY = lerp(40, 0, subP);
+    s5Subtitle.style.opacity = subP.toFixed(3);
+    s5Subtitle.style.transform = `translateY(${subY}px)`;
+    const footP = power4Out((t - 24.6) / 0.4);
+    const footY = lerp(30, 0, footP);
+    s5Footer.style.opacity = (footP * 0.85).toFixed(3);
+    s5Footer.style.transform = `translateY(${footY}px)`;
+  }
+};
+window.seek(0);</script></body>
+</html>
