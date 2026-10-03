@@ -42,6 +42,7 @@ __pycache__/
 *.pyd
 venv/
 .venv/
+.pytest_cache/
 
 # IDE & Antigravity internal runtime
 .antigravity/
