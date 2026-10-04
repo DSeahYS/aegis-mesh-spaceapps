@@ -12,6 +12,8 @@
 
 > **One-sentence pitch:** AEGIS-MESH pushes collision assessment and evasion planning from ground stations to the satellite's own edge processor, cutting the decision loop from hours to sub-second—demonstrated with a verified Foster Pc engine, a physics rule pipeline, and a live 3D visualization.
 
+🚀 **[Are you a judge looking for the hardcore math and architecture? Read the Super Detailed README (Nerd's Guide) here!](README_DETAILED.md)**
+
 <!-- TODO: Replace with a demo GIF or 30-second video link -->
 <!-- ![Demo](docs/images/screenshot.png) -->
 
@@ -41,7 +43,7 @@ Space debris is the #1 long-term threat to sustainable LEO operations. Ground-ba
 > We distinguish clearly between implemented/verified components and conceptual demonstrations.
 
 | Component | Status | Notes |
-|-----------|--------|-------|
+| ----------- | -------- | ------- |
 | **Foster Pc (CARA method)** | ✅ Implemented & verified | Gauss–Legendre quadrature, checked vs. Rician closed-form and 400k Monte Carlo |
 | **SGP4 propagation** | ✅ Implemented & verified | Checked against Vallado reference cases (AIAA 2006-6753) |
 | **CDM parsing & validation** | ✅ Implemented | CCSDS 508.0-B-1 / ISO 19389 structural validator |
@@ -90,7 +92,7 @@ flowchart LR
 ## NASA Data & Standards Used
 
 | Source | How Used | Implementation |
-|--------|----------|----------------|
+| -------- | ---------- | ---------------- |
 | **Celestrak / Space-Track TLEs** | Live debris catalog for 3D globe; conjunction screening | `backend/app/tle_client.py`, `backend/fetch_real_debris.py` |
 | **CARA Pc Method** | Reimplementation of Foster & Estes (1992) probability of collision | `backend/app/cara_engine.py` (NOT the NASA CARA SDK — our own reimplementation) |
 | **CCSDS 508.0-B-1** | CDM parsing and structural validation | `backend/app/cdm_parser.py`, `backend/app/vv/cdm_validator.py` |
@@ -105,9 +107,10 @@ flowchart LR
 ## Quickstart
 
 ### Prerequisites
+
 - **Node.js** v22.6+ (for `--experimental-strip-types` in test script)
 - **Python** 3.10+
-- **Docker** *(optional)* for resource-constrained container testing
+- **Docker** _(optional)_ for resource-constrained container testing
 
 ### 1. Clone & Install
 
@@ -163,7 +166,7 @@ docker compose up --build
 The V&V Proof tab in the UI runs live backend tests judges can verify:
 
 | Test | What it Checks | Tolerance |
-|------|----------------|-----------|
+| ------ | ---------------- | ----------- |
 | `PC-RICIAN-EXACT` | Foster Pc vs. Rician analytical oracle | < 10⁻⁶ relative |
 | `PC-MONTE-CARLO` | Foster Pc vs. 400k Monte Carlo | < 4σ_MC |
 | `SGP4-VALLADO-T0/T360` | SGP4 vs. Vallado reference | < 10⁻⁵ km |
@@ -251,16 +254,16 @@ These items are **proposed concepts, not implemented features:**
 
 ## References
 
-1. Department of Commerce / Office of Space Commerce (OSC): *TraCSS CDM Specification*, 2024. [space.commerce.gov](https://space.commerce.gov/tracss-listening-session-conjunction-data-message-cdm-specification/)
-2. NASA GSFC: *Spacecraft Conjunction Assessment and Collision Avoidance Best Practices Handbook*, NASA/SP-20205001302. [nodis3.gsfc.nasa.gov](https://nodis3.gsfc.nasa.gov/OCE_docs/OCE_51.pdf)
-3. Foster, J. L., & Estes, H. S.: *A Parametric Analysis of Orbital Debris Collision Probability and Maneuver Rate for Space Vehicles*, NASA/JSC-25898, 1992.
-4. Hall, D. T.: *Implementation Recommendations for 2D Pc Estimates in CARA Tools*, NASA GSFC, 2019. [NASA NTRS](https://ntrs.nasa.gov/api/citations/20190028904/downloads/20190028904.pdf)
-5. NASA ODPO: *Orbital Debris Engineering Model (ORDEM 3.2)*, 2023.
-6. Ames, A. D. et al.: *Control Barrier Functions: Theory and Applications*, IEEE ECC, 2019. [IEEE Xplore](https://ieeexplore.ieee.org/document/8796030)
-7. Mitchell, I. M. et al.: *A Time-Dependent Hamilton-Jacobi Formulation of Reachable Sets*, IEEE TAC, 50(7), 2005. [IEEE Xplore](https://ieeexplore.ieee.org/document/1453531)
-8. Vallado, D. A. et al.: *Revisiting Spacetrack Report #3: Rev 2*, AIAA 2006-6753, 2006.
-9. CCSDS: *Conjunction Data Message*, CCSDS 508.0-B-1 / ISO 19389, 2013.
-10. Ant Group & OpenKG: *EPG*, 2024. [github.com/EPG/epg](https://github.com/EPG/epg) — Our physics rule graph is inspired by the EPG paradigm but does not use the EPG engine.
+1. Department of Commerce / Office of Space Commerce (OSC): _TraCSS CDM Specification_, 2024. [space.commerce.gov](https://space.commerce.gov/tracss-listening-session-conjunction-data-message-cdm-specification/)
+2. NASA GSFC: _Spacecraft Conjunction Assessment and Collision Avoidance Best Practices Handbook_, NASA/SP-20205001302. [nodis3.gsfc.nasa.gov](https://nodis3.gsfc.nasa.gov/OCE_docs/OCE_51.pdf)
+3. Foster, J. L., & Estes, H. S.: _A Parametric Analysis of Orbital Debris Collision Probability and Maneuver Rate for Space Vehicles_, NASA/JSC-25898, 1992.
+4. Hall, D. T.: _Implementation Recommendations for 2D Pc Estimates in CARA Tools_, NASA GSFC, 2019. [NASA NTRS](https://ntrs.nasa.gov/api/citations/20190028904/downloads/20190028904.pdf)
+5. NASA ODPO: _Orbital Debris Engineering Model (ORDEM 3.2)_, 2023.
+6. Ames, A. D. et al.: _Control Barrier Functions: Theory and Applications_, IEEE ECC, 2019. [IEEE Xplore](https://ieeexplore.ieee.org/document/8796030)
+7. Mitchell, I. M. et al.: _A Time-Dependent Hamilton-Jacobi Formulation of Reachable Sets_, IEEE TAC, 50(7), 2005. [IEEE Xplore](https://ieeexplore.ieee.org/document/1453531)
+8. Vallado, D. A. et al.: _Revisiting Spacetrack Report #3: Rev 2_, AIAA 2006-6753, 2006.
+9. CCSDS: _Conjunction Data Message_, CCSDS 508.0-B-1 / ISO 19389, 2013.
+10. Ant Group & OpenKG: _OpenSPG_, 2024. [github.com/OpenSPG/openspg](https://github.com/OpenSPG/openspg) — Our physics rule graph is inspired by the OpenSPG paradigm but implemented locally as Edge Physics Graph (EPG) without external dependencies.
 
 ---
 
