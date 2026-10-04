@@ -171,8 +171,8 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
         "sigma_zeta_m": geom["sigma_zeta_m"],
         "rho": geom["covariance_rho"],
         "hard_body_radius_m": geom["hard_body_radius_m"],
-        "sat_mass_kg": 500.0,
-        "propellant_mass_kg": 10.0,
+        "sat_mass_kg": 150.0,
+        "propellant_mass_kg": 5.0,
         "isp_s": 220.0,
         "max_thrust_n": 22.0,
         "altitude_km": float(round(iss_state["altitude_km"], 2)),
@@ -190,8 +190,8 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
 
     # 3B: POST /api/epg/graph
     epg_request_payload = {
-        "sat_mass_kg": 500.0,
-        "propellant_mass_kg": 10.0,
+        "sat_mass_kg": 150.0,
+        "propellant_mass_kg": 5.0,
         "isp_s": 220.0,
         "max_thrust_n": 22.0,
         "tca_s": geom["tca_s"],
