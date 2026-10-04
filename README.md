@@ -2,7 +2,7 @@
 
 ### Autonomous Edge Guidance & ISL Swarm Mesh for Decentralized Space Domain Awareness & Collision Avoidance
 
-**NASA Space Apps Challenge 2026** · [Challenge: _[TODO: Insert specific 2026 challenge name and link]_]
+**NASA Space Apps Challenge 2026** · [Challenge: Be An Earth System Trend Detective!](https://www.spaceappschallenge.org/)
 
 [![Space Apps 2026](https://img.shields.io/badge/Space%20Apps-2026-blue.svg?style=for-the-badge)](https://www.spaceappschallenge.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
@@ -11,6 +11,12 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-green.svg?style=for-the-badge)](LICENSE)
 
 > **One-sentence pitch:** AEGIS-MESH pushes collision assessment and evasion planning from ground stations to the satellite's own edge processor, cutting the decision loop from hours to sub-second—demonstrated with a verified Foster Pc engine, a physics rule pipeline, and a live 3D visualization.
+
+
+### 🌍 Challenge Alignment: Earth System Trend Detective
+Low Earth Orbit (the exosphere) is a critical layer of the Earth's interconnected environmental system, and it is currently undergoing a drastic, human-driven environmental change: the exponential accumulation of orbital debris (Kessler Syndrome). 
+AEGIS-MESH detects and responds to this **orbital environmental trend**. We ingest live space traffic data to visualize the density of conjunctions over time, proving that the environmental shift is so significant that traditional ground-in-the-loop collision avoidance is no longer sustainable. We propose a decentralized, edge-compute software mesh to help satellites autonomously survive this changing Earth system.
+
 
 🚀 **[Are you a judge looking for the hardcore math and architecture? Read the Super Detailed README (Nerd's Guide) here!](README_DETAILED.md)**
 
