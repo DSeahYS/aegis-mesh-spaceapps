@@ -1,3 +1,15 @@
+"""
+Edge Retrieval Engine — Maneuver-Retrieval Prototype (Untrained)
+
+This module implements a seeded-random codebook and MLP for maneuver candidate
+retrieval via dot-product similarity search. The weights are initialized from a
+deterministic PRNG seed (not trained via InfoNCE or any loss function).
+
+In a production system, this codebook would be trained on astrodynamically valid
+escape trajectories using contrastive learning (InfoNCE loss). The current
+implementation demonstrates the retrieval architecture and API only.
+"""
+
 import numpy as np
 
 def mulberry32(seed: int):
@@ -116,17 +128,21 @@ class CLMEngine:
         
         return l2_normalize(z)
 
-    def infer(self, telemetry: list):
+    def _encode_state(self, telemetry: list) -> np.ndarray:
         if len(telemetry) == self.embedding_dim:
-            state_vector = l2_normalize(np.array(telemetry))
+            return l2_normalize(np.array(telemetry))
         elif len(telemetry) == 4:
-            state_vector = self.encode_state(telemetry)
+            return self.encode_state(telemetry)
         elif len(telemetry) < self.embedding_dim:
+            # Placeholder: zero-padding raw telemetry into 16-D space is a temporary placeholder
+            # for when full state embeddings are unavailable.
             padded = list(telemetry) + [0] * (self.embedding_dim - len(telemetry))
-            state_vector = l2_normalize(np.array(padded))
+            return l2_normalize(np.array(padded))
         else:
-            state_vector = l2_normalize(np.array(telemetry[:self.embedding_dim]))
+            return l2_normalize(np.array(telemetry[:self.embedding_dim]))
 
+    def infer(self, telemetry: list):
+        state_vector = self._encode_state(telemetry)
         dots = np.dot(self.action_codebook, state_vector)
         logits = dots / self.temperature
         
@@ -154,16 +170,7 @@ class CLMEngine:
         Returns:
             list of dicts with keys: rank, id, label, category, delta_v_mps, direction_rtn, confidence, score.
         """
-        if len(telemetry) == self.embedding_dim:
-            state_vector = l2_normalize(np.array(telemetry))
-        elif len(telemetry) == 4:
-            state_vector = self.encode_state(telemetry)
-        elif len(telemetry) < self.embedding_dim:
-            padded = list(telemetry) + [0] * (self.embedding_dim - len(telemetry))
-            state_vector = l2_normalize(np.array(padded))
-        else:
-            state_vector = l2_normalize(np.array(telemetry[:self.embedding_dim]))
-
+        state_vector = self._encode_state(telemetry)
         dots = np.dot(self.action_codebook, state_vector)
         logits = dots / self.temperature
 

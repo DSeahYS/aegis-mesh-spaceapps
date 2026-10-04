@@ -422,10 +422,10 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
           <div className="flex items-center gap-2">
             <span className="text-xs px-2.5 py-0.5 rounded bg-amber-950/70 text-amber-300 border border-amber-500/30 uppercase font-bold flex items-center gap-1.5">
               <Network className="w-3.5 h-3.5 text-amber-400" />
-              OPENSPG NEURO-SYMBOLIC REASONING
+              SYMBOLIC PHYSICS RULE GRAPH
             </span>
             <span className="text-xs text-zinc-500">•</span>
-            <span className="text-xs text-zinc-400">SEMANTIC-ENHANCED PROGRAMMABLE GRAPH</span>
+            <span className="text-xs text-zinc-400">OPENSPG-INSPIRED ASTRODYNAMIC REASONING</span>
             <span className="text-xs text-zinc-500">•</span>
             <span className="text-[10px] text-blue-400 bg-zinc-950/40 px-2 py-0.5 rounded border border-cyan-500/20">
               ZERO PHYSICAL HALLUCINATIONS
@@ -444,11 +444,11 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
 
           <h2 className="text-xl font-bold text-white mt-1.5 flex items-center gap-2.5">
             <BrainCircuit className="w-6 h-6 text-purple-400 shrink-0" />
-            <span>OpenSPG Knowledge Graph: Neuro-Symbolic Logic</span>
+            <span>Symbolic Physics Rule Graph: Neuro-Symbolic Logic</span>
           </h2>
 
           <p className="text-xs text-zinc-400 mt-1 max-w-4xl font-sans leading-relaxed">
-            <span className="text-zinc-300 font-semibold">How it works:</span> Stanford Continuous Logic Models (CLM) propose candidate collision avoidance maneuvers based on continuous telemetry embeddings (<span className="text-blue-300 font-mono">proposes</span>). OpenSPG evaluates every candidate against symbolic astrodynamic invariance laws (<span className="text-purple-300 font-mono">evaluates_against</span>): Tsiolkovsky propellant mass budgets and Vis-viva minimum safe perigee. Any violation immediately prunes the candidate (<span className="text-alert-red font-mono">violates</span>), ensuring execution occurs only when all constraints hold (<span className="text-cyber-green font-mono">satisfies</span>).
+            <span className="text-zinc-300 font-semibold">How it works:</span> Edge Retrieval Models (CLM) propose candidate collision avoidance maneuvers based on continuous telemetry embeddings (<span className="text-blue-300 font-mono">proposes</span>). The Symbolic Physics Rule Graph (OpenSPG-inspired) evaluates every candidate against symbolic astrodynamic invariance laws (<span className="text-purple-300 font-mono">evaluates_against</span>): Tsiolkovsky propellant mass budgets and Vis-viva minimum safe perigee. Any violation immediately prunes the candidate (<span className="text-alert-red font-mono">violates</span>), ensuring execution occurs only when all constraints hold (<span className="text-cyber-green font-mono">satisfies</span>).
           </p>
         </div>
 
@@ -1010,7 +1010,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                     CLM Candidate
                   </h3>
                   <div className="text-[10px] text-zinc-400 font-sans truncate">
-                    Stanford Continuous Logic Model
+                    Edge Retrieval Model
                   </div>
 
                   <div className="mt-3 space-y-1.5 text-xs font-mono border-t border-space-700/80 pt-2.5">
@@ -1359,7 +1359,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                     </div>
                     <div className="text-purple-300">Latency: ~0.15 ms encoder pass</div>
                     <div className="text-zinc-400 text-[11px] font-sans">
-                      Continuous values normalized into latent prompt vector z ∈ ℝᵈ for the Stanford CLM.
+                      Continuous values normalized into latent prompt vector z ∈ ℝᵈ for the Edge Retrieval Model.
                     </div>
                   </div>
 
@@ -1528,7 +1528,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                       PROVENANCE METADATA
                     </div>
                     <div className="text-zinc-300 text-[10px] bg-zinc-950 p-2 rounded border border-zinc-800">
-                      <div>Protocol: OpenSPG / KGDSL v2.1</div>
+                      <div>Protocol: Symbolic Physics Rule Graph (OpenSPG-inspired) / KGDSL</div>
                       <div>Deterministic: 100% formal replayable</div>
                     </div>
                   </div>
@@ -1546,7 +1546,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
               <span className="text-purple-300 font-bold flex items-center gap-2">
                 <Code2 className="w-4 h-4" />
-                OpenSPG Semantic Schema &amp; Declarative Rule Graph (KGDSL)
+                Symbolic Physics Rule Graph Schema &amp; Declarative Rules (OpenSPG-inspired KGDSL)
               </span>
               <span className="text-[10px] text-zinc-400">
                 ACTIVE SCENARIO: {currentScenario.name}
@@ -1555,7 +1555,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
 
             <pre className="text-zinc-300 overflow-x-auto text-[11px] leading-relaxed p-2 bg-zinc-900/60 rounded border border-zinc-800 font-mono">
 {`// -------------------------------------------------------------
-// OpenSPG SPG-Schema Ontology Definition
+// Symbolic Physics Rule Graph (OpenSPG-inspired) Ontology Definition
 // -------------------------------------------------------------
 EntityType SpacecraftEncounterState {
     altitude_km: Float
@@ -1593,7 +1593,7 @@ ConstraintRule Rule_Perigee(cand: ManeuverCandidate, state: SpacecraftEncounterS
     altitude_km: ${telemetry.altitudeKm.toFixed(1)},
     tca_seconds: ${telemetry.tcaS.toFixed(1)},
     propellant_mass_kg: ${telemetry.propMassKg.toFixed(1)}
-})-[:proposes {latency: "1.2ms", model: "Stanford-CLM"}]->(Candidate:ManeuverCandidate {
+})-[:proposes {latency: "1.2ms", model: "Edge-Retrieval-Model"}]->(Candidate:ManeuverCandidate {
     label: "${currentScenario.name.split(':')[1]?.trim() || currentScenario.name}",
     delta_v_mps: ${currentScenario.deltaV.toFixed(2)},
     direction_rtn: [${currentScenario.directionRTN.join(', ')}]
@@ -1651,9 +1651,9 @@ ConstraintRule Rule_Perigee(cand: ManeuverCandidate, state: SpacecraftEncounterS
                   2
                 </div>
                 <div>
-                  <div className="font-bold text-purple-300">NEURAL CANDIDATE PROPOSAL (STANFORD CLM)</div>
+                  <div className="font-bold text-purple-300">NEURAL CANDIDATE PROPOSAL (EDGE RETRIEVAL MODEL)</div>
                   <p className="text-[11px] text-zinc-300 font-sans mt-0.5">
-                    Continuous logic model evaluated codebook centroids in 1.2 ms. Proposed maneuver <span className="font-mono text-white font-bold">{currentScenario.name}</span> with Δv = {currentScenario.deltaV.toFixed(2)} m/s (Confidence: {(currentScenario.confidence * 100).toFixed(1)}%).
+                    Edge Retrieval Model evaluated codebook centroids in 1.2 ms. Proposed maneuver <span className="font-mono text-white font-bold">{currentScenario.name}</span> with Δv = {currentScenario.deltaV.toFixed(2)} m/s (Confidence: {(currentScenario.confidence * 100).toFixed(1)}%).
                   </p>
                 </div>
               </div>

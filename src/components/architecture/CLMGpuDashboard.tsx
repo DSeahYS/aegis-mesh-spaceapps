@@ -96,7 +96,7 @@ const INITIAL_LOGS: LogEntry[] = [
     id: 'log-1',
     timestamp: '14:02:40.115',
     level: 'INFO',
-    message: 'Loaded weights: Stanford CLM (dim=16, codebook=256x16, fp16 -> int8 quant)',
+    message: 'Loaded weights: AEGIS-MESH CLM (dim=16, codebook=256x16, fp16 -> int8 quant)',
   },
   {
     id: 'log-2',
@@ -282,6 +282,10 @@ export const CLMGpuDashboard: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col space-y-6">
+      <div className="bg-yellow-500/20 border border-yellow-500/50 text-yellow-300 px-4 py-2 rounded mb-4 text-center font-bold text-sm">
+        ⚠️ SIMULATED / ILLUSTRATIVE — These metrics are generated for demonstration purposes only
+      </div>
+
       {/* ─────────────────────────────────────────────────────────────
           1. HEADER: CLM Edge Hardware Telemetry (Nsight-Style)
       ─────────────────────────────────────────────────────────────── */}
@@ -305,7 +309,7 @@ export const CLMGpuDashboard: React.FC = () => {
                 </span>
               </div>
               <p className="text-xs text-zinc-400 font-mono mt-1">
-                Real-time Hardware Profiler | Stanford Contrastive Learning Model (InfoNCE INT8 Engine)
+                Real-time Hardware Profiler | AEGIS-MESH Edge Retrieval Model (InfoNCE INT8 Engine)
               </p>
             </div>
           </div>
@@ -460,15 +464,15 @@ export const CLMGpuDashboard: React.FC = () => {
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Zap className="w-3.5 h-3.5 text-amber-400" />
-                Power Draw
+                Power Draw (Simulated)
               </span>
               <span className="text-[10px] font-mono text-zinc-400 bg-zinc-900 px-1.5 py-0.5 rounded border border-space-700">
-                TDP: 25.0 W
+                TDP: 25.0 W (Simulated)
               </span>
             </div>
             <div className="mt-3 flex items-baseline gap-2 font-mono">
               <span className="text-2xl font-bold text-zinc-100">{powerDraw}</span>
-              <span className="text-xs text-zinc-400">Watts</span>
+              <span className="text-xs text-zinc-400">Watts (Simulated)</span>
             </div>
 
             {/* Gauge bar */}
@@ -482,7 +486,7 @@ export const CLMGpuDashboard: React.FC = () => {
 
           <div className="mt-4 pt-3 border-t border-space-700/40 text-[11px] font-mono text-zinc-400 space-y-1">
             <div className="flex justify-between">
-              <span>Core Rails (0.85V):</span>
+              <span>Core Rails (0.85V, Simulated):</span>
               <span className="text-zinc-200">10.8 W</span>
             </div>
             <div className="flex justify-between">
@@ -722,29 +726,29 @@ export const CLMGpuDashboard: React.FC = () => {
           Right: Collision Avoidance Success Rate Area Chart
       ─────────────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {/* Contrastive Loss Convergence */}
+        {/* Contrastive Loss Convergence (Simulated) */}
         <div className="bg-space-800 border border-space-700/60 rounded-sm p-5 shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-space-700/60">
               <div>
                 <h3 className="text-sm font-semibold font-mono text-zinc-100 uppercase tracking-wider flex items-center gap-2">
                   <Layers className="w-4 h-4 text-cyber-blue" />
-                  Contrastive Loss Convergence
+                  InfoNCE Loss Convergence (Simulated)
                 </h3>
                 <p className="text-xs text-zinc-400 font-mono mt-0.5">
-                  InfoNCE Objective (τ = 0.07, Batch = 1024, Steps = 0 to 1M)
+                  Simulated InfoNCE Objective (τ = 0.07, Batch = 1024, Steps = 0 to 1M)
                 </p>
               </div>
 
               <div className="text-right font-mono">
-                <span className="text-xs text-zinc-400">Final Loss: </span>
+                <span className="text-xs text-zinc-400">Final Loss (Simulated): </span>
                 <span className="text-xs font-bold text-emerald-500">0.089</span>
               </div>
             </div>
 
             {/* Formula snippet */}
             <div className="my-3 px-3 py-2 rounded bg-zinc-900 border border-space-700/60 flex items-center justify-between text-xs font-mono text-zinc-300">
-              <span className="text-zinc-400">Objective:</span>
+              <span className="text-zinc-400">Objective (Simulated):</span>
               <span className="text-cyber-blue font-semibold">
                 L_InfoNCE = -log [ exp(sim(z_s, z_a)/τ) / Σ exp(sim(z_s, z_j)/τ) ]
               </span>
@@ -778,10 +782,10 @@ export const CLMGpuDashboard: React.FC = () => {
                           <div className="bg-zinc-900 border border-space-600 p-2.5 rounded shadow-xl text-xs font-mono text-zinc-200">
                             <div className="font-bold text-zinc-400 mb-1">Step: {label}</div>
                             <div className="text-cyber-blue">
-                              Train Loss: <span className="font-bold">{payload[0]?.value}</span>
+                              Train Loss (Simulated): <span className="font-bold">{payload[0]?.value}</span>
                             </div>
                             <div className="text-purple-400">
-                              Val Loss: <span className="font-bold">{payload[1]?.value}</span>
+                              Val Loss (Simulated): <span className="font-bold">{payload[1]?.value}</span>
                             </div>
                           </div>
                         );
@@ -791,7 +795,7 @@ export const CLMGpuDashboard: React.FC = () => {
                   />
                   <Line
                     type="monotone"
-                    name="Train InfoNCE Loss"
+                    name="Train InfoNCE Loss (Simulated)"
                     dataKey="trainLoss"
                     stroke="#3b82f6"
                     strokeWidth={2}
@@ -800,7 +804,7 @@ export const CLMGpuDashboard: React.FC = () => {
                   />
                   <Line
                     type="monotone"
-                    name="Val InfoNCE Loss"
+                    name="Val InfoNCE Loss (Simulated)"
                     dataKey="valLoss"
                     stroke="#8b5cf6"
                     strokeWidth={1.5}
@@ -813,15 +817,15 @@ export const CLMGpuDashboard: React.FC = () => {
           </div>
 
           <div className="mt-3 pt-3 border-t border-space-700/40 flex items-center justify-between text-xs font-mono text-zinc-400">
-            <span>Rapid convergence at ~350k steps</span>
+            <span>Simulated convergence curve (~350k steps)</span>
             <div className="flex items-center space-x-3 text-[11px]">
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-0.5 bg-cyber-blue inline-block" />
-                Train Loss
+                Train Loss (Simulated)
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-0.5 bg-accent-purple inline-block" />
-                Validation Loss
+                Validation Loss (Simulated)
               </span>
             </div>
           </div>

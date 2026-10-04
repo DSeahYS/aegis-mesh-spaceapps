@@ -47,9 +47,12 @@ class TestSpiceKernelManager:
             assert (tmp_path / "sample_sat.bsp").exists()
 
     def test_kernel_pool_status_and_loading(self, simulator):
+        if not SPICE_AVAILABLE:
+            pytest.skip("SpiceyPy not available")
         status = simulator.kernel_manager.get_status()
         assert status.spice_available is True
         assert "CSPICE" in status.toolkit_version
+        assert status.loaded_kernels_count >= 1
         assert status.loaded_kernels_count >= 1
 
 
@@ -58,6 +61,8 @@ class TestSpiceStateVectorQueries:
 
     def test_spkezr_query_mock_satellite(self, simulator):
         """Querying known satellite -999001 in loaded SPK should return spice_kernel."""
+        if not SPICE_AVAILABLE:
+            pytest.skip("SpiceyPy not available")
         state = simulator.get_state_vector(
             target_body="-999001",
             epoch_iso_or_et="2026-10-03T12:00:00Z",
@@ -235,8 +240,11 @@ class TestFastApiSpiceEndpoints:
         resp = client.get("/api/spice/status")
         assert resp.status_code == 200
         data = resp.json()
-        assert data["spice_available"] is True
-        assert data["loaded_kernels_count"] >= 1
+        if SPICE_AVAILABLE:
+            assert data["spice_available"] is True
+            assert data["loaded_kernels_count"] >= 1
+        else:
+            assert data["spice_available"] is False
 
     def test_get_spice_state_endpoint(self):
         resp = client.get("/api/spice/state?target=-999001")

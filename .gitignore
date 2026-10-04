@@ -47,6 +47,18 @@ venv/
 # IDE & Antigravity internal runtime
 .antigravity/
 
+# Antigravity config
+.antigravityrc
+
+# Generated outputs
+backend/simulators/power_profile_90min.csv
+backend/simulators/power_profile_90min.png
+backend/simulators/tegra_power_profile.csv
+backend/simulators/tegra_power_report.json
+backend/tests/live_nasa_e2e_report.json
+*.tsbuildinfo
+
 # Temporary migration & search scripts
 apply_hud.py
 find_*.py
+

@@ -8,7 +8,7 @@ const VIEW_TITLES: Record<string, string> = {
   conjunction: 'Conjunction Assessment',
   mesh: 'Mesh Network & ISL',
   architecture: 'System Architecture',
-  'clm-lab': 'Stanford CLM Lab',
+  'clm-lab': 'AEGIS-MESH',
   'clm-gpu': 'GPU Inference Proof',
   backend: 'Backend Console',
   verification: 'V&V Proof & Math Engine',

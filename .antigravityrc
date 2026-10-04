@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "auto_approve_edits": true,
-    "auto_approve_commands": true,
-    "require_confirmation": false
-  }
-}

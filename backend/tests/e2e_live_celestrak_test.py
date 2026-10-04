@@ -31,11 +31,12 @@ BACKEND_DIR = Path(__file__).resolve().parent.parent
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
 
-from live_nasa_telemetry import fetch_live_iss_state
+import tempfile
+from live_celestrak_telemetry import fetch_live_iss_state
 from app.main import app
 from app.cara_engine import CARAEngine
 
-REPORT_FILE = Path(__file__).resolve().parent / "live_nasa_e2e_report.json"
+REPORT_FILE = Path(tempfile.gettempdir()) / "live_nasa_e2e_report.json"
 
 
 def construct_mock_asat_conjunction(iss_state: Dict[str, Any]) -> Dict[str, Any]:
@@ -170,8 +171,8 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
         "sigma_zeta_m": geom["sigma_zeta_m"],
         "rho": geom["covariance_rho"],
         "hard_body_radius_m": geom["hard_body_radius_m"],
-        "sat_mass_kg": 150.0,
-        "propellant_mass_kg": 2.5,
+        "sat_mass_kg": 500.0,
+        "propellant_mass_kg": 10.0,
         "isp_s": 220.0,
         "max_thrust_n": 22.0,
         "altitude_km": float(round(iss_state["altitude_km"], 2)),
@@ -189,8 +190,8 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
 
     # 3B: POST /api/openspg/graph
     openspg_request_payload = {
-        "sat_mass_kg": 150.0,
-        "propellant_mass_kg": 2.5,
+        "sat_mass_kg": 500.0,
+        "propellant_mass_kg": 10.0,
         "isp_s": 220.0,
         "max_thrust_n": 22.0,
         "tca_s": geom["tca_s"],
@@ -306,8 +307,9 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
 
 
 # Pytest test discovery entry points
+@pytest.mark.network
 def test_e2e_live_nasa_conjunction_and_report():
-    """Pytest test case verifying live NASA ISS telemetry pipeline execution."""
+    """Pytest test case verifying live Celestrak telemetry pipeline execution."""
     report = execute_live_nasa_e2e_pipeline()
     assert report["test_status"] == "PASSED"
     assert REPORT_FILE.exists()

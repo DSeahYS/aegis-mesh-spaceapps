@@ -4,6 +4,9 @@ Relative degree 2 formulation with disturbance robustness:
 h(p) = p^T M p - k^2
 h_ddot + (alpha1 + alpha2)*h_dot + alpha1*alpha2*h >= 0
 Robust constraint: a^T u >= b, a = 2Mp, b = -2 p_dot^T M p_dot - (alpha1+alpha2)*h_dot - alpha1*alpha2*h + ||a||*d_max.
+
+Enforces safety envelope via closed-form projection (equivalent to QP for single constraint).
+Safety certificate evaluates forward invariance check (simulation-verified, not formally proven due to thrust clipping).
 """
 
 import numpy as np
@@ -90,6 +93,7 @@ def run_cbf_simulation(
                 + norm_a * d_max
             )
 
+            # Closed-form projection (equivalent to QP for single constraint)
             a_dot_u = float(np.dot(a, u_nom))
             if a_dot_u >= b:
                 u = u_nom
@@ -100,6 +104,7 @@ def run_cbf_simulation(
                 else:
                     u = u_nom
 
+            # Note: Clipping thrust to u_max breaks the formal CBF guarantee. A feasibility check or slack variable would be needed for formal guarantees.
             norm_u = float(np.linalg.norm(u))
             if norm_u > u_max and norm_u > 1e-8:
                 saturated_steps += 1
@@ -138,7 +143,11 @@ def run_cbf_filter(
     alpha1: float = 0.6,
     alpha2: float = 0.6,
 ) -> dict:
-    """Run dual simulation (filtered and nominal) and return CBF analysis results."""
+    """Run dual simulation (filtered and nominal) and return CBF analysis results.
+
+    Enforces safety envelope via closed-form projection (equivalent to QP for single constraint).
+    Evaluates forward invariance check (simulation-verified, not formally proven due to thrust clipping).
+    """
     k_keepout = compute_keepout_k(cov_2x2, hard_body_radius_m, pc_threshold)
 
     # 1. Filtered run
@@ -171,7 +180,7 @@ def run_cbf_filter(
         alpha2=alpha2,
     )
 
-    # Safe set entry and forward invariance analysis
+    # Safe set entry and forward invariance check (simulation-verified, not formally proven due to thrust clipping)
     entered_indices = np.where(h_f >= 0.0)[0]
     slack = -1e-6 * (k_keepout ** 2)
 

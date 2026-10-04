@@ -108,6 +108,9 @@ export const TradeSpacePlot: React.FC = () => {
 
   return (
     <div className="bg-zinc-900 border border-zinc-800 rounded-sm p-5 shadow-xl shadow-black/40  flex flex-col w-full h-full min-h-[350px]">
+      <div className="bg-yellow-500/20 border border-yellow-500/50 text-yellow-300 px-3 py-1 rounded mb-2 text-center text-xs">
+        Illustrative — points generated for demonstration
+      </div>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2.5">
           <Layers className="w-5 h-5 text-blue-400" />

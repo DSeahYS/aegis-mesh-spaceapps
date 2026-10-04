@@ -4,9 +4,7 @@ import {
   Sliders,
   HardDrive,
   Sparkles,
-  GitBranch,
   Star,
-  ExternalLink,
   ShieldCheck,
   Flame,
   Activity,
@@ -119,12 +117,14 @@ export const CLMLab: React.FC = () => {
   }, [debrisMass, relVelocity]);
 
   // Run the CLM Mathematical Forward Pass
+  // Note: Prototype with seeded codebook - not trained
   // Step 1: MLP State Encoder (4 telemetry inputs -> 16-D normalized latent embedding z_s)
   const stateVector = useMemo(() => {
     return encodeState([tca, missDistance, relVelocity, debrisMass]);
   }, [tca, missDistance, relVelocity, debrisMass]);
 
   // Step 2: In-browser InfoNCE Dot-Product Similarity against 256x16 Action Codebook
+  // Note: Prototype with seeded codebook - not trained
   const inferenceResult: CLMSimilarityResult = useMemo(() => {
     return computeSimilarities(stateVector, temperature);
   }, [stateVector, temperature]);
@@ -202,25 +202,14 @@ export const CLMLab: React.FC = () => {
   return (
     <div className="w-full space-y-6 text-zinc-100 font-sans pb-10">
       {/* ======================================================== */}
-      {/* HEADER: Stanford Contrastive-LM Edge Inference Banner   */}
+      {/* HEADER: AEGIS-MESH Edge Retrieval Inference Banner       */}
       {/* ======================================================== */}
       <div className="bg-zinc-950 border border-zinc-800 rounded-sm p-5 shadow-xl shadow-black/40 ">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-3 flex-wrap">
-              <a
-                href="https://github.com/stanford-oval/contrastive-lm"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 text-blue-400 hover:text-blue-300 font-mono text-sm font-semibold transition-all group"
-              >
-                <GitBranch className="w-4 h-4 text-blue-400 group-hover:rotate-12 transition-transform" />
-                <span>stanford-oval / Contrastive-LM / CLM</span>
-                <ExternalLink className="w-3.5 h-3.5 text-zinc-400 group-hover:text-blue-300 ml-0.5" />
-              </a>
-
               <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-950/80 border border-purple-500/40 text-purple-300">
-                STANFORD DEEP AUTONOMY LAB
+                AEGIS-MESH MANEUVER RETRIEVAL LAB
               </span>
 
               <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 flex items-center gap-1">
@@ -234,7 +223,7 @@ export const CLMLab: React.FC = () => {
             </div>
 
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-              Stanford Contrastive-LM Edge Inference
+              AEGIS-MESH Edge Retrieval Inference
             </h1>
             <p className="text-xs text-zinc-400 font-mono max-w-4xl leading-relaxed">
               Autonomous real-time state projection (z_s ∈ ℝ¹⁶) matched against a
@@ -762,7 +751,7 @@ export const CLMLab: React.FC = () => {
         <div className="flex items-center gap-3">
           <Terminal className="w-4 h-4 text-blue-400 shrink-0" />
           <span>
-            STANFORD CLM INFERENCE ENGINE:{' '}
+            EDGE RETRIEVAL ENGINE:{' '}
             <span className="text-emerald-500 font-bold">ONLINE (15.8ms HARD DETERMINISTIC)</span> • ZERO GROUND-IN-THE-LOOP DELAY
           </span>
         </div>

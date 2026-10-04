@@ -3,6 +3,10 @@
 Solves the 1D lateral Isaacs differential game along the post-maneuver miss axis:
 y_dot = v, v_dot = u + d, |u| <= u_max, |d| <= d_max.
 Terminal cost l = |y| - R.
+
+# Note: This implements a 2-state double integrator (y_dot = v, v_dot = u + d)
+# with 3 control values ({-max, 0, +max}), suitable for bang-bang control.
+# The README describes a 4-state HCW Isaacs PDE, which is a target for future work.
 """
 
 import time
@@ -64,6 +68,7 @@ def solve_hj_grid(
 
     t0 = time.perf_counter()
     for _ in range(steps):
+        # TODO: Performance — reuse interpolator across steps
         interp = RegularGridInterpolator((y_arr, v_arr), V, method="linear", bounds_error=False, fill_value=None)
         vals = interp(flat_pts).reshape(3, 3, grid_n, grid_n)
         # Disturbance minimizes (axis 1), evader maximizes (axis 0)
@@ -112,7 +117,7 @@ def solve_hj_reachability(
         Vm_mps=Vm_mps,
     )
 
-    steps = max(1, int(round(tau / dt_s)))
+    steps = min(200, max(1, int(round(tau / dt_s))))
     interp_final = RegularGridInterpolator((y_arr, v_arr), V, method="linear", bounds_error=False, fill_value=None)
 
     # Initial state (y=|miss|, v=0)

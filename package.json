@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "node --experimental-strip-types test_ui_data_flow.mjs"
+    "test": "node --experimental-strip-types tests/test_ui_data_flow.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.116.0",

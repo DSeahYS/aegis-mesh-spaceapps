@@ -1,0 +1,1 @@
+# Mathematical Derivations`n`n*Moved from README - content to be migrated.*

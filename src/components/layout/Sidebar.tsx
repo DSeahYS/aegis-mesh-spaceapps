@@ -58,7 +58,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 'clm-lab',
-    label: 'Stanford CLM Lab',
+    label: 'AEGIS-MESH Edge Lab',
     shortLabel: 'CLM Lab',
     icon: BrainCircuit,
   },

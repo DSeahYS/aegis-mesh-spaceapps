@@ -87,6 +87,7 @@ def evaluate_candidate(candidate: dict, params: dict, k_keepout: float, inv_cov_
     miss_vec = np.array([float(params["miss_xi_m"]), float(params["miss_zeta_m"])], dtype=float)
     hbr_m = float(params["hard_body_radius_m"])
 
+    # Note: Using total current mass for burn time calculation (not m_dry)
     u_max = max_thrust / sat_mass
     if sat_mass > prop_mass and prop_mass > 0.0:
         dv_avail = isp * 9.80665 * np.log(sat_mass / (sat_mass - prop_mass))
@@ -124,7 +125,9 @@ def evaluate_candidate(candidate: dict, params: dict, k_keepout: float, inv_cov_
     })
 
     # R2: BURN_TIME_FEASIBLE
-    limit_r2 = max(0.0, tca_s - 5.0)
+    # Assumed parameter — typical thruster thermal limit
+    t_limit_thermal = 300.0
+    limit_r2 = max(0.0, min(tca_s - 5.0, t_limit_thermal))
     passed_r2 = t_burn <= limit_r2
     rules.append({
         "id": "R2",

@@ -1,6 +1,6 @@
 # ==============================================================================
 # AEGIS-MESH / CLM Spaceflight Edge Hardware Simulation
-# Emulates Microchip PolarFire SoC MPFS250T SWaP-C Constraints
+# Resource-Constrained Container (targets PolarFire-class SWaP-C envelope)
 # (Size, Weight, Power, and Cost: 0.5 Cores, 256MB RAM)
 # ==============================================================================
 
@@ -9,7 +9,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: polarfire-edge-backend
+    container_name: aegis-mesh-backend
     ports:
       - "8000:8000"
     environment:

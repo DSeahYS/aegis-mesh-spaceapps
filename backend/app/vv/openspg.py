@@ -1,9 +1,9 @@
-"""OpenSPG Semantic Knowledge Graph and Physics Reasoning Module.
+"""
+Symbolic Physics Rule Graph (OpenSPG-inspired)
 
-Implements Schema-enhanced Programmable Graph (OpenSPG / KGDSL) ontology for AEGIS-MESH.
-Grounds neural Contrastive Language Model (CLM) candidate actions against
-deterministic physical constraint nodes (Propellant_Mass, Thrust_Capacity, Perigee_Safety)
-via formal rule reasoning.
+A rule-based physics validation engine inspired by the OpenSPG (Semantic-Enhanced
+Programmable Graph) paradigm. This implementation uses hand-built graph rules with
+numpy—it does not import or use Ant Group's OpenSPG engine.
 """
 
 from __future__ import annotations
@@ -199,7 +199,7 @@ def build_openspg_knowledge_graph(
     u_max = max_thrust / sat_mass if sat_mass > 0.0 else 0.0
     t_burn = cand_dv / u_max if u_max > 0.0 else float("inf")
     t_limit_slew = max(0.0, tca_s - 5.0)
-    t_limit_thermal = 300.0  # solenoid duty cycle limit
+    t_limit_thermal = 300.0  # Assumed parameter — typical thruster thermal limit
     t_allowable = min(t_limit_slew, t_limit_thermal)
     thrust_passed = bool(t_burn <= t_allowable)
     thrust_margin_s = t_allowable - t_burn if math.isfinite(t_burn) else -999.0
@@ -387,7 +387,7 @@ def build_openspg_knowledge_graph(
             "id": "CLM_Vector",
             "label": f"CLM Vector [{cand_label}]",
             "type": "instance",
-            "description": "Evaluated candidate escape vector retrieved from the Contrastive Language Model codebook.",
+            "description": "Evaluated candidate escape vector retrieved from the Edge Retrieval Model codebook.",
             "properties": {
                 "candidate_id": int(selected_cand.get("id", 0)),
                 "label": cand_label,
