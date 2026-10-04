@@ -7,3 +7,4 @@ export { ISLLink, type ISLLinkProps } from './ISLLink';
 export { ConjunctionEvent, type ConjunctionEventProps } from './ConjunctionEvent';
 export { ManeuverTrail, type ManeuverTrailProps } from './ManeuverTrail';
 export { OrbitalScene } from './OrbitalScene';
+export { EntitySearch, type EntitySearchProps } from './EntitySearch';

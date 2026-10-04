@@ -695,8 +695,11 @@ The AEGIS-MESH frontend is a mission control suite built with **React 18**, **Th
  ├────────────────────────────────────────────────────────────────────────────────────────────────────────┤
  │ 2. 3D Orbital Swarm Canvas                                                                            │
  │    • Interactive WebGL Earth Globe with Day/Night Terminator & Atmospheric Shader Scattering           │
+ │    • Resilient Offline Earth Texture Loading with Automatic Fallback & Fresnel Limb Glow Shaders       │
  │    • 12 Satellites across 3 Orbital Planes (550 km LEO, 53.2° Inclination)                             │
- │    • 500+ NASA ORDEM 3.2 Debris Fragments (Cataloged RSOs vs Uncataloged "Dark Flux")                  │
+ │    • 6,000+ Real Celestrak SGP4 Debris Fragments (Cosmos-1408, Fengyun-1C, Iridium-33, SL-16)         │
+ │    • Interactive Entity & Catalog Search Palette (hotkey '/') with Live Filtering & Threat Overlays     │
+ │    • Subsystem Health & Hardware Telemetry HUD (Processor, Power W, Rad Dose Gy, Fuel, Orbit Keplers) │
  │    • Real-Time Keplerian Orbit Propagation & 10 Gbps Laser ISL Network Pulses                          │
  ├────────────────────────────────────────────────────────────────────────────────────────────────────────┤
  │ 3. Conjunction Assessment & Collision Avoidance                                                        │
@@ -828,10 +831,13 @@ NASASpaceApps2026/
 │   │   ├── test_cdm_traffic.py          # Space-Track client & CARA urgency tests
 │   │   ├── e2e_live_nasa_test.py        # End-to-end live NASA telemetry test
 │   │   └── live_nasa_e2e_report.json    # Generated live NASA telemetry report
+│   ├── fetch_real_debris.py             # CelesTrak TLE ingestion + SGP4 propagation pipeline
 │   ├── live_nasa_telemetry.py           # Standalone live NASA telemetry runner
 │   ├── requirements.txt                 # fastapi, uvicorn, numpy, scipy, sgp4, pytest...
 │   ├── Dockerfile                       # python:3.10-slim container on :8000
 │   └── .dockerignore
+├── public/                              # Static assets & real orbital ephemerides
+│   └── debris_catalog.json              # 6,000+ SGP4-propagated real NORAD debris fragments
 ├── benchmark/                           # PolarFire SWaP benchmark suite
 │   ├── run_benchmark.py                 # 1000-iteration CLM latency benchmark
 │   ├── validate_swap.py                 # 0.5-core / 256MB container validation
@@ -851,6 +857,12 @@ NASASpaceApps2026/
 │   │   ├── layout/                      # Header, Sidebar (9 views), StatusBar
 │   │   ├── mesh/                        # Constellation topology, Wasm migration, QKD monitor
 │   │   ├── three/                       # WebGL 3D Earth, debris field, satellites, laser ISLs
+│   │   │   ├── Earth.tsx                # Resilient Blue Marble globe + Fresnel atmosphere shaders
+│   │   │   ├── DebrisField.tsx          # High-performance BufferGeometry real debris renderer
+│   │   │   ├── SatelliteNode.tsx        # 3D satellite model with full subsystem HUD & telemetry
+│   │   │   ├── EntitySearch.tsx         # Quick-jump command palette & catalog search (hotkey: '/')
+│   │   │   ├── OrbitalScene.tsx         # Unified 3D viewport with tactical hover inspector
+│   │   │   └── ...                      # ISLLink, ConjunctionEvent, ManeuverTrail
 │   │   ├── verification/                # Live V&V Proof Dashboard components
 │   │   │   ├── VerificationDashboard.tsx# Master 3-tab verification view
 │   │   │   ├── PipelinePanel.tsx        # 5-stage evasion runner & parameter inputs
@@ -928,7 +940,16 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
 Verify with `http://localhost:8000/api/health` → `{"status": "ok", ...}`.
 Interactive OpenAPI Swagger docs are available at `http://localhost:8000/docs`.
 
-### 4. Run Automated Mathematical Tests (Pytest)
+### 4. Fetch & Propagate Real Orbital Debris (Optional)
+
+```bash
+# Propagate thousands of real Celestrak debris objects to the current UTC epoch:
+python backend/fetch_real_debris.py
+```
+
+This ingests live TLE sets from Celestrak (Cosmos-1408, Fengyun-1C, Iridium-33, Cosmos-2251, SL-16 rocket bodies, and active LEO satellites), propagates all objects to the current epoch using SGP4, and updates `public/debris_catalog.json` for high-fidelity 3D visualization.
+
+### 5. Run Automated Mathematical Tests (Pytest)
 
 ```bash
 # In the backend directory:
@@ -937,7 +958,7 @@ pytest tests -v
 
 Executes all **63 automated tests** (16 mathematical oracles, SPICE orbit propagation, EPS power simulation, Tegrastats hardware profiling, Space-Track CDM traffic, and API routes).
 
-### 5. Run Red-Team Frontend UI Stress Test
+### 6. Run Red-Team Frontend UI Stress Test
 
 ```bash
 # In the project root directory:
@@ -946,7 +967,7 @@ node test_ui_data_flow.mjs
 
 Validates **69 invariant checks** under 10,000 rapid messages, 10,000 CLM candidates, 10,000 OpenSPG nodes, and 100,000 CBF downsampled steps.
 
-### 6. Run PolarFire SWaP Docker Emulation (Optional)
+### 7. Run PolarFire SWaP Docker Emulation (Optional)
 
 Run the backend within the strict **0.5 CPU core / 256 MB RAM** container resource envelope:
 
@@ -954,7 +975,7 @@ Run the backend within the strict **0.5 CPU core / 256 MB RAM** container resour
 docker compose up --build
 ```
 
-### 7. Run PolarFire Latency Benchmark Suite (Optional)
+### 8. Run PolarFire Latency Benchmark Suite (Optional)
 
 ```bash
 cd benchmark
@@ -964,7 +985,7 @@ python run_benchmark.py
 
 Measures 1,000 inference cycles, generating `benchmark/results/benchmark_report.json`.
 
-### 8. Production Build & Lint
+### 9. Production Build & Lint
 
 ```bash
 npm run lint

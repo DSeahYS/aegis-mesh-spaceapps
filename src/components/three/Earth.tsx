@@ -1,115 +1,241 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useTexture } from '@react-three/drei';
 import { EARTH_RADIUS_KM, SCALE_FACTOR } from '../../lib/constants';
 
 const EARTH_RADIUS = EARTH_RADIUS_KM * SCALE_FACTOR; // ~6.371 units
+const AXIAL_TILT = (-23.5 * Math.PI) / 180; // Real Earth axial tilt
 
-export const Earth: React.FC = () => {
+// Fresnel atmosphere shader — realistic blue limb glow
+const atmosphereVertexShader = /* glsl */ `
+  varying vec3 vNormal;
+  varying vec3 vWorldPosition;
+  void main() {
+    vNormal = normalize(normalMatrix * normal);
+    vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const atmosphereFragmentShader = /* glsl */ `
+  uniform vec3 glowColor;
+  uniform float intensity;
+  varying vec3 vNormal;
+  varying vec3 vWorldPosition;
+  void main() {
+    // Fresnel: edge glow strongest at limb (normal perpendicular to camera)
+    float fresnel = pow(1.0 - abs(dot(vNormal, vec3(0.0, 0.0, 1.0))), 3.5);
+    float alpha = fresnel * intensity;
+    gl_FragColor = vec4(glowColor, alpha);
+  }
+`;
+
+const EarthInner: React.FC = () => {
   const earthGroupRef = useRef<THREE.Group>(null);
-  const atmosphereRef = useRef<THREE.Mesh>(null);
   const cloudsRef = useRef<THREE.Mesh>(null);
+
+  // Load NASA Blue Marble textures from CDN
+  const [dayMap, nightMap, bumpMap, specularMap, cloudsMap] = useTexture([
+    'https://unpkg.com/three-globe/example/img/earth-day.jpg',
+    'https://unpkg.com/three-globe/example/img/earth-night.jpg',
+    'https://unpkg.com/three-globe/example/img/earth-topology.png',
+    'https://unpkg.com/three-globe/example/img/earth-water.png',
+    'https://unpkg.com/three-globe/example/clouds/clouds.png',
+  ]);
+
+  // Custom Fresnel atmosphere shader material
+  const atmosphereMaterial = useMemo(() => {
+    return new THREE.ShaderMaterial({
+      vertexShader: atmosphereVertexShader,
+      fragmentShader: atmosphereFragmentShader,
+      uniforms: {
+        glowColor: { value: new THREE.Color('#4db8ff') },
+        intensity: { value: 1.4 },
+      },
+      side: THREE.BackSide,
+      blending: THREE.AdditiveBlending,
+      transparent: true,
+      depthWrite: false,
+    });
+  }, []);
+
+  // Outer halo material (wider, fainter)
+  const haloMaterial = useMemo(() => {
+    return new THREE.ShaderMaterial({
+      vertexShader: atmosphereVertexShader,
+      fragmentShader: atmosphereFragmentShader,
+      uniforms: {
+        glowColor: { value: new THREE.Color('#1a6fff') },
+        intensity: { value: 0.7 },
+      },
+      side: THREE.BackSide,
+      blending: THREE.AdditiveBlending,
+      transparent: true,
+      depthWrite: false,
+    });
+  }, []);
 
   useFrame(() => {
     if (earthGroupRef.current) {
+      // Real sidereal day ≈ 23h 56m; at 60x speed: 0.001 rad/frame @60fps ≈ realistic
       earthGroupRef.current.rotation.y += 0.001;
     }
     if (cloudsRef.current) {
-      cloudsRef.current.rotation.y += 0.0013;
-    }
-    if (atmosphereRef.current) {
-      // Subtle atmospheric pulsation
-      const time = performance.now() * 0.001;
-      const s = 1.02 + Math.sin(time * 0.8) * 0.003;
-      atmosphereRef.current.scale.set(s, s, s);
+      // Clouds drift slightly faster than the surface
+      cloudsRef.current.rotation.y += 0.00013;
     }
   });
 
   return (
-    <group>
-      {/* Rotating Earth Body */}
+    <group rotation={[0, 0, AXIAL_TILT]}>
+      {/* ── Rotating Earth Surface ── */}
       <group ref={earthGroupRef}>
-        {/* Main Earth Sphere with deep ocean and emissive glow */}
+
+        {/* Main Earth Surface — PBR with day texture, bump, specular */}
         <mesh receiveShadow castShadow>
           <sphereGeometry args={[EARTH_RADIUS, 64, 64]} />
-          <meshStandardMaterial
-            color="#1a3a5c"
-            roughness={0.65}
-            metalness={0.15}
-            emissive="#0d243a"
-            emissiveIntensity={0.25}
+          <meshPhongMaterial
+            map={dayMap}
+            bumpMap={bumpMap}
+            bumpScale={0.018}
+            specularMap={specularMap}
+            specular={new THREE.Color('#4a8fc4')}
+            shininess={28}
           />
         </mesh>
 
-        {/* Subtle high-tech latitude/longitude geographic grid overlay */}
+        {/* Night Lights — city glow on dark side (Additive over main surface) */}
         <mesh>
-          <sphereGeometry args={[EARTH_RADIUS * 1.001, 36, 18]} />
+          <sphereGeometry args={[EARTH_RADIUS * 1.0005, 64, 64]} />
           <meshBasicMaterial
-            color="#2a6496"
-            wireframe
-            transparent
-            opacity={0.06}
-          />
-        </mesh>
-
-        {/* Subtle cloud / continental swirl layer */}
-        <mesh ref={cloudsRef}>
-          <sphereGeometry args={[EARTH_RADIUS * 1.008, 48, 48]} />
-          <meshStandardMaterial
-            color="#60a5fa"
-            transparent
-            opacity={0.08}
-            roughness={0.9}
+            map={nightMap}
             blending={THREE.AdditiveBlending}
+            transparent
+            opacity={0.85}
             depthWrite={false}
           />
         </mesh>
 
-        {/* Polar caps indicator rings */}
-        <mesh position={[0, EARTH_RADIUS * 0.96, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.2, EARTH_RADIUS * 0.28, 32]} />
-          <meshBasicMaterial color="#b0d4f1" transparent opacity={0.12} side={THREE.DoubleSide} />
+        {/* Cloud layer — rotates slightly faster than surface */}
+        <mesh ref={cloudsRef}>
+          <sphereGeometry args={[EARTH_RADIUS * 1.008, 56, 56]} />
+          <meshStandardMaterial
+            map={cloudsMap}
+            alphaMap={cloudsMap}
+            transparent
+            opacity={0.42}
+            depthWrite={false}
+            roughness={1.0}
+            metalness={0}
+          />
         </mesh>
-        <mesh position={[0, -EARTH_RADIUS * 0.96, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.2, EARTH_RADIUS * 0.28, 32]} />
-          <meshBasicMaterial color="#b0d4f1" transparent opacity={0.12} side={THREE.DoubleSide} />
+
+        {/* Polar Ice Caps — subtle white rings at poles */}
+        <mesh position={[0, EARTH_RADIUS * 0.97, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[0.0, EARTH_RADIUS * 0.26, 48]} />
+          <meshBasicMaterial
+            color="#d4eeff"
+            transparent
+            opacity={0.18}
+            side={THREE.DoubleSide}
+            depthWrite={false}
+          />
+        </mesh>
+        <mesh position={[0, -EARTH_RADIUS * 0.97, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[0.0, EARTH_RADIUS * 0.22, 48]} />
+          <meshBasicMaterial
+            color="#d4eeff"
+            transparent
+            opacity={0.22}
+            side={THREE.DoubleSide}
+            depthWrite={false}
+          />
         </mesh>
       </group>
 
-      {/* Transparent Atmosphere Shell (1.02x Earth radius) */}
-      <mesh ref={atmosphereRef}>
+      {/* ── Fresnel Atmosphere Shell — Realistic Limb Glow ── */}
+      <mesh>
+        <sphereGeometry args={[EARTH_RADIUS * 1.022, 48, 48]} />
+        <primitive object={atmosphereMaterial} attach="material" />
+      </mesh>
+
+      {/* ── Outer Halo — wider, very faint ── */}
+      <mesh>
+        <sphereGeometry args={[EARTH_RADIUS * 1.06, 32, 32]} />
+        <primitive object={haloMaterial} attach="material" />
+      </mesh>
+
+      {/* ── Equatorial Glow Ring (orbital plane indicator) ── */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[EARTH_RADIUS * 1.02, EARTH_RADIUS * 1.22, 64]} />
+        <meshBasicMaterial
+          color="#1e5aff"
+          transparent
+          opacity={0.04}
+          side={THREE.DoubleSide}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+    </group>
+  );
+};
+
+// Catches texture load failures (e.g. CDN 404 / offline) so they don't unmount the whole Canvas
+class TextureErrorBoundary extends React.Component<
+  { fallback: React.ReactNode; children: React.ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error: unknown) {
+    console.warn('[Earth] Texture load failed, using fallback globe:', error);
+  }
+  render() {
+    return this.state.hasError ? this.props.fallback : this.props.children;
+  }
+}
+
+// Wrap in Suspense fallback so textures load gracefully
+export const Earth: React.FC = () => {
+  return (
+    <TextureErrorBoundary fallback={<EarthFallback />}>
+      <React.Suspense fallback={<EarthFallback />}>
+        <EarthInner />
+      </React.Suspense>
+    </TextureErrorBoundary>
+  );
+};
+
+// Fallback while textures stream in — keeps the placeholder Earth visible
+const EarthFallback: React.FC = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  useFrame(() => {
+    if (meshRef.current) meshRef.current.rotation.y += 0.001;
+  });
+  return (
+    <group rotation={[0, 0, AXIAL_TILT]}>
+      <mesh ref={meshRef} receiveShadow castShadow>
         <sphereGeometry args={[EARTH_RADIUS, 48, 48]} />
+        <meshStandardMaterial
+          color="#1a3a5c"
+          roughness={0.7}
+          metalness={0.1}
+          emissive="#0d1f33"
+          emissiveIntensity={0.3}
+        />
+      </mesh>
+      {/* Fallback atmosphere */}
+      <mesh>
+        <sphereGeometry args={[EARTH_RADIUS * 1.022, 32, 32]} />
         <meshBasicMaterial
           color="#4da6ff"
           transparent
-          opacity={0.15}
+          opacity={0.12}
           side={THREE.BackSide}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-        />
-      </mesh>
-
-      {/* Outer Atmospheric Halo Glow */}
-      <mesh>
-        <sphereGeometry args={[EARTH_RADIUS * 1.05, 32, 32]} />
-        <meshBasicMaterial
-          color="#38bdf8"
-          transparent
-          opacity={0.07}
-          side={THREE.BackSide}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-        />
-      </mesh>
-
-      {/* Faint Equatorial Glow Ring */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[EARTH_RADIUS * 1.04, EARTH_RADIUS * 1.28, 64]} />
-        <meshBasicMaterial
-          color="#2563eb"
-          transparent
-          opacity={0.05}
-          side={THREE.DoubleSide}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
         />

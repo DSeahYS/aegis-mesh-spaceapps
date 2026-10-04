@@ -13,6 +13,7 @@ import {
   ChevronDown,
   ChevronUp,
   X,
+  Search,
 } from 'lucide-react';
 
 import constellationRaw from '../../data/constellation.json';
@@ -33,6 +34,7 @@ import OrbitRing from './OrbitRing';
 import ISLLink from './ISLLink';
 import ConjunctionEvent from './ConjunctionEvent';
 import ManeuverTrail from './ManeuverTrail';
+import EntitySearch from './EntitySearch';
 
 // Inline Keplerian Math Fallback in case external module is unavailable
 function fallbackKeplerian(
@@ -124,7 +126,7 @@ const DEBRIS_CATALOG_OPTIONS = [
   {
     id: 'cosmos-1408',
     name: 'Cosmos-1408 ASAT Swarm',
-    count: 4000,
+    count: 3,
     color: '#f97316',
     dangerLevel: 'HIGH',
     alt: '485 km (82.6°)',
@@ -132,42 +134,42 @@ const DEBRIS_CATALOG_OPTIONS = [
   {
     id: 'fengyun-1c',
     name: 'Fengyun-1C Breakup Ring',
-    count: 6500,
-    color: '#ef4444',
+    count: 1984,
+    color: '#ff3355',
     dangerLevel: 'CRITICAL',
     alt: '865 km (98.6°)',
   },
   {
     id: 'iridium-33',
     name: 'Iridium-33 Collision Remnants',
-    count: 4500,
+    count: 110,
     color: '#fbbf24',
     dangerLevel: 'HIGH',
     alt: '790 km (86.4°)',
   },
   {
-    id: 'uncatalogued',
-    name: 'Sub-cm Lethal Micro-Debris',
-    count: 12000,
-    color: '#eab308',
+    id: 'cosmos-2251',
+    name: 'Cosmos-2251 Remnants',
+    count: 586,
+    color: '#fb923c',
     dangerLevel: 'HIGH',
-    alt: '350 - 1100 km',
+    alt: '790 km (74.0°)',
   },
   {
     id: 'sl-16',
-    name: 'SL-16 Derelict Upper Stages',
-    count: 3000,
+    name: 'SL-16 Derelict Stages',
+    count: 294,
     color: '#d946ef',
     dangerLevel: 'ELEVATED',
-    alt: '600 - 950 km',
+    alt: '600-950 km (71.0°)',
   },
   {
     id: 'leo-general',
     name: 'USSPACECOM Cataloged Debris',
-    count: 5000,
+    count: 1998,
     color: '#38bdf8',
     dangerLevel: 'MODERATE',
-    alt: '350 - 1400 km',
+    alt: '350-1400 km',
   },
 ];
 
@@ -394,6 +396,9 @@ const SceneContent: React.FC<{
             status={sat.status}
             position={pos}
             isSelected={isSel}
+            orbitalElements={sat.elements}
+            hardware={sat.hardware}
+            health={sat.health}
             onClick={() => {
               selectSatellite(isSel ? null : sat.id);
             }}
@@ -440,6 +445,7 @@ export const OrbitalScene: React.FC<OrbitalSceneProps> = ({
   const [showLinks, setShowLinks] = useState(true);
   const [isPropagating, setIsPropagating] = useState(true);
   const [isCatalogMenuOpen, setIsCatalogMenuOpen] = useState(false);
+  const [debrisSearchQuery, setDebrisSearchQuery] = useState('');
 
   // Hovered tactical info
   const [hoveredSwarmSat, setHoveredSwarmSat] = useState<SwarmSatellite | null>(null);
@@ -461,6 +467,19 @@ export const OrbitalScene: React.FC<OrbitalSceneProps> = ({
     }
     return ['cosmos-1408', 'fengyun-1c', 'uncatalogued', 'iridium-33'];
   }, [propActiveCatalogs, storeActiveCatalogs]);
+
+  // Filtered debris catalogs for the searchable catalog panel
+  const filteredCatalogOptions = useMemo(() => {
+    if (!debrisSearchQuery.trim()) return DEBRIS_CATALOG_OPTIONS;
+    const q = debrisSearchQuery.toLowerCase().trim();
+    return DEBRIS_CATALOG_OPTIONS.filter(
+      (cat) =>
+        cat.name.toLowerCase().includes(q) ||
+        cat.id.toLowerCase().includes(q) ||
+        cat.alt.toLowerCase().includes(q) ||
+        cat.dangerLevel.toLowerCase().includes(q)
+    );
+  }, [debrisSearchQuery]);
 
   // Selected Satellite details lookup
   const selectedSatData = useMemo(() => {
@@ -545,6 +564,12 @@ export const OrbitalScene: React.FC<OrbitalSceneProps> = ({
           </span>
         </div>
       </div>
+
+      {/* Global Orbital Entity Search Bar */}
+      <EntitySearch
+        onSelectSatellite={selectSatellite}
+        onActivateCatalog={toggleCatalog}
+      />
 
       {/* Top Right View Controls & Layer Toggles */}
       <div className="absolute top-4 right-4 z-10 flex flex-wrap items-center gap-1.5 pointer-events-auto">
@@ -636,7 +661,7 @@ export const OrbitalScene: React.FC<OrbitalSceneProps> = ({
         </button>
       </div>
 
-      {/* Dynamic Catalog Filter Popover Drawer */}
+      {/* Dynamic Searchable Catalog Filter Popover Drawer */}
       {isCatalogMenuOpen && (
         <div className="absolute top-14 right-4 z-20 w-80 rounded-xl bg-slate-900/95 border border-purple-500/40 backdrop-blur-xl shadow-2xl p-3.5 text-xs text-slate-200 pointer-events-auto">
           <div className="flex items-center justify-between pb-2 border-b border-slate-800">
@@ -654,58 +679,84 @@ export const OrbitalScene: React.FC<OrbitalSceneProps> = ({
             </button>
           </div>
 
-          <div className="mt-2.5 space-y-1.5 max-h-72 overflow-y-auto pr-1">
-            {DEBRIS_CATALOG_OPTIONS.map((cat) => {
-              const isActive = activeCatalogs.some(
-                (c) =>
-                  c.toLowerCase() === cat.id ||
-                  c.toLowerCase().includes(cat.id) ||
-                  cat.id.includes(c.toLowerCase()) ||
-                  c.toLowerCase() === 'all'
-              );
+          {/* Search Bar for Filtering Catalogs */}
+          <div className="mt-2.5 relative">
+            <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              type="text"
+              value={debrisSearchQuery}
+              onChange={(e) => setDebrisSearchQuery(e.target.value)}
+              placeholder="Search catalogs, threats, altitudes..."
+              className="w-full pl-8 pr-7 py-1.5 bg-slate-950/70 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500/60"
+            />
+            {debrisSearchQuery && (
+              <button
+                onClick={() => setDebrisSearchQuery('')}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            )}
+          </div>
 
-              return (
-                <div
-                  key={cat.id}
-                  onClick={() => toggleCatalog(cat.id)}
-                  className={`p-2 rounded-lg border cursor-pointer transition-all flex items-center justify-between ${
-                    isActive
-                      ? 'bg-slate-950/80 border-slate-700 text-slate-100'
-                      : 'bg-slate-950/40 border-slate-800/60 text-slate-500 hover:text-slate-300'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-2.5 h-2.5 rounded-full shrink-0"
-                      style={{ backgroundColor: cat.color }}
-                    />
-                    <div>
-                      <div className="font-mono font-semibold text-[11px] leading-tight">
-                        {cat.name}
+          <div className="mt-2 space-y-1.5 max-h-72 overflow-y-auto pr-1">
+            {filteredCatalogOptions.length === 0 ? (
+              <div className="py-6 text-center text-slate-500 font-mono text-[11px]">
+                No debris catalogs match &quot;{debrisSearchQuery}&quot;
+              </div>
+            ) : (
+              filteredCatalogOptions.map((cat) => {
+                const isActive = activeCatalogs.some(
+                  (c) =>
+                    c.toLowerCase() === cat.id ||
+                    c.toLowerCase().includes(cat.id) ||
+                    cat.id.includes(c.toLowerCase()) ||
+                    c.toLowerCase() === 'all'
+                );
+
+                return (
+                  <div
+                    key={cat.id}
+                    onClick={() => toggleCatalog(cat.id)}
+                    className={`p-2 rounded-lg border cursor-pointer transition-all flex items-center justify-between ${
+                      isActive
+                        ? 'bg-slate-950/80 border-slate-700 text-slate-100'
+                        : 'bg-slate-950/40 border-slate-800/60 text-slate-500 hover:text-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="w-2.5 h-2.5 rounded-full shrink-0"
+                        style={{ backgroundColor: cat.color }}
+                      />
+                      <div>
+                        <div className="font-mono font-semibold text-[11px] leading-tight">
+                          {cat.name}
+                        </div>
+                        <div className="text-[10px] text-slate-400 font-mono">
+                          {cat.alt}
+                        </div>
                       </div>
-                      <div className="text-[10px] text-slate-400 font-mono">
-                        {cat.alt}
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span className="font-mono font-bold text-[11px]">
+                        {cat.count.toLocaleString()}
+                      </span>
+                      <div
+                        className={`w-4 h-4 rounded flex items-center justify-center border ${
+                          isActive
+                            ? 'bg-purple-500/20 border-purple-400 text-purple-300'
+                            : 'border-slate-700 text-transparent'
+                        }`}
+                      >
+                        {isActive && <Check className="w-3 h-3" />}
                       </div>
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="font-mono font-bold text-[11px]">
-                      {cat.count.toLocaleString()}
-                    </span>
-                    <div
-                      className={`w-4 h-4 rounded flex items-center justify-center border ${
-                        isActive
-                          ? 'bg-purple-500/20 border-purple-400 text-purple-300'
-                          : 'border-slate-700 text-transparent'
-                      }`}
-                    >
-                      {isActive && <Check className="w-3 h-3" />}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
 
           <div className="mt-3 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-slate-400">
@@ -770,21 +821,38 @@ export const OrbitalScene: React.FC<OrbitalSceneProps> = ({
 
       {/* Hovered Debris / Swarm Object Tactical Inspector Chip */}
       {(hoveredDebris || hoveredSwarmSat) && (
-        <div className="absolute bottom-4 right-4 z-10 px-3.5 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 backdrop-blur-md shadow-2xl text-xs font-mono pointer-events-none">
+        <div className="absolute bottom-4 right-4 z-10 px-3.5 py-2.5 rounded-xl bg-slate-900/95 border border-slate-700/80 backdrop-blur-md shadow-2xl text-xs font-mono pointer-events-none max-w-sm">
           {hoveredDebris ? (
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-start gap-2.5">
               <div
-                className="w-2 h-2 rounded-full "
+                className="w-2.5 h-2.5 rounded-full mt-1 shrink-0 shadow-sm"
                 style={{ backgroundColor: hoveredDebris.color }}
               />
-              <div>
-                <div className="text-slate-200 font-semibold text-[11px]">
-                  {hoveredDebris.catalogName}
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-100 font-bold text-xs tracking-wider">
+                    {hoveredDebris.objectId}
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-mono">
+                    ({hoveredDebris.catalogName})
+                  </span>
                 </div>
-                <div className="text-[10px] text-slate-400 flex items-center gap-2 mt-0.5">
-                  <span>THREAT: <span className="text-rose-400 font-bold">{hoveredDebris.dangerLevel}</span></span>
+                <div className="text-[10px] text-slate-400 flex flex-wrap items-center gap-x-2 gap-y-0.5 pt-0.5">
+                  <span>
+                    THREAT: <span className="text-rose-400 font-bold">{hoveredDebris.dangerLevel}</span>
+                  </span>
                   <span>•</span>
-                  <span>ALT: ~{hoveredDebris.altitudeKm} km</span>
+                  <span>
+                    ALT: <span className="text-sky-300 font-semibold">{hoveredDebris.altitudeKm} km</span>
+                  </span>
+                  <span>•</span>
+                  <span>
+                    INC: <span className="text-slate-200 font-semibold">{hoveredDebris.inclinationDeg}°</span>
+                  </span>
+                  <span>•</span>
+                  <span>
+                    VEL: <span className="text-emerald-400 font-semibold">{hoveredDebris.velocityKmS} km/s</span>
+                  </span>
                 </div>
               </div>
             </div>
