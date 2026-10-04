@@ -92,7 +92,7 @@ export const EntitySearch: React.FC<EntitySearchProps> = ({
         sat.id.toLowerCase().includes(q) ||
         sat.name.toLowerCase().includes(q) ||
         sat.status.toLowerCase().includes(q) ||
-        'aegis'.includes(q)
+        (q.length >= 3 && 'aegis'.includes(q)) || q === 'aegis'
     );
   }, [q]);
 
@@ -104,7 +104,7 @@ export const EntitySearch: React.FC<EntitySearchProps> = ({
         cat.name.toLowerCase().includes(q) ||
         cat.dangerLevel.toLowerCase().includes(q) ||
         cat.alt.toLowerCase().includes(q) ||
-        'debris'.includes(q)
+        (q.length >= 3 && 'debris'.includes(q)) || q === 'debris'
     );
   }, [q]);
 

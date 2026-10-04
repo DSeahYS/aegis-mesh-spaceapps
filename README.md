@@ -683,6 +683,10 @@ Deploying artificial intelligence in Low Earth Orbit requires navigating extreme
 
 The AEGIS-MESH frontend is a mission control suite built with **React 18**, **Three.js / React Three Fiber**, **Recharts**, and **Tailwind CSS v4**:
 
+<p align="center">
+  <img src="screenshot.png" alt="AEGIS-MESH 3D Orbital Swarm & Live Telemetry Mission Control" width="100%" />
+</p>
+
 ```text
  ┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
  │ [AEGIS-MESH] Dashboard | 3D Orbit | Conjunction | Mesh | Architecture | CLM Lab | GPU Proof | Backend | V&V Proof │
@@ -894,9 +898,10 @@ NASASpaceApps2026/
 │   ├── index.html                       # Standalone GSAP interactive motion presentation
 │   ├── fonts/                           # Archivo Black & Inter web fonts
 │   └── assets/                          # Kinetic presentation graphics & keyframes
+├── screenshot.png                       # Mission control 3D orbital view screenshot
 ├── test_ui_data_flow.mjs                # Red-Team UI stress test (69 checks)
 ├── eslint.config.js                     # ESLint 9 flat configuration
-├── package.json                         # Node dependencies & scripts
+├── package.json                         # Node dependencies & scripts (dev, build, test)
 ├── tsconfig.json                        # TypeScript compiler options
 └── vite.config.ts                       # Vite 6 config with /api proxy to :8000
 ```
@@ -962,7 +967,8 @@ Executes all **63 automated tests** (16 mathematical oracles, SPICE orbit propag
 
 ```bash
 # In the project root directory:
-node test_ui_data_flow.mjs
+npm test
+# or: node test_ui_data_flow.mjs
 ```
 
 Validates **69 invariant checks** under 10,000 rapid messages, 10,000 CLM candidates, 10,000 OpenSPG nodes, and 100,000 CBF downsampled steps.

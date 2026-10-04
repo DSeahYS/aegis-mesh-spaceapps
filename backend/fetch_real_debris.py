@@ -168,10 +168,7 @@ def propagate_tle(name: str, l1: str, l2: str) -> dict | None:
 
         # BSTAR drag term (rough decay estimate)
         try:
-            bstar_str = l1[53:61].strip()
-            bstar_exp = int(bstar_str[-2:]) if len(bstar_str) >= 2 else 0
-            bstar_mantissa = float("0." + bstar_str[1:6]) if bstar_str[0] in "+-" else 0.0
-            bstar = float(bstar_mantissa) * (10 ** bstar_exp)
+            bstar = float(sat.bstar)
         except Exception:
             bstar = 0.0
 

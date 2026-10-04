@@ -185,24 +185,32 @@ async def screen_conjunctions(req: ScreenRequest):
 @app.get("/api/tle/propagate")
 async def propagate_orbit(tle_line1: str, tle_line2: str, epoch: str = None):
     """Propagate a TLE to a given epoch and return position/velocity."""
+    import math
     import time as _time
     from sgp4.api import Satrec
-    from datetime import datetime, timezone
+    from datetime import datetime
 
-    sat = Satrec.twoline2rv(tle_line1, tle_line2)
+    try:
+        sat = Satrec.twoline2rv(tle_line1, tle_line2)
+        if getattr(sat, "error", 0) != 0:
+            raise HTTPException(status_code=400, detail="Propagation failed: invalid TLE data")
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"Invalid TLE data: {exc}")
 
     if epoch:
         try:
             dt = datetime.fromisoformat(epoch.replace("Z", "+00:00"))
             ts = dt.timestamp()
         except Exception:
-            ts = _time.time()
+            raise HTTPException(status_code=400, detail=f"Invalid epoch format: '{epoch}'. Must be ISO 8601.")
     else:
         ts = _time.time()
 
     jd, fr = ts_to_jday(ts)
     e, r, v = sat.sgp4(jd, fr)
-    if e != 0:
+    if e != 0 or any(math.isnan(x) for x in r) or any(math.isnan(x) for x in v):
         raise HTTPException(status_code=400, detail="Propagation failed")
 
     return {
@@ -367,4 +375,4 @@ async def propagate_spice_orbit_route(req: SpicePropagateRequest):
     perturbations (J2/J3/J4, third-body Sun/Moon, SRP with conical shadow, Earth albedo, drag).
     """
     return spice_sim.propagate_orbit(req)
-
+

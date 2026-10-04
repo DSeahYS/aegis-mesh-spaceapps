@@ -82,12 +82,13 @@ interface RawCatalogData {
   colors: Float32Array;
   altitudes: Float32Array;
   inclinations: Float32Array;
+  velocities: Float32Array;
   noradIds: string[];
 }
 
 const MAX_DEBRIS_CAPACITY = 15000; // Increased to accommodate real data
 
-export const DebrisField: React.FC<DebrisFieldProps> = ({
+const DebrisFieldComponent: React.FC<DebrisFieldProps> = ({
   activeCatalogs,
   pointSize = 0.038,
   opacity = 0.85,
@@ -114,6 +115,7 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
           const col = new Float32Array(count * 3);
           const alts = new Float32Array(count);
           const incs = new Float32Array(count);
+          const vels = new Float32Array(count);
           const norads: string[] = [];
 
           const baseColor = new THREE.Color(cat.color || '#ffffff');
@@ -131,6 +133,7 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
 
             alts[i] = obj.alt_km;
             incs[i] = obj.inc_deg;
+            vels[i] = obj.vel_km_s || computeOrbitalVelocity(obj.alt_km);
             norads.push(obj.norad_id || '');
 
             col[i * 3] = baseColor.r;
@@ -148,6 +151,7 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
             colors: col,
             altitudes: alts,
             inclinations: incs,
+            velocities: vels,
             noradIds: norads,
           };
         }
@@ -158,10 +162,10 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
 
   const selectedCatalogs = useMemo(() => {
     if (Object.keys(catalogsData).length === 0) return [];
-    if (!activeCatalogs || activeCatalogs.length === 0) {
+    if ((!activeCatalogs || !Array.isArray(activeCatalogs) || activeCatalogs.length === 0)) {
       return ['cosmos-1408', 'fengyun-1c', 'leo-general', 'iridium-33'];
     }
-    const lowered = activeCatalogs.map((c) => c.toLowerCase().trim());
+    const lowered = activeCatalogs.filter(Boolean).map((c) => String(c).toLowerCase().trim()).filter(c => c !== '');
     if (lowered.includes('all') || lowered.includes('all-debris')) {
       return Object.keys(catalogsData);
     }
@@ -180,6 +184,7 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
   const catalogRanges = useRef<{ id: string; name: string; start: number; end: number; color: string; dangerLevel: any; norads: string[] }[]>([]);
   const altitudesRef = useRef<Float32Array>(new Float32Array(MAX_DEBRIS_CAPACITY));
   const inclinationsRef = useRef<Float32Array>(new Float32Array(MAX_DEBRIS_CAPACITY));
+  const velocitiesRef = useRef<Float32Array>(new Float32Array(MAX_DEBRIS_CAPACITY));
 
   const { geometry, positionAttr, colorAttr } = useMemo(() => {
     const geom = new THREE.BufferGeometry();
@@ -196,8 +201,15 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
     return { geometry: geom, positionAttr: pAttr, colorAttr: cAttr };
   }, []);
 
+
   useEffect(() => {
-    if (Object.keys(catalogsData).length === 0) return;
+    return () => {
+      geometry.dispose();
+      glowTexture?.dispose();
+    };
+  }, [geometry, glowTexture]);
+  
+  useEffect(() => {
 
     let offset = 0;
     const ranges: { id: string; name: string; start: number; end: number; color: string; dangerLevel: any; norads: string[] }[] = [];
@@ -216,6 +228,7 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
       colArray.set(data.colors, offset * 3);
       altitudesRef.current.set(data.altitudes, offset);
       inclinationsRef.current.set(data.inclinations, offset);
+      if (data.velocities) velocitiesRef.current.set(data.velocities, offset);
 
       ranges.push({
         id: data.id,
@@ -232,16 +245,45 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
 
     catalogRanges.current = ranges;
     geometry.setDrawRange(0, offset);
+    
+    // Safely assign update ranges for both older and newer Three.js versions
+    const pAny = positionAttr as any;
+    const cAny = colorAttr as any;
+    if (typeof pAny.addUpdateRange === 'function') {
+      pAny.clearUpdateRanges?.();
+      cAny.clearUpdateRanges?.();
+      pAny.addUpdateRange(0, offset * 3);
+      cAny.addUpdateRange(0, offset * 3);
+    } else {
+      pAny.updateRange = { offset: 0, count: offset * 3 };
+      cAny.updateRange = { offset: 0, count: offset * 3 };
+    }
     positionAttr.needsUpdate = true;
     colorAttr.needsUpdate = true;
-    geometry.computeBoundingSphere();
+    
+    const maxDebrisRadius = (EARTH_RADIUS_KM + 2500) * SCALE_FACTOR;
+    geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), maxDebrisRadius);
   }, [selectedCatalogs, catalogsData, geometry, positionAttr, colorAttr]);
 
+
+  const lastRaycastTime = useRef(0);
+  useEffect(() => {
+    const points = pointsRef.current;
+    if (!points) return;
+    const originalRaycast = points.raycast.bind(points);
+    points.raycast = (raycaster: any, intersects: any) => {
+      const now = performance.now();
+      if (now - lastRaycastTime.current < 50) return;
+      lastRaycastTime.current = now;
+      originalRaycast(raycaster, intersects);
+    };
+  }, []);
+  
   useFrame((_, delta) => {
     if (!isPropagating || !pointsRef.current) return;
     // We don't drift real data manually if we're rendering exact epoch, but for visualization drift is okay
     pointsRef.current.rotation.y += delta * 0.008 * propagationSpeed;
-    pointsRef.current.rotation.x += delta * 0.0018 * propagationSpeed;
+    
   });
 
   const handlePointerMove = useCallback(
@@ -258,7 +300,7 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
           const incDeg = Math.round((inclinationsRef.current[index] ?? 53.0) * 10) / 10;
           const realNoradId = range.norads[localIndex];
           const objectId = getDebrisObjectId(range.id, localIndex, realNoradId);
-          const velocityKmS = computeOrbitalVelocity(altKm);
+          const velocityKmS = Math.round((velocitiesRef.current[index] || computeOrbitalVelocity(altKm)) * 1000) / 1000;
 
           onParticleHover?.({
             catalogId: range.id,
@@ -299,7 +341,7 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
           const incDeg = Math.round((inclinationsRef.current[index] ?? 53.0) * 10) / 10;
           const realNoradId = range.norads[localIndex];
           const objectId = getDebrisObjectId(range.id, localIndex, realNoradId);
-          const velocityKmS = computeOrbitalVelocity(altKm);
+          const velocityKmS = Math.round((velocitiesRef.current[index] || computeOrbitalVelocity(altKm)) * 1000) / 1000;
 
           onParticleClick?.({
             catalogId: range.id,
@@ -343,4 +385,5 @@ export const DebrisField: React.FC<DebrisFieldProps> = ({
   );
 };
 
+export const DebrisField = React.memo(DebrisFieldComponent);
 export default DebrisField;

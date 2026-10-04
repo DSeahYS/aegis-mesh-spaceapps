@@ -1,8 +1,10 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import { EARTH_RADIUS_KM, SCALE_FACTOR } from '../../lib/constants';
+
+const EARTH_SPECULAR_COLOR = new THREE.Color('#4a8fc4');
 
 const EARTH_RADIUS = EARTH_RADIUS_KM * SCALE_FACTOR; // ~6.371 units
 const AXIAL_TILT = (-23.5 * Math.PI) / 180; // Real Earth axial tilt
@@ -76,14 +78,22 @@ const EarthInner: React.FC = () => {
     });
   }, []);
 
-  useFrame(() => {
+  useEffect(() => {
+    return () => {
+      atmosphereMaterial.dispose();
+      haloMaterial.dispose();
+    };
+  }, [atmosphereMaterial, haloMaterial]);
+
+
+  useFrame((_, delta) => {
     if (earthGroupRef.current) {
       // Real sidereal day ≈ 23h 56m; at 60x speed: 0.001 rad/frame @60fps ≈ realistic
-      earthGroupRef.current.rotation.y += 0.001;
+      earthGroupRef.current.rotation.y += delta * 0.06;
     }
     if (cloudsRef.current) {
       // Clouds drift slightly faster than the surface
-      cloudsRef.current.rotation.y += 0.00013;
+      cloudsRef.current.rotation.y += delta * 0.0078;
     }
   });
 
@@ -100,7 +110,7 @@ const EarthInner: React.FC = () => {
             bumpMap={bumpMap}
             bumpScale={0.018}
             specularMap={specularMap}
-            specular={new THREE.Color('#4a8fc4')}
+            specular={EARTH_SPECULAR_COLOR}
             shininess={28}
           />
         </mesh>
@@ -200,7 +210,7 @@ class TextureErrorBoundary extends React.Component<
 }
 
 // Wrap in Suspense fallback so textures load gracefully
-export const Earth: React.FC = () => {
+const EarthComponent: React.FC = () => {
   return (
     <TextureErrorBoundary fallback={<EarthFallback />}>
       <React.Suspense fallback={<EarthFallback />}>
@@ -213,8 +223,8 @@ export const Earth: React.FC = () => {
 // Fallback while textures stream in — keeps the placeholder Earth visible
 const EarthFallback: React.FC = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  useFrame(() => {
-    if (meshRef.current) meshRef.current.rotation.y += 0.001;
+  useFrame((_, delta) => {
+    if (meshRef.current) meshRef.current.rotation.y += delta * 0.06;
   });
   return (
     <group rotation={[0, 0, AXIAL_TILT]}>
@@ -244,4 +254,5 @@ const EarthFallback: React.FC = () => {
   );
 };
 
+export const Earth = React.memo(EarthComponent);
 export default Earth;

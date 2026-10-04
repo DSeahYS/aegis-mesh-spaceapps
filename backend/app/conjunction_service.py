@@ -21,8 +21,13 @@ class ConjunctionService:
         # Propagate both satellites over the window
         import time
         from sgp4.api import Satrec
-        sat1 = Satrec.twoline2rv(tle1["line1"], tle1["line2"])
-        sat2 = Satrec.twoline2rv(tle2["line1"], tle2["line2"])
+        try:
+            sat1 = Satrec.twoline2rv(tle1["line1"], tle1["line2"])
+            sat2 = Satrec.twoline2rv(tle2["line1"], tle2["line2"])
+            if getattr(sat1, "error", 0) != 0 or getattr(sat2, "error", 0) != 0:
+                return {"error": "Propagation failed: invalid TLE data", "conjunctions": []}
+        except Exception as exc:
+            return {"error": f"Invalid TLE data: {exc}", "conjunctions": []}
 
         now = time.time()
         jd_now, fr_now = ts_to_jday(now)
@@ -69,18 +74,22 @@ class ConjunctionService:
                hard_body_radius: float = 10.0) -> dict:
         """Assess conjunction probability between two TLE sets at a given epoch."""
         from sgp4.api import Satrec
-        import time as _time
 
-        sat1 = Satrec.twoline2rv(primary_tle["line1"], primary_tle["line2"])
-        sat2 = Satrec.twoline2rv(secondary_tle["line1"], secondary_tle["line2"])
+        try:
+            sat1 = Satrec.twoline2rv(primary_tle["line1"], primary_tle["line2"])
+            sat2 = Satrec.twoline2rv(secondary_tle["line1"], secondary_tle["line2"])
+            if getattr(sat1, "error", 0) != 0 or getattr(sat2, "error", 0) != 0:
+                return {"error": "Propagation failed: invalid TLE data", "probability_of_collision": 0.0}
+        except Exception as exc:
+            return {"error": f"Invalid TLE data: {exc}", "probability_of_collision": 0.0}
 
         # Parse epoch string (ISO 8601)
         try:
-            from datetime import datetime, timezone
+            from datetime import datetime
             dt = datetime.fromisoformat(epoch.replace("Z", "+00:00"))
             ts = dt.timestamp()
         except Exception:
-            ts = _time.time()
+            return {"error": f"Invalid epoch format: '{epoch}'. Expected ISO 8601.", "probability_of_collision": 0.0}
 
         jd, fr = ts_to_jday(ts)
         e1, r1, v1 = sat1.sgp4(jd, fr)
