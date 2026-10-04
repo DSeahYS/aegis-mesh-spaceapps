@@ -67,20 +67,20 @@ export const ManeuverLog: React.FC = () => {
   };
 
   return (
-    <div className="bg-space-800 border border-space-600 rounded-lg shadow-xl overflow-hidden flex flex-col">
+    <div className="bg-space-800 border border-space-600 rounded-sm shadow-xl overflow-hidden flex flex-col">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-space-600 flex items-center justify-between bg-space-900/40">
+      <div className="px-4 py-3 border-b border-space-600 flex items-center justify-between bg-zinc-900/40">
         <div className="flex items-center gap-2">
           <Compass className="w-4 h-4 text-cyber-blue" />
-          <h2 className="uppercase text-xs font-semibold tracking-wider text-slate-400">
+          <h2 className="uppercase text-xs font-semibold tracking-wider text-zinc-400">
             Autonomous Maneuver Log
           </h2>
         </div>
-        <div className="text-[11px] font-mono text-slate-400">
+        <div className="text-[11px] font-mono text-zinc-400">
           <span className="text-cyber-green font-semibold">1 Executed</span>
-          <span className="text-slate-500 mx-1.5">•</span>
+          <span className="text-zinc-500 mx-1.5">•</span>
           <span className="text-cyber-blue font-semibold">3 Planned</span>
-          <span className="text-slate-500 mx-1.5">•</span>
+          <span className="text-zinc-500 mx-1.5">•</span>
           <span className="text-alert-red font-semibold">1 Aborted</span>
         </div>
       </div>
@@ -95,7 +95,7 @@ export const ManeuverLog: React.FC = () => {
           return (
             <div
               key={item.id}
-              className={`p-3 rounded-lg border transition-all duration-200 bg-space-900/50 hover:bg-space-900/80 ${
+              className={`p-3 rounded-sm border transition-all duration-200 bg-zinc-900/50 hover:bg-zinc-900/80 ${
                 item.maneuver.status === 'executed'
                   ? 'border-emerald-500/40 hover:border-emerald-500/60'
                   : item.maneuver.status === 'planned'
@@ -110,7 +110,7 @@ export const ManeuverLog: React.FC = () => {
                     <Satellite className="w-3 h-3 text-cyber-blue" />
                     {item.primarySatellite}
                   </span>
-                  <span className="font-mono text-xs text-slate-400">
+                  <span className="font-mono text-xs text-zinc-400">
                     {item.id}
                   </span>
                 </div>
@@ -124,19 +124,19 @@ export const ManeuverLog: React.FC = () => {
               </div>
 
               {/* Event Name */}
-              <div className="text-xs font-medium text-slate-200 mb-2 truncate" title={item.name}>
+              <div className="text-xs font-medium text-zinc-200 mb-2 truncate" title={item.name}>
                 {item.name}
               </div>
 
               {/* Maneuver Telemetry Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-2 rounded bg-space-950/60 border border-space-700/60 font-mono text-[11px]">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-2 rounded bg-zinc-950/60 border border-space-700/60 font-mono text-[11px]">
                 {/* 3D Delta-V Vector Component */}
                 <div className="sm:col-span-1">
-                  <div className="text-[10px] text-slate-400 flex items-center gap-1 mb-0.5 uppercase tracking-wider">
+                  <div className="text-[10px] text-zinc-400 flex items-center gap-1 mb-0.5 uppercase tracking-wider">
                     <Gauge className="w-3 h-3 text-cyber-blue" />
                     <span>ΔV Vector [m/s]</span>
                   </div>
-                  <div className="text-slate-200 font-semibold tracking-tight">
+                  <div className="text-zinc-200 font-semibold tracking-tight">
                     [{formatVectorComponent(dx)}, {formatVectorComponent(dy)}, {formatVectorComponent(dz)}]
                   </div>
                   <div className="text-[10px] text-cyber-green mt-0.5">
@@ -146,25 +146,25 @@ export const ManeuverLog: React.FC = () => {
 
                 {/* Fuel Cost & Burn Duration */}
                 <div className="sm:col-span-1">
-                  <div className="text-[10px] text-slate-400 flex items-center gap-1 mb-0.5 uppercase tracking-wider">
+                  <div className="text-[10px] text-zinc-400 flex items-center gap-1 mb-0.5 uppercase tracking-wider">
                     <Fuel className="w-3 h-3 text-alert-amber" />
                     <span>Propellant Cost</span>
                   </div>
-                  <div className="text-slate-200 font-semibold">
+                  <div className="text-zinc-200 font-semibold">
                     {item.maneuver.fuelCost.toFixed(2)} kg
                   </div>
-                  <div className="text-[10px] text-slate-400 mt-0.5">
+                  <div className="text-[10px] text-zinc-400 mt-0.5">
                     Burn: {item.maneuver.burnDuration.toFixed(1)}s
                   </div>
                 </div>
 
                 {/* Timestamp */}
                 <div className="sm:col-span-1">
-                  <div className="text-[10px] text-slate-400 flex items-center gap-1 mb-0.5 uppercase tracking-wider">
-                    <Clock className="w-3 h-3 text-slate-400" />
+                  <div className="text-[10px] text-zinc-400 flex items-center gap-1 mb-0.5 uppercase tracking-wider">
+                    <Clock className="w-3 h-3 text-zinc-400" />
                     <span>Timestamp</span>
                   </div>
-                  <div className="text-slate-300 text-[10px] leading-tight">
+                  <div className="text-zinc-300 text-[10px] leading-tight">
                     {formatTimestamp(item.timestamp)}
                   </div>
                 </div>

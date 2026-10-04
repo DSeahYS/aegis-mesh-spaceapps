@@ -1,6 +1,6 @@
 {
   "report_title": "AEGIS-MESH Red Team Realism Test: Live Celestrak ISS Conjunction E2E Report",
-  "generated_at_utc": "2026-10-04T06:12:17.542261+00:00",
+  "generated_at_utc": "2026-10-04T09:42:54.726024+00:00",
   "tester_role": "Red Team System Integration Tester",
   "test_status": "PASSED",
   "live_telemetry_source": {
@@ -8,19 +8,19 @@
     "station_name": "ISS (ZARYA)",
     "tle_line1": "1 25544U 98067A   26276.82055412  .00004062  00000+0  82609-4 0  9990",
     "tle_line2": "2 25544  51.6315 122.4760 0006936 219.0621 140.9867 15.48726504588592",
-    "propagation_epoch_utc": "2026-10-04T06:12:17.042052+00:00",
+    "propagation_epoch_utc": "2026-10-04T09:42:54.147489+00:00",
     "position_teme_km": [
-      2735.9329291828603,
-      3453.2862807022366,
-      -5181.020553672749
+      -4392.399872996655,
+      4877.8708331241505,
+      1781.516129968584
     ],
     "velocity_teme_km_s": [
-      -4.7158796553178615,
-      5.858507982038113,
-      1.4090293714709599
+      -2.626747172094706,
+      -4.439675074841051,
+      5.658021326870638
     ],
-    "altitude_km": 429.9917737821788,
-    "orbital_speed_km_s": 7.651601170259271
+    "altitude_km": 430.5145541476695,
+    "orbital_speed_km_s": 7.656612881137154
   },
   "mock_conjunction_scenario": {
     "scenario_name": "ISS Real-World Telemetry vs. COSMOS 1408 Russian ASAT Debris",
@@ -28,18 +28,18 @@
       "name": "ISS (ZARYA)",
       "norad_id": "25544",
       "position_km": [
-        2735.9329291828603,
-        3453.2862807022366,
-        -5181.020553672749
+        -4392.399872996655,
+        4877.8708331241505,
+        1781.516129968584
       ],
       "velocity_km_s": [
-        -4.7158796553178615,
-        5.858507982038113,
-        1.4090293714709599
+        -2.626747172094706,
+        -4.439675074841051,
+        5.658021326870638
       ],
-      "altitude_km": 429.99,
-      "speed_km_s": 7.65,
-      "epoch_utc": "2026-10-04T06:12:17.042052+00:00",
+      "altitude_km": 430.51,
+      "speed_km_s": 7.66,
+      "epoch_utc": "2026-10-04T09:42:54.147489+00:00",
       "role": "Ego Spacecraft"
     },
     "secondary": {
@@ -47,14 +47,14 @@
       "norad_id": "49863",
       "debris_mass_kg": 55.0,
       "position_km": [
-        2735.994973335859,
-        3453.4564280681107,
-        -5181.038592435588
+        -4392.444218783905,
+        4877.947036677597,
+        1781.6753514168731
       ],
       "velocity_km_s": [
-        5.755816170988933,
-        1.9592899294717316,
-        0.6476588310313758
+        2.297661548160112,
+        5.099190310372742,
+        2.464238942510608
       ],
       "role": "Non-maneuverable Debris Fragment"
     },
@@ -90,15 +90,15 @@
         "propellant_mass_kg": 2.5,
         "isp_s": 220.0,
         "max_thrust_n": 22.0,
-        "altitude_km": 429.99,
+        "altitude_km": 430.51,
         "min_perigee_km": 300.0,
         "d_max_mps2": 0.01,
         "pc_threshold": 0.0001,
         "top_k": 10
       },
       "response": {
-        "run_id": "dba2f0a1-4a4c-4cc7-ae0a-213e9b7df5a0",
-        "timestamp": "2026-10-04T06:12:17.530279+00:00",
+        "run_id": "c2d0445c-49da-43b6-bb63-73c9979e1830",
+        "timestamp": "2026-10-04T09:42:54.714070+00:00",
         "inputs": {
           "tca_s": 45.0,
           "miss_xi_m": 145.0,
@@ -113,7 +113,7 @@
           "propellant_mass_kg": 2.5,
           "isp_s": 220.0,
           "max_thrust_n": 22.0,
-          "altitude_km": 429.99,
+          "altitude_km": 430.51,
           "min_perigee_km": 300.0,
           "d_max_mps2": 0.01,
           "pc_threshold": 0.0001,
@@ -193,10 +193,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 410.21,
+                  "value": 410.73,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 410.21 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 410.73 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -255,10 +255,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 412.03,
+                  "value": 412.55,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 412.03 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 412.55 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -317,10 +317,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 412.47,
+                  "value": 412.99,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 412.47 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 412.99 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -379,10 +379,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 410.14,
+                  "value": 410.66,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 410.14 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 410.66 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -441,10 +441,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 422.31,
+                  "value": 422.83,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 422.31 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 422.83 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -503,10 +503,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 429.99,
+                  "value": 430.51,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 429.99 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 430.51 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -565,10 +565,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 424.3,
+                  "value": 424.82,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 424.30 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 424.82 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -627,10 +627,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 415.6,
+                  "value": 416.12,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 415.60 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 416.12 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -689,10 +689,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 411.4,
+                  "value": 411.92,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 411.40 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 411.92 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -751,10 +751,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 418.83,
+                  "value": 419.35,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 418.83 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 419.35 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -813,10 +813,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 416.72,
+                  "value": 417.24,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 416.72 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 417.24 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -875,10 +875,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 408.52,
+                  "value": 409.04,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 408.52 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 409.04 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -937,10 +937,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 414.6,
+                  "value": 415.12,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 414.60 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 415.12 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -999,10 +999,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 428.6,
+                  "value": 429.12,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 428.60 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 429.12 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1061,10 +1061,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 413.84,
+                  "value": 414.36,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 413.84 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 414.36 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1123,10 +1123,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 415.54,
+                  "value": 416.05,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 415.54 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 416.05 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1185,10 +1185,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 413.98,
+                  "value": 414.5,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 413.98 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 414.50 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1247,10 +1247,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 421.01,
+                  "value": 421.52,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 421.01 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 421.52 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1309,10 +1309,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 424.07,
+                  "value": 424.59,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 424.07 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 424.59 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1371,10 +1371,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 429.05,
+                  "value": 429.57,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 429.05 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 429.57 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1433,10 +1433,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 424.84,
+                  "value": 425.36,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 424.84 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 425.36 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1495,10 +1495,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 429.99,
+                  "value": 430.51,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 429.99 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 430.51 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1557,10 +1557,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 409.08,
+                  "value": 409.6,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 409.08 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 409.60 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1619,10 +1619,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 421.99,
+                  "value": 422.51,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 421.99 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 422.51 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1681,10 +1681,10 @@
                   "id": "R3",
                   "name": "MIN_PERIGEE",
                   "passed": true,
-                  "value": 429.99,
+                  "value": 430.51,
                   "limit": 300.0,
                   "unit": "km",
-                  "detail": "Post-burn perigee altitude 429.99 km vs minimum safe perigee 300.00 km"
+                  "detail": "Post-burn perigee altitude 430.51 km vs minimum safe perigee 300.00 km"
                 },
                 {
                   "id": "R4",
@@ -1745,10 +1745,10 @@
               "id": "R3",
               "name": "MIN_PERIGEE",
               "passed": true,
-              "value": 429.99,
+              "value": 430.51,
               "limit": 300.0,
               "unit": "km",
-              "detail": "Post-burn perigee altitude 429.99 km vs minimum safe perigee 300.00 km"
+              "detail": "Post-burn perigee altitude 430.51 km vs minimum safe perigee 300.00 km"
             },
             {
               "id": "R4",
@@ -5765,7 +5765,7 @@
             "grid_n": 121,
             "dt_s": 0.25,
             "steps": 180,
-            "solve_ms": 449.94
+            "solve_ms": 524.88
           }
         },
         "cbf": {
@@ -6980,11 +6980,11 @@
         },
         "stage_timings_ms": {
           "assess": 1.88,
-          "clm": 0.44,
-          "validation": 1.19,
-          "hj": 460.96,
-          "cbf": 18.37,
-          "total": 482.87
+          "clm": 0.47,
+          "validation": 1.26,
+          "hj": 537.18,
+          "cbf": 20.75,
+          "total": 561.58
         }
       }
     },
@@ -7001,7 +7001,7 @@
         "miss_zeta_m": 110.0,
         "rel_velocity_km_s": 11.2,
         "debris_mass_kg": 55.0,
-        "altitude_km": 429.99
+        "altitude_km": 430.51
       },
       "response": {
         "nodes": [
@@ -7124,10 +7124,10 @@
               "id": "R3",
               "name": "MIN_PERIGEE",
               "passed": true,
-              "value": 429.99,
+              "value": 430.51,
               "limit": 300.0,
               "unit": "km",
-              "detail": "Post-burn perigee altitude 429.99 km vs minimum safe perigee 300.00 km"
+              "detail": "Post-burn perigee altitude 430.51 km vs minimum safe perigee 300.00 km"
             }
           },
           {
@@ -7170,7 +7170,7 @@
               "propellant_mass_kg": 2.5,
               "max_thrust_n": 22.0,
               "isp_s": 220.0,
-              "altitude_km": 430.0
+              "altitude_km": 430.5
             }
           },
           {
@@ -7408,10 +7408,10 @@
               "id": "R3",
               "name": "MIN_PERIGEE",
               "passed": true,
-              "value": 429.99,
+              "value": 430.51,
               "limit": 300.0,
               "unit": "km",
-              "detail": "Post-burn perigee altitude 429.99 km vs minimum safe perigee 300.00 km"
+              "detail": "Post-burn perigee altitude 430.51 km vs minimum safe perigee 300.00 km"
             },
             {
               "id": "R4",
@@ -7600,10 +7600,10 @@
                 "id": "R3",
                 "name": "MIN_PERIGEE",
                 "passed": true,
-                "value": 429.99,
+                "value": 430.51,
                 "limit": 300.0,
                 "unit": "km",
-                "detail": "Post-burn perigee altitude 429.99 km vs minimum safe perigee 300.00 km"
+                "detail": "Post-burn perigee altitude 430.51 km vs minimum safe perigee 300.00 km"
               }
             },
             {
@@ -7646,7 +7646,7 @@
                 "propellant_mass_kg": 2.5,
                 "max_thrust_n": 22.0,
                 "isp_s": 220.0,
-                "altitude_km": 430.0
+                "altitude_km": 430.5
               }
             },
             {

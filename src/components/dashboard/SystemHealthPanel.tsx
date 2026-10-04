@@ -77,12 +77,12 @@ export const SystemHealthPanel: React.FC = () => {
   });
 
   return (
-    <div className="bg-space-800 border border-space-600 rounded-lg shadow-xl overflow-hidden flex flex-col">
+    <div className="bg-space-800 border border-space-600 rounded-sm shadow-xl overflow-hidden flex flex-col">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-space-600 flex flex-wrap items-center justify-between gap-2 bg-space-900/40">
+      <div className="px-4 py-3 border-b border-space-600 flex flex-wrap items-center justify-between gap-2 bg-zinc-900/40">
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 text-cyber-blue" />
-          <h2 className="uppercase text-xs font-semibold tracking-wider text-slate-400">
+          <h2 className="uppercase text-xs font-semibold tracking-wider text-zinc-400">
             Constellation Health
           </h2>
         </div>
@@ -108,13 +108,13 @@ export const SystemHealthPanel: React.FC = () => {
             )}
           </div>
 
-          <div className="inline-flex rounded border border-space-600 p-0.5 bg-space-900/60 text-[10px] font-mono">
+          <div className="inline-flex rounded border border-space-600 p-0.5 bg-zinc-900/60 text-[10px] font-mono">
             <button
               onClick={() => setFilter('all')}
               className={`px-2 py-0.5 rounded transition-colors ${
                 filter === 'all'
                   ? 'bg-space-700 text-white font-medium'
-                  : 'text-slate-400 hover:text-slate-200'
+                  : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
               ALL
@@ -124,7 +124,7 @@ export const SystemHealthPanel: React.FC = () => {
               className={`px-2 py-0.5 rounded transition-colors ${
                 filter === 'attention'
                   ? 'bg-alert-amber/20 text-alert-amber font-medium'
-                  : 'text-slate-400 hover:text-slate-200'
+                  : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
               ACTIVE ({statusSummary.alert + statusSummary.maneuvering})
@@ -147,14 +147,14 @@ export const SystemHealthPanel: React.FC = () => {
             return (
               <div
                 key={node.id}
-                className={`p-2.5 rounded-lg border transition-all duration-200 flex flex-col justify-between ${
+                className={`p-2.5 rounded-sm border transition-all duration-200 flex flex-col justify-between ${
                   isAlert
-                    ? 'bg-space-900/90 border-alert-amber/60 shadow-md ring-1 ring-alert-amber/30'
+                    ? 'bg-zinc-900/90 border-alert-amber/60 shadow-md ring-1 ring-alert-amber/30'
                     : isManeuvering
-                    ? 'bg-space-900/90 border-cyber-blue/60 shadow-md ring-1 ring-cyber-blue/30'
+                    ? 'bg-zinc-900/90 border-cyber-blue/60 shadow-md ring-1 ring-cyber-blue/30'
                     : isNominal
-                    ? 'bg-space-900/50 border-space-600 hover:border-space-500/80 hover:bg-space-900/70'
-                    : 'bg-space-900/50 border-space-600'
+                    ? 'bg-zinc-900/50 border-space-600 hover:border-space-500/80 hover:bg-zinc-900/70'
+                    : 'bg-zinc-900/50 border-space-600'
                 }`}
               >
                 {/* Node Card Header */}
@@ -180,17 +180,17 @@ export const SystemHealthPanel: React.FC = () => {
                       ></span>
                     </span>
 
-                    <span className="font-mono font-bold text-xs text-slate-100 tracking-tight truncate">
+                    <span className="font-mono font-bold text-xs text-zinc-100 tracking-tight truncate">
                       {node.id}
                     </span>
-                    <span className="text-[10px] text-slate-400 truncate max-w-[65px]">
+                    <span className="text-[10px] text-zinc-400 truncate max-w-[65px]">
                       {node.name.replace(' Node', '')}
                     </span>
                   </div>
 
                   {/* Processor Badge */}
                   <div className="flex items-center gap-1 flex-shrink-0">
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-space-800 text-slate-300 border border-space-700">
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-space-800 text-zinc-300 border border-space-700">
                       {abbreviateProcessor(node.hardware.processor)}
                     </span>
                   </div>
@@ -209,7 +209,7 @@ export const SystemHealthPanel: React.FC = () => {
                         {node.status}
                       </span>
                     </span>
-                    <span className="text-slate-400 text-[9px]">ATTENTION REQUIRED</span>
+                    <span className="text-zinc-400 text-[9px]">ATTENTION REQUIRED</span>
                   </div>
                 )}
 
@@ -217,9 +217,9 @@ export const SystemHealthPanel: React.FC = () => {
                 <div className="space-y-1.5 text-[10px] font-mono">
                   {/* 1. Power Level */}
                   <div>
-                    <div className="flex justify-between items-center text-slate-400 mb-0.5">
+                    <div className="flex justify-between items-center text-zinc-400 mb-0.5">
                       <span className="flex items-center gap-1">
-                        <Zap className="w-2.5 h-2.5 text-slate-400" />
+                        <Zap className="w-2.5 h-2.5 text-zinc-400" />
                         Power
                       </span>
                       <span className={`font-semibold ${getTextColor(node.health.powerLevel)}`}>
@@ -238,9 +238,9 @@ export const SystemHealthPanel: React.FC = () => {
 
                   {/* 2. Radiation Dose (Inverted: high is bad) */}
                   <div>
-                    <div className="flex justify-between items-center text-slate-400 mb-0.5">
+                    <div className="flex justify-between items-center text-zinc-400 mb-0.5">
                       <span className="flex items-center gap-1">
-                        <ShieldCheck className="w-2.5 h-2.5 text-slate-400" />
+                        <ShieldCheck className="w-2.5 h-2.5 text-zinc-400" />
                         Rad Dose
                       </span>
                       <span className={`font-semibold ${getTextColor(radPercent, true)}`}>
@@ -260,9 +260,9 @@ export const SystemHealthPanel: React.FC = () => {
 
                   {/* 3. Compute Load */}
                   <div>
-                    <div className="flex justify-between items-center text-slate-400 mb-0.5">
+                    <div className="flex justify-between items-center text-zinc-400 mb-0.5">
                       <span className="flex items-center gap-1">
-                        <Cpu className="w-2.5 h-2.5 text-slate-400" />
+                        <Cpu className="w-2.5 h-2.5 text-zinc-400" />
                         Compute
                       </span>
                       <span className={`font-semibold ${getTextColor(node.health.computeLoad)}`}>
@@ -281,9 +281,9 @@ export const SystemHealthPanel: React.FC = () => {
 
                   {/* 4. Fuel Remaining */}
                   <div>
-                    <div className="flex justify-between items-center text-slate-400 mb-0.5">
+                    <div className="flex justify-between items-center text-zinc-400 mb-0.5">
                       <span className="flex items-center gap-1">
-                        <Fuel className="w-2.5 h-2.5 text-slate-400" />
+                        <Fuel className="w-2.5 h-2.5 text-zinc-400" />
                         Propellant
                       </span>
                       <span className={`font-semibold ${getTextColor(node.health.fuelRemaining)}`}>

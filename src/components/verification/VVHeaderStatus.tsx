@@ -47,8 +47,8 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
             <span className="text-xs font-mono tracking-widest text-cyber-green uppercase font-semibold">
               AEGIS-MESH DETERMINISTIC ASSURANCE
             </span>
-            <span className="text-xs text-slate-500">•</span>
-            <span className="text-xs font-mono text-slate-400">
+            <span className="text-xs text-zinc-500">•</span>
+            <span className="text-xs font-mono text-zinc-400">
               ORACLES & REACHABILITY CERTIFICATES
             </span>
           </div>
@@ -56,7 +56,7 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
             <ShieldCheck className="w-7 h-7 text-cyber-green shrink-0" />
             Validation & Verification (V&V) Proof
           </h1>
-          <p className="text-xs text-slate-400 mt-1 max-w-3xl">
+          <p className="text-xs text-zinc-400 mt-1 max-w-3xl">
             Live proof that AEGIS-MESH autonomous evasion is mathematically grounded: Foster 2D B-plane quadrature,
             OpenSPG/KGDSL-style rule graph (in-process), Isaacs Hamilton-Jacobi reachability certificates, and High-Order
             Control Barrier Function safety invariance.
@@ -67,7 +67,7 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
         <div className="flex flex-wrap items-center gap-2.5 font-mono text-xs">
           {/* Online/Offline */}
           <div
-            className={`px-3 py-1.5 rounded-lg border flex items-center gap-2 ${
+            className={`px-3 py-1.5 rounded-sm border flex items-center gap-2 ${
               isOnline
                 ? 'bg-space-800/80 border-cyber-green/40 text-cyber-green'
                 : 'bg-alert-red/10 border-alert-red/40 text-alert-red'
@@ -87,27 +87,27 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
           </div>
 
           {/* Uptime */}
-          <div className="px-3 py-1.5 rounded-lg bg-space-800/80 border border-space-600 flex items-center gap-2 text-slate-300">
-            <Clock className="w-3.5 h-3.5 text-slate-400" />
+          <div className="px-3 py-1.5 rounded-sm bg-space-800/80 border border-space-600 flex items-center gap-2 text-zinc-300">
+            <Clock className="w-3.5 h-3.5 text-zinc-400" />
             <span>UPTIME {uptimeSec}s</span>
           </div>
 
           {/* Last Run ID */}
           {lastRunId && (
             <div
-              className="px-3 py-1.5 rounded-lg bg-space-800/80 border border-space-600 flex items-center gap-2 text-slate-300"
+              className="px-3 py-1.5 rounded-sm bg-space-800/80 border border-space-600 flex items-center gap-2 text-zinc-300"
               title={`Full Run ID: ${lastRunId}\nTimestamp: ${lastRunTimestamp ?? 'N/A'}`}
             >
-              <Cpu className="w-3.5 h-3.5 text-cyan-400" />
+              <Cpu className="w-3.5 h-3.5 text-blue-400" />
               <span>
-                RUN <span className="text-cyan-300 font-bold">{lastRunId.slice(0, 8)}</span>
+                RUN <span className="text-blue-300 font-bold">{lastRunId.slice(0, 8)}</span>
               </span>
             </div>
           )}
 
           {/* Round-trip Latency */}
           {lastRoundTripMs !== null && (
-            <div className="px-3 py-1.5 rounded-lg bg-space-800/80 border border-space-600 flex items-center gap-2 text-slate-300">
+            <div className="px-3 py-1.5 rounded-sm bg-space-800/80 border border-space-600 flex items-center gap-2 text-zinc-300">
               <Activity className="w-3.5 h-3.5 text-yellow-400" />
               <span>
                 RTT <span className="text-yellow-300 font-bold">{formatDurationMs(lastRoundTripMs)}</span>
@@ -119,16 +119,16 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
 
       {/* Offline Alert Banner */}
       {!isOnline && (
-        <div className="bg-alert-red/10 border border-alert-red/40 rounded-lg p-3.5 text-xs font-mono text-slate-200 flex items-start gap-3">
+        <div className="bg-alert-red/10 border border-alert-red/40 rounded-sm p-3.5 text-xs font-mono text-zinc-200 flex items-start gap-3">
           <Terminal className="w-5 h-5 text-alert-red shrink-0 mt-0.5" />
           <div className="space-y-1">
             <div className="font-bold text-alert-red flex items-center gap-2">
               FASTAPI ENGINE NOT DETECTED ON PORT 8000
             </div>
-            <p className="text-slate-300">
+            <p className="text-zinc-300">
               To activate live numerical validation and reachability certificates, launch the backend server:
             </p>
-            <div className="bg-space-950 px-2.5 py-1.5 rounded border border-space-700 text-cyan-300 select-all inline-block font-bold">
+            <div className="bg-zinc-950 px-2.5 py-1.5 rounded border border-space-700 text-blue-300 select-all inline-block font-bold">
               cd backend &amp;&amp; uvicorn app.main:app --port 8000
             </div>
           </div>
@@ -140,10 +140,10 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
         <button
           type="button"
           onClick={() => onTabChange('pipeline')}
-          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg border transition-all ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-sm border transition-all ${
             activeTab === 'pipeline'
               ? 'bg-cyber-green/15 border-cyber-green text-cyber-green font-bold shadow-md shadow-cyber-green/10'
-              : 'bg-space-800/60 border-space-700 text-slate-400 hover:text-slate-200 hover:bg-space-800'
+              : 'bg-space-800/60 border-space-700 text-zinc-400 hover:text-zinc-200 hover:bg-space-800'
           }`}
         >
           <Layers className="w-4 h-4" />
@@ -153,10 +153,10 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
         <button
           type="button"
           onClick={() => onTabChange('openspg')}
-          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg border transition-all ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-sm border transition-all ${
             activeTab === 'openspg'
               ? 'bg-amber-500/15 border-amber-500 text-amber-300 font-bold shadow-md shadow-amber-500/10'
-              : 'bg-space-800/60 border-space-700 text-slate-400 hover:text-slate-200 hover:bg-space-800'
+              : 'bg-space-800/60 border-space-700 text-zinc-400 hover:text-zinc-200 hover:bg-space-800'
           }`}
         >
           <Network className="w-4 h-4 text-amber-400" />
@@ -166,10 +166,10 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
         <button
           type="button"
           onClick={() => onTabChange('selftest')}
-          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg border transition-all ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-sm border transition-all ${
             activeTab === 'selftest'
               ? 'bg-purple-500/15 border-purple-500 text-purple-300 font-bold shadow-md shadow-purple-500/10'
-              : 'bg-space-800/60 border-space-700 text-slate-400 hover:text-slate-200 hover:bg-space-800'
+              : 'bg-space-800/60 border-space-700 text-zinc-400 hover:text-zinc-200 hover:bg-space-800'
           }`}
         >
           <CheckCircle className="w-4 h-4" />
@@ -179,10 +179,10 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
         <button
           type="button"
           onClick={() => onTabChange('cdm')}
-          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg border transition-all ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-sm border transition-all ${
             activeTab === 'cdm'
-              ? 'bg-blue-500/15 border-blue-500 text-blue-300 font-bold shadow-md shadow-blue-500/10'
-              : 'bg-space-800/60 border-space-700 text-slate-400 hover:text-slate-200 hover:bg-space-800'
+              ? 'bg-blue-500/15 border-blue-500 text-blue-300 font-bold shadow-md shadow-black/10'
+              : 'bg-space-800/60 border-space-700 text-zinc-400 hover:text-zinc-200 hover:bg-space-800'
           }`}
         >
           <FileCode className="w-4 h-4" />
@@ -192,10 +192,10 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
         <button
           type="button"
           onClick={() => onTabChange('all')}
-          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg border transition-all ml-auto ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-sm border transition-all ml-auto ${
             activeTab === 'all'
               ? 'bg-slate-700/60 border-slate-400 text-white font-bold'
-              : 'bg-space-800/40 border-space-700 text-slate-400 hover:text-slate-200'
+              : 'bg-space-800/40 border-space-700 text-zinc-400 hover:text-zinc-200'
           }`}
         >
           <span>VIEW ALL PANELS</span>

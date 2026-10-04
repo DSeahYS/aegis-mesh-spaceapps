@@ -63,7 +63,7 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
 
   if (!candidates || candidates.length === 0) {
     return (
-      <div className="p-6 text-center border border-dashed border-space-700 rounded-lg text-slate-400 font-mono text-xs">
+      <div className="p-6 text-center border border-dashed border-space-700 rounded-sm text-zinc-400 font-mono text-xs">
         No CLM candidates evaluated yet.
       </div>
     );
@@ -94,14 +94,14 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
   return (
     <div className="space-y-2 relative">
       {/* Header controls: Title & Pagination controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-slate-400">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-zinc-400">
         <div className="flex items-center gap-2">
-          <span className="font-bold text-slate-200">CLM CANDIDATE MANEUVER EVALUATION</span>
-          <span className="text-[10px] px-2 py-0.5 rounded bg-space-700 text-slate-300 font-bold">
+          <span className="font-bold text-zinc-200">CLM CANDIDATE MANEUVER EVALUATION</span>
+          <span className="text-[10px] px-2 py-0.5 rounded bg-space-700 text-zinc-300 font-bold">
             {totalCandidates.toLocaleString()} MANEUVERS
           </span>
           {totalCandidates > pageSize && (
-            <span className="text-[10px] text-cyan-400 font-mono hidden md:inline">
+            <span className="text-[10px] text-blue-400 font-mono hidden md:inline">
               (Viewing {startIndex + 1}–{endIndex})
             </span>
           )}
@@ -110,7 +110,7 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
         {/* Page size selector & hover instruction */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-[10px]">
-            <span className="text-slate-500">Rows:</span>
+            <span className="text-zinc-500">Rows:</span>
             {PAGE_SIZE_OPTIONS.map((size) => (
               <button
                 key={size}
@@ -122,7 +122,7 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
                 className={`px-1.5 py-0.5 rounded transition-colors ${
                   pageSize === size
                     ? 'bg-cyber-green text-space-950 font-bold'
-                    : 'bg-space-900 text-slate-400 hover:text-white border border-space-700'
+                    : 'bg-zinc-900 text-zinc-400 hover:text-white border border-space-700'
                 }`}
               >
                 {size}
@@ -130,17 +130,17 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
             ))}
           </div>
 
-          <div className="text-[10px] text-slate-500 hidden lg:inline">
+          <div className="text-[10px] text-zinc-500 hidden lg:inline">
             Hover R1–R5 for details
           </div>
         </div>
       </div>
 
       {/* Main Table */}
-      <div className="overflow-x-auto rounded-lg border border-space-700 bg-space-950">
+      <div className="overflow-x-auto rounded-sm border border-space-700 bg-zinc-950">
         <table className="w-full text-left text-xs border-collapse font-mono">
           <thead>
-            <tr className="border-b border-space-700 bg-space-900/90 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+            <tr className="border-b border-space-700 bg-zinc-900/90 text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
               <th className="py-2.5 px-3 w-12 text-center">Rank</th>
               <th className="py-2.5 px-3">Candidate Label &amp; Category</th>
               <th className="py-2.5 px-3 text-right">Δv (m/s)</th>
@@ -179,13 +179,13 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
                     isSelected
                       ? 'bg-cyber-green/15 border-l-4 border-l-cyber-green font-semibold'
                       : isRejected
-                      ? 'bg-space-950/40 text-slate-500 hover:bg-space-900/40'
-                      : 'bg-space-900/40 text-slate-200 hover:bg-space-900/70'
+                      ? 'bg-zinc-950/40 text-zinc-500 hover:bg-zinc-900/40'
+                      : 'bg-zinc-900/40 text-zinc-200 hover:bg-zinc-900/70'
                   }`}
                 >
                   {/* Rank */}
                   <td className="py-2 px-3 text-center">
-                    <span className={isSelected ? 'text-cyber-green font-bold' : 'text-slate-500'}>
+                    <span className={isSelected ? 'text-cyber-green font-bold' : 'text-zinc-500'}>
                       #{cand.rank ?? globalIdx + 1}
                     </span>
                   </td>
@@ -193,10 +193,10 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
                   {/* Label & Category */}
                   <td className="py-2 px-3">
                     <div className="flex items-center gap-2">
-                      <span className={`font-bold ${isSelected ? 'text-white' : isRejected ? 'text-slate-400' : 'text-slate-200'}`}>
+                      <span className={`font-bold ${isSelected ? 'text-white' : isRejected ? 'text-zinc-400' : 'text-zinc-200'}`}>
                         {cand.label || `CLM-CAND-${cand.id}`}
                       </span>
-                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-space-800 text-slate-400 border border-space-700 uppercase">
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-space-800 text-zinc-400 border border-space-700 uppercase">
                         {cand.category || 'generic'}
                       </span>
                     </div>
@@ -204,23 +204,23 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
 
                   {/* Delta-V */}
                   <td className="py-2 px-3 text-right">
-                    <span className={isSelected ? 'text-cyan-300 font-bold' : isRejected ? 'text-slate-500' : 'text-slate-300'}>
+                    <span className={isSelected ? 'text-blue-300 font-bold' : isRejected ? 'text-zinc-500' : 'text-zinc-300'}>
                       {dv}
                     </span>
                   </td>
 
                   {/* RTN Direction */}
-                  <td className="py-2 px-3 text-center text-[10px] text-slate-400">
+                  <td className="py-2 px-3 text-center text-[10px] text-zinc-400">
                     [{rtn.map((v) => (typeof v === 'number' && Number.isFinite(v) ? v.toFixed(2) : '0.00')).join(', ')}]
                   </td>
 
                   {/* Confidence */}
-                  <td className="py-2 px-3 text-right text-slate-400">
+                  <td className="py-2 px-3 text-right text-zinc-400">
                     {conf}
                   </td>
 
                   {/* Score */}
-                  <td className="py-2 px-3 text-right text-slate-400">
+                  <td className="py-2 px-3 text-right text-zinc-400">
                     {score}
                   </td>
 
@@ -262,11 +262,11 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
                         SELECTED
                       </span>
                     ) : cand.accepted ? (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-950/60 text-emerald-400 border border-emerald-500/30">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-950/60 text-emerald-500 border border-emerald-500/30">
                         ACCEPTED
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium uppercase bg-space-900 text-slate-500 border border-space-800">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium uppercase bg-zinc-900 text-zinc-500 border border-zinc-800">
                         REJECTED
                       </span>
                     )}
@@ -280,7 +280,7 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
 
       {/* Pagination Footer Controls */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between px-2 py-1.5 bg-space-900/60 border border-space-700 rounded-lg text-xs font-mono text-slate-400">
+        <div className="flex items-center justify-between px-2 py-1.5 bg-zinc-900/60 border border-space-700 rounded-sm text-xs font-mono text-zinc-400">
           <div className="text-[11px]">
             Showing <span className="text-white font-bold">{startIndex + 1}</span> to{' '}
             <span className="text-white font-bold">{endIndex}</span> of{' '}
@@ -292,7 +292,7 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
               type="button"
               onClick={() => setCurrentPage(1)}
               disabled={currentPage === 1}
-              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 transition-colors"
+              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-zinc-200 transition-colors"
               title="First Page"
               aria-label="First Page"
             >
@@ -302,23 +302,23 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 transition-colors"
+              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-zinc-200 transition-colors"
               title="Previous Page"
               aria-label="Previous Page"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
             </button>
 
-            <span className="px-2 text-[11px] text-slate-300">
+            <span className="px-2 text-[11px] text-zinc-300">
               Page <span className="font-bold text-white">{currentPage}</span> of{' '}
-              <span className="font-bold text-slate-400">{totalPages}</span>
+              <span className="font-bold text-zinc-400">{totalPages}</span>
             </span>
 
             <button
               type="button"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 transition-colors"
+              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-zinc-200 transition-colors"
               title="Next Page"
               aria-label="Next Page"
             >
@@ -328,7 +328,7 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
               type="button"
               onClick={() => setCurrentPage(totalPages)}
               disabled={currentPage === totalPages}
-              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-slate-200 transition-colors"
+              className="p-1 rounded bg-space-800 hover:bg-space-700 disabled:opacity-40 disabled:cursor-not-allowed text-zinc-200 transition-colors"
               title="Last Page"
               aria-label="Last Page"
             >
@@ -341,12 +341,12 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
       {/* Floating Rule Tooltip */}
       {activeTooltip && (
         <div
-          className="fixed z-50 pointer-events-none transform -translate-x-1/2 -translate-y-full bg-space-900 border border-space-600 rounded-lg p-2.5 shadow-2xl text-[11px] font-mono text-slate-200 max-w-sm backdrop-blur-md"
+          className="fixed z-50 pointer-events-none transform -translate-x-1/2 -translate-y-full bg-zinc-900 border border-space-600 rounded-sm p-2.5 shadow-xl shadow-black/40 text-[11px] font-mono text-zinc-200 max-w-sm "
           style={{ left: activeTooltip.x, top: activeTooltip.y }}
         >
           <div className="flex items-center justify-between gap-2 border-b border-space-700 pb-1 mb-1.5">
             <span className="font-bold text-white flex items-center gap-1.5">
-              <span className="text-cyan-300">{activeTooltip.rule.id}</span>
+              <span className="text-blue-300">{activeTooltip.rule.id}</span>
               <span>{activeTooltip.rule.name}</span>
             </span>
             <span
@@ -360,19 +360,19 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
             </span>
           </div>
           <div className="space-y-0.5 text-[10px]">
-            <div className="text-slate-400">
+            <div className="text-zinc-400">
               Evaluated Value:{' '}
-              <span className="text-slate-200 font-bold">
+              <span className="text-zinc-200 font-bold">
                 {formatNumberSmart(activeTooltip.rule.value)} {activeTooltip.rule.unit}
               </span>
             </div>
-            <div className="text-slate-400">
+            <div className="text-zinc-400">
               Threshold Limit:{' '}
-              <span className="text-slate-200 font-bold">
+              <span className="text-zinc-200 font-bold">
                 {formatNumberSmart(activeTooltip.rule.limit)} {activeTooltip.rule.unit}
               </span>
             </div>
-            <div className="text-slate-300 font-sans mt-1 text-[10px] border-t border-space-800 pt-1 leading-tight">
+            <div className="text-zinc-300 font-sans mt-1 text-[10px] border-t border-zinc-800 pt-1 leading-tight">
               {activeTooltip.rule.detail}
             </div>
           </div>

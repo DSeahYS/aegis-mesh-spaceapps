@@ -32,16 +32,16 @@ export const QKDIndicator: React.FC = () => {
   const totalCount = DEFAULT_LINKS.length;
 
   return (
-    <div className="flex flex-col bg-[#0c1220] border border-cyan-950/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-md">
+    <div className="flex flex-col bg-zinc-950 border border-zinc-950/80 rounded-sm overflow-hidden shadow-xl shadow-black/40 ">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 bg-gradient-to-r from-space-900 via-slate-900 to-space-900 border-b border-cyan-900/40 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 bg-zinc-900 border-b border-zinc-900/40 gap-3">
         <div className="flex items-center space-x-2.5">
           <Key className="w-5 h-5 text-purple-400" />
           <div>
-            <h3 className="text-sm font-semibold tracking-wider text-slate-100 uppercase">
+            <h3 className="text-sm font-semibold tracking-wider text-zinc-100 uppercase">
               QUANTUM-SECURE INTER-SATELLITE LINKS
             </h3>
-            <span className="text-[10px] text-slate-400 font-mono">
+            <span className="text-[10px] text-zinc-400 font-mono">
               ENTANGLED PHOTON DISTRIBUTION & INFORMATION-THEORETIC INTEGRITY
             </span>
           </div>
@@ -54,20 +54,20 @@ export const QKDIndicator: React.FC = () => {
             <span>QKD COVERAGE: {qkdCount}/{totalCount} ({( (qkdCount / totalCount) * 100 ).toFixed(0)}%)</span>
           </div>
 
-          <div className="px-2.5 py-1 rounded bg-cyan-950/40 border border-cyan-500/40 text-cyan-300 flex items-center space-x-1.5">
-            <Zap className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="px-2.5 py-1 rounded bg-zinc-950/40 border border-cyan-500/40 text-blue-300 flex items-center space-x-1.5">
+            <Zap className="w-3.5 h-3.5 text-blue-400" />
             <span>RATE: 256.4 kbps</span>
           </div>
 
           <div className="px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 flex items-center space-x-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
             <span>AVG QBER: 1.4% (&lt; 11% THRESHOLD)</span>
           </div>
         </div>
       </div>
 
       {/* ISL Links Horizontal Bar / Grid */}
-      <div className="p-4 bg-[#080d1a]">
+      <div className="p-4 bg-zinc-950">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {DEFAULT_LINKS.map((link) => {
             const isQkd = link.qkdSecured;
@@ -75,15 +75,15 @@ export const QKDIndicator: React.FC = () => {
             return (
               <div
                 key={link.id}
-                className={`p-3 rounded-lg border transition-all duration-200 flex flex-col justify-between font-mono space-y-2 ${
+                className={`p-3 rounded-sm border transition-all duration-200 flex flex-col justify-between font-mono space-y-2 ${
                   isQkd
                     ? 'bg-purple-950/20 border-purple-500/40 hover:border-purple-400 shadow-md'
-                    : 'bg-cyan-950/15 border-cyan-500/30 hover:border-cyan-400'
+                    : 'bg-zinc-950/15 border-cyan-500/30 hover:border-cyan-400'
                 }`}
               >
                 {/* Node Pair and Status Shield */}
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-slate-200">
+                  <span className="text-[11px] font-bold text-zinc-200">
                     {link.from.replace('AEGIS-', 'A')} ↔ {link.to.replace('AEGIS-', 'A')}
                   </span>
                   {isQkd ? (
@@ -91,7 +91,7 @@ export const QKDIndicator: React.FC = () => {
                       <Shield className="w-3.5 h-3.5 fill-purple-400/20" />
                     </div>
                   ) : (
-                    <div className="flex items-center space-x-0.5 text-cyan-400" title="Standard TLS Laser ISL">
+                    <div className="flex items-center space-x-0.5 text-blue-400" title="Standard TLS Laser ISL">
                       <Radio className="w-3.5 h-3.5" />
                     </div>
                   )}
@@ -99,16 +99,16 @@ export const QKDIndicator: React.FC = () => {
 
                 {/* Bandwidth & Latency Readout */}
                 <div className="space-y-0.5 text-[10px]">
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between text-zinc-400">
                     <span>BW:</span>
-                    <span className="text-slate-200 font-semibold">{link.bandwidth}</span>
+                    <span className="text-zinc-200 font-semibold">{link.bandwidth}</span>
                   </div>
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between text-zinc-400">
                     <span>RTT:</span>
-                    <span className="text-emerald-400 font-semibold">{link.latency} ms</span>
+                    <span className="text-emerald-500 font-semibold">{link.latency} ms</span>
                   </div>
                   {isQkd && (
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-zinc-400">
                       <span>QBER:</span>
                       <span className="text-purple-300 font-semibold">{link.qber}%</span>
                     </div>
@@ -116,12 +116,12 @@ export const QKDIndicator: React.FC = () => {
                 </div>
 
                 {/* Security Tag */}
-                <div className="pt-1.5 border-t border-slate-800/80">
+                <div className="pt-1.5 border-t border-zinc-800">
                   <span
                     className={`block text-center text-[9px] py-0.5 rounded font-bold uppercase tracking-wider ${
                       isQkd
                         ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
-                        : 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30'
+                        : 'bg-cyan-500/10 text-blue-300 border border-cyan-500/30'
                     }`}
                   >
                     {isQkd ? 'QKD SECURED' : 'STANDARD ISL'}
@@ -133,12 +133,12 @@ export const QKDIndicator: React.FC = () => {
         </div>
 
         {/* Security Specification Footer */}
-        <div className="mt-3 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] font-mono text-slate-400 gap-2">
+        <div className="mt-3 pt-3 border-t border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] font-mono text-zinc-400 gap-2">
           <div className="flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-purple-400 " />
             <span>ENCRYPTION STANDARD: BB84 DECOY-STATE PROTOCOL + ONE-TIME PAD (OTP)</span>
           </div>
-          <div className="text-slate-500">
+          <div className="text-zinc-500">
             EAVESDROPPING SENSITIVITY: 100% QUANTUM DETECTION PROBABILITY
           </div>
         </div>

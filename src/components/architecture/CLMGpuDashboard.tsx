@@ -285,26 +285,26 @@ export const CLMGpuDashboard: React.FC = () => {
       {/* ─────────────────────────────────────────────────────────────
           1. HEADER: CLM Edge Hardware Telemetry (Nsight-Style)
       ─────────────────────────────────────────────────────────────── */}
-      <div className="bg-space-800 border border-space-700/60 rounded-xl p-5 shadow-md">
+      <div className="bg-space-800 border border-space-700/60 rounded-sm p-5 shadow-md">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-start space-x-3.5">
-            <div className="p-3 rounded-lg bg-cyber-blue/10 border border-cyber-blue/30 text-cyber-blue shrink-0">
+            <div className="p-3 rounded-sm bg-cyber-blue/10 border border-cyber-blue/30 text-cyber-blue shrink-0">
               <Microchip className="w-6 h-6" />
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
-                <h1 className="text-xl font-bold font-mono text-slate-100 tracking-wide uppercase">
+                <h1 className="text-xl font-bold font-mono text-zinc-100 tracking-wide uppercase">
                   CLM Edge Hardware Telemetry
                 </h1>
-                <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                   POLARFIRE SoC RISC-V + NPU CORE
                 </span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono text-slate-400 bg-space-900 border border-space-700">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono text-zinc-400 bg-zinc-900 border border-space-700">
                   DEVICE: MPFS250T-FCVG484E
                 </span>
               </div>
-              <p className="text-xs text-slate-400 font-mono mt-1">
+              <p className="text-xs text-zinc-400 font-mono mt-1">
                 Real-time Hardware Profiler | Stanford Contrastive Learning Model (InfoNCE INT8 Engine)
               </p>
             </div>
@@ -312,20 +312,20 @@ export const CLMGpuDashboard: React.FC = () => {
 
           {/* Action Toolbar */}
           <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono">
-            <div className="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-space-900 border border-space-700/80 text-slate-300">
-              <Clock className="w-3.5 h-3.5 text-slate-400" />
+            <div className="flex items-center space-x-2 px-3 py-1.5 rounded-sm bg-zinc-900 border border-space-700/80 text-zinc-300">
+              <Clock className="w-3.5 h-3.5 text-zinc-400" />
               <span>Tick: 100 Hz</span>
-              <span className="text-slate-600">|</span>
-              <span className="text-slate-400">Frame #{frameCounter}</span>
+              <span className="text-zinc-600">|</span>
+              <span className="text-zinc-400">Frame #{frameCounter}</span>
             </div>
 
             <button
               type="button"
               onClick={() => setIsRunning(!isRunning)}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-medium transition-colors border ${
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-sm font-medium transition-colors border ${
                 isRunning
                   ? 'bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20'
-                  : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20'
+                  : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30 hover:bg-emerald-500/20'
               }`}
             >
               {isRunning ? (
@@ -345,7 +345,7 @@ export const CLMGpuDashboard: React.FC = () => {
               type="button"
               onClick={handleResetHistory}
               title="Reset Latency Window"
-              className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-space-900 border border-space-700/80 text-slate-400 hover:text-slate-200 hover:bg-space-700/50 transition-colors"
+              className="flex items-center space-x-1 px-2.5 py-1.5 rounded-sm bg-zinc-900 border border-space-700/80 text-zinc-400 hover:text-zinc-200 hover:bg-space-700/50 transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset</span>
@@ -356,20 +356,20 @@ export const CLMGpuDashboard: React.FC = () => {
         {/* Specs metadata strip */}
         <div className="mt-4 pt-3.5 border-t border-space-700/50 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
           <div className="flex flex-col">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider">Quantization</span>
-            <span className="text-slate-200 font-semibold mt-0.5">INT8 GEMM (Per-Tensor Act)</span>
+            <span className="text-[10px] text-zinc-400 uppercase tracking-wider">Quantization</span>
+            <span className="text-zinc-200 font-semibold mt-0.5">INT8 GEMM (Per-Tensor Act)</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider">Embedding Latent Space</span>
-            <span className="text-slate-200 font-semibold mt-0.5">16-Dim State / 256 Actions</span>
+            <span className="text-[10px] text-zinc-400 uppercase tracking-wider">Embedding Latent Space</span>
+            <span className="text-zinc-200 font-semibold mt-0.5">16-Dim State / 256 Actions</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider">Clock Domain</span>
-            <span className="text-slate-200 font-semibold mt-0.5">800 MHz Fabric / 1600 MT/s RAM</span>
+            <span className="text-[10px] text-zinc-400 uppercase tracking-wider">Clock Domain</span>
+            <span className="text-zinc-200 font-semibold mt-0.5">800 MHz Fabric / 1600 MT/s RAM</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider">Rad-Tolerant Rating</span>
-            <span className="text-emerald-400 font-semibold mt-0.5">TID &gt; 100 krad(Si) / SEU Immune</span>
+            <span className="text-[10px] text-zinc-400 uppercase tracking-wider">Rad-Tolerant Rating</span>
+            <span className="text-emerald-500 font-semibold mt-0.5">TID &gt; 100 krad(Si) / SEU Immune</span>
           </div>
         </div>
       </div>
@@ -379,24 +379,24 @@ export const CLMGpuDashboard: React.FC = () => {
       ─────────────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: VRAM Usage */}
-        <div className="bg-space-800 border border-space-700/60 rounded-xl p-4 shadow-md flex flex-col justify-between">
+        <div className="bg-space-800 border border-space-700/60 rounded-sm p-4 shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Database className="w-3.5 h-3.5 text-cyber-blue" />
                 VRAM Memory
               </span>
-              <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+              <span className="text-[10px] font-mono text-emerald-500 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
                 0.92% Allocated
               </span>
             </div>
             <div className="mt-3 flex items-baseline gap-2 font-mono">
-              <span className="text-2xl font-bold text-slate-100">{vramFluctuation}</span>
-              <span className="text-xs text-slate-400">MB / 8,192 MB</span>
+              <span className="text-2xl font-bold text-zinc-100">{vramFluctuation}</span>
+              <span className="text-xs text-zinc-400">MB / 8,192 MB</span>
             </div>
 
             {/* Gauge bar */}
-            <div className="mt-3 w-full bg-space-900 rounded-full h-1.5 overflow-hidden border border-space-700">
+            <div className="mt-3 w-full bg-zinc-900 rounded-full h-1.5 overflow-hidden border border-space-700">
               <div
                 className="bg-cyber-blue h-full rounded-full transition-all duration-300"
                 style={{ width: `${(vramFluctuation / 8192) * 100 * 10}%` }}
@@ -404,37 +404,37 @@ export const CLMGpuDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-space-700/40 text-[11px] font-mono text-slate-400 space-y-1">
+          <div className="mt-4 pt-3 border-t border-space-700/40 text-[11px] font-mono text-zinc-400 space-y-1">
             <div className="flex justify-between">
               <span>Weights (FP16/INT8):</span>
-              <span className="text-slate-200">54.2 MB</span>
+              <span className="text-zinc-200">54.2 MB</span>
             </div>
             <div className="flex justify-between">
               <span>Activations &amp; Scratchpad:</span>
-              <span className="text-slate-200">21.2 MB</span>
+              <span className="text-zinc-200">21.2 MB</span>
             </div>
           </div>
         </div>
 
         {/* Card 2: Tensor Core Activity */}
-        <div className="bg-space-800 border border-space-700/60 rounded-xl p-4 shadow-md flex flex-col justify-between">
+        <div className="bg-space-800 border border-space-700/60 rounded-sm p-4 shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Cpu className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+                <Cpu className="w-3.5 h-3.5 text-emerald-500" />
                 Tensor Core Activity
               </span>
-              <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+              <span className="text-[10px] font-mono text-emerald-500 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
                 ACTIVE
               </span>
             </div>
             <div className="mt-3 flex items-baseline gap-2 font-mono">
-              <span className="text-2xl font-bold text-slate-100">{tensorCoreLoad}%</span>
-              <span className="text-xs text-slate-400">Utilization</span>
+              <span className="text-2xl font-bold text-zinc-100">{tensorCoreLoad}%</span>
+              <span className="text-xs text-zinc-400">Utilization</span>
             </div>
 
             {/* Gauge bar */}
-            <div className="mt-3 w-full bg-space-900 rounded-full h-1.5 overflow-hidden border border-space-700">
+            <div className="mt-3 w-full bg-zinc-900 rounded-full h-1.5 overflow-hidden border border-space-700">
               <div
                 className="bg-emerald-500 h-full rounded-full transition-all duration-300"
                 style={{ width: `${tensorCoreLoad}%` }}
@@ -442,37 +442,37 @@ export const CLMGpuDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-space-700/40 text-[11px] font-mono text-slate-400 space-y-1">
+          <div className="mt-4 pt-3 border-t border-space-700/40 text-[11px] font-mono text-zinc-400 space-y-1">
             <div className="flex justify-between">
               <span>INT8 Matrix Units:</span>
-              <span className="text-slate-200">96.1%</span>
+              <span className="text-zinc-200">96.1%</span>
             </div>
             <div className="flex justify-between">
               <span>Warp Occupancy:</span>
-              <span className="text-slate-200">91.8%</span>
+              <span className="text-zinc-200">91.8%</span>
             </div>
           </div>
         </div>
 
         {/* Card 3: Power Draw */}
-        <div className="bg-space-800 border border-space-700/60 rounded-xl p-4 shadow-md flex flex-col justify-between">
+        <div className="bg-space-800 border border-space-700/60 rounded-sm p-4 shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Zap className="w-3.5 h-3.5 text-amber-400" />
                 Power Draw
               </span>
-              <span className="text-[10px] font-mono text-slate-400 bg-space-900 px-1.5 py-0.5 rounded border border-space-700">
+              <span className="text-[10px] font-mono text-zinc-400 bg-zinc-900 px-1.5 py-0.5 rounded border border-space-700">
                 TDP: 25.0 W
               </span>
             </div>
             <div className="mt-3 flex items-baseline gap-2 font-mono">
-              <span className="text-2xl font-bold text-slate-100">{powerDraw}</span>
-              <span className="text-xs text-slate-400">Watts</span>
+              <span className="text-2xl font-bold text-zinc-100">{powerDraw}</span>
+              <span className="text-xs text-zinc-400">Watts</span>
             </div>
 
             {/* Gauge bar */}
-            <div className="mt-3 w-full bg-space-900 rounded-full h-1.5 overflow-hidden border border-space-700">
+            <div className="mt-3 w-full bg-zinc-900 rounded-full h-1.5 overflow-hidden border border-space-700">
               <div
                 className="bg-amber-500 h-full rounded-full transition-all duration-300"
                 style={{ width: `${(powerDraw / 25.0) * 100}%` }}
@@ -480,37 +480,37 @@ export const CLMGpuDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-space-700/40 text-[11px] font-mono text-slate-400 space-y-1">
+          <div className="mt-4 pt-3 border-t border-space-700/40 text-[11px] font-mono text-zinc-400 space-y-1">
             <div className="flex justify-between">
               <span>Core Rails (0.85V):</span>
-              <span className="text-slate-200">10.8 W</span>
+              <span className="text-zinc-200">10.8 W</span>
             </div>
             <div className="flex justify-between">
               <span>Compute Efficiency:</span>
-              <span className="text-emerald-400">11.4 TOPS/W</span>
+              <span className="text-emerald-500">11.4 TOPS/W</span>
             </div>
           </div>
         </div>
 
         {/* Card 4: Thermal Status */}
-        <div className="bg-space-800 border border-space-700/60 rounded-xl p-4 shadow-md flex flex-col justify-between">
+        <div className="bg-space-800 border border-space-700/60 rounded-sm p-4 shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Thermometer className="w-3.5 h-3.5 text-rose-400" />
                 Thermal Status
               </span>
-              <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+              <span className="text-[10px] font-mono text-emerald-500 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
                 NOMINAL
               </span>
             </div>
             <div className="mt-3 flex items-baseline gap-2 font-mono">
-              <span className="text-2xl font-bold text-slate-100">{temperature}</span>
-              <span className="text-xs text-slate-400">°C (Die Junction)</span>
+              <span className="text-2xl font-bold text-zinc-100">{temperature}</span>
+              <span className="text-xs text-zinc-400">°C (Die Junction)</span>
             </div>
 
             {/* Gauge bar */}
-            <div className="mt-3 w-full bg-space-900 rounded-full h-1.5 overflow-hidden border border-space-700">
+            <div className="mt-3 w-full bg-zinc-900 rounded-full h-1.5 overflow-hidden border border-space-700">
               <div
                 className="bg-emerald-500 h-full rounded-full transition-all duration-300"
                 style={{ width: `${(temperature / 105.0) * 100}%` }}
@@ -518,14 +518,14 @@ export const CLMGpuDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-space-700/40 text-[11px] font-mono text-slate-400 space-y-1">
+          <div className="mt-4 pt-3 border-t border-space-700/40 text-[11px] font-mono text-zinc-400 space-y-1">
             <div className="flex justify-between">
               <span>Cold Plate Interface:</span>
-              <span className="text-slate-200">28.1 °C</span>
+              <span className="text-zinc-200">28.1 °C</span>
             </div>
             <div className="flex justify-between">
               <span>Thermal Headroom:</span>
-              <span className="text-emerald-400">+62.6 °C</span>
+              <span className="text-emerald-500">+62.6 °C</span>
             </div>
           </div>
         </div>
@@ -538,17 +538,17 @@ export const CLMGpuDashboard: React.FC = () => {
       ─────────────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Live Rolling CUDA Terminal (7 cols) */}
-        <div className="lg:col-span-7 bg-space-800 border border-space-700/60 rounded-xl p-4 shadow-md flex flex-col justify-between">
+        <div className="lg:col-span-7 bg-space-800 border border-space-700/60 rounded-sm p-4 shadow-md flex flex-col justify-between">
           <div>
             {/* Terminal Window Header */}
             <div className="flex items-center justify-between pb-3 border-b border-space-700/60">
               <div className="flex items-center space-x-2.5">
                 <div className="flex space-x-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-slate-600" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-slate-600" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-slate-600" />
+                  <div className="w-2 h-2 rounded-full bg-slate-600" />
+                  <div className="w-2 h-2 rounded-full bg-slate-600" />
+                  <div className="w-2 h-2 rounded-full bg-slate-600" />
                 </div>
-                <div className="flex items-center space-x-2 font-mono text-xs text-slate-300 font-semibold">
+                <div className="flex items-center space-x-2 font-mono text-xs text-zinc-300 font-semibold">
                   <TerminalIcon className="w-3.5 h-3.5 text-cyber-blue" />
                   <span>polarfire-edge-01:~/aegis/clm-runtime</span>
                 </div>
@@ -558,32 +558,32 @@ export const CLMGpuDashboard: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleClearLogs}
-                  className="text-[11px] font-mono px-2 py-0.5 rounded bg-space-900 border border-space-700 text-slate-400 hover:text-slate-200 transition-colors"
+                  className="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-space-700 text-zinc-400 hover:text-zinc-200 transition-colors"
                 >
                   Clear Buffer
                 </button>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
                   LIVE STREAM
                 </span>
               </div>
             </div>
 
             {/* Terminal Body */}
-            <div className="mt-3 bg-[#070b12] rounded-lg p-3.5 font-mono text-xs text-slate-300 h-[280px] overflow-y-auto space-y-1.5 border border-space-700/40 select-text">
-              <div className="text-slate-400 text-[11px] pb-1 border-b border-slate-800">
+            <div className="mt-3 bg-zinc-950 rounded-sm p-3.5 font-mono text-xs text-zinc-300 h-[280px] overflow-y-auto space-y-1.5 border border-space-700/40 select-text">
+              <div className="text-zinc-400 text-[11px] pb-1 border-b border-zinc-800">
                 $ ./aegis_clm_infer --engine=tensorrt_int8 --batch=1 --stream=cuda:0 --profile
               </div>
 
               {logs.map((log) => {
                 let badgeClass = 'text-cyber-blue font-bold';
-                if (log.level === 'SUCCESS') badgeClass = 'text-emerald-400 font-bold';
+                if (log.level === 'SUCCESS') badgeClass = 'text-emerald-500 font-bold';
                 if (log.level === 'PROFILE') badgeClass = 'text-purple-400 font-bold';
 
                 return (
                   <div key={log.id} className="leading-relaxed flex items-start space-x-2">
-                    <span className="text-slate-400 shrink-0 text-[11px]">{log.timestamp}</span>
+                    <span className="text-zinc-400 shrink-0 text-[11px]">{log.timestamp}</span>
                     <span className={`${badgeClass} shrink-0 text-[11px]`}>[{log.level}]</span>
-                    <span className="text-slate-200 break-all">{log.message}</span>
+                    <span className="text-zinc-200 break-all">{log.message}</span>
                   </div>
                 );
               })}
@@ -592,12 +592,12 @@ export const CLMGpuDashboard: React.FC = () => {
           </div>
 
           {/* Terminal Footer Metrics */}
-          <div className="mt-3 pt-2.5 border-t border-space-700/40 flex flex-wrap items-center justify-between text-[11px] font-mono text-slate-400">
+          <div className="mt-3 pt-2.5 border-t border-space-700/40 flex flex-wrap items-center justify-between text-[11px] font-mono text-zinc-400">
             <div className="flex items-center space-x-3">
-              <span>Stream: <span className="text-slate-200">CUDA Stream #3 (Non-blocking)</span></span>
-              <span>Buffer: <span className="text-slate-200">Zero-copy pinned host memory</span></span>
+              <span>Stream: <span className="text-zinc-200">CUDA Stream #3 (Non-blocking)</span></span>
+              <span>Buffer: <span className="text-zinc-200">Zero-copy pinned host memory</span></span>
             </div>
-            <div className="flex items-center space-x-1.5 text-emerald-400">
+            <div className="flex items-center space-x-1.5 text-emerald-500">
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>Deterministic Timing SLA: MET</span>
             </div>
@@ -605,36 +605,36 @@ export const CLMGpuDashboard: React.FC = () => {
         </div>
 
         {/* Real-time Inference Latency Line Chart (5 cols) */}
-        <div className="lg:col-span-5 bg-space-800 border border-space-700/60 rounded-xl p-4 shadow-md flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-space-800 border border-space-700/60 rounded-sm p-4 shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-space-700/60">
               <div className="flex items-center space-x-2">
                 <Activity className="w-4 h-4 text-cyber-blue" />
-                <h3 className="text-sm font-semibold font-mono text-slate-100 uppercase tracking-wider">
+                <h3 className="text-sm font-semibold font-mono text-zinc-100 uppercase tracking-wider">
                   Real-time Inference Latency
                 </h3>
               </div>
-              <div className="text-[11px] font-mono px-2 py-0.5 rounded bg-space-900 border border-space-700 text-slate-300">
+              <div className="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-space-700 text-zinc-300">
                 Last 30 Frames
               </div>
             </div>
 
             {/* KPI Summary Bar */}
             <div className="grid grid-cols-4 gap-2 my-3 text-center font-mono">
-              <div className="bg-space-900/80 p-2 rounded-lg border border-space-700/60">
-                <div className="text-[10px] text-slate-400 uppercase">Current</div>
+              <div className="bg-zinc-900/80 p-2 rounded-sm border border-space-700/60">
+                <div className="text-[10px] text-zinc-400 uppercase">Current</div>
                 <div className="text-sm font-bold text-cyber-blue mt-0.5">{latencyStats.curr} ms</div>
               </div>
-              <div className="bg-space-900/80 p-2 rounded-lg border border-space-700/60">
-                <div className="text-[10px] text-slate-400 uppercase">Mean</div>
-                <div className="text-sm font-bold text-slate-200 mt-0.5">{latencyStats.avg} ms</div>
+              <div className="bg-zinc-900/80 p-2 rounded-sm border border-space-700/60">
+                <div className="text-[10px] text-zinc-400 uppercase">Mean</div>
+                <div className="text-sm font-bold text-zinc-200 mt-0.5">{latencyStats.avg} ms</div>
               </div>
-              <div className="bg-space-900/80 p-2 rounded-lg border border-space-700/60">
-                <div className="text-[10px] text-slate-400 uppercase">Jitter</div>
+              <div className="bg-zinc-900/80 p-2 rounded-sm border border-space-700/60">
+                <div className="text-[10px] text-zinc-400 uppercase">Jitter</div>
                 <div className="text-sm font-bold text-amber-400 mt-0.5">±{latencyStats.jitter} ms</div>
               </div>
-              <div className="bg-space-900/80 p-2 rounded-lg border border-space-700/60">
-                <div className="text-[10px] text-slate-400 uppercase">SLA Limit</div>
+              <div className="bg-zinc-900/80 p-2 rounded-sm border border-space-700/60">
+                <div className="text-[10px] text-zinc-400 uppercase">SLA Limit</div>
                 <div className="text-sm font-bold text-rose-400 mt-0.5">&lt; 20.0 ms</div>
               </div>
             </div>
@@ -666,8 +666,8 @@ export const CLMGpuDashboard: React.FC = () => {
                       if (active && payload && payload.length) {
                         const val = payload[0].value;
                         return (
-                          <div className="bg-space-900 border border-space-600 px-2.5 py-1.5 rounded shadow-lg text-xs font-mono text-slate-200">
-                            <span className="text-slate-400">Latency: </span>
+                          <div className="bg-zinc-900 border border-space-600 px-2.5 py-1.5 rounded shadow-lg text-xs font-mono text-zinc-200">
+                            <span className="text-zinc-400">Latency: </span>
                             <span className="font-bold text-cyber-blue">{val} ms</span>
                           </div>
                         );
@@ -709,9 +709,9 @@ export const CLMGpuDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-2 text-[10px] font-mono text-slate-400 flex items-center justify-between">
+          <div className="mt-2 text-[10px] font-mono text-zinc-400 flex items-center justify-between">
             <span>Deterministic Forward Pass Guarantee</span>
-            <span className="text-emerald-400">100% On-Time Execution</span>
+            <span className="text-emerald-500">100% On-Time Execution</span>
           </div>
         </div>
       </div>
@@ -723,28 +723,28 @@ export const CLMGpuDashboard: React.FC = () => {
       ─────────────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Contrastive Loss Convergence */}
-        <div className="bg-space-800 border border-space-700/60 rounded-xl p-5 shadow-md flex flex-col justify-between">
+        <div className="bg-space-800 border border-space-700/60 rounded-sm p-5 shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-space-700/60">
               <div>
-                <h3 className="text-sm font-semibold font-mono text-slate-100 uppercase tracking-wider flex items-center gap-2">
+                <h3 className="text-sm font-semibold font-mono text-zinc-100 uppercase tracking-wider flex items-center gap-2">
                   <Layers className="w-4 h-4 text-cyber-blue" />
                   Contrastive Loss Convergence
                 </h3>
-                <p className="text-xs text-slate-400 font-mono mt-0.5">
+                <p className="text-xs text-zinc-400 font-mono mt-0.5">
                   InfoNCE Objective (τ = 0.07, Batch = 1024, Steps = 0 to 1M)
                 </p>
               </div>
 
               <div className="text-right font-mono">
-                <span className="text-xs text-slate-400">Final Loss: </span>
-                <span className="text-xs font-bold text-emerald-400">0.089</span>
+                <span className="text-xs text-zinc-400">Final Loss: </span>
+                <span className="text-xs font-bold text-emerald-500">0.089</span>
               </div>
             </div>
 
             {/* Formula snippet */}
-            <div className="my-3 px-3 py-2 rounded bg-space-900 border border-space-700/60 flex items-center justify-between text-xs font-mono text-slate-300">
-              <span className="text-slate-400">Objective:</span>
+            <div className="my-3 px-3 py-2 rounded bg-zinc-900 border border-space-700/60 flex items-center justify-between text-xs font-mono text-zinc-300">
+              <span className="text-zinc-400">Objective:</span>
               <span className="text-cyber-blue font-semibold">
                 L_InfoNCE = -log [ exp(sim(z_s, z_a)/τ) / Σ exp(sim(z_s, z_j)/τ) ]
               </span>
@@ -775,8 +775,8 @@ export const CLMGpuDashboard: React.FC = () => {
                     content={({ active, payload, label }) => {
                       if (active && payload && payload.length) {
                         return (
-                          <div className="bg-space-900 border border-space-600 p-2.5 rounded shadow-xl text-xs font-mono text-slate-200">
-                            <div className="font-bold text-slate-400 mb-1">Step: {label}</div>
+                          <div className="bg-zinc-900 border border-space-600 p-2.5 rounded shadow-xl text-xs font-mono text-zinc-200">
+                            <div className="font-bold text-zinc-400 mb-1">Step: {label}</div>
                             <div className="text-cyber-blue">
                               Train Loss: <span className="font-bold">{payload[0]?.value}</span>
                             </div>
@@ -812,7 +812,7 @@ export const CLMGpuDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-3 pt-3 border-t border-space-700/40 flex items-center justify-between text-xs font-mono text-slate-400">
+          <div className="mt-3 pt-3 border-t border-space-700/40 flex items-center justify-between text-xs font-mono text-zinc-400">
             <span>Rapid convergence at ~350k steps</span>
             <div className="flex items-center space-x-3 text-[11px]">
               <span className="flex items-center gap-1.5">
@@ -828,32 +828,32 @@ export const CLMGpuDashboard: React.FC = () => {
         </div>
 
         {/* Collision Avoidance Success Rate Area Chart */}
-        <div className="bg-space-800 border border-space-700/60 rounded-xl p-5 shadow-md flex flex-col justify-between">
+        <div className="bg-space-800 border border-space-700/60 rounded-sm p-5 shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-space-700/60">
               <div>
-                <h3 className="text-sm font-semibold font-mono text-slate-100 uppercase tracking-wider flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <h3 className="text-sm font-semibold font-mono text-zinc-100 uppercase tracking-wider flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
                   Collision Avoidance Success Rate
                 </h3>
-                <p className="text-xs text-slate-400 font-mono mt-0.5">
+                <p className="text-xs text-zinc-400 font-mono mt-0.5">
                   Monte Carlo Test Evaluation (50,000 Orbital Conjunction Scenarios)
                 </p>
               </div>
 
               <div className="text-right font-mono">
-                <span className="text-xs text-slate-400">Convergence: </span>
-                <span className="text-xs font-bold text-emerald-400">99.98%</span>
+                <span className="text-xs text-zinc-400">Convergence: </span>
+                <span className="text-xs font-bold text-emerald-500">99.98%</span>
               </div>
             </div>
 
             {/* Baseline comparison pill */}
-            <div className="my-3 px-3 py-2 rounded bg-space-900 border border-space-700/60 flex items-center justify-between text-xs font-mono text-slate-300">
-              <span className="text-slate-400">Untrained Random Baseline:</span>
+            <div className="my-3 px-3 py-2 rounded bg-zinc-900 border border-space-700/60 flex items-center justify-between text-xs font-mono text-zinc-300">
+              <span className="text-zinc-400">Untrained Random Baseline:</span>
               <span className="text-rose-400 font-semibold">60.20%</span>
-              <span className="text-slate-500">→</span>
-              <span className="text-slate-400">CLM Policy:</span>
-              <span className="text-emerald-400 font-bold">99.98% (+39.78%)</span>
+              <span className="text-zinc-500">→</span>
+              <span className="text-zinc-400">CLM Policy:</span>
+              <span className="text-emerald-500 font-bold">99.98% (+39.78%)</span>
             </div>
 
             {/* Recharts Area Chart */}
@@ -888,12 +888,12 @@ export const CLMGpuDashboard: React.FC = () => {
                     content={({ active, payload, label }) => {
                       if (active && payload && payload.length) {
                         return (
-                          <div className="bg-space-900 border border-space-600 p-2.5 rounded shadow-xl text-xs font-mono text-slate-200">
-                            <div className="font-bold text-slate-400 mb-1">Step: {label}</div>
-                            <div className="text-emerald-400">
+                          <div className="bg-zinc-900 border border-space-600 p-2.5 rounded shadow-xl text-xs font-mono text-zinc-200">
+                            <div className="font-bold text-zinc-400 mb-1">Step: {label}</div>
+                            <div className="text-emerald-500">
                               Success Rate: <span className="font-bold">{payload[0]?.value}%</span>
                             </div>
-                            <div className="text-slate-400 text-[10px] mt-0.5">
+                            <div className="text-zinc-400 text-[10px] mt-0.5">
                               Collision Rate: {(100 - Number(payload[0]?.value)).toFixed(2)}%
                             </div>
                           </div>
@@ -937,9 +937,9 @@ export const CLMGpuDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-3 pt-3 border-t border-space-700/40 flex items-center justify-between text-xs font-mono text-slate-400">
-            <span className="text-emerald-400">Zero Critical Conjunctions in 50k Evaluations</span>
-            <span className="text-slate-400">P_collision &lt; 10⁻⁷</span>
+          <div className="mt-3 pt-3 border-t border-space-700/40 flex items-center justify-between text-xs font-mono text-zinc-400">
+            <span className="text-emerald-500">Zero Critical Conjunctions in 50k Evaluations</span>
+            <span className="text-zinc-400">P_collision &lt; 10⁻⁷</span>
           </div>
         </div>
       </div>

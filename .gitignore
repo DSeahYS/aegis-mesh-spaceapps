@@ -46,3 +46,7 @@ venv/
 
 # IDE & Antigravity internal runtime
 .antigravity/
+
+# Temporary migration & search scripts
+apply_hud.py
+find_*.py

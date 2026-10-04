@@ -25,24 +25,24 @@ const hardwarePlatforms = hardwareSpecsData as HardwarePlatform[];
 
 export const HardwareStack: React.FC = () => {
   return (
-    <div className="flex flex-col bg-[#0c1220] border border-cyan-950/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-md">
+    <div className="flex flex-col bg-zinc-950 border border-zinc-950/80 rounded-sm overflow-hidden shadow-xl shadow-black/40 ">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 bg-gradient-to-r from-space-900 via-slate-900 to-space-900 border-b border-cyan-900/40 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 bg-zinc-900 border-b border-zinc-900/40 gap-3">
         <div className="flex items-center space-x-2.5">
-          <Cpu className="w-5 h-5 text-cyan-400" />
+          <Cpu className="w-5 h-5 text-blue-400" />
           <div>
-            <h3 className="text-sm font-semibold tracking-wider text-slate-100 uppercase">
+            <h3 className="text-sm font-semibold tracking-wider text-zinc-100 uppercase">
               EDGE COMPUTE HARDWARE ANALYSIS
             </h3>
-            <span className="text-[10px] text-slate-400 font-mono">
+            <span className="text-[10px] text-zinc-400 font-mono">
               SPACE QUALIFICATION, THERMAL DISSIPATION & DETERMINISTIC LATENCY BENCHMARKS
             </span>
           </div>
         </div>
 
         <div className="flex items-center space-x-3 text-xs font-mono">
-          <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded bg-emerald-950/50 border border-emerald-800/50 text-emerald-300">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
             <span>2 Rad-Tolerant Candidates</span>
           </div>
           <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded bg-red-500/10 border border-red-500/30 text-red-300">
@@ -53,7 +53,7 @@ export const HardwareStack: React.FC = () => {
       </div>
 
       {/* Grid of Hardware Cards */}
-      <div className="p-5 bg-[#080d1a] grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="p-5 bg-zinc-950 grid grid-cols-1 lg:grid-cols-2 gap-5">
         {hardwarePlatforms.map((hw) => {
           const isPrimary = hw.name.includes('PolarFire');
           const isSuitable = hw.suitable;
@@ -61,9 +61,9 @@ export const HardwareStack: React.FC = () => {
           return (
             <div
               key={hw.name}
-              className={`rounded-xl border p-5 transition-all duration-200 relative flex flex-col justify-between ${
+              className={`rounded-sm border p-5 transition-all duration-200 relative flex flex-col justify-between ${
                 isPrimary
-                  ? 'border-emerald-500/80 bg-gradient-to-b from-[#0f212f] to-[#0a1622] shadow-md'
+                  ? 'border-emerald-500/80 bg-zinc-900 shadow-md'
                   : isSuitable
                   ? 'border-emerald-500/40 bg-emerald-950/10'
                   : 'border-red-500/40 bg-red-950/10'
@@ -84,7 +84,7 @@ export const HardwareStack: React.FC = () => {
                     <div className="flex items-center space-x-2">
                       <h4 className="text-base font-bold text-white font-mono">{hw.name}</h4>
                     </div>
-                    <p className="text-xs text-slate-400 font-mono mt-0.5">{hw.architecture}</p>
+                    <p className="text-xs text-zinc-400 font-mono mt-0.5">{hw.architecture}</p>
                   </div>
 
                   <span
@@ -99,47 +99,47 @@ export const HardwareStack: React.FC = () => {
                 </div>
 
                 {/* Cores & Microarchitecture Readout */}
-                <div className="mt-3 p-2.5 rounded bg-slate-950/70 border border-slate-800 text-[11px] font-mono text-slate-300">
-                  <span className="text-slate-500 text-[10px] block uppercase">CORES & ACCELERATION:</span>
-                  <span className="text-cyan-300">{hw.cores}</span>
+                <div className="mt-3 p-2.5 rounded bg-zinc-950 border border-zinc-800 text-[11px] font-mono text-zinc-300">
+                  <span className="text-zinc-500 text-[10px] block uppercase">CORES & ACCELERATION:</span>
+                  <span className="text-blue-300">{hw.cores}</span>
                 </div>
 
                 {/* Specs Strip: Latency, Power, Workload */}
                 <div className="grid grid-cols-2 gap-2 mt-3 font-mono text-xs">
-                  <div className="p-2 rounded bg-slate-900/60 border border-slate-800 flex items-center space-x-2">
-                    <Clock className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <div className="p-2 rounded bg-zinc-900 border border-zinc-800 flex items-center space-x-2">
+                    <Clock className="w-4 h-4 text-blue-400 shrink-0" />
                     <div>
-                      <span className="text-[10px] text-slate-500 block">DYNAMIC LATENCY</span>
-                      <span className="text-slate-200 font-bold">{hw.dynamicLatency}</span>
+                      <span className="text-[10px] text-zinc-500 block">DYNAMIC LATENCY</span>
+                      <span className="text-zinc-200 font-bold">{hw.dynamicLatency}</span>
                     </div>
                   </div>
 
-                  <div className="p-2 rounded bg-slate-900/60 border border-slate-800 flex items-center space-x-2">
+                  <div className="p-2 rounded bg-zinc-900 border border-zinc-800 flex items-center space-x-2">
                     <Zap className="w-4 h-4 text-amber-400 shrink-0" />
                     <div>
-                      <span className="text-[10px] text-slate-500 block">PEAK POWER</span>
-                      <span className="text-slate-200 font-bold">{hw.peakPower}</span>
+                      <span className="text-[10px] text-zinc-500 block">PEAK POWER</span>
+                      <span className="text-zinc-200 font-bold">{hw.peakPower}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Target Workload */}
-                <div className="mt-3 p-2 rounded bg-slate-900/40 border border-slate-800/80 text-[11px] font-mono">
-                  <span className="text-slate-500 text-[10px] block uppercase">ASSIGNED MISSION ROLE:</span>
-                  <span className="text-slate-200">{hw.targetWorkload}</span>
+                <div className="mt-3 p-2 rounded bg-zinc-900/40 border border-zinc-800 text-[11px] font-mono">
+                  <span className="text-zinc-500 text-[10px] block uppercase">ASSIGNED MISSION ROLE:</span>
+                  <span className="text-zinc-200">{hw.targetWorkload}</span>
                 </div>
 
                 {/* Pros & Cons Lists */}
-                <div className="mt-4 pt-3 border-t border-slate-800/80 space-y-3">
+                <div className="mt-4 pt-3 border-t border-zinc-800 space-y-3">
                   {/* Pros */}
                   <div>
-                    <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider block mb-1">
+                    <span className="text-[10px] font-mono font-bold text-emerald-500 uppercase tracking-wider block mb-1">
                       ADVANTAGES / FLIGHT PEDIGREE:
                     </span>
                     <ul className="space-y-1 text-xs">
                       {hw.pros.map((pro, idx) => (
-                        <li key={idx} className="flex items-start space-x-1.5 text-slate-300">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
+                        <li key={idx} className="flex items-start space-x-1.5 text-zinc-300">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 mt-0.5 shrink-0" />
                           <span className="leading-tight">{pro}</span>
                         </li>
                       ))}
@@ -153,7 +153,7 @@ export const HardwareStack: React.FC = () => {
                     </span>
                     <ul className="space-y-1 text-xs">
                       {hw.cons.map((con, idx) => (
-                        <li key={idx} className="flex items-start space-x-1.5 text-slate-400">
+                        <li key={idx} className="flex items-start space-x-1.5 text-zinc-400">
                           <XCircle className="w-3.5 h-3.5 text-red-400 mt-0.5 shrink-0" />
                           <span className="leading-tight">{con}</span>
                         </li>
@@ -164,7 +164,7 @@ export const HardwareStack: React.FC = () => {
               </div>
 
               {/* Bottom Card Footer */}
-              <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-500">
+              <div className="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between text-[10px] font-mono text-zinc-500">
                 <span>RAD-HARDNESS: {isSuitable ? '100+ krad TID Verified' : 'None / SEL Vulnerable'}</span>
                 <span>SWaP-C: {isSuitable ? 'Optimal CubeSat Budget' : 'Exceeds SmallSat Limits'}</span>
               </div>

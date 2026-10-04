@@ -43,35 +43,35 @@ export const Header: FC = () => {
   const totalAlerts = activeAlerts.length;
 
   return (
-    <header className="h-14 bg-space-900 border-b border-space-700/60 px-4 flex items-center justify-between z-20 shrink-0 select-none">
+    <header className="h-12 bg-zinc-900 border-b border-zinc-800 px-3 flex items-center justify-between z-20 shrink-0 select-none">
       {/* Left: AEGIS-MESH Title + NASA Space Apps Badge + Current View Name */}
       <div className="flex items-center gap-2 sm:gap-3">
         <div className="flex items-center gap-2">
-          <span className="font-mono font-black text-base tracking-widest text-slate-100">
-            AEGIS<span className="text-cyber-green">-</span>MESH
+          <span className="font-mono font-bold text-sm tracking-widest text-zinc-100">
+            AEGIS<span className="text-emerald-500">-</span>MESH
           </span>
-          <span className="text-space-600 font-mono">/</span>
-          <span className="font-mono text-xs sm:text-sm font-semibold text-cyber-green uppercase tracking-wider">
+          <span className="text-zinc-600 font-mono text-xs">/</span>
+          <span className="font-mono text-xs font-semibold text-emerald-500 uppercase tracking-wider">
             {VIEW_TITLES[activeView] || activeView}
           </span>
         </div>
 
-        {/* NASA Space Apps 2026 Badge */}
-        <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-950/80 border border-blue-500/50 text-[10px] font-mono tracking-wider text-blue-200 shadow-[0_0_12px_rgba(59,130,246,0.2)]">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          <span className="font-bold tracking-wider text-slate-100">NASA SPACE APPS 2026</span>
+        {/* NASA Space Apps 2026 Pro Badge */}
+        <div className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-none bg-zinc-800 border border-zinc-700 text-[10px] font-mono tracking-wider text-zinc-300">
+          <span className="w-1.5 h-1.5 rounded-none bg-blue-500" />
+          <span className="font-bold tracking-wider text-zinc-100">NASA SPACE APPS 2026</span>
         </div>
 
-        <span className="hidden 2xl:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono tracking-wider bg-space-800 border border-space-600 text-slate-300">
-          AUTONOMOUS CLM v4.2
+        <span className="hidden 2xl:inline-flex items-center px-2 py-0.5 rounded-none text-[10px] font-mono tracking-wider bg-zinc-800 border border-zinc-700 text-zinc-400">
+          CLM v4.2
         </span>
       </div>
 
       {/* Center: Simulation Clock & Controls */}
-      <div className="flex items-center gap-2 sm:gap-4">
+      <div className="flex items-center gap-2 sm:gap-3">
         {/* Clock Display */}
-        <div className="flex items-center gap-2 px-3 py-1 bg-space-800/90 rounded border border-space-700/80 font-mono text-xs sm:text-sm text-slate-200 shadow-inner">
-          <Clock className="w-3.5 h-3.5 text-cyber-green " />
+        <div className="flex items-center gap-2 px-2.5 py-1 bg-zinc-950 rounded-none border border-zinc-800 font-mono text-xs sm:text-sm text-zinc-200">
+          <Clock className="w-3.5 h-3.5 text-zinc-400" />
           <span className="tracking-wider">{formatUtcTime(simulationTime)}</span>
         </div>
 
@@ -79,19 +79,19 @@ export const Header: FC = () => {
         <button
           type="button"
           onClick={togglePlayback}
-          className={`flex items-center justify-center w-8 h-8 rounded border transition-colors ${
+          className={`flex items-center justify-center w-7 h-7 rounded-none border transition-colors ${
             isPlaying
-              ? 'bg-space-800 border-space-600 text-cyber-green hover:bg-space-700'
-              : 'bg-alert-amber/20 border-alert-amber/60 text-alert-amber  hover:bg-alert-amber/30'
+              ? 'bg-zinc-800 border-zinc-700 text-emerald-500 hover:bg-zinc-700 hover:text-emerald-300'
+              : 'bg-zinc-800 border-amber-600 text-amber-400 hover:bg-zinc-700'
           }`}
           title={isPlaying ? 'Pause Simulation' : 'Resume Simulation'}
           aria-label={isPlaying ? 'Pause Simulation' : 'Resume Simulation'}
         >
-          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
+          {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
         </button>
 
         {/* Speed Controls (1x, 10x, 100x, 1000x) */}
-        <div className="flex items-center rounded bg-space-800/80 p-0.5 border border-space-700">
+        <div className="flex items-center rounded-none bg-zinc-950 p-0.5 border border-zinc-800">
           {TIME_SCALES.map((scale) => {
             const isCurrent = timeScale === scale;
             return (
@@ -99,10 +99,10 @@ export const Header: FC = () => {
                 key={scale}
                 type="button"
                 onClick={() => setTimeScale(scale)}
-                className={`px-2 py-1 rounded text-xs font-mono font-bold transition-all ${
+                className={`px-2 py-0.5 rounded-none text-xs font-mono transition-colors ${
                   isCurrent
-                    ? 'bg-cyber-green/20 text-cyber-green border border-cyber-green/60 shadow-md'
-                    : 'text-slate-400 hover:text-slate-200 border border-transparent'
+                    ? 'bg-zinc-800 text-emerald-500 border border-zinc-700 font-bold'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900 border border-transparent font-medium'
                 }`}
               >
                 {scale}x
@@ -113,52 +113,48 @@ export const Header: FC = () => {
       </div>
 
       {/* Right: System Status Indicators & Active Alerts */}
-      <div className="flex items-center gap-4">
-        {/* 3 Small Colored Status Dots */}
-        <div className="flex items-center gap-2 px-2.5 py-1 rounded bg-space-800/60 border border-space-700 text-xs font-mono">
+      <div className="flex items-center gap-3">
+        {/* Geometric Status Indicators */}
+        <div className="flex items-center gap-2 px-2 py-1 rounded-none bg-zinc-950 border border-zinc-800 text-xs font-mono">
           {/* Green: Nominal Systems */}
           <div className="flex items-center gap-1.5" title="Systems: Nominal">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyber-green shadow-md animate-pulse" />
-            <span className="hidden lg:inline text-[11px] text-slate-300">NOM</span>
+            <span className="w-2 h-2 rounded-none bg-emerald-500" />
+            <span className="hidden lg:inline text-[10px] text-zinc-300">NOM</span>
           </div>
 
-          <span className="text-space-600">|</span>
+          <span className="text-zinc-700">|</span>
 
           {/* Amber: Warnings */}
           <div className="flex items-center gap-1.5" title={`${warningCount} Warning(s)`}>
             <span
-              className={`w-2.5 h-2.5 rounded-full ${
-                warningCount > 0
-                  ? 'bg-alert-amber shadow-md '
-                  : 'bg-alert-amber/30'
+              className={`w-2 h-2 rounded-none ${
+                warningCount > 0 ? 'bg-amber-500' : 'bg-zinc-700'
               }`}
             />
-            <span className="hidden lg:inline text-[11px] text-slate-300">WARN</span>
+            <span className="hidden lg:inline text-[10px] text-zinc-300">WARN</span>
           </div>
 
-          <span className="text-space-600">|</span>
+          <span className="text-zinc-700">|</span>
 
           {/* Red: Critical */}
           <div className="flex items-center gap-1.5" title={`${criticalCount} Critical Event(s)`}>
             <span
-              className={`w-2.5 h-2.5 rounded-full ${
-                criticalCount > 0
-                  ? 'bg-alert-red shadow-md '
-                  : 'bg-alert-red/30'
+              className={`w-2 h-2 rounded-none ${
+                criticalCount > 0 ? 'bg-red-500' : 'bg-zinc-700'
               }`}
             />
-            <span className="hidden lg:inline text-[11px] text-slate-300">CRIT</span>
+            <span className="hidden lg:inline text-[10px] text-zinc-300">CRIT</span>
           </div>
         </div>
 
         {/* Count of Active Alerts */}
         <div
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-xs font-mono font-bold ${
+          className={`flex items-center gap-1.5 px-2 py-1 rounded-none border text-xs font-mono font-bold ${
             criticalCount > 0
-              ? 'bg-alert-red/20 border-alert-red/60 text-alert-red shadow-md '
+              ? 'bg-red-950/80 border-red-700 text-red-300'
               : totalAlerts > 0
-              ? 'bg-alert-amber/20 border-alert-amber/60 text-alert-amber'
-              : 'bg-space-800 border-space-700 text-cyber-green'
+              ? 'bg-amber-950/80 border-amber-700 text-amber-300'
+              : 'bg-zinc-950 border-zinc-800 text-zinc-400'
           }`}
           title={`${totalAlerts} Active Alerts (${criticalCount} Critical)`}
         >
@@ -166,18 +162,18 @@ export const Header: FC = () => {
           <span>{totalAlerts} ALERTS</span>
         </div>
 
-        {/* Quick Link to V&V Proof Tab for Judges */}
+        {/* Quick Link to V&V Proof Tab */}
         <button
           type="button"
           onClick={() => setActiveView('verification')}
-          className={`hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded border text-xs font-mono font-bold transition-all cursor-pointer ${
+          className={`hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-none border text-xs font-mono font-bold transition-colors cursor-pointer ${
             activeView === 'verification'
-              ? 'bg-cyber-green/20 border-cyber-green text-cyber-green shadow-[0_0_10px_rgba(16,185,129,0.25)]'
-              : 'bg-space-800 hover:bg-cyber-green/10 border-space-600 hover:border-cyber-green/50 text-slate-300 hover:text-cyber-green'
+              ? 'bg-zinc-800 border-emerald-500 text-emerald-500'
+              : 'bg-zinc-950 hover:bg-zinc-800 border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-emerald-500'
           }`}
           title="Verify live astrodynamics math (Foster B-plane, Hamilton-Jacobi, CBF) in the V&V Proof pipeline"
         >
-          <ShieldCheck className="w-3.5 h-3.5 text-cyber-green" />
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
           <span>V&V PROOF</span>
         </button>
       </div>

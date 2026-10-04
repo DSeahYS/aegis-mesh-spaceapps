@@ -51,7 +51,7 @@ export const BPlaneViz: React.FC<BPlaneVizProps> = ({
   // Color based on proximity
   let statusColor = '#00ff88'; // green (safe)
   let statusText = 'NOMINAL';
-  let badgeBg = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+  let badgeBg = 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30';
 
   if (missDistance < 50 || missDistance <= hardBodyRadius * 2) {
     statusColor = '#ff3355'; // red (critical)
@@ -72,27 +72,27 @@ export const BPlaneViz: React.FC<BPlaneVizProps> = ({
   const ellipseRotation = -32; // degrees
 
   return (
-    <div className="flex flex-col bg-[#0d1424] border border-cyan-950/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-md">
+    <div className="flex flex-col bg-zinc-950 border border-zinc-950/80 rounded-sm overflow-hidden shadow-xl shadow-black/40 ">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-space-900 via-slate-900 to-space-900 border-b border-cyan-900/40">
+      <div className="flex items-center justify-between px-5 py-3.5 bg-zinc-900 border-b border-zinc-900/40">
         <div className="flex items-center space-x-2.5">
-          <Crosshair className="w-5 h-5 text-cyan-400 " />
-          <h3 className="text-sm font-semibold tracking-wider text-slate-100 uppercase">
+          <Crosshair className="w-5 h-5 text-blue-400 " />
+          <h3 className="text-sm font-semibold tracking-wider text-zinc-100 uppercase">
             B-PLANE ENCOUNTER GEOMETRY
           </h3>
         </div>
 
         {/* Zoom selector controls */}
-        <div className="flex items-center space-x-1.5 bg-slate-950/80 border border-slate-800 rounded-lg p-1 text-xs">
-          <span className="text-slate-500 px-1 font-mono text-[10px] uppercase">Scale:</span>
+        <div className="flex items-center space-x-1.5 bg-zinc-950 border border-zinc-800 rounded-sm p-1 text-xs">
+          <span className="text-zinc-500 px-1 font-mono text-[10px] uppercase">Scale:</span>
           {(['auto', 'close', 'medium', 'wide'] as const).map((mode) => (
             <button
               key={mode}
               onClick={() => setZoomMode(mode)}
               className={`px-2 py-0.5 rounded text-[11px] font-mono transition-colors ${
                 zoomMode === mode
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-medium'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-cyan-500/20 text-blue-300 border border-cyan-500/40 font-medium'
+                  : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
               {mode === 'auto' ? 'Auto' : mode === 'close' ? '100m' : mode === 'medium' ? '600m' : '1.6km'}
@@ -102,7 +102,7 @@ export const BPlaneViz: React.FC<BPlaneVizProps> = ({
       </div>
 
       {/* SVG Canvas Area */}
-      <div className="relative p-3 flex justify-center items-center bg-[#090e18] select-none">
+      <div className="relative p-3 flex justify-center items-center bg-zinc-950 select-none">
         <svg
           viewBox="0 0 500 500"
           className="w-full max-w-[480px] h-auto drop-shadow-lg"
@@ -380,31 +380,31 @@ export const BPlaneViz: React.FC<BPlaneVizProps> = ({
 
         {/* Hover Tooltip Overlay if active */}
         {hovered && (
-          <div className="absolute top-4 left-4 bg-slate-900/95 border border-cyan-500/50 p-2.5 rounded shadow-xl text-xs font-mono space-y-1 z-10 pointer-events-none">
-            <div className="text-cyan-400 font-bold">ENCOUNTER STATE</div>
-            <div className="text-slate-300">Miss Distance: <span className="text-emerald-400 font-bold">{missDistance.toFixed(2)} m</span></div>
-            <div className="text-slate-300">B-Vector (ξ, ζ): ({xi.toFixed(1)}, {zeta.toFixed(1)}) m</div>
-            <div className="text-slate-300">Dispersion: 1σ / 3σ Covariance</div>
+          <div className="absolute top-4 left-4 bg-zinc-900/95 border border-cyan-500/50 p-2.5 rounded shadow-xl text-xs font-mono space-y-1 z-10 pointer-events-none">
+            <div className="text-blue-400 font-bold">ENCOUNTER STATE</div>
+            <div className="text-zinc-300">Miss Distance: <span className="text-emerald-500 font-bold">{missDistance.toFixed(2)} m</span></div>
+            <div className="text-zinc-300">B-Vector (ξ, ζ): ({xi.toFixed(1)}, {zeta.toFixed(1)}) m</div>
+            <div className="text-zinc-300">Dispersion: 1σ / 3σ Covariance</div>
           </div>
         )}
       </div>
 
       {/* Footer Readout */}
-      <div className="grid grid-cols-3 gap-2 px-4 py-3 bg-slate-950/90 border-t border-cyan-900/30 text-xs font-mono">
+      <div className="grid grid-cols-3 gap-2 px-4 py-3 bg-zinc-950 border-t border-zinc-900/30 text-xs font-mono">
         <div>
-          <span className="text-slate-500 text-[10px] block">MISS DISTANCE</span>
-          <span className="text-slate-100 font-bold text-sm tracking-wide">
+          <span className="text-zinc-500 text-[10px] block">MISS DISTANCE</span>
+          <span className="text-zinc-100 font-bold text-sm tracking-wide">
             {missDistance.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} m
           </span>
         </div>
         <div>
-          <span className="text-slate-500 text-[10px] block">COORDINATE PAIR</span>
-          <span className="text-cyan-400 font-semibold text-xs">
+          <span className="text-zinc-500 text-[10px] block">COORDINATE PAIR</span>
+          <span className="text-blue-400 font-semibold text-xs">
             ξ: {xi.toFixed(1)} / ζ: {zeta.toFixed(1)}
           </span>
         </div>
         <div className="text-right">
-          <span className="text-slate-500 text-[10px] block">STATUS</span>
+          <span className="text-zinc-500 text-[10px] block">STATUS</span>
           <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border ${badgeBg}`}>
             {statusText}
           </span>

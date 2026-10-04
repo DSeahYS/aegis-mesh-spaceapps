@@ -43,7 +43,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
   }, []);
 
   return (
-    <div className={`w-full space-y-6 text-slate-100 ${className}`}>
+    <div className={`w-full space-y-6 text-zinc-100 ${className}`}>
       {/* Top Mission Status Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-space-600/80">
         <div>
@@ -52,34 +52,34 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
             <span className="text-xs font-mono tracking-widest text-cyber-green uppercase font-semibold">
               AEGIS-MESH MISSION CONTROL
             </span>
-            <span className="text-xs text-slate-500">•</span>
-            <span className="text-xs font-mono text-slate-400">LEO ORBITAL SHELL 53.2° INCLINATION</span>
-            <span className="text-xs text-slate-500">•</span>
-            <span className="text-xs font-mono text-cyan-400 font-semibold">NASA SPACE APPS 2026</span>
+            <span className="text-xs text-zinc-500">•</span>
+            <span className="text-xs font-mono text-zinc-400">LEO ORBITAL SHELL 53.2° INCLINATION</span>
+            <span className="text-xs text-zinc-500">•</span>
+            <span className="text-xs font-mono text-blue-400 font-semibold">NASA SPACE APPS 2026</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight text-white mt-1">
             Autonomous Space Traffic Management & Edge Avoidance
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-4xl">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-4xl">
             Decentralized peer-to-peer inter-satellite mesh executing deterministic collision avoidance, formal reachability analysis, and onboard trajectory optimization in real-time.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto font-mono text-xs shrink-0">
-          <div className="px-3 py-1.5 rounded-lg bg-space-800/80 border border-space-600 flex items-center gap-2 shadow-sm">
+          <div className="px-3 py-1.5 rounded-sm bg-space-800/80 border border-space-600 flex items-center gap-2 shadow-sm">
             <Radio className="w-3.5 h-3.5 text-cyber-blue animate-pulse" />
-            <span className="text-slate-400">ISL MESH:</span>
+            <span className="text-zinc-400">ISL MESH:</span>
             <span className="text-cyber-green font-semibold">12/12 CROSS-LINKS</span>
           </div>
-          <div className="px-3 py-1.5 rounded-lg bg-space-800/80 border border-space-600 flex items-center gap-2 shadow-sm">
-            <Clock className="w-3.5 h-3.5 text-slate-400" />
-            <span className="text-slate-300">EPOCH: 2026.277 UTC</span>
+          <div className="px-3 py-1.5 rounded-sm bg-space-800/80 border border-space-600 flex items-center gap-2 shadow-sm">
+            <Clock className="w-3.5 h-3.5 text-zinc-400" />
+            <span className="text-zinc-300">EPOCH: 2026.277 UTC</span>
           </div>
         </div>
       </div>
 
       {/* NASA Space Apps 2026 Evaluation Hero & V&V Proof Callout */}
-      <div className="relative overflow-hidden rounded-xl border border-cyber-green/40 bg-gradient-to-r from-space-900 via-space-800 to-space-900 p-5 shadow-2xl backdrop-blur-md">
+      <div className="relative overflow-hidden rounded-sm border border-cyber-green/40 bg-zinc-900 p-5 shadow-xl shadow-black/40 ">
         {/* Glow backdrop accents */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-cyber-green/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-cyber-blue/10 rounded-full blur-3xl pointer-events-none" />
@@ -88,7 +88,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
           <div className="space-y-3.5 max-w-3xl">
             {/* Badges strip */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-950/90 border border-blue-500/50 text-xs font-mono font-semibold tracking-wider text-blue-200 shadow-[0_0_12px_rgba(59,130,246,0.25)]">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-950/90 border border-blue-500/50 text-xs font-mono font-semibold tracking-wider text-blue-200 shadow-[0_0_12px_rgba(59,130,246,0.25)]">
                 <Award className="w-3.5 h-3.5 text-blue-400" />
                 NASA SPACE APPS 2026
               </span>
@@ -96,7 +96,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
                 <span className="w-1.5 h-1.5 rounded-full bg-cyber-green animate-ping" />
                 DECENTRALIZED EDGE AUTONOMY
               </span>
-              <span className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full bg-space-800 border border-space-600 text-xs font-mono text-slate-300">
+              <span className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full bg-space-800 border border-space-600 text-xs font-mono text-zinc-300">
                 12-NODE ISL MESH CONSENSUS
               </span>
             </div>
@@ -106,7 +106,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                 Decentralized In-Orbit Collision Avoidance with Proven Mathematical Rigor
               </h2>
-              <p className="mt-2 text-sm text-slate-300 leading-relaxed">
+              <p className="mt-2 text-sm text-zinc-300 leading-relaxed">
                 <strong className="text-cyber-green font-semibold">For NASA Space Apps Judges:</strong> Don't take our word for it—verify the live astrodynamics math (Foster B-plane, Hamilton-Jacobi, CBF) in the{' '}
                 <button
                   type="button"
@@ -123,32 +123,32 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
               <div 
                 onClick={() => setActiveView('verification')}
-                className="group flex items-start gap-2.5 px-3 py-2.5 rounded-lg bg-space-800/80 hover:bg-space-700/80 border border-space-700/80 hover:border-cyber-green/50 transition-all cursor-pointer"
+                className="group flex items-start gap-2.5 px-3 py-2.5 rounded-sm bg-space-800/80 hover:bg-space-700/80 border border-space-700/80 hover:border-cyber-green/50 transition-all cursor-pointer"
               >
                 <Calculator className="w-4 h-4 text-cyber-green shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <div>
-                  <div className="font-mono font-semibold text-xs text-slate-200 group-hover:text-cyber-green transition-colors">Foster (1992) B-Plane</div>
-                  <div className="text-[11px] text-slate-400">Exact 2D covariance collision integral</div>
+                  <div className="font-mono font-semibold text-xs text-zinc-200 group-hover:text-cyber-green transition-colors">Foster (1992) B-Plane</div>
+                  <div className="text-[11px] text-zinc-400">Exact 2D covariance collision integral</div>
                 </div>
               </div>
               <div 
                 onClick={() => setActiveView('verification')}
-                className="group flex items-start gap-2.5 px-3 py-2.5 rounded-lg bg-space-800/80 hover:bg-space-700/80 border border-space-700/80 hover:border-cyber-blue/50 transition-all cursor-pointer"
+                className="group flex items-start gap-2.5 px-3 py-2.5 rounded-sm bg-space-800/80 hover:bg-space-700/80 border border-space-700/80 hover:border-cyber-blue/50 transition-all cursor-pointer"
               >
                 <Compass className="w-4 h-4 text-cyber-blue shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <div>
-                  <div className="font-mono font-semibold text-xs text-slate-200 group-hover:text-cyber-blue transition-colors">Hamilton-Jacobi Reachability</div>
-                  <div className="text-[11px] text-slate-400">Backward reachable safety envelopes</div>
+                  <div className="font-mono font-semibold text-xs text-zinc-200 group-hover:text-cyber-blue transition-colors">Hamilton-Jacobi Reachability</div>
+                  <div className="text-[11px] text-zinc-400">Backward reachable safety envelopes</div>
                 </div>
               </div>
               <div 
                 onClick={() => setActiveView('verification')}
-                className="group flex items-start gap-2.5 px-3 py-2.5 rounded-lg bg-space-800/80 hover:bg-space-700/80 border border-space-700/80 hover:border-emerald-400/50 transition-all cursor-pointer"
+                className="group flex items-start gap-2.5 px-3 py-2.5 rounded-sm bg-space-800/80 hover:bg-space-700/80 border border-space-700/80 hover:border-emerald-400/50 transition-all cursor-pointer"
               >
-                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <div>
-                  <div className="font-mono font-semibold text-xs text-slate-200 group-hover:text-emerald-400 transition-colors">Control Barrier (CBF)</div>
-                  <div className="text-[11px] text-slate-400">Forward invariance & zero-penetration</div>
+                  <div className="font-mono font-semibold text-xs text-zinc-200 group-hover:text-emerald-500 transition-colors">Control Barrier (CBF)</div>
+                  <div className="text-[11px] text-zinc-400">Forward invariance & zero-penetration</div>
                 </div>
               </div>
             </div>
@@ -159,7 +159,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
             <button
               type="button"
               onClick={() => setActiveView('verification')}
-              className="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-cyber-green hover:bg-emerald-400 text-space-950 font-mono font-bold text-xs sm:text-sm tracking-wide transition-all shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:scale-[1.02] cursor-pointer"
+              className="flex items-center justify-center gap-2 px-5 py-3 rounded-sm bg-cyber-green hover:bg-emerald-400 text-space-950 font-mono font-bold text-xs sm:text-sm tracking-wide transition-all shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:scale-[1.02] cursor-pointer"
             >
               <ShieldCheck className="w-4 h-4 text-space-950" />
               <span>LAUNCH V&V PROOF ENGINE</span>
@@ -169,7 +169,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
             <button
               type="button"
               onClick={() => setActiveView('orbital')}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-space-800 hover:bg-space-700 border border-space-600 hover:border-cyber-blue/60 text-slate-200 text-xs font-mono font-semibold transition-all cursor-pointer"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-sm bg-space-800 hover:bg-space-700 border border-space-600 hover:border-cyber-blue/60 text-zinc-200 text-xs font-mono font-semibold transition-all cursor-pointer"
             >
               <Satellite className="w-3.5 h-3.5 text-cyber-blue" />
               <span>Inspect 3D Orbital Trajectories</span>
@@ -178,7 +178,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
             <button
               type="button"
               onClick={() => setActiveView('clm-gpu')}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-space-800 hover:bg-space-700 border border-space-600 hover:border-accent-purple/60 text-slate-200 text-xs font-mono font-semibold transition-all cursor-pointer"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-sm bg-space-800 hover:bg-space-700 border border-space-600 hover:border-accent-purple/60 text-zinc-200 text-xs font-mono font-semibold transition-all cursor-pointer"
             >
               <Cpu className="w-3.5 h-3.5 text-accent-purple" />
               <span>Verify Edge GPU Benchmarks</span>
@@ -190,12 +190,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
       {/* Top Row: 4 Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Total Nodes */}
-        <div className="bg-space-800 border border-space-600 rounded-lg p-4 shadow-lg transition-all duration-300 hover:border-cyber-blue/60 hover:shadow-md flex flex-col justify-between group">
+        <div className="bg-space-800 border border-space-600 rounded-sm p-4 shadow-lg transition-all duration-300 hover:border-cyber-blue/60 hover:shadow-md flex flex-col justify-between group">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
               Total Constellation Nodes
             </span>
-            <div className="p-2 rounded-lg bg-space-700/80 text-cyber-blue border border-space-600 group-hover:border-cyber-blue/40 transition-colors">
+            <div className="p-2 rounded-sm bg-space-700/80 text-cyber-blue border border-space-600 group-hover:border-cyber-blue/40 transition-colors">
               <Satellite className="w-4 h-4" />
             </div>
           </div>
@@ -207,20 +207,20 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
                 Active Shell
               </span>
             </div>
-            <div className="text-[11px] text-slate-400 mt-1 flex items-center justify-between">
+            <div className="text-[11px] text-zinc-400 mt-1 flex items-center justify-between">
               <span>3 Planes × 4 Satellites</span>
-              <span className="font-mono text-slate-400">550 km LEO</span>
+              <span className="font-mono text-zinc-400">550 km LEO</span>
             </div>
           </div>
         </div>
 
         {/* Card 2: Active Threats */}
-        <div className="bg-space-800 border border-space-600 rounded-lg p-4 shadow-lg transition-all duration-300 hover:border-alert-red/60 hover:shadow-md flex flex-col justify-between group">
+        <div className="bg-space-800 border border-space-600 rounded-sm p-4 shadow-lg transition-all duration-300 hover:border-alert-red/60 hover:shadow-md flex flex-col justify-between group">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
               Active Conjunctions
             </span>
-            <div className="p-2 rounded-lg bg-space-700/80 text-alert-red border border-space-600 group-hover:border-alert-red/40 transition-colors">
+            <div className="p-2 rounded-sm bg-space-700/80 text-alert-red border border-space-600 group-hover:border-alert-red/40 transition-colors">
               <ShieldAlert className="w-4 h-4" />
             </div>
           </div>
@@ -232,7 +232,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
                 {criticalThreatsCount} Critical (Pc &gt; 1e-4)
               </span>
             </div>
-            <div className="text-[11px] text-slate-400 mt-1 flex items-center justify-between">
+            <div className="text-[11px] text-zinc-400 mt-1 flex items-center justify-between">
               <span>Conjunction Horizon &lt; 24h</span>
               <span className="font-mono text-alert-amber">1 Burn Executing</span>
             </div>
@@ -240,12 +240,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
         </div>
 
         {/* Card 3: Avg Response Time */}
-        <div className="bg-space-800 border border-space-600 rounded-lg p-4 shadow-lg transition-all duration-300 hover:border-cyber-green/60 hover:shadow-md flex flex-col justify-between group">
+        <div className="bg-space-800 border border-space-600 rounded-sm p-4 shadow-lg transition-all duration-300 hover:border-cyber-green/60 hover:shadow-md flex flex-col justify-between group">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
               Edge Autonomous Latency
             </span>
-            <div className="p-2 rounded-lg bg-space-700/80 text-cyber-green border border-space-600 group-hover:border-cyber-green/40 transition-colors">
+            <div className="p-2 rounded-sm bg-space-700/80 text-cyber-green border border-space-600 group-hover:border-cyber-green/40 transition-colors">
               <Zap className="w-4 h-4 fill-cyber-green/20" />
             </div>
           </div>
@@ -253,35 +253,35 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
             <div className="text-3xl font-bold font-mono tracking-tight text-cyber-green flex items-baseline gap-1">
               <span>16</span>
               <span className="text-base font-semibold">ms</span>
-              <span className="ml-auto text-[11px] font-mono font-normal text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">
+              <span className="ml-auto text-[11px] font-mono font-normal text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">
                 1.5M× Faster
               </span>
             </div>
-            <div className="text-[11px] text-slate-400 mt-1 flex items-center justify-between">
+            <div className="text-[11px] text-zinc-400 mt-1 flex items-center justify-between">
               <span>Decentralized ISL Consensus</span>
-              <span className="font-mono text-slate-400">vs 16h Terrestrial</span>
+              <span className="font-mono text-zinc-400">vs 16h Terrestrial</span>
             </div>
           </div>
         </div>
 
         {/* Card 4: Network Uptime */}
-        <div className="bg-space-800 border border-space-600 rounded-lg p-4 shadow-lg transition-all duration-300 hover:border-cyber-blue/60 hover:shadow-md flex flex-col justify-between group">
+        <div className="bg-space-800 border border-space-600 rounded-sm p-4 shadow-lg transition-all duration-300 hover:border-cyber-blue/60 hover:shadow-md flex flex-col justify-between group">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
               ISL Mesh Consensus
             </span>
-            <div className="p-2 rounded-lg bg-space-700/80 text-cyber-blue border border-space-600 group-hover:border-cyber-blue/40 transition-colors">
+            <div className="p-2 rounded-sm bg-space-700/80 text-cyber-blue border border-space-600 group-hover:border-cyber-blue/40 transition-colors">
               <Activity className="w-4 h-4" />
             </div>
           </div>
           <div>
             <div className="text-3xl font-bold font-mono tracking-tight text-white flex items-baseline gap-2">
               <span className="text-cyber-blue">99.97%</span>
-              <span className="text-xs font-mono font-normal text-slate-400">
+              <span className="text-xs font-mono font-normal text-zinc-400">
                 P2P Quorum
               </span>
             </div>
-            <div className="text-[11px] text-slate-400 mt-1 flex items-center justify-between">
+            <div className="text-[11px] text-zinc-400 mt-1 flex items-center justify-between">
               <span>Zero Ground Dependency</span>
               <span className="font-mono text-cyber-green flex items-center gap-1">
                 <Sparkles className="w-2.5 h-2.5" />

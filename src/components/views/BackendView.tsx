@@ -71,6 +71,14 @@ const SAMPLE_TLE = {
   line2: '2 25544  51.6312 145.7721 0007123 200.7262 159.3438 15.48685648587861',
 };
 
+const SAMPLE_TLE_2 = {
+  norad_id: '49863',
+  name: 'COSMOS 1408 DEB',
+  line1: '1 49863U 82092PR  26272.50000000  .00010000  00000+0  10000-3 0  9999',
+  line2: '2 49863  82.5000 120.0000 0020000  90.0000 270.0000 14.50000000210000'
+};
+
+
 export const BackendView: FC = () => {
   const [health, setHealth] = useState<HealthStatus | null>(null);
   const [inference, setInference] = useState<InferenceResult | null>(null);
@@ -141,7 +149,7 @@ export const BackendView: FC = () => {
   const handleAssessConjunction = async () => {
     setBusy('conjunction');
     const t0 = performance.now();
-    const res = await assessConjunction(SAMPLE_TLE, SAMPLE_TLE, '2026-09-29T12:00:00Z', 10.0);
+    const res = await assessConjunction(SAMPLE_TLE, SAMPLE_TLE_2, '2026-09-29T12:00:00Z', 10.0);
     pushLog('POST', '/api/conjunction/assess', res ? 200 : 'ERR', performance.now() - t0);
     setConjunction(res);
     setBusy(null);
@@ -169,7 +177,7 @@ export const BackendView: FC = () => {
   const uptimeSec = health ? Math.max(0, Math.round(health.uptime)) : 0;
 
   return (
-    <div className="w-full min-h-full p-6 space-y-6 text-slate-100 pb-10">
+    <div className="w-full min-h-full p-6 space-y-6 text-zinc-100 pb-10">
       {/* ============ HEADER ============ */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-space-600/80">
         <div>
@@ -178,15 +186,15 @@ export const BackendView: FC = () => {
             <span className="text-xs font-mono tracking-widest text-cyber-green uppercase font-semibold">
               EDGE BACKEND CONSOLE
             </span>
-            <span className="text-xs text-slate-500">•</span>
-            <span className="text-xs font-mono text-slate-400">POLARFIRE SWaP SIMULATION</span>
+            <span className="text-xs text-zinc-500">•</span>
+            <span className="text-xs font-mono text-zinc-400">POLARFIRE SWaP SIMULATION</span>
           </div>
           <h1 className="text-2xl font-bold font-sans tracking-tight text-white mt-0.5">
             FastAPI Backend Live Telemetry
           </h1>
         </div>
         <div className="flex items-center gap-3 self-start md:self-auto font-mono text-xs">
-          <div className="px-3 py-1.5 rounded-lg bg-space-800/80 border border-space-600 flex items-center gap-2">
+          <div className="px-3 py-1.5 rounded-sm bg-space-800/80 border border-space-600 flex items-center gap-2">
             {isConnected ? (
               <>
                 <Wifi className="w-3.5 h-3.5 text-cyber-green" />
@@ -199,9 +207,9 @@ export const BackendView: FC = () => {
               </>
             )}
           </div>
-          <div className="px-3 py-1.5 rounded-lg bg-space-800/80 border border-space-600 flex items-center gap-2">
-            <Clock className="w-3.5 h-3.5 text-slate-400" />
-            <span className="text-slate-300">UPTIME {uptimeSec}s</span>
+          <div className="px-3 py-1.5 rounded-sm bg-space-800/80 border border-space-600 flex items-center gap-2">
+            <Clock className="w-3.5 h-3.5 text-zinc-400" />
+            <span className="text-zinc-300">UPTIME {uptimeSec}s</span>
           </div>
         </div>
       </div>
@@ -211,9 +219,9 @@ export const BackendView: FC = () => {
         {/* LEFT COLUMN */}
         <div className="xl:col-span-7 space-y-5">
           {/* Inference Panel */}
-          <div className="bg-space-800 border border-space-600 rounded-lg p-5 font-mono">
+          <div className="bg-space-800 border border-space-600 rounded-sm p-5 font-mono">
             <div className="flex items-center justify-between mb-4 border-b border-space-600 pb-3">
-              <h2 className="text-sm font-bold flex items-center gap-2 text-slate-100">
+              <h2 className="text-sm font-bold flex items-center gap-2 text-zinc-100">
                 <Zap className="w-4 h-4 text-yellow-400" />
                 CLM INFERENCE (/api/inference)
               </h2>
@@ -228,9 +236,9 @@ export const BackendView: FC = () => {
                 { label: 'REL VEL (km/s)', value: '11.0' },
                 { label: 'DEBRIS MASS (kg)', value: '45.0' },
               ].map((s) => (
-                <div key={s.label} className="bg-space-900 border border-space-700 rounded p-2">
-                  <div className="text-slate-500">{s.label}</div>
-                  <div className="text-slate-100 font-bold text-sm mt-0.5">{s.value}</div>
+                <div key={s.label} className="bg-zinc-900 border border-space-700 rounded p-2">
+                  <div className="text-zinc-500">{s.label}</div>
+                  <div className="text-zinc-100 font-bold text-sm mt-0.5">{s.value}</div>
                 </div>
               ))}
             </div>
@@ -245,25 +253,25 @@ export const BackendView: FC = () => {
             </button>
             {inference && (
               <div className="mt-4 space-y-2">
-                <div className="flex items-center justify-between text-[10px] text-slate-400">
+                <div className="flex items-center justify-between text-[10px] text-zinc-400">
                   <span>
                     SOURCE:{' '}
                     <span className={inference.source === 'polarfire-backend' ? 'text-cyber-green' : 'text-alert-amber'}>
                       {inference.source}
                     </span>
                   </span>
-                  <span>LATENCY: <span className="text-cyan-300 font-bold">{inference.latency_ms.toFixed(3)} ms</span></span>
+                  <span>LATENCY: <span className="text-blue-300 font-bold">{inference.latency_ms.toFixed(3)} ms</span></span>
                 </div>
                 {inference.top_actions.map((a, i) => (
                   <div
                     key={i}
-                    className="flex items-center justify-between bg-space-900 border border-space-700 rounded px-3 py-2 text-[11px]"
+                    className="flex items-center justify-between bg-zinc-900 border border-space-700 rounded px-3 py-2 text-[11px]"
                   >
-                    <span className="text-slate-200">
-                      <span className="text-slate-500 mr-2">#{i + 1}</span>
+                    <span className="text-zinc-200">
+                      <span className="text-zinc-500 mr-2">#{i + 1}</span>
                       {a.action}
                     </span>
-                    <span className="text-emerald-400 font-bold">
+                    <span className="text-emerald-500 font-bold">
                       {(a.confidence * 100).toFixed(1)}%
                     </span>
                   </div>
@@ -273,13 +281,13 @@ export const BackendView: FC = () => {
           </div>
 
           {/* TLE Catalog Panel */}
-          <div className="bg-space-800 border border-space-600 rounded-lg p-5 font-mono">
+          <div className="bg-space-800 border border-space-600 rounded-sm p-5 font-mono">
             <div className="flex items-center justify-between mb-4 border-b border-space-600 pb-3">
-              <h2 className="text-sm font-bold flex items-center gap-2 text-slate-100">
+              <h2 className="text-sm font-bold flex items-center gap-2 text-zinc-100">
                 <Database className="w-4 h-4 text-indigo-400" />
                 LIVE TLE CATALOG (/api/tle/query)
               </h2>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-blue-950/60 text-blue-300 border border-blue-500/30">
+              <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-950/60 text-blue-300 border border-blue-500/30">
                 CELESTRAK UPLINK
               </span>
             </div>
@@ -293,15 +301,15 @@ export const BackendView: FC = () => {
             </button>
             {tles && (
               <div className="mt-4 max-h-48 overflow-y-auto space-y-2">
-                <div className="text-[10px] text-slate-400">{tles.length} elements received from backend</div>
+                <div className="text-[10px] text-zinc-400">{tles.length} elements received from backend</div>
                 {tles.slice(0, 5).map((t, idx) => (
-                  <div key={idx} className="bg-space-900 border border-space-700 rounded p-2 text-[10px]">
+                  <div key={idx} className="bg-zinc-900 border border-space-700 rounded p-2 text-[10px]">
                     <div className="flex items-center justify-between">
                       <span className="text-cyber-blue font-bold">{t.name}</span>
-                      <span className="text-slate-500">NORAD {t.norad_id}</span>
+                      <span className="text-zinc-500">NORAD {t.norad_id}</span>
                     </div>
-                    <div className="text-slate-500 mt-1 truncate">{t.line1}</div>
-                    <div className="text-slate-500 truncate">{t.line2}</div>
+                    <div className="text-zinc-500 mt-1 truncate">{t.line1}</div>
+                    <div className="text-zinc-500 truncate">{t.line2}</div>
                   </div>
                 ))}
               </div>
@@ -309,16 +317,16 @@ export const BackendView: FC = () => {
           </div>
 
           {/* CDM Parser Panel */}
-          <div className="bg-space-800 border border-space-600 rounded-lg p-5 font-mono">
+          <div className="bg-space-800 border border-space-600 rounded-sm p-5 font-mono">
             <div className="flex items-center justify-between mb-4 border-b border-space-600 pb-3">
-              <h2 className="text-sm font-bold flex items-center gap-2 text-slate-100">
-                <FileText className="w-4 h-4 text-emerald-400" />
+              <h2 className="text-sm font-bold flex items-center gap-2 text-zinc-100">
+                <FileText className="w-4 h-4 text-emerald-500" />
                 CDM PARSER (/api/cdm/parse)
               </h2>
               <button
                 type="button"
                 onClick={() => setCdmText(SAMPLE_CDM)}
-                className="text-[10px] px-2 py-1 rounded bg-space-700 text-slate-300 hover:text-white flex items-center gap-1"
+                className="text-[10px] px-2 py-1 rounded bg-space-700 text-zinc-300 hover:text-white flex items-center gap-1"
               >
                 <RotateCcw className="w-3 h-3" /> SAMPLE
               </button>
@@ -327,7 +335,7 @@ export const BackendView: FC = () => {
               value={cdmText}
               onChange={(e) => setCdmText(e.target.value)}
               placeholder="Paste CCSDS CDM here..."
-              className="w-full h-28 bg-space-900 border border-space-700 rounded p-2 text-[10px] text-slate-300 mb-3 focus:outline-none focus:border-emerald-500"
+              className="w-full h-28 bg-zinc-900 border border-space-700 rounded p-2 text-[10px] text-zinc-300 mb-3 focus:outline-none focus:border-emerald-500"
             />
             <button
               type="button"
@@ -338,12 +346,12 @@ export const BackendView: FC = () => {
               {busy === 'cdm' ? 'PARSING…' : 'PARSE CDM'}
             </button>
             {cdmData && (
-              <div className="mt-4 p-3 bg-space-900 border border-emerald-900 rounded text-[11px] space-y-1">
-                <div className="text-emerald-400 font-bold mb-1">PARSED CONJUNCTION MESSAGE</div>
-                <div className="text-slate-400">Message ID: <span className="text-slate-200">{cdmData.messageId || '(not set)'}</span></div>
-                <div className="text-slate-400">Created: <span className="text-slate-200">{cdmData.creationDate || '(not set)'}</span></div>
-                <div className="text-slate-400">Primary: <span className="text-cyber-blue">{cdmData.primaryObject || '(unknown)'}</span></div>
-                <div className="text-slate-400">Secondary: <span className="text-alert-amber">{cdmData.secondaryObject || '(unknown)'}</span></div>
+              <div className="mt-4 p-3 bg-zinc-900 border border-emerald-900 rounded text-[11px] space-y-1">
+                <div className="text-emerald-500 font-bold mb-1">PARSED CONJUNCTION MESSAGE</div>
+                <div className="text-zinc-400">Message ID: <span className="text-zinc-200">{cdmData.messageId || '(not set)'}</span></div>
+                <div className="text-zinc-400">Created: <span className="text-zinc-200">{cdmData.creationDate || '(not set)'}</span></div>
+                <div className="text-zinc-400">Primary: <span className="text-cyber-blue">{cdmData.primaryObject || '(unknown)'}</span></div>
+                <div className="text-zinc-400">Secondary: <span className="text-alert-amber">{cdmData.secondaryObject || '(unknown)'}</span></div>
               </div>
             )}
           </div>
@@ -352,9 +360,9 @@ export const BackendView: FC = () => {
         {/* RIGHT COLUMN */}
         <div className="xl:col-span-5 space-y-5">
           {/* Conjunction Assessment Panel */}
-          <div className="bg-space-800 border border-space-600 rounded-lg p-5 font-mono">
+          <div className="bg-space-800 border border-space-600 rounded-sm p-5 font-mono">
             <div className="flex items-center justify-between mb-4 border-b border-space-600 pb-3">
-              <h2 className="text-sm font-bold flex items-center gap-2 text-slate-100">
+              <h2 className="text-sm font-bold flex items-center gap-2 text-zinc-100">
                 <Radar className="w-4 h-4 text-rose-400" />
                 CONJUNCTION ASSESSMENT
               </h2>
@@ -372,34 +380,34 @@ export const BackendView: FC = () => {
             </button>
             {conjunction && (
               <div className="mt-4 grid grid-cols-2 gap-2 text-[10px]">
-                <div className="bg-space-900 border border-space-700 rounded p-2">
-                  <div className="text-slate-500">MISS DISTANCE</div>
-                  <div className="text-slate-100 font-bold text-sm">{conjunction.missDistance.toFixed(4)} km</div>
+                <div className="bg-zinc-900 border border-space-700 rounded p-2">
+                  <div className="text-zinc-500">MISS DISTANCE</div>
+                  <div className="text-zinc-100 font-bold text-sm">{conjunction.missDistance.toFixed(4)} km</div>
                 </div>
-                <div className="bg-space-900 border border-space-700 rounded p-2">
-                  <div className="text-slate-500">COLLISION PROB</div>
+                <div className="bg-zinc-900 border border-space-700 rounded p-2">
+                  <div className="text-zinc-500">COLLISION PROB</div>
                   <div className="text-alert-amber font-bold text-sm">{conjunction.probability.toExponential(2)}</div>
                 </div>
-                <div className="bg-space-900 border border-space-700 rounded p-2">
-                  <div className="text-slate-500">REL VELOCITY</div>
-                  <div className="text-cyan-300 font-bold text-sm">{conjunction.relativeVelocityKmS ?? '—'} km/s</div>
+                <div className="bg-zinc-900 border border-space-700 rounded p-2">
+                  <div className="text-zinc-500">REL VELOCITY</div>
+                  <div className="text-blue-300 font-bold text-sm">{conjunction.relativeVelocityKmS ?? '—'} km/s</div>
                 </div>
-                <div className="bg-space-900 border border-space-700 rounded p-2">
-                  <div className="text-slate-500">B-PLANE |b|</div>
-                  <div className="text-slate-100 font-bold text-sm">{(conjunction.bPlaneB ?? 0).toFixed(3)} km</div>
+                <div className="bg-zinc-900 border border-space-700 rounded p-2">
+                  <div className="text-zinc-500">B-PLANE |b|</div>
+                  <div className="text-zinc-100 font-bold text-sm">{(conjunction.bPlaneB ?? 0).toFixed(3)} km</div>
                 </div>
               </div>
             )}
           </div>
 
           {/* Benchmark Panel */}
-          <div className="bg-space-800 border border-space-600 rounded-lg p-5 font-mono">
+          <div className="bg-space-800 border border-space-600 rounded-sm p-5 font-mono">
             <div className="flex items-center justify-between mb-4 border-b border-space-600 pb-3">
-              <h2 className="text-sm font-bold flex items-center gap-2 text-slate-100">
-                <Gauge className="w-4 h-4 text-cyan-400" />
+              <h2 className="text-sm font-bold flex items-center gap-2 text-zinc-100">
+                <Gauge className="w-4 h-4 text-blue-400" />
                 BENCHMARK REPORT (/api/benchmark/results)
               </h2>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-950/60 text-cyan-300 border border-cyan-500/30">
+              <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-950/60 text-blue-300 border border-cyan-500/30">
                 1000 ITERATIONS
               </span>
             </div>
@@ -413,20 +421,20 @@ export const BackendView: FC = () => {
             </button>
             {benchmark && (
               <div className="mt-4 grid grid-cols-2 gap-2 text-[10px]">
-                <div className="bg-space-900 border border-space-700 rounded p-2">
-                  <div className="text-slate-500">MEAN LATENCY</div>
+                <div className="bg-zinc-900 border border-space-700 rounded p-2">
+                  <div className="text-zinc-500">MEAN LATENCY</div>
                   <div className="text-cyber-green font-bold text-sm">{benchmark.latency_ms.mean.toFixed(3)} ms</div>
                 </div>
-                <div className="bg-space-900 border border-space-700 rounded p-2">
-                  <div className="text-slate-500">P95 LATENCY</div>
-                  <div className="text-cyan-300 font-bold text-sm">{benchmark.latency_ms.p95.toFixed(3)} ms</div>
+                <div className="bg-zinc-900 border border-space-700 rounded p-2">
+                  <div className="text-zinc-500">P95 LATENCY</div>
+                  <div className="text-blue-300 font-bold text-sm">{benchmark.latency_ms.p95.toFixed(3)} ms</div>
                 </div>
-                <div className="bg-space-900 border border-space-700 rounded p-2">
-                  <div className="text-slate-500">PEAK MEMORY</div>
-                  <div className="text-slate-100 font-bold text-sm">{(benchmark.memory_bytes.peak / 1024).toFixed(1)} KB</div>
+                <div className="bg-zinc-900 border border-space-700 rounded p-2">
+                  <div className="text-zinc-500">PEAK MEMORY</div>
+                  <div className="text-zinc-100 font-bold text-sm">{(benchmark.memory_bytes.peak / 1024).toFixed(1)} KB</div>
                 </div>
-                <div className="bg-space-900 border border-space-700 rounded p-2">
-                  <div className="text-slate-500">EST POWER</div>
+                <div className="bg-zinc-900 border border-space-700 rounded p-2">
+                  <div className="text-zinc-500">EST POWER</div>
                   <div className="text-alert-amber font-bold text-sm">{benchmark.power_watts.estimated.toFixed(2)} W</div>
                 </div>
               </div>
@@ -434,31 +442,31 @@ export const BackendView: FC = () => {
           </div>
 
           {/* Live API Activity Log */}
-          <div className="bg-space-800 border border-space-600 rounded-lg p-5 font-mono">
+          <div className="bg-space-800 border border-space-600 rounded-sm p-5 font-mono">
             <div className="flex items-center justify-between mb-4 border-b border-space-600 pb-3">
-              <h2 className="text-sm font-bold flex items-center gap-2 text-slate-100">
+              <h2 className="text-sm font-bold flex items-center gap-2 text-zinc-100">
                 <Server className="w-4 h-4 text-cyber-green" />
                 BACKEND API ACTIVITY
               </h2>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-space-700/80 text-slate-300 border border-space-600">
+              <span className="text-[10px] px-2 py-0.5 rounded bg-space-700/80 text-zinc-300 border border-space-600">
                 {apiLog.length} CALLS
               </span>
             </div>
-            <div className="bg-space-950 rounded border border-space-700 p-3 h-48 overflow-y-auto text-[10px] leading-relaxed">
+            <div className="bg-zinc-950 rounded border border-space-700 p-3 h-48 overflow-y-auto text-[10px] leading-relaxed">
               {apiLog.length === 0 ? (
-                <div className="text-slate-500">// Awaiting backend requests…</div>
+                <div className="text-zinc-500">// Awaiting backend requests…</div>
               ) : (
                 apiLog.map((e) => (
                   <div key={e.id} className="flex items-center gap-2 whitespace-nowrap">
-                    <span className="text-slate-600">{e.time}</span>
-                    <span className={e.method === 'GET' ? 'text-cyan-400 font-bold w-9' : 'text-purple-400 font-bold w-9'}>
+                    <span className="text-zinc-600">{e.time}</span>
+                    <span className={e.method === 'GET' ? 'text-blue-400 font-bold w-9' : 'text-purple-400 font-bold w-9'}>
                       {e.method}
                     </span>
-                    <span className="text-slate-300 flex-1 truncate">{e.endpoint}</span>
+                    <span className="text-zinc-300 flex-1 truncate">{e.endpoint}</span>
                     <span className={e.status === 200 ? 'text-cyber-green' : 'text-alert-red font-bold'}>
                       {e.status}
                     </span>
-                    <span className="text-slate-500 w-16 text-right">{e.durationMs.toFixed(1)} ms</span>
+                    <span className="text-zinc-500 w-16 text-right">{e.durationMs.toFixed(1)} ms</span>
                   </div>
                 ))
               )}

@@ -335,30 +335,30 @@ export const SatelliteSwarm: React.FC<SatelliteSwarmProps> = ({
           style={{ pointerEvents: 'none', userSelect: 'none' }}
         >
           <div className="flex flex-col items-center pointer-events-none -translate-y-8">
-            <div className="px-2.5 py-1.5 rounded-lg bg-slate-950/95 border border-cyan-500/50 backdrop-blur-md shadow-2xl text-[11px] font-mono text-slate-100 whitespace-nowrap">
-              <div className="flex items-center gap-1.5 pb-1 border-b border-slate-800">
+            <div className="px-2.5 py-1.5 rounded-sm bg-zinc-950/95 border border-cyan-500/50  shadow-xl shadow-black/40 text-[11px] font-mono text-zinc-100 whitespace-nowrap">
+              <div className="flex items-center gap-1.5 pb-1 border-b border-zinc-800">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 " />
-                <span className="font-bold text-cyan-300">{hoveredSat.id}</span>
+                <span className="font-bold text-blue-300">{hoveredSat.id}</span>
                 {hoveredSat.constellation && (
-                  <span className="text-[10px] text-slate-400">({hoveredSat.constellation})</span>
+                  <span className="text-[10px] text-zinc-400">({hoveredSat.constellation})</span>
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 mt-1 text-[10px] text-slate-300">
+              <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 mt-1 text-[10px] text-zinc-300">
                 <div>
-                  <span className="text-slate-500">ALT:</span> {hoveredSat.altitudeKm ?? 550} km
+                  <span className="text-zinc-500">ALT:</span> {hoveredSat.altitudeKm ?? 550} km
                 </div>
                 <div>
-                  <span className="text-slate-500">INC:</span> {hoveredSat.inclinationDeg ?? 53.0}°
+                  <span className="text-zinc-500">INC:</span> {hoveredSat.inclinationDeg ?? 53.0}°
                 </div>
                 <div>
-                  <span className="text-slate-500">TYPE:</span> MEGA-SWARM
+                  <span className="text-zinc-500">TYPE:</span> MEGA-SWARM
                 </div>
                 <div>
-                  <span className="text-emerald-400 font-semibold">COOPERATIVE</span>
+                  <span className="text-emerald-500 font-semibold">COOPERATIVE</span>
                 </div>
               </div>
             </div>
-            <div className="w-1.5 h-1.5 bg-slate-950 rotate-45 -mt-1 border-r border-b border-cyan-500/50" />
+            <div className="w-1.5 h-1.5 bg-zinc-950 rotate-45 -mt-1 border-r border-b border-cyan-500/50" />
           </div>
         </Html>
       )}

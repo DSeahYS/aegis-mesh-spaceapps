@@ -73,7 +73,7 @@ export const StateVectorPanel: React.FC<StateVectorPanelProps> = ({ data }) => {
   }
 
   // Miss distance color-coding
-  let missColor = 'text-emerald-400';
+  let missColor = 'text-emerald-500';
   let missBg = 'border-emerald-500/30 bg-emerald-950/20';
   if (missDistance < 50) {
     missColor = 'text-red-400 font-bold';
@@ -84,44 +84,44 @@ export const StateVectorPanel: React.FC<StateVectorPanelProps> = ({ data }) => {
   }
 
   return (
-    <div className="flex flex-col bg-[#080d1a] border border-cyan-900/50 rounded-xl overflow-hidden shadow-2xl font-mono">
+    <div className="flex flex-col bg-zinc-950 border border-zinc-900/50 rounded-sm overflow-hidden shadow-xl shadow-black/40 font-mono">
       {/* Panel Header */}
-      <div className="flex items-center justify-between px-5 py-3 bg-gradient-to-r from-space-900 via-slate-900 to-space-900 border-b border-cyan-900/40">
+      <div className="flex items-center justify-between px-5 py-3 bg-zinc-900 border-b border-zinc-900/40">
         <div className="flex items-center space-x-2">
-          <Terminal className="w-4 h-4 text-emerald-400" />
-          <h3 className="text-xs font-semibold tracking-wider text-slate-100 uppercase">
+          <Terminal className="w-4 h-4 text-emerald-500" />
+          <h3 className="text-xs font-semibold tracking-wider text-zinc-100 uppercase">
             RELATIVE STATE VECTOR
           </h3>
         </div>
-        <div className="flex items-center space-x-2 text-[10px] text-slate-400">
+        <div className="flex items-center space-x-2 text-[10px] text-zinc-400">
           <span>FRAME: RIC (HILL)</span>
-          <span className="text-cyan-500">|</span>
-          <span className="text-emerald-400 ">● LIVE TELEMETRY</span>
+          <span className="text-blue-500">|</span>
+          <span className="text-emerald-500 ">● LIVE TELEMETRY</span>
         </div>
       </div>
 
       {/* Main Terminal Body */}
-      <div className="p-4 space-y-3.5 bg-gradient-to-b from-[#080d1a] to-[#050811]">
+      <div className="p-4 space-y-3.5 bg-zinc-900">
         {/* Top Summary Readouts: TCA & Miss Distance */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* TCA Block */}
-          <div className="p-2.5 rounded-lg bg-slate-950/80 border border-slate-800 flex items-start space-x-2.5">
-            <Clock className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+          <div className="p-2.5 rounded-sm bg-zinc-950 border border-zinc-800 flex items-start space-x-2.5">
+            <Clock className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
             <div className="min-w-0">
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
+              <span className="text-[10px] text-zinc-400 uppercase tracking-wider block">
                 TIME OF CLOSEST APPROACH (TCA)
               </span>
-              <span className="text-xs text-slate-100 font-bold tracking-wide truncate block">
+              <span className="text-xs text-zinc-100 font-bold tracking-wide truncate block">
                 {tcaFormatted}
               </span>
             </div>
           </div>
 
           {/* Miss Distance Block */}
-          <div className={`p-2.5 rounded-lg border flex items-start space-x-2.5 ${missBg}`}>
+          <div className={`p-2.5 rounded-sm border flex items-start space-x-2.5 ${missBg}`}>
             <Activity className={`w-4 h-4 mt-0.5 shrink-0 ${missColor}`} />
             <div>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
+              <span className="text-[10px] text-zinc-400 uppercase tracking-wider block">
                 MISS DISTANCE
               </span>
               <span className={`text-sm tracking-wide ${missColor}`}>
@@ -132,14 +132,14 @@ export const StateVectorPanel: React.FC<StateVectorPanelProps> = ({ data }) => {
         </div>
 
         {/* Relative Velocity Magnitude Banner */}
-        <div className="p-2.5 rounded-lg bg-cyan-950/20 border border-cyan-800/30 flex items-center justify-between text-xs">
+        <div className="p-2.5 rounded-sm bg-zinc-950/20 border border-zinc-800/30 flex items-center justify-between text-xs">
           <div className="flex items-center space-x-2">
-            <ArrowUpRight className="w-4 h-4 text-cyan-400" />
-            <span className="text-slate-300">RELATIVE VELOCITY MAGNITUDE (|v_rel|):</span>
+            <ArrowUpRight className="w-4 h-4 text-blue-400" />
+            <span className="text-zinc-300">RELATIVE VELOCITY MAGNITUDE (|v_rel|):</span>
           </div>
-          <span className="text-cyan-300 font-bold text-sm tracking-wide">
+          <span className="text-blue-300 font-bold text-sm tracking-wide">
             {relVelocityMagnitude.toFixed(3)} km/s
-            <span className="text-[10px] text-slate-400 font-normal ml-1">
+            <span className="text-[10px] text-zinc-400 font-normal ml-1">
               ({(relVelocityMagnitude * 3600).toFixed(0)} km/h)
             </span>
           </span>
@@ -148,45 +148,45 @@ export const StateVectorPanel: React.FC<StateVectorPanelProps> = ({ data }) => {
         {/* State Vector Grid: Position & Velocity Components */}
         <div className="grid grid-cols-2 gap-3">
           {/* Position Vector */}
-          <div className="p-3 rounded-lg bg-slate-950/90 border border-cyan-900/30 space-y-2">
-            <div className="flex items-center justify-between text-[11px] pb-1 border-b border-slate-800">
-              <span className="text-cyan-400 font-bold">RELATIVE POSITION (r)</span>
-              <span className="text-[10px] text-slate-500">|r| = {posMagnitude.toFixed(2)} km</span>
+          <div className="p-3 rounded-sm bg-zinc-950 border border-zinc-900/30 space-y-2">
+            <div className="flex items-center justify-between text-[11px] pb-1 border-b border-zinc-800">
+              <span className="text-blue-400 font-bold">RELATIVE POSITION (r)</span>
+              <span className="text-[10px] text-zinc-500">|r| = {posMagnitude.toFixed(2)} km</span>
             </div>
             <div className="space-y-1.5 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-slate-400">ΔX (Radial):</span>
-                <span className="text-emerald-400 font-semibold">{x >= 0 ? `+${x.toFixed(2)}` : x.toFixed(2)} km</span>
+                <span className="text-zinc-400">ΔX (Radial):</span>
+                <span className="text-emerald-500 font-semibold">{x >= 0 ? `+${x.toFixed(2)}` : x.toFixed(2)} km</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-400">ΔY (In-Track):</span>
-                <span className="text-emerald-400 font-semibold">{y >= 0 ? `+${y.toFixed(2)}` : y.toFixed(2)} km</span>
+                <span className="text-zinc-400">ΔY (In-Track):</span>
+                <span className="text-emerald-500 font-semibold">{y >= 0 ? `+${y.toFixed(2)}` : y.toFixed(2)} km</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-400">ΔZ (Cross-Track):</span>
-                <span className="text-emerald-400 font-semibold">{z >= 0 ? `+${z.toFixed(2)}` : z.toFixed(2)} km</span>
+                <span className="text-zinc-400">ΔZ (Cross-Track):</span>
+                <span className="text-emerald-500 font-semibold">{z >= 0 ? `+${z.toFixed(2)}` : z.toFixed(2)} km</span>
               </div>
             </div>
           </div>
 
           {/* Velocity Vector */}
-          <div className="p-3 rounded-lg bg-slate-950/90 border border-cyan-900/30 space-y-2">
-            <div className="flex items-center justify-between text-[11px] pb-1 border-b border-slate-800">
-              <span className="text-cyan-400 font-bold">RELATIVE VELOCITY (v)</span>
-              <span className="text-[10px] text-slate-500">|v| = {calculatedRelSpeed.toFixed(2)} km/s</span>
+          <div className="p-3 rounded-sm bg-zinc-950 border border-zinc-900/30 space-y-2">
+            <div className="flex items-center justify-between text-[11px] pb-1 border-b border-zinc-800">
+              <span className="text-blue-400 font-bold">RELATIVE VELOCITY (v)</span>
+              <span className="text-[10px] text-zinc-500">|v| = {calculatedRelSpeed.toFixed(2)} km/s</span>
             </div>
             <div className="space-y-1.5 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-slate-400">V_x (Radial):</span>
-                <span className="text-cyan-300 font-semibold">{vx >= 0 ? `+${vx.toFixed(2)}` : vx.toFixed(2)} km/s</span>
+                <span className="text-zinc-400">V_x (Radial):</span>
+                <span className="text-blue-300 font-semibold">{vx >= 0 ? `+${vx.toFixed(2)}` : vx.toFixed(2)} km/s</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-400">V_y (In-Track):</span>
-                <span className="text-cyan-300 font-semibold">{vy >= 0 ? `+${vy.toFixed(2)}` : vy.toFixed(2)} km/s</span>
+                <span className="text-zinc-400">V_y (In-Track):</span>
+                <span className="text-blue-300 font-semibold">{vy >= 0 ? `+${vy.toFixed(2)}` : vy.toFixed(2)} km/s</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-slate-400">V_z (Cross-Track):</span>
-                <span className="text-cyan-300 font-semibold">{vz >= 0 ? `+${vz.toFixed(2)}` : vz.toFixed(2)} km/s</span>
+                <span className="text-zinc-400">V_z (Cross-Track):</span>
+                <span className="text-blue-300 font-semibold">{vz >= 0 ? `+${vz.toFixed(2)}` : vz.toFixed(2)} km/s</span>
               </div>
             </div>
           </div>
@@ -194,23 +194,23 @@ export const StateVectorPanel: React.FC<StateVectorPanelProps> = ({ data }) => {
 
         {/* Target & Maneuver Metadata Footer */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 pt-1 text-[10px]">
-          <div className="p-2 rounded bg-slate-900/60 border border-slate-800/80">
-            <span className="text-slate-500 block">PRIMARY NODE</span>
-            <span className="text-slate-200 font-semibold">{primarySatellite || 'AEGIS SATELLITE'}</span>
+          <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+            <span className="text-zinc-500 block">PRIMARY NODE</span>
+            <span className="text-zinc-200 font-semibold">{primarySatellite || 'AEGIS SATELLITE'}</span>
           </div>
-          <div className="p-2 rounded bg-slate-900/60 border border-slate-800/80">
-            <span className="text-slate-500 block">DEBRIS TARGET</span>
-            <span className="text-cyan-400 font-semibold">{debris?.catalogId || 'UNCATALOGUED'}</span>
+          <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+            <span className="text-zinc-500 block">DEBRIS TARGET</span>
+            <span className="text-blue-400 font-semibold">{debris?.catalogId || 'UNCATALOGUED'}</span>
           </div>
-          <div className="p-2 rounded bg-slate-900/60 border border-slate-800/80">
-            <span className="text-slate-500 block">SEVERITY / SIZE</span>
-            <span className="text-slate-200 font-semibold">{severity.toUpperCase()} ({debris?.estimatedSize ?? 'N/A'} cm)</span>
+          <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+            <span className="text-zinc-500 block">SEVERITY / SIZE</span>
+            <span className="text-zinc-200 font-semibold">{severity.toUpperCase()} ({debris?.estimatedSize ?? 'N/A'} cm)</span>
           </div>
-          <div className="p-2 rounded bg-slate-900/60 border border-slate-800/80">
-            <span className="text-slate-500 block">MANEUVER STATUS</span>
+          <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+            <span className="text-zinc-500 block">MANEUVER STATUS</span>
             <span className={`font-semibold uppercase ${
-              maneuver?.status === 'executed' ? 'text-emerald-400' :
-              maneuver?.status === 'planned' ? 'text-amber-400' : 'text-slate-400'
+              maneuver?.status === 'executed' ? 'text-emerald-500' :
+              maneuver?.status === 'planned' ? 'text-amber-400' : 'text-zinc-400'
             }`}>
               {maneuver?.status || 'MONITORING'}
             </span>

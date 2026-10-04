@@ -61,19 +61,19 @@ export const App: FC = () => {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden flex flex-col bg-space-900 text-slate-200 antialiased font-sans">
-      {/* Top Header Bar (h-14) */}
+    <div className="h-screen w-screen overflow-hidden flex flex-col bg-zinc-950 text-zinc-200 antialiased font-sans select-none">
+      {/* Top Header Bar */}
       <Header />
 
       {/* Main Workspace (Sidebar + Active View) */}
       <div className="flex-1 flex overflow-hidden relative">
         <Sidebar />
-        <main className="flex-1 overflow-auto bg-space-950/70 relative">
+        <main className="flex-1 overflow-auto bg-zinc-950 relative">
           {renderActiveView()}
         </main>
       </div>
 
-      {/* Bottom Status Bar (h-8) */}
+      {/* Bottom Status Bar */}
       <StatusBar />
     </div>
   );

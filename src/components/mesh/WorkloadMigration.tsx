@@ -103,12 +103,12 @@ export const WorkloadMigration: React.FC = () => {
       : 'CHECKPOINTING THREADS';
 
   return (
-    <div className="flex flex-col bg-[#0c1220] border border-cyan-950/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-md">
+    <div className="flex flex-col bg-zinc-950 border border-zinc-950/80 rounded-sm overflow-hidden shadow-xl shadow-black/40 ">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-space-900 via-slate-900 to-space-900 border-b border-cyan-900/40">
+      <div className="flex items-center justify-between px-5 py-3.5 bg-zinc-900 border-b border-zinc-900/40">
         <div className="flex items-center space-x-2.5">
-          <Layers className="w-5 h-5 text-cyan-400" />
-          <h3 className="text-sm font-semibold tracking-wider text-slate-100 uppercase">
+          <Layers className="w-5 h-5 text-blue-400" />
+          <h3 className="text-sm font-semibold tracking-wider text-zinc-100 uppercase">
             WASM WORKLOAD MIGRATION
           </h3>
         </div>
@@ -117,7 +117,7 @@ export const WorkloadMigration: React.FC = () => {
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="p-1.5 rounded bg-slate-900 border border-slate-700 hover:border-cyan-500 text-slate-300 hover:text-cyan-300 transition-colors"
+            className="p-1.5 rounded bg-zinc-900 border border-zinc-700 hover:border-cyan-500 text-zinc-300 hover:text-blue-300 transition-colors"
             title={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
@@ -127,7 +127,7 @@ export const WorkloadMigration: React.FC = () => {
               setProgress(0);
               setIsPlaying(true);
             }}
-            className="p-1.5 rounded bg-slate-900 border border-slate-700 hover:border-cyan-500 text-slate-300 hover:text-cyan-300 transition-colors"
+            className="p-1.5 rounded bg-zinc-900 border border-zinc-700 hover:border-cyan-500 text-zinc-300 hover:text-blue-300 transition-colors"
             title="Reset"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -136,24 +136,24 @@ export const WorkloadMigration: React.FC = () => {
       </div>
 
       {/* Main Body */}
-      <div className="p-5 space-y-5 bg-[#080d1a]">
+      <div className="p-5 space-y-5 bg-zinc-950">
         {/* Source -> Target Nodes Banner */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-center p-3.5 rounded-lg bg-slate-950/80 border border-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-center p-3.5 rounded-sm bg-zinc-950 border border-zinc-800">
           {/* Source Node */}
           <div className="flex items-center space-x-3">
             <div className="p-2 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400">
               <Server className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-500 font-mono block">SOURCE NODE (EVADING)</span>
+              <span className="text-[10px] text-zinc-500 font-mono block">SOURCE NODE (EVADING)</span>
               <select
                 value={sourceNode}
                 onChange={(e) => setSourceNode(e.target.value)}
                 className="bg-transparent text-sm font-bold text-amber-300 font-mono focus:outline-none cursor-pointer"
               >
-                <option value="AEGIS-04" className="bg-slate-900">AEGIS-04</option>
-                <option value="AEGIS-07" className="bg-slate-900">AEGIS-07</option>
-                <option value="AEGIS-02" className="bg-slate-900">AEGIS-02</option>
+                <option value="AEGIS-04" className="bg-zinc-900">AEGIS-04</option>
+                <option value="AEGIS-07" className="bg-zinc-900">AEGIS-07</option>
+                <option value="AEGIS-02" className="bg-zinc-900">AEGIS-02</option>
               </select>
               <span className="text-[10px] text-amber-400/80 font-mono block">Compute Load: 78.4%</span>
             </div>
@@ -161,29 +161,29 @@ export const WorkloadMigration: React.FC = () => {
 
           {/* Transfer Channel Arrow */}
           <div className="flex flex-col items-center justify-center font-mono">
-            <div className="flex items-center space-x-2 text-cyan-400">
-              <span className="text-[10px] text-slate-400">10 Gbps ISL</span>
+            <div className="flex items-center space-x-2 text-blue-400">
+              <span className="text-[10px] text-zinc-400">10 Gbps ISL</span>
               <ArrowRight className="w-4 h-4 " />
             </div>
-            <span className="text-[10px] text-slate-500 mt-0.5">TLS 1.3 + QKD OTP</span>
+            <span className="text-[10px] text-zinc-500 mt-0.5">TLS 1.3 + QKD OTP</span>
           </div>
 
           {/* Target Node */}
           <div className="flex items-center space-x-3 md:justify-end text-left md:text-right">
             <div>
-              <span className="text-[10px] text-slate-500 font-mono block">TARGET NODE (RECEIVING)</span>
+              <span className="text-[10px] text-zinc-500 font-mono block">TARGET NODE (RECEIVING)</span>
               <select
                 value={targetNode}
                 onChange={(e) => setTargetNode(e.target.value)}
-                className="bg-transparent text-sm font-bold text-emerald-400 font-mono focus:outline-none cursor-pointer"
+                className="bg-transparent text-sm font-bold text-emerald-500 font-mono focus:outline-none cursor-pointer"
               >
-                <option value="AEGIS-05" className="bg-slate-900">AEGIS-05</option>
-                <option value="AEGIS-01" className="bg-slate-900">AEGIS-01</option>
-                <option value="AEGIS-09" className="bg-slate-900">AEGIS-09</option>
+                <option value="AEGIS-05" className="bg-zinc-900">AEGIS-05</option>
+                <option value="AEGIS-01" className="bg-zinc-900">AEGIS-01</option>
+                <option value="AEGIS-09" className="bg-zinc-900">AEGIS-09</option>
               </select>
-              <span className="text-[10px] text-emerald-400/80 font-mono block">Compute Load: 22.3%</span>
+              <span className="text-[10px] text-emerald-500/80 font-mono block">Compute Load: 22.3%</span>
             </div>
-            <div className="p-2 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+            <div className="p-2 rounded bg-emerald-950/50 border border-emerald-800/50 text-emerald-500">
               <Server className="w-4 h-4" />
             </div>
           </div>
@@ -192,18 +192,18 @@ export const WorkloadMigration: React.FC = () => {
         {/* Progress Bar & Telemetry */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-mono">
-            <span className="text-cyan-400 font-semibold flex items-center space-x-1.5">
+            <span className="text-blue-400 font-semibold flex items-center space-x-1.5">
               <span className="w-2 h-2 rounded-full bg-cyan-400 " />
               <span>STATUS: {overallStatus}</span>
             </span>
             <div className="flex items-center space-x-2">
-              <span className="text-slate-300 font-bold">
+              <span className="text-zinc-300 font-bold">
                 {progress.toFixed(1)}% ({((progress / 100) * dataSize).toFixed(1)} / {dataSize} MB)
               </span>
               <select
                 value={dataSize}
                 onChange={(e) => setDataSize(Number(e.target.value))}
-                className="bg-slate-900 border border-slate-700 text-[10px] text-slate-300 rounded px-1.5 py-0.5"
+                className="bg-zinc-900 border border-zinc-700 text-[10px] text-zinc-300 rounded px-1.5 py-0.5"
               >
                 <option value={256}>256 MB</option>
                 <option value={512}>512 MB</option>
@@ -213,16 +213,16 @@ export const WorkloadMigration: React.FC = () => {
           </div>
 
           {/* High-tech Progress Bar */}
-          <div className="w-full h-3 bg-slate-900 border border-slate-700/80 rounded-full overflow-hidden p-0.5 shadow-inner">
+          <div className="w-full h-3 bg-zinc-900 border border-zinc-700/80 rounded-full overflow-hidden p-0.5 shadow-inner">
             <div
-              className="h-full bg-gradient-to-r from-cyan-500 via-emerald-400 to-cyan-300 rounded-full transition-all duration-150 relative shadow-md"
+              className="h-full bg-blue-600 rounded-full transition-all duration-150 relative shadow-md"
               style={{ width: `${progress}%` }}
             >
               <div className="absolute inset-0 bg-white/20 " />
             </div>
           </div>
 
-          <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+          <div className="flex justify-between text-[10px] text-zinc-500 font-mono">
             <span>T_START: +0.00s</span>
             <span>TRANSFER RATE: ~256 MB/s</span>
             <span>EST. COMPLETION: {((100 - progress) * 0.02).toFixed(1)}s</span>
@@ -235,17 +235,17 @@ export const WorkloadMigration: React.FC = () => {
             const status = getStageStatus(stage);
             const Icon = stage.icon;
 
-            let borderStyle = 'border-slate-800 bg-slate-950/40 text-slate-500';
-            let iconColor = 'text-slate-600';
+            let borderStyle = 'border-zinc-800 bg-zinc-950/40 text-zinc-500';
+            let iconColor = 'text-zinc-600';
             let statusBadge = (
-              <span className="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-mono">
                 WAITING
               </span>
             );
 
             if (status === 'completed') {
-              borderStyle = 'border-emerald-500/40 bg-emerald-950/20 text-slate-200';
-              iconColor = 'text-emerald-400';
+              borderStyle = 'border-emerald-500/40 bg-emerald-950/20 text-zinc-200';
+              iconColor = 'text-emerald-500';
               statusBadge = (
                 <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono flex items-center space-x-1">
                   <CheckCircle2 className="w-2.5 h-2.5" />
@@ -253,10 +253,10 @@ export const WorkloadMigration: React.FC = () => {
                 </span>
               );
             } else if (status === 'active') {
-              borderStyle = 'border-cyan-500/60 bg-cyan-950/30 text-white shadow-md';
-              iconColor = 'text-cyan-400 ';
+              borderStyle = 'border-cyan-500/60 bg-zinc-950/30 text-white shadow-md';
+              iconColor = 'text-blue-400 ';
               statusBadge = (
-                <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono font-bold ">
+                <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-blue-300 font-mono font-bold ">
                   IN PROGRESS
                 </span>
               );
@@ -265,7 +265,7 @@ export const WorkloadMigration: React.FC = () => {
             return (
               <div
                 key={stage.id}
-                className={`p-3 rounded-lg border transition-all duration-200 flex flex-col justify-between space-y-2 ${borderStyle}`}
+                className={`p-3 rounded-sm border transition-all duration-200 flex flex-col justify-between space-y-2 ${borderStyle}`}
               >
                 <div className="flex items-center justify-between">
                   <Icon className={`w-5 h-5 ${iconColor}`} />
@@ -274,7 +274,7 @@ export const WorkloadMigration: React.FC = () => {
 
                 <div>
                   <h4 className="text-xs font-bold font-mono tracking-wide">{stage.name}</h4>
-                  <p className="text-[10px] text-slate-400 mt-0.5 leading-tight">{stage.subtitle}</p>
+                  <p className="text-[10px] text-zinc-400 mt-0.5 leading-tight">{stage.subtitle}</p>
                 </div>
               </div>
             );
@@ -282,21 +282,21 @@ export const WorkloadMigration: React.FC = () => {
         </div>
 
         {/* Tech Badges Footer */}
-        <div className="pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+        <div className="pt-3 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
           <div className="flex flex-wrap items-center gap-2">
             <span className="px-2.5 py-1 rounded bg-purple-500/10 border border-purple-500/30 text-purple-300 text-[11px] font-semibold">
               WebAssembly State
             </span>
-            <span className="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-semibold">
+            <span className="px-2.5 py-1 rounded bg-zinc-950/50 border border-zinc-800/50 text-blue-300 text-[11px] font-semibold">
               TLS-Secured ISL
             </span>
-            <span className="px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px] font-semibold">
+            <span className="px-2.5 py-1 rounded bg-emerald-950/50 border border-emerald-800/50 text-emerald-300 text-[11px] font-semibold">
               ISA-Agnostic
             </span>
           </div>
 
-          <div className="flex items-center space-x-1.5 text-slate-400 text-[10px]">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="flex items-center space-x-1.5 text-zinc-400 text-[10px]">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
             <span>ZERO MEMORY DRIFT CONFIRMED</span>
           </div>
         </div>

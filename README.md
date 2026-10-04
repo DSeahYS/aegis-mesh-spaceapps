@@ -681,7 +681,7 @@ Deploying artificial intelligence in Low Earth Orbit requires navigating extreme
 
 ## 🖥️ Interactive Platform Overview (The 9 Specialized Views)
 
-The AEGIS-MESH frontend is a mission control suite built with **React 18**, **Three.js / React Three Fiber**, **Recharts**, and **Tailwind CSS v4**:
+The AEGIS-MESH frontend is an authentic aerospace mission control operations suite built with **React 18**, **Three.js / React Three Fiber**, **Recharts**, and **Tailwind CSS v4** — engineered with a professional Zinc/Carbon monochrome chassis, ISO 3864 semantic instrumentation indicators, Swiss typography with tabular figures (`tnum`), and 60 FPS GPU-accelerated telemetry:
 
 <p align="center">
   <img src="screenshot.png" alt="AEGIS-MESH 3D Orbital Swarm & Live Telemetry Mission Control" width="100%" />

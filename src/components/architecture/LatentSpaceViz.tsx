@@ -46,10 +46,10 @@ const CustomLatentTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) 
   const point = payload[0].payload;
 
   return (
-    <div className="bg-[#0b1329]/95 border border-cyan-500/50 rounded-lg p-3 shadow-2xl backdrop-blur-md text-xs font-mono text-slate-200 min-w-[210px] space-y-1.5 z-50">
-      <div className="flex items-center justify-between pb-1 border-b border-slate-700/80">
-        <span className={`font-bold flex items-center gap-1.5 ${point.isState ? 'text-rose-400' : 'text-cyan-300'}`}>
-          {point.isState ? <Target className="w-3.5 h-3.5 text-rose-400" /> : <Sparkles className="w-3.5 h-3.5 text-cyan-400" />}
+    <div className="bg-zinc-950/95 border border-cyan-500/50 rounded-sm p-3 shadow-xl shadow-black/40  text-xs font-mono text-zinc-200 min-w-[210px] space-y-1.5 z-50">
+      <div className="flex items-center justify-between pb-1 border-b border-zinc-700/80">
+        <span className={`font-bold flex items-center gap-1.5 ${point.isState ? 'text-rose-400' : 'text-blue-300'}`}>
+          {point.isState ? <Target className="w-3.5 h-3.5 text-rose-400" /> : <Sparkles className="w-3.5 h-3.5 text-blue-400" />}
           {point.name}
         </span>
         {point.rank && (
@@ -59,30 +59,30 @@ const CustomLatentTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) 
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-1 text-[11px] text-slate-400 pt-0.5">
+      <div className="grid grid-cols-2 gap-1 text-[11px] text-zinc-400 pt-0.5">
         <div>Latent z₁ (PC1):</div>
-        <div className="text-right text-slate-200 font-bold">{point.x.toFixed(4)}</div>
+        <div className="text-right text-zinc-200 font-bold">{point.x.toFixed(4)}</div>
         <div>Latent z₂ (PC2):</div>
-        <div className="text-right text-slate-200 font-bold">{point.y.toFixed(4)}</div>
+        <div className="text-right text-zinc-200 font-bold">{point.y.toFixed(4)}</div>
       </div>
 
       {!point.isState && (
-        <div className="pt-1.5 border-t border-slate-800 text-[10px] space-y-1">
+        <div className="pt-1.5 border-t border-zinc-800 text-[10px] space-y-1">
           {point.similarity !== undefined && (
             <div className="flex justify-between">
-              <span className="text-slate-400">InfoNCE Similarity:</span>
-              <span className="text-emerald-400 font-bold">{point.similarity.toFixed(4)}</span>
+              <span className="text-zinc-400">InfoNCE Similarity:</span>
+              <span className="text-emerald-500 font-bold">{point.similarity.toFixed(4)}</span>
             </div>
           )}
           {point.distanceToState !== undefined && (
             <div className="flex justify-between">
-              <span className="text-slate-400">Dist to State (‖Δz‖):</span>
+              <span className="text-zinc-400">Dist to State (‖Δz‖):</span>
               <span className="text-amber-300 font-bold">{point.distanceToState.toFixed(4)}</span>
             </div>
           )}
           {point.category && (
             <div className="flex justify-between">
-              <span className="text-slate-400">Class:</span>
+              <span className="text-zinc-400">Class:</span>
               <span className="text-purple-300 uppercase">{point.category}</span>
             </div>
           )}
@@ -148,25 +148,25 @@ export const LatentSpaceViz: React.FC<LatentSpaceVizProps> = ({
   const nearestAction = actionsData.length > 0 ? actionsData[0] : null;
 
   return (
-    <div className="bg-[#0b1222] border border-cyan-950/80 rounded-xl p-4 shadow-xl text-slate-100 font-sans">
+    <div className="bg-zinc-950 border border-zinc-950/80 rounded-sm p-4 shadow-xl text-zinc-100 font-sans">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800/80 gap-2 font-mono">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-zinc-800 gap-2 font-mono">
         <div className="flex items-center space-x-2">
-          <Compass className="w-4 h-4 text-cyan-400" />
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200">
+          <Compass className="w-4 h-4 text-blue-400" />
+          <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-200">
             2D Latent Manifold Projection (PCA Subspace)
           </h3>
         </div>
 
         <div className="flex items-center gap-3 text-[11px]">
           <div className="flex items-center gap-1.5">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 shadow-md " />
+            <span className="inline-block w-2 h-2 rounded-full bg-rose-500 shadow-md " />
             <span className="text-rose-300 font-bold">State Vector</span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-sky-400" />
-            <span className="text-sky-300">Action Candidates</span>
+            <span className="inline-block w-2 h-2 rounded-full bg-sky-400" />
+            <span className="text-blue-300">Action Candidates</span>
           </div>
         </div>
       </div>
@@ -263,23 +263,23 @@ export const LatentSpaceViz: React.FC<LatentSpaceVizProps> = ({
       </div>
 
       {/* Cluster Affinity Proximity Footer */}
-      <div className="mt-2 p-2.5 rounded-lg bg-slate-950/80 border border-slate-800/80 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div className="mt-2 p-2.5 rounded-sm bg-zinc-950 border border-zinc-800 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <AlertCircle className="w-3.5 h-3.5 text-cyan-400" />
-          <span className="text-slate-400 text-[11px]">
+          <AlertCircle className="w-3.5 h-3.5 text-blue-400" />
+          <span className="text-zinc-400 text-[11px]">
             Latent Clustering:
           </span>
           {nearestAction ? (
             <span className="text-white text-[11px]">
-              State aligns with <span className="text-emerald-400 font-bold">{nearestAction.name}</span> cluster
-              (‖Δz‖ = <span className="text-cyan-300 font-bold">{nearestAction.distanceToState?.toFixed(3)}</span>)
+              State aligns with <span className="text-emerald-500 font-bold">{nearestAction.name}</span> cluster
+              (‖Δz‖ = <span className="text-blue-300 font-bold">{nearestAction.distanceToState?.toFixed(3)}</span>)
             </span>
           ) : (
-            <span className="text-slate-500 text-[11px]">Evaluating latent manifold...</span>
+            <span className="text-zinc-500 text-[11px]">Evaluating latent manifold...</span>
           )}
         </div>
 
-        <div className="text-[10px] text-slate-500 self-end sm:self-auto">
+        <div className="text-[10px] text-zinc-500 self-end sm:self-auto">
           State: [{state2D[0].toFixed(2)}, {state2D[1].toFixed(2)}] ∈ ℝ²
         </div>
       </div>

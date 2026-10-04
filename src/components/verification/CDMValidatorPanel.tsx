@@ -74,30 +74,30 @@ export const CDMValidatorPanel: React.FC<CDMValidatorPanelProps> = ({
       case 'info':
       default:
         return {
-          chip: 'bg-blue-950/60 text-blue-300 border-blue-500/40',
+          chip: 'bg-zinc-950/60 text-blue-300 border-blue-500/40',
           icon: Info,
         };
     }
   };
 
   return (
-    <div className="bg-space-800 border border-space-600 rounded-xl p-5 space-y-5 font-mono shadow-xl">
+    <div className="bg-space-800 border border-space-600 rounded-sm p-5 space-y-5 font-mono shadow-xl">
       {/* Panel Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-space-600/80 pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs px-2 py-0.5 rounded bg-blue-950/70 text-blue-300 border border-blue-500/30 uppercase font-bold">
+            <span className="text-xs px-2 py-0.5 rounded bg-zinc-950/70 text-blue-300 border border-blue-500/30 uppercase font-bold">
               CCSDS 508.0-B-1 CONFORMANCE
             </span>
-            <span className="text-xs text-slate-500">•</span>
-            <span className="text-xs text-slate-400">STRUCTURAL &amp; KINEMATIC INTEGRITY</span>
+            <span className="text-xs text-zinc-500">•</span>
+            <span className="text-xs text-zinc-400">STRUCTURAL &amp; KINEMATIC INTEGRITY</span>
           </div>
           <h2 className="text-lg font-bold text-white mt-1 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-emerald-400" />
+            <FileText className="w-5 h-5 text-emerald-500" />
             Conjunction Data Message (CDM) Validator
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5 max-w-3xl font-sans">
-            <span className="text-slate-300 font-semibold">What is being proven:</span> The CDM validator parses CCSDS 508.0-B-1 messages and rigorously verifies metadata keywords, ISO-8601 timestamps, collision probability ranges, and mathematical consistency between stated MISS_DISTANCE and the Euclidean norm of RELATIVE_POSITION [R, T, N].
+          <p className="text-xs text-zinc-400 mt-0.5 max-w-3xl font-sans">
+            <span className="text-zinc-300 font-semibold">What is being proven:</span> The CDM validator parses CCSDS 508.0-B-1 messages and rigorously verifies metadata keywords, ISO-8601 timestamps, collision probability ranges, and mathematical consistency between stated MISS_DISTANCE and the Euclidean norm of RELATIVE_POSITION [R, T, N].
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export const CDMValidatorPanel: React.FC<CDMValidatorPanelProps> = ({
           <button
             type="button"
             onClick={handleResetSample}
-            className="px-3 py-2 rounded-lg bg-space-900 hover:bg-space-700 text-slate-300 border border-space-700 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="px-3 py-2 rounded-sm bg-zinc-900 hover:bg-space-700 text-zinc-300 border border-space-700 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             SAMPLE CDM
@@ -116,7 +116,7 @@ export const CDMValidatorPanel: React.FC<CDMValidatorPanelProps> = ({
             type="button"
             onClick={handleValidate}
             disabled={loading || !isBackendOnline || !cdmText.trim()}
-            className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white px-4 py-2 rounded-lg font-bold text-xs flex items-center gap-2 transition-all shadow-md shadow-emerald-900/30 cursor-pointer disabled:cursor-not-allowed"
+            className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white px-4 py-2 rounded-sm font-bold text-xs flex items-center gap-2 transition-all shadow-md shadow-emerald-900/30 cursor-pointer disabled:cursor-not-allowed"
           >
             {loading ? (
               <>
@@ -137,15 +137,15 @@ export const CDMValidatorPanel: React.FC<CDMValidatorPanelProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         {/* Left: CDM Text Area */}
         <div className="lg:col-span-6 space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+          <div className="flex items-center justify-between text-xs text-zinc-400">
             <span>CCSDS 508.0 KEYVALUE PAYLOAD</span>
-            <span className="text-[10px] text-slate-500">{cdmText.split('\n').length} lines</span>
+            <span className="text-[10px] text-zinc-500">{cdmText.split('\n').length} lines</span>
           </div>
           <textarea
             value={cdmText}
             onChange={(e) => setCdmText(e.target.value)}
             rows={15}
-            className="w-full bg-space-950 border border-space-700 rounded-lg p-3 text-xs text-slate-200 font-mono leading-relaxed focus:border-emerald-500 focus:outline-none resize-y"
+            className="w-full bg-zinc-950 border border-space-700 rounded-sm p-3 text-xs text-zinc-200 font-mono leading-relaxed focus:border-emerald-500 focus:outline-none resize-y"
             placeholder="Paste CCSDS 508.0 Conjunction Data Message here..."
           />
         </div>
@@ -156,7 +156,7 @@ export const CDMValidatorPanel: React.FC<CDMValidatorPanelProps> = ({
             <div className="space-y-3">
               {/* Overall Validity Header */}
               <div
-                className={`p-3 rounded-lg border flex items-center justify-between ${
+                className={`p-3 rounded-sm border flex items-center justify-between ${
                   data.valid
                     ? 'bg-cyber-green/10 border-cyber-green/40 text-cyber-green'
                     : 'bg-alert-red/10 border-alert-red/40 text-alert-red'
@@ -199,7 +199,7 @@ export const CDMValidatorPanel: React.FC<CDMValidatorPanelProps> = ({
                   return (
                     <div
                       key={`${chk.id}-${i}`}
-                      className="p-2.5 rounded-lg bg-space-900 border border-space-700/80 space-y-1 text-xs"
+                      className="p-2.5 rounded-sm bg-zinc-900 border border-space-700/80 space-y-1 text-xs"
                     >
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
@@ -208,7 +208,7 @@ export const CDMValidatorPanel: React.FC<CDMValidatorPanelProps> = ({
                           >
                             {chk.severity}
                           </span>
-                          <span className="font-bold text-slate-200">{chk.id}</span>
+                          <span className="font-bold text-zinc-200">{chk.id}</span>
                         </div>
 
                         <div className="flex items-center gap-1">
@@ -224,7 +224,7 @@ export const CDMValidatorPanel: React.FC<CDMValidatorPanelProps> = ({
                         </div>
                       </div>
 
-                      <div className="text-[11px] text-slate-300 font-sans">{chk.detail}</div>
+                      <div className="text-[11px] text-zinc-300 font-sans">{chk.detail}</div>
                     </div>
                   );
                 })}
@@ -232,10 +232,10 @@ export const CDMValidatorPanel: React.FC<CDMValidatorPanelProps> = ({
             </div>
           ) : (
             /* Empty State */
-            <div className="p-8 text-center border border-dashed border-space-700 rounded-lg space-y-2">
-              <FileText className="w-8 h-8 text-slate-500 mx-auto" />
-              <div className="text-xs font-bold text-slate-300">Awaiting CDM Validation</div>
-              <p className="text-[11px] text-slate-400 font-sans max-w-xs mx-auto">
+            <div className="p-8 text-center border border-dashed border-space-700 rounded-sm space-y-2">
+              <FileText className="w-8 h-8 text-zinc-500 mx-auto" />
+              <div className="text-xs font-bold text-zinc-300">Awaiting CDM Validation</div>
+              <p className="text-[11px] text-zinc-400 font-sans max-w-xs mx-auto">
                 Click <strong>VALIDATE CDM</strong> to run formal CCSDS 508.0 kinematic checks on the message.
               </p>
             </div>

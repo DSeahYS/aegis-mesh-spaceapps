@@ -115,16 +115,16 @@ export const TopologyGraph: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col bg-[#0c1220] border border-cyan-950/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-md">
+    <div className="flex flex-col bg-zinc-950 border border-zinc-950/80 rounded-sm overflow-hidden shadow-xl shadow-black/40 ">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-space-900 via-slate-900 to-space-900 border-b border-cyan-900/40">
+      <div className="flex items-center justify-between px-5 py-3.5 bg-zinc-900 border-b border-zinc-900/40">
         <div className="flex items-center space-x-2.5">
-          <Network className="w-5 h-5 text-cyan-400" />
+          <Network className="w-5 h-5 text-blue-400" />
           <div>
-            <h3 className="text-sm font-semibold tracking-wider text-slate-100 uppercase">
+            <h3 className="text-sm font-semibold tracking-wider text-zinc-100 uppercase">
               MESH NETWORK TOPOLOGY
             </h3>
-            <span className="text-[10px] text-slate-400 font-mono">
+            <span className="text-[10px] text-zinc-400 font-mono">
               12 ACTIVE NODES • 22 FULL-DUPLEX OPTICAL ISL LINKS
             </span>
           </div>
@@ -133,22 +133,22 @@ export const TopologyGraph: React.FC = () => {
         {/* Legend */}
         <div className="hidden sm:flex items-center space-x-3 text-[11px] font-mono">
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00ff88]" />
-            <span className="text-slate-400">Nominal</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="text-zinc-400">Nominal</span>
           </div>
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ffaa00]" />
-            <span className="text-slate-400">Alert</span>
+            <span className="w-2 h-2 rounded-full bg-amber-500" />
+            <span className="text-zinc-400">Alert</span>
           </div>
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00d4ff]" />
-            <span className="text-slate-400">Maneuver</span>
+            <span className="w-2 h-2 rounded-full bg-blue-500" />
+            <span className="text-zinc-400">Maneuver</span>
           </div>
         </div>
       </div>
 
       {/* SVG Canvas Area */}
-      <div className="relative p-2 flex justify-center items-center bg-[#070b14] select-none">
+      <div className="relative p-2 flex justify-center items-center bg-zinc-950 select-none">
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
           className="w-full max-w-[560px] h-auto drop-shadow-xl"
@@ -316,8 +316,8 @@ export const TopologyGraph: React.FC = () => {
       </div>
 
       {/* Selected Node Telemetry Card */}
-      <div className="p-4 bg-slate-950/90 border-t border-cyan-900/30">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+      <div className="p-4 bg-zinc-950 border-t border-zinc-900/30">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-800">
           <div className="flex items-center space-x-2.5">
             <span
               className="w-3 h-3 rounded-full "
@@ -327,14 +327,14 @@ export const TopologyGraph: React.FC = () => {
               <span className="text-sm font-bold text-white font-mono tracking-wide">
                 {selectedNode.id} • {selectedNode.name}
               </span>
-              <span className="text-[10px] text-slate-400 font-mono block">
+              <span className="text-[10px] text-zinc-400 font-mono block">
                 STATUS: {selectedNode.status.toUpperCase()} • RAAN: {selectedNode.orbitalElements.raan}°
               </span>
             </div>
           </div>
 
           <div className="flex items-center space-x-2 text-xs font-mono">
-            <span className="px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-800/40 text-cyan-300">
+            <span className="px-2 py-0.5 rounded bg-zinc-950/60 border border-zinc-800/40 text-blue-300">
               {selectedNode.hardware.processor}
             </span>
           </div>
@@ -342,15 +342,15 @@ export const TopologyGraph: React.FC = () => {
 
         {/* Health Metrics Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 text-xs font-mono">
-          <div className="p-2 rounded bg-slate-900/60 border border-slate-800/80">
-            <div className="flex items-center space-x-1.5 text-slate-400 text-[10px]">
-              <Cpu className="w-3 h-3 text-cyan-400" />
+          <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+            <div className="flex items-center space-x-1.5 text-zinc-400 text-[10px]">
+              <Cpu className="w-3 h-3 text-blue-400" />
               <span>COMPUTE LOAD</span>
             </div>
-            <div className="text-slate-100 font-bold mt-1">
+            <div className="text-zinc-100 font-bold mt-1">
               {selectedNode.health.computeLoad}%
             </div>
-            <div className="w-full bg-slate-800 h-1 rounded mt-1.5 overflow-hidden">
+            <div className="w-full bg-zinc-800 h-1 rounded mt-1.5 overflow-hidden">
               <div
                 className={`h-full ${
                   selectedNode.health.computeLoad > 75
@@ -362,15 +362,15 @@ export const TopologyGraph: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-2 rounded bg-slate-900/60 border border-slate-800/80">
-            <div className="flex items-center space-x-1.5 text-slate-400 text-[10px]">
-              <Battery className="w-3 h-3 text-emerald-400" />
+          <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+            <div className="flex items-center space-x-1.5 text-zinc-400 text-[10px]">
+              <Battery className="w-3 h-3 text-emerald-500" />
               <span>BATTERY / POWER</span>
             </div>
-            <div className="text-slate-100 font-bold mt-1">
+            <div className="text-zinc-100 font-bold mt-1">
               {selectedNode.health.powerLevel}%
             </div>
-            <div className="w-full bg-slate-800 h-1 rounded mt-1.5 overflow-hidden">
+            <div className="w-full bg-zinc-800 h-1 rounded mt-1.5 overflow-hidden">
               <div
                 className="h-full bg-emerald-400"
                 style={{ width: `${selectedNode.health.powerLevel}%` }}
@@ -378,26 +378,26 @@ export const TopologyGraph: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-2 rounded bg-slate-900/60 border border-slate-800/80">
-            <div className="flex items-center space-x-1.5 text-slate-400 text-[10px]">
+          <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+            <div className="flex items-center space-x-1.5 text-zinc-400 text-[10px]">
               <Radio className="w-3 h-3 text-purple-400" />
               <span>TID RADIATION</span>
             </div>
-            <div className="text-slate-100 font-bold mt-1">
+            <div className="text-zinc-100 font-bold mt-1">
               {selectedNode.health.radiationDose} krad
             </div>
-            <span className="text-[9px] text-slate-500">Rated: 100 krad</span>
+            <span className="text-[9px] text-zinc-500">Rated: 100 krad</span>
           </div>
 
-          <div className="p-2 rounded bg-slate-900/60 border border-slate-800/80">
-            <div className="flex items-center space-x-1.5 text-slate-400 text-[10px]">
+          <div className="p-2 rounded bg-zinc-900 border border-zinc-800">
+            <div className="flex items-center space-x-1.5 text-zinc-400 text-[10px]">
               <Radio className="w-3 h-3 text-amber-400" />
               <span>FUEL REMAINING</span>
             </div>
-            <div className="text-slate-100 font-bold mt-1">
+            <div className="text-zinc-100 font-bold mt-1">
               {selectedNode.health.fuelRemaining}%
             </div>
-            <span className="text-[9px] text-slate-500">High-Isp Ion Prop</span>
+            <span className="text-[9px] text-zinc-500">High-Isp Ion Prop</span>
           </div>
         </div>
       </div>

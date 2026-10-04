@@ -411,7 +411,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
   const pathPerigeeToVerdict = 'M 930 395 C 960 395, 960 345, 990 345';
 
   return (
-    <div className={`bg-space-800 border border-space-600 rounded-xl ${compact ? 'p-3 space-y-4' : 'p-5 space-y-6'} font-mono shadow-xl relative overflow-hidden`}>
+    <div className={`bg-space-800 border border-space-600 rounded-sm ${compact ? 'p-3 space-y-4' : 'p-5 space-y-6'} font-mono shadow-xl relative overflow-hidden`}>
       {/* Background ambient glow effect */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-purple-900/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-900/10 rounded-full blur-3xl pointer-events-none" />
@@ -424,18 +424,18 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               <Network className="w-3.5 h-3.5 text-amber-400" />
               OPENSPG NEURO-SYMBOLIC REASONING
             </span>
-            <span className="text-xs text-slate-500">•</span>
-            <span className="text-xs text-slate-400">SEMANTIC-ENHANCED PROGRAMMABLE GRAPH</span>
-            <span className="text-xs text-slate-500">•</span>
-            <span className="text-[10px] text-cyan-400 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-500/20">
+            <span className="text-xs text-zinc-500">•</span>
+            <span className="text-xs text-zinc-400">SEMANTIC-ENHANCED PROGRAMMABLE GRAPH</span>
+            <span className="text-xs text-zinc-500">•</span>
+            <span className="text-[10px] text-blue-400 bg-zinc-950/40 px-2 py-0.5 rounded border border-cyan-500/20">
               ZERO PHYSICAL HALLUCINATIONS
             </span>
-            <span className="text-xs text-slate-500">•</span>
+            <span className="text-xs text-zinc-500">•</span>
             <span
               className={`text-[10px] px-2 py-0.5 rounded border font-mono ${
                 isBackendOnline
                   ? 'text-cyber-green bg-emerald-950/40 border-cyber-green/30'
-                  : 'text-slate-400 bg-space-950/40 border-space-700'
+                  : 'text-zinc-400 bg-zinc-950/40 border-space-700'
               }`}
             >
               {isBackendOnline ? 'LIVE API ATTACHED' : 'STANDALONE ORACLE MODE'}
@@ -447,20 +447,20 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
             <span>OpenSPG Knowledge Graph: Neuro-Symbolic Logic</span>
           </h2>
 
-          <p className="text-xs text-slate-400 mt-1 max-w-4xl font-sans leading-relaxed">
-            <span className="text-slate-300 font-semibold">How it works:</span> Stanford Continuous Logic Models (CLM) propose candidate collision avoidance maneuvers based on continuous telemetry embeddings (<span className="text-cyan-300 font-mono">proposes</span>). OpenSPG evaluates every candidate against symbolic astrodynamic invariance laws (<span className="text-purple-300 font-mono">evaluates_against</span>): Tsiolkovsky propellant mass budgets and Vis-viva minimum safe perigee. Any violation immediately prunes the candidate (<span className="text-alert-red font-mono">violates</span>), ensuring execution occurs only when all constraints hold (<span className="text-cyber-green font-mono">satisfies</span>).
+          <p className="text-xs text-zinc-400 mt-1 max-w-4xl font-sans leading-relaxed">
+            <span className="text-zinc-300 font-semibold">How it works:</span> Stanford Continuous Logic Models (CLM) propose candidate collision avoidance maneuvers based on continuous telemetry embeddings (<span className="text-blue-300 font-mono">proposes</span>). OpenSPG evaluates every candidate against symbolic astrodynamic invariance laws (<span className="text-purple-300 font-mono">evaluates_against</span>): Tsiolkovsky propellant mass budgets and Vis-viva minimum safe perigee. Any violation immediately prunes the candidate (<span className="text-alert-red font-mono">violates</span>), ensuring execution occurs only when all constraints hold (<span className="text-cyber-green font-mono">satisfies</span>).
           </p>
         </div>
 
         {/* View Mode Toggle */}
-        <div className="flex items-center gap-1 bg-space-950 p-1 rounded-lg border border-space-700 text-xs shrink-0 self-start lg:self-auto">
+        <div className="flex items-center gap-1 bg-zinc-950 p-1 rounded-sm border border-space-700 text-xs shrink-0 self-start lg:self-auto">
           <button
             type="button"
             onClick={() => setActiveTab('graph')}
             className={`px-3 py-1.5 rounded transition-all flex items-center gap-1.5 cursor-pointer font-bold ${
               activeTab === 'graph'
                 ? 'bg-purple-600 text-white shadow-sm shadow-purple-900/50'
-                : 'text-slate-400 hover:text-slate-200'
+                : 'text-zinc-400 hover:text-zinc-200'
             }`}
           >
             <Network className="w-3.5 h-3.5" />
@@ -472,7 +472,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
             className={`px-3 py-1.5 rounded transition-all flex items-center gap-1.5 cursor-pointer font-bold ${
               activeTab === 'kgdsl'
                 ? 'bg-purple-600 text-white shadow-sm shadow-purple-900/50'
-                : 'text-slate-400 hover:text-slate-200'
+                : 'text-zinc-400 hover:text-zinc-200'
             }`}
           >
             <Code2 className="w-3.5 h-3.5" />
@@ -484,7 +484,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
             className={`px-3 py-1.5 rounded transition-all flex items-center gap-1.5 cursor-pointer font-bold ${
               activeTab === 'trace'
                 ? 'bg-purple-600 text-white shadow-sm shadow-purple-900/50'
-                : 'text-slate-400 hover:text-slate-200'
+                : 'text-zinc-400 hover:text-zinc-200'
             }`}
           >
             <Activity className="w-3.5 h-3.5" />
@@ -494,15 +494,15 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
       </div>
 
       {/* Candidate Selector Bar */}
-      <div className="bg-space-900/90 border border-space-700 rounded-lg p-3 space-y-2 relative z-10">
+      <div className="bg-zinc-900/90 border border-space-700 rounded-sm p-3 space-y-2 relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
           <div className="flex items-center gap-2">
-            <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="font-bold text-slate-200 uppercase tracking-wider text-[11px]">
+            <Cpu className="w-3.5 h-3.5 text-blue-400" />
+            <span className="font-bold text-zinc-200 uppercase tracking-wider text-[11px]">
               SELECT CANDIDATE MANEUVER TO EVALUATE:
             </span>
           </div>
-          <div className="text-[10px] text-slate-400">
+          <div className="text-[10px] text-zinc-400">
             Click candidates below to test neuro-symbolic acceptance vs rule violation pruning
           </div>
         </div>
@@ -518,12 +518,12 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                 key={scen.id}
                 type="button"
                 onClick={() => setSelectedScenarioId(scen.id)}
-                className={`px-3 py-2 rounded-lg text-xs font-mono transition-all flex items-center gap-2 border cursor-pointer ${
+                className={`px-3 py-2 rounded-sm text-xs font-mono transition-all flex items-center gap-2 border cursor-pointer ${
                   isCurrent
                     ? isScenAccepted
                       ? 'bg-cyber-green/15 border-cyber-green text-cyber-green font-bold shadow-md shadow-cyber-green/10 ring-1 ring-cyber-green/50'
                       : 'bg-alert-red/15 border-alert-red text-alert-red font-bold shadow-md shadow-alert-red/10 ring-1 ring-alert-red/50'
-                    : 'bg-space-950/80 border-space-700 text-slate-400 hover:text-slate-200 hover:bg-space-900'
+                    : 'bg-zinc-950/80 border-space-700 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900'
                 }`}
               >
                 <span
@@ -554,45 +554,45 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
       {activeTab === 'graph' && (
         <div className="space-y-4">
           {/* Interactive Legend Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 text-xs bg-space-950/60 border border-space-700/60 rounded-lg px-4 py-2 text-slate-400">
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs bg-zinc-950/60 border border-space-700/60 rounded-sm px-4 py-2 text-zinc-400">
             <div className="flex flex-wrap items-center gap-4 text-[11px]">
-              <span className="font-bold text-slate-300 flex items-center gap-1.5">
+              <span className="font-bold text-zinc-300 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                 EDGE RELATIONS:
               </span>
 
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
-                <span className="text-cyan-300 font-bold">proposes</span>
-                <span className="text-slate-500">(Neural Proposal)</span>
+                <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                <span className="text-blue-300 font-bold">proposes</span>
+                <span className="text-zinc-500">(Neural Proposal)</span>
               </div>
 
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-purple-400" />
+                <span className="w-2 h-2 rounded-full bg-purple-400" />
                 <span className="text-purple-300 font-bold">evaluates_against</span>
-                <span className="text-slate-500">(Symbolic Constraint)</span>
+                <span className="text-zinc-500">(Symbolic Constraint)</span>
               </div>
 
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-cyber-green" />
+                <span className="w-2 h-2 rounded-full bg-cyber-green" />
                 <span className="text-cyber-green font-bold">satisfies</span>
-                <span className="text-slate-500">(Passes Constraint)</span>
+                <span className="text-zinc-500">(Passes Constraint)</span>
               </div>
 
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-alert-red" />
+                <span className="w-2 h-2 rounded-full bg-alert-red" />
                 <span className="text-alert-red font-bold">violates</span>
-                <span className="text-slate-500">(Prunes Unsafe)</span>
+                <span className="text-zinc-500">(Prunes Unsafe)</span>
               </div>
             </div>
 
-            <div className="text-[10px] text-slate-500">
+            <div className="text-[10px] text-zinc-500">
               Click any node card for formal mathematical specifications
             </div>
           </div>
 
           {/* SVG & HTML Visual Graph Container */}
-          <div className="overflow-x-auto rounded-xl border border-space-700 bg-space-950/95 p-4 relative shadow-2xl">
+          <div className="overflow-x-auto rounded-sm border border-space-700 bg-zinc-950/95 p-4 relative shadow-xl shadow-black/40">
             {/* Grid background texture */}
             <div
               className="absolute inset-0 opacity-15 pointer-events-none"
@@ -898,74 +898,74 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               <div
                 onClick={() => setSelectedNode('telemetry')}
                 style={{ left: '20px', top: '70px', width: '250px', height: '390px' }}
-                className={`absolute rounded-xl p-4 transition-all cursor-pointer z-10 flex flex-col justify-between ${
+                className={`absolute rounded-sm p-4 transition-all cursor-pointer z-10 flex flex-col justify-between ${
                   selectedNode === 'telemetry'
-                    ? 'bg-space-900 border-2 border-cyan-400 shadow-xl shadow-cyan-950/50'
-                    : 'bg-space-900/90 border border-cyan-500/40 hover:border-cyan-400/80 shadow-lg'
+                    ? 'bg-zinc-900 border-2 border-cyan-400 shadow-xl shadow-black/50'
+                    : 'bg-zinc-900/90 border border-cyan-500/40 hover:border-cyan-400/80 shadow-lg'
                 }`}
               >
                 {/* Port anchor */}
                 <div
-                  className="absolute right-[-6px] top-[190px] w-3 h-3 rounded-full bg-cyan-400 border-2 border-space-950 shadow-md shadow-cyan-400/50"
+                  className="absolute right-[-6px] top-[190px] w-3 h-3 rounded-full bg-cyan-400 border-2 border-zinc-950 shadow-md shadow-black/50"
                   title="Output port: proposes"
                 />
 
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 uppercase">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-zinc-950/80 border border-cyan-500/30 text-blue-300 uppercase">
                       NEURAL INPUT
                     </span>
-                    <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
+                    <Radio className="w-4 h-4 text-blue-400 animate-pulse" />
                   </div>
 
                   <h3 className="text-sm font-bold text-white mt-2 flex items-center gap-1.5">
                     State Telemetry
                   </h3>
-                  <div className="text-[10px] text-slate-400 font-sans">
+                  <div className="text-[10px] text-zinc-400 font-sans">
                     Real-time encounter observations
                   </div>
 
                   <div className="mt-3 space-y-1.5 text-xs font-mono border-t border-space-700/80 pt-2.5">
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Altitude (h):</span>
-                      <span className="text-slate-200 font-bold">{telemetry.altitudeKm.toFixed(1)} km</span>
+                      <span className="text-[10px] text-zinc-400">Altitude (h):</span>
+                      <span className="text-zinc-200 font-bold">{telemetry.altitudeKm.toFixed(1)} km</span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">TCA Horizon:</span>
+                      <span className="text-[10px] text-zinc-400">TCA Horizon:</span>
                       <span className="text-yellow-300 font-bold">{telemetry.tcaS.toFixed(1)} s</span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Encounter Pc:</span>
+                      <span className="text-[10px] text-zinc-400">Encounter Pc:</span>
                       <span className="text-alert-amber font-bold">
                         {formatProbability(telemetry.pcPre)}
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Rel Velocity:</span>
-                      <span className="text-slate-200 font-bold">{telemetry.relVelKmS.toFixed(1)} km/s</span>
+                      <span className="text-[10px] text-zinc-400">Rel Velocity:</span>
+                      <span className="text-zinc-200 font-bold">{telemetry.relVelKmS.toFixed(1)} km/s</span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Sat Mass:</span>
-                      <span className="text-slate-300">{telemetry.satMassKg.toFixed(0)} kg</span>
+                      <span className="text-[10px] text-zinc-400">Sat Mass:</span>
+                      <span className="text-zinc-300">{telemetry.satMassKg.toFixed(0)} kg</span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Propellant (mp):</span>
-                      <span className="text-slate-300">{telemetry.propMassKg.toFixed(1)} kg</span>
+                      <span className="text-[10px] text-zinc-400">Propellant (mp):</span>
+                      <span className="text-zinc-300">{telemetry.propMassKg.toFixed(1)} kg</span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Thruster Isp:</span>
-                      <span className="text-slate-300">{telemetry.ispS.toFixed(0)} s</span>
+                      <span className="text-[10px] text-zinc-400">Thruster Isp:</span>
+                      <span className="text-zinc-300">{telemetry.ispS.toFixed(0)} s</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-space-950 p-2 rounded border border-space-800 text-[10px] text-cyan-400 font-mono">
+                <div className="bg-zinc-950 p-2 rounded border border-zinc-800 text-[10px] text-blue-400 font-mono">
                   &gt; Vector embedded into CLM latent space
                 </div>
               </div>
@@ -974,27 +974,27 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               <div
                 onClick={() => setSelectedNode('candidate')}
                 style={{ left: '340px', top: '70px', width: '260px', height: '390px' }}
-                className={`absolute rounded-xl p-4 transition-all cursor-pointer z-10 flex flex-col justify-between ${
+                className={`absolute rounded-sm p-4 transition-all cursor-pointer z-10 flex flex-col justify-between ${
                   selectedNode === 'candidate'
-                    ? 'bg-space-900 border-2 border-purple-400 shadow-xl shadow-purple-950/50'
-                    : 'bg-space-900/90 border border-purple-500/40 hover:border-purple-400/80 shadow-lg'
+                    ? 'bg-zinc-900 border-2 border-purple-400 shadow-xl shadow-purple-950/50'
+                    : 'bg-zinc-900/90 border border-purple-500/40 hover:border-purple-400/80 shadow-lg'
                 }`}
               >
                 {/* Input port anchor */}
                 <div
-                  className="absolute left-[-6px] top-[190px] w-3 h-3 rounded-full bg-purple-400 border-2 border-space-950 shadow-md shadow-purple-400/50"
+                  className="absolute left-[-6px] top-[190px] w-3 h-3 rounded-full bg-purple-400 border-2 border-zinc-950 shadow-md shadow-purple-400/50"
                   title="Input port: proposes"
                 />
 
                 {/* Upper output port anchor (Tsiolkovsky) */}
                 <div
-                  className="absolute right-[-6px] top-[90px] w-3 h-3 rounded-full bg-purple-400 border-2 border-space-950 shadow-md shadow-purple-400/50"
+                  className="absolute right-[-6px] top-[90px] w-3 h-3 rounded-full bg-purple-400 border-2 border-zinc-950 shadow-md shadow-purple-400/50"
                   title="Output port: evaluates_against R1"
                 />
 
                 {/* Lower output port anchor (Perigee) */}
                 <div
-                  className="absolute right-[-6px] top-[300px] w-3 h-3 rounded-full bg-purple-400 border-2 border-space-950 shadow-md shadow-purple-400/50"
+                  className="absolute right-[-6px] top-[300px] w-3 h-3 rounded-full bg-purple-400 border-2 border-zinc-950 shadow-md shadow-purple-400/50"
                   title="Output port: evaluates_against R3"
                 />
 
@@ -1009,49 +1009,49 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                   <h3 className="text-sm font-bold text-white mt-2 flex items-center gap-1.5">
                     CLM Candidate
                   </h3>
-                  <div className="text-[10px] text-slate-400 font-sans truncate">
+                  <div className="text-[10px] text-zinc-400 font-sans truncate">
                     Stanford Continuous Logic Model
                   </div>
 
                   <div className="mt-3 space-y-1.5 text-xs font-mono border-t border-space-700/80 pt-2.5">
-                    <div className="bg-space-950 p-1.5 rounded border border-space-800">
-                      <div className="text-[9px] text-slate-400">PROPOSED LABEL</div>
-                      <div className="text-cyan-300 font-bold truncate">
+                    <div className="bg-zinc-950 p-1.5 rounded border border-zinc-800">
+                      <div className="text-[9px] text-zinc-400">PROPOSED LABEL</div>
+                      <div className="text-blue-300 font-bold truncate">
                         {currentScenario.name.split(':')[1]?.trim() || currentScenario.name}
                       </div>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Proposed Δv:</span>
+                      <span className="text-[10px] text-zinc-400">Proposed Δv:</span>
                       <span className="text-white font-bold text-sm">
                         {currentScenario.deltaV.toFixed(2)} m/s
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Burn Time:</span>
-                      <span className="text-slate-200 font-bold">
+                      <span className="text-[10px] text-zinc-400">Burn Time:</span>
+                      <span className="text-zinc-200 font-bold">
                         {currentScenario.burnDuration.toFixed(2)} s
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Direction [R,T,N]:</span>
-                      <span className="text-slate-300 text-[10px]">
+                      <span className="text-[10px] text-zinc-400">Direction [R,T,N]:</span>
+                      <span className="text-zinc-300 text-[10px]">
                         [{currentScenario.directionRTN.map((v) => v.toFixed(2)).join(',')}]
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Confidence:</span>
+                      <span className="text-[10px] text-zinc-400">Confidence:</span>
                       <span className="text-purple-300 font-bold">
                         {(currentScenario.confidence * 100).toFixed(1)}%
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-slate-400">Codebook Score:</span>
-                      <span className="text-slate-300 font-bold">
+                      <span className="text-[10px] text-zinc-400">Codebook Score:</span>
+                      <span className="text-zinc-300 font-bold">
                         {currentScenario.score.toFixed(3)}
                       </span>
                     </div>
@@ -1067,19 +1067,19 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               <div
                 onClick={() => setSelectedNode('rule_tsiolkovsky')}
                 style={{ left: '680px', top: '35px', width: '250px', height: '220px' }}
-                className={`absolute rounded-xl p-3.5 transition-all cursor-pointer z-10 flex flex-col justify-between ${
+                className={`absolute rounded-sm p-3.5 transition-all cursor-pointer z-10 flex flex-col justify-between ${
                   selectedNode === 'rule_tsiolkovsky'
                     ? tsiolkovskyPassed
-                      ? 'bg-space-900 border-2 border-cyber-green shadow-xl shadow-cyber-green/20'
-                      : 'bg-space-900 border-2 border-alert-red shadow-xl shadow-alert-red/20'
+                      ? 'bg-zinc-900 border-2 border-cyber-green shadow-xl shadow-cyber-green/20'
+                      : 'bg-zinc-900 border-2 border-alert-red shadow-xl shadow-alert-red/20'
                     : tsiolkovskyPassed
-                    ? 'bg-space-900/90 border border-cyber-green/40 hover:border-cyber-green/80 shadow-lg'
-                    : 'bg-space-900/90 border border-alert-red/50 hover:border-alert-red shadow-lg'
+                    ? 'bg-zinc-900/90 border border-cyber-green/40 hover:border-cyber-green/80 shadow-lg'
+                    : 'bg-zinc-900/90 border border-alert-red/50 hover:border-alert-red shadow-lg'
                 }`}
               >
                 {/* Input port anchor */}
                 <div
-                  className={`absolute left-[-6px] top-[110px] w-3 h-3 rounded-full border-2 border-space-950 ${
+                  className={`absolute left-[-6px] top-[110px] w-3 h-3 rounded-full border-2 border-zinc-950 ${
                     tsiolkovskyPassed ? 'bg-cyber-green' : 'bg-alert-red'
                   }`}
                   title="Input port from Candidate"
@@ -1087,7 +1087,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
 
                 {/* Output port anchor */}
                 <div
-                  className={`absolute right-[-6px] top-[110px] w-3 h-3 rounded-full border-2 border-space-950 ${
+                  className={`absolute right-[-6px] top-[110px] w-3 h-3 rounded-full border-2 border-zinc-950 ${
                     tsiolkovskyPassed ? 'bg-cyber-green' : 'bg-alert-red'
                   }`}
                   title="Output port to Verdict"
@@ -1104,25 +1104,25 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                   <h3 className="text-sm font-bold text-white mt-1 flex items-center gap-1.5">
                     Rule: Tsiolkovsky
                   </h3>
-                  <div className="text-[10px] text-slate-400 font-sans">
+                  <div className="text-[10px] text-zinc-400 font-sans">
                     Propellant Mass Rocket Equation
                   </div>
 
-                  <div className="mt-2 bg-space-950 px-2 py-1 rounded text-[9px] text-amber-300 font-mono border border-space-800">
+                  <div className="mt-2 bg-zinc-950 px-2 py-1 rounded text-[9px] text-amber-300 font-mono border border-zinc-800">
                     Δv ≤ 0.90 · Isp · g0 · ln(m0 / mf)
                   </div>
 
                   <div className="mt-2 space-y-1 text-xs font-mono">
                     <div className="flex justify-between items-center text-[11px]">
-                      <span className="text-slate-400">Req Δv:</span>
+                      <span className="text-zinc-400">Req Δv:</span>
                       <span className="font-bold text-white">
                         {currentScenario.rules.tsiolkovsky.value.toFixed(2)} m/s
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center text-[11px]">
-                      <span className="text-slate-400">Max Budget:</span>
-                      <span className="font-bold text-slate-300">
+                      <span className="text-zinc-400">Max Budget:</span>
+                      <span className="font-bold text-zinc-300">
                         {currentScenario.rules.tsiolkovsky.limit.toFixed(2)} m/s
                       </span>
                     </div>
@@ -1156,19 +1156,19 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               <div
                 onClick={() => setSelectedNode('rule_perigee')}
                 style={{ left: '680px', top: '280px', width: '250px', height: '220px' }}
-                className={`absolute rounded-xl p-3.5 transition-all cursor-pointer z-10 flex flex-col justify-between ${
+                className={`absolute rounded-sm p-3.5 transition-all cursor-pointer z-10 flex flex-col justify-between ${
                   selectedNode === 'rule_perigee'
                     ? perigeePassed
-                      ? 'bg-space-900 border-2 border-cyber-green shadow-xl shadow-cyber-green/20'
-                      : 'bg-space-900 border-2 border-alert-red shadow-xl shadow-alert-red/20'
+                      ? 'bg-zinc-900 border-2 border-cyber-green shadow-xl shadow-cyber-green/20'
+                      : 'bg-zinc-900 border-2 border-alert-red shadow-xl shadow-alert-red/20'
                     : perigeePassed
-                    ? 'bg-space-900/90 border border-cyber-green/40 hover:border-cyber-green/80 shadow-lg'
-                    : 'bg-space-900/90 border border-alert-red/50 hover:border-alert-red shadow-lg'
+                    ? 'bg-zinc-900/90 border border-cyber-green/40 hover:border-cyber-green/80 shadow-lg'
+                    : 'bg-zinc-900/90 border border-alert-red/50 hover:border-alert-red shadow-lg'
                 }`}
               >
                 {/* Input port anchor */}
                 <div
-                  className={`absolute left-[-6px] top-[115px] w-3 h-3 rounded-full border-2 border-space-950 ${
+                  className={`absolute left-[-6px] top-[115px] w-3 h-3 rounded-full border-2 border-zinc-950 ${
                     perigeePassed ? 'bg-cyber-green' : 'bg-alert-red'
                   }`}
                   title="Input port from Candidate"
@@ -1176,7 +1176,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
 
                 {/* Output port anchor */}
                 <div
-                  className={`absolute right-[-6px] top-[115px] w-3 h-3 rounded-full border-2 border-space-950 ${
+                  className={`absolute right-[-6px] top-[115px] w-3 h-3 rounded-full border-2 border-zinc-950 ${
                     perigeePassed ? 'bg-cyber-green' : 'bg-alert-red'
                   }`}
                   title="Output port to Verdict"
@@ -1184,7 +1184,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
 
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-blue-950/70 border border-blue-500/30 text-blue-300 uppercase">
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-zinc-950/70 border border-blue-500/30 text-blue-300 uppercase">
                       SYMBOLIC RULE R3
                     </span>
                     <Globe className="w-4 h-4 text-blue-400" />
@@ -1193,25 +1193,25 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                   <h3 className="text-sm font-bold text-white mt-1 flex items-center gap-1.5">
                     Rule: Perigee
                   </h3>
-                  <div className="text-[10px] text-slate-400 font-sans">
+                  <div className="text-[10px] text-zinc-400 font-sans">
                     Vis-Viva Atmospheric Clearance
                   </div>
 
-                  <div className="mt-2 bg-space-950 px-2 py-1 rounded text-[9px] text-cyan-300 font-mono border border-space-800">
+                  <div className="mt-2 bg-zinc-950 px-2 py-1 rounded text-[9px] text-blue-300 font-mono border border-zinc-800">
                     rp = a(1 - e) - RE ≥ 300.0 km
                   </div>
 
                   <div className="mt-2 space-y-1 text-xs font-mono">
                     <div className="flex justify-between items-center text-[11px]">
-                      <span className="text-slate-400">Post Perigee:</span>
+                      <span className="text-zinc-400">Post Perigee:</span>
                       <span className="font-bold text-white">
                         {currentScenario.rules.perigee.value.toFixed(1)} km
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center text-[11px]">
-                      <span className="text-slate-400">Safe Floor:</span>
-                      <span className="font-bold text-slate-300">
+                      <span className="text-zinc-400">Safe Floor:</span>
+                      <span className="font-bold text-zinc-300">
                         ≥ {currentScenario.rules.perigee.limit.toFixed(1)} km
                       </span>
                     </div>
@@ -1245,19 +1245,19 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               <div
                 onClick={() => setSelectedNode('verdict')}
                 style={{ left: '990px', top: '100px', width: '200px', height: '330px' }}
-                className={`absolute rounded-xl p-4 transition-all cursor-pointer z-10 flex flex-col justify-between ${
+                className={`absolute rounded-sm p-4 transition-all cursor-pointer z-10 flex flex-col justify-between ${
                   selectedNode === 'verdict'
                     ? isAccepted
-                      ? 'bg-space-900 border-2 border-cyber-green shadow-2xl shadow-cyber-green/30'
-                      : 'bg-space-900 border-2 border-alert-red shadow-2xl shadow-alert-red/30'
+                      ? 'bg-zinc-900 border-2 border-cyber-green shadow-xl shadow-black/40 shadow-cyber-green/30'
+                      : 'bg-zinc-900 border-2 border-alert-red shadow-xl shadow-black/40 shadow-alert-red/30'
                     : isAccepted
-                    ? 'bg-space-900/95 border-2 border-cyber-green/50 hover:border-cyber-green shadow-xl'
-                    : 'bg-space-900/95 border-2 border-alert-red/50 hover:border-alert-red shadow-xl'
+                    ? 'bg-zinc-900/95 border-2 border-cyber-green/50 hover:border-cyber-green shadow-xl'
+                    : 'bg-zinc-900/95 border-2 border-alert-red/50 hover:border-alert-red shadow-xl'
                 }`}
               >
                 {/* Upper input port anchor */}
                 <div
-                  className={`absolute left-[-6px] top-[95px] w-3 h-3 rounded-full border-2 border-space-950 ${
+                  className={`absolute left-[-6px] top-[95px] w-3 h-3 rounded-full border-2 border-zinc-950 ${
                     tsiolkovskyPassed ? 'bg-cyber-green' : 'bg-alert-red'
                   }`}
                   title="Evaluation input from Tsiolkovsky"
@@ -1265,7 +1265,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
 
                 {/* Lower input port anchor */}
                 <div
-                  className={`absolute left-[-6px] top-[245px] w-3 h-3 rounded-full border-2 border-space-950 ${
+                  className={`absolute left-[-6px] top-[245px] w-3 h-3 rounded-full border-2 border-zinc-950 ${
                     perigeePassed ? 'bg-cyber-green' : 'bg-alert-red'
                   }`}
                   title="Evaluation input from Perigee"
@@ -1292,11 +1292,11 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                   <h3 className="text-sm font-bold text-white mt-2">
                     Verdict Oracle
                   </h3>
-                  <div className="text-[10px] text-slate-400 font-sans">
+                  <div className="text-[10px] text-zinc-400 font-sans">
                     Neuro-Symbolic Gatekeeper
                   </div>
 
-                  <div className="mt-4 text-center p-3 rounded-lg bg-space-950 border border-space-800">
+                  <div className="mt-4 text-center p-3 rounded-sm bg-zinc-950 border border-zinc-800">
                     <div
                       className={`text-xl font-black tracking-tight ${
                         isAccepted ? 'text-cyber-green' : 'text-alert-red'
@@ -1304,21 +1304,21 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                     >
                       {currentScenario.verdict}
                     </div>
-                    <div className="text-[10px] text-slate-400 mt-1 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 mt-1 uppercase font-bold">
                       {isAccepted ? 'EXECUTE MANEUVER' : 'PRUNED / REJECTED'}
                     </div>
                   </div>
 
-                  <div className="mt-3 text-[10px] text-slate-300 font-sans leading-relaxed">
+                  <div className="mt-3 text-[10px] text-zinc-300 font-sans leading-relaxed">
                     {isAccepted
                       ? '✓ All astrodynamic invariance laws proved.'
                       : '✗ Symbolic gate blocked execution of candidate.'}
                   </div>
                 </div>
 
-                <div className="bg-space-950 p-2 rounded border border-space-800 text-[9px] text-slate-400 font-mono">
-                  <div className="text-slate-500">CERTIFICATE</div>
-                  <div className="truncate text-cyan-300">
+                <div className="bg-zinc-950 p-2 rounded border border-zinc-800 text-[9px] text-zinc-400 font-mono">
+                  <div className="text-zinc-500">CERTIFICATE</div>
+                  <div className="truncate text-blue-300">
                     {isAccepted ? 'PROV-ORACLE-PASS' : 'PROV-ORACLE-FAIL'}
                   </div>
                 </div>
@@ -1328,15 +1328,15 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
 
           {/* Node Inspector Drawer */}
           {selectedNode && (
-            <div className="bg-space-900 border border-space-700 rounded-xl p-4 space-y-3">
+            <div className="bg-zinc-900 border border-space-700 rounded-sm p-4 space-y-3">
               <div className="flex items-center justify-between border-b border-space-700/80 pb-2.5">
                 <div className="flex items-center gap-2">
-                  <Info className="w-4 h-4 text-cyan-400" />
+                  <Info className="w-4 h-4 text-blue-400" />
                   <span className="text-xs font-bold text-white uppercase tracking-wider">
                     NODE INSPECTOR: {selectedNode.replace('_', ' ').toUpperCase()}
                   </span>
                 </div>
-                <div className="text-[10px] text-slate-400 font-mono">
+                <div className="text-[10px] text-zinc-400 font-mono">
                   Semantic Class &amp; Math Formalism
                 </div>
               </div>
@@ -1344,30 +1344,30 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               {selectedNode === 'telemetry' && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       ONTOLOGY SPECIFICATION
                     </div>
-                    <div className="text-cyan-300">Class: spg:EncounterStateVector</div>
-                    <div className="text-slate-400 text-[11px] font-sans">
+                    <div className="text-blue-300">Class: spg:EncounterStateVector</div>
+                    <div className="text-zinc-400 text-[11px] font-sans">
                       Represents observed ephemeris state, covariance matrix C₂ₓ₂, and vehicle wet mass.
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       NEURAL ROLE
                     </div>
                     <div className="text-purple-300">Latency: ~0.15 ms encoder pass</div>
-                    <div className="text-slate-400 text-[11px] font-sans">
+                    <div className="text-zinc-400 text-[11px] font-sans">
                       Continuous values normalized into latent prompt vector z ∈ ℝᵈ for the Stanford CLM.
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       SEMANTIC TRIPLES
                     </div>
-                    <div className="text-slate-300 text-[10px] bg-space-950 p-2 rounded border border-space-800">
+                    <div className="text-zinc-300 text-[10px] bg-zinc-950 p-2 rounded border border-zinc-800">
                       (Telemetry:State)-[:proposes]-&gt;(Candidate:Maneuver)
                     </div>
                   </div>
@@ -1377,32 +1377,32 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               {selectedNode === 'candidate' && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       ONTOLOGY SPECIFICATION
                     </div>
                     <div className="text-purple-300">Class: spg:ManeuverCandidate</div>
-                    <div className="text-slate-400 text-[11px] font-sans">
+                    <div className="text-zinc-400 text-[11px] font-sans">
                       A proposed impulsive or finite-duration thrust impulse Δv = [Δv_R, Δv_T, Δv_N].
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       NEURAL CONFIDENCE &amp; SCORE
                     </div>
                     <div className="text-white">
                       Dot Score: {currentScenario.score.toFixed(3)} | Conf: {(currentScenario.confidence * 100).toFixed(1)}%
                     </div>
-                    <div className="text-slate-400 text-[11px] font-sans">
+                    <div className="text-zinc-400 text-[11px] font-sans">
                       Computed via cosine similarity between neural latent query and pre-trained codebook centroids.
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       ACTIVE RELATIONS
                     </div>
-                    <div className="text-slate-300 text-[10px] bg-space-950 p-2 rounded border border-space-800 space-y-0.5">
+                    <div className="text-zinc-300 text-[10px] bg-zinc-950 p-2 rounded border border-zinc-800 space-y-0.5">
                       <div>(Candidate)-[:evaluates_against]-&gt;(Rule:Tsiolkovsky)</div>
                       <div>(Candidate)-[:evaluates_against]-&gt;(Rule:Perigee)</div>
                     </div>
@@ -1413,31 +1413,31 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               {selectedNode === 'rule_tsiolkovsky' && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       MATHEMATICAL LAW
                     </div>
                     <div className="text-amber-300">
                       Δv_avail = Isp · g₀ · ln(m_sat / (m_sat - m_prop))
                     </div>
-                    <div className="text-slate-400 text-[11px] font-sans">
+                    <div className="text-zinc-400 text-[11px] font-sans">
                       Upper bound on total velocity increment allowable from available onboard propellant mass.
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       EVALUATION METRIC
                     </div>
                     <div className={tsiolkovskyPassed ? 'text-cyber-green' : 'text-alert-red font-bold'}>
                       {currentScenario.rules.tsiolkovsky.detail}
                     </div>
-                    <div className="text-slate-400 text-[11px] font-sans">
+                    <div className="text-zinc-400 text-[11px] font-sans">
                       A 10% safety reserve (limit = 0.90 · Δv_avail) is strictly enforced for future stationkeeping.
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       EDGE OUTCOME
                     </div>
                     <div
@@ -1458,31 +1458,31 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               {selectedNode === 'rule_perigee' && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       MATHEMATICAL LAW
                     </div>
                     <div className="text-blue-300">
                       r_p = a(1 - e) - R_E ≥ h_min (300 km)
                     </div>
-                    <div className="text-slate-400 text-[11px] font-sans">
+                    <div className="text-zinc-400 text-[11px] font-sans">
                       Two-body vis-viva equations compute post-maneuver perigee altitude from specific orbital energy.
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       EVALUATION METRIC
                     </div>
                     <div className={perigeePassed ? 'text-cyber-green' : 'text-alert-red font-bold'}>
                       {currentScenario.rules.perigee.detail}
                     </div>
-                    <div className="text-slate-400 text-[11px] font-sans">
+                    <div className="text-zinc-400 text-[11px] font-sans">
                       Guarantees the collision evasion maneuver does not inadvertently de-orbit the spacecraft into high drag.
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       EDGE OUTCOME
                     </div>
                     <div
@@ -1503,31 +1503,31 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               {selectedNode === 'verdict' && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       FORMAL VERIFICATION GATE
                     </div>
                     <div className={isAccepted ? 'text-cyber-green font-bold' : 'text-alert-red font-bold'}>
                       {isAccepted ? 'EXECUTE MANEUVER AUTHORIZED' : 'SAFETY INVARIANT VIOLATION'}
                     </div>
-                    <div className="text-slate-400 text-[11px] font-sans">
+                    <div className="text-zinc-400 text-[11px] font-sans">
                       Deterministic conjunction oracle enforces conjunction of all symbolic guards (R1 ∧ R2 ∧ R3 ∧ R4 ∧ R5).
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       REASONING RATIONALE
                     </div>
-                    <div className="text-slate-200 text-[11px] font-sans">
+                    <div className="text-zinc-200 text-[11px] font-sans">
                       {currentScenario.verdictReason}
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="text-[10px] text-slate-400 uppercase font-bold">
+                    <div className="text-[10px] text-zinc-400 uppercase font-bold">
                       PROVENANCE METADATA
                     </div>
-                    <div className="text-slate-300 text-[10px] bg-space-950 p-2 rounded border border-space-800">
+                    <div className="text-zinc-300 text-[10px] bg-zinc-950 p-2 rounded border border-zinc-800">
                       <div>Protocol: OpenSPG / KGDSL v2.1</div>
                       <div>Deterministic: 100% formal replayable</div>
                     </div>
@@ -1542,18 +1542,18 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
       {/* KGDSL Triples View */}
       {activeTab === 'kgdsl' && (
         <div className="space-y-4">
-          <div className="bg-space-950 p-4 rounded-xl border border-space-700 space-y-3 font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-space-800 pb-2">
+          <div className="bg-zinc-950 p-4 rounded-sm border border-space-700 space-y-3 font-mono text-xs">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
               <span className="text-purple-300 font-bold flex items-center gap-2">
                 <Code2 className="w-4 h-4" />
                 OpenSPG Semantic Schema &amp; Declarative Rule Graph (KGDSL)
               </span>
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-zinc-400">
                 ACTIVE SCENARIO: {currentScenario.name}
               </span>
             </div>
 
-            <pre className="text-slate-300 overflow-x-auto text-[11px] leading-relaxed p-2 bg-space-900/60 rounded border border-space-800 font-mono">
+            <pre className="text-zinc-300 overflow-x-auto text-[11px] leading-relaxed p-2 bg-zinc-900/60 rounded border border-zinc-800 font-mono">
 {`// -------------------------------------------------------------
 // OpenSPG SPG-Schema Ontology Definition
 // -------------------------------------------------------------
@@ -1625,41 +1625,41 @@ ConstraintRule Rule_Perigee(cand: ManeuverCandidate, state: SpacecraftEncounterS
       {/* Execution Trace View */}
       {activeTab === 'trace' && (
         <div className="space-y-4 font-mono text-xs">
-          <div className="bg-space-950 p-4 rounded-xl border border-space-700 space-y-3">
-            <div className="text-purple-300 font-bold border-b border-space-800 pb-2 flex items-center justify-between">
+          <div className="bg-zinc-950 p-4 rounded-sm border border-space-700 space-y-3">
+            <div className="text-purple-300 font-bold border-b border-zinc-800 pb-2 flex items-center justify-between">
               <span>Chronological Neuro-Symbolic Reasoning Trace</span>
-              <span className="text-[10px] text-slate-400">Total Latency: ~1.6 ms</span>
+              <span className="text-[10px] text-zinc-400">Total Latency: ~1.6 ms</span>
             </div>
 
             <div className="space-y-3 pt-1">
               {/* Step 1 */}
-              <div className="flex items-start gap-3 p-2.5 rounded bg-space-900 border border-space-800">
-                <div className="w-5 h-5 rounded-full bg-cyan-950 border border-cyan-500/40 text-cyan-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
+              <div className="flex items-start gap-3 p-2.5 rounded bg-zinc-900 border border-zinc-800">
+                <div className="w-5 h-5 rounded-full bg-zinc-950 border border-cyan-500/40 text-blue-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
                   1
                 </div>
                 <div>
-                  <div className="font-bold text-cyan-300">TELEMETRY INGESTION &amp; NORMALIZATION</div>
-                  <p className="text-[11px] text-slate-300 font-sans mt-0.5">
+                  <div className="font-bold text-blue-300">TELEMETRY INGESTION &amp; NORMALIZATION</div>
+                  <p className="text-[11px] text-zinc-300 font-sans mt-0.5">
                     Continuous orbital state ingested (Alt: {telemetry.altitudeKm} km, TCA: {telemetry.tcaS} s, Pc: {formatProbability(telemetry.pcPre)}). State normalized into CLM encoder tensor.
                   </p>
                 </div>
               </div>
 
               {/* Step 2 */}
-              <div className="flex items-start gap-3 p-2.5 rounded bg-space-900 border border-space-800">
+              <div className="flex items-start gap-3 p-2.5 rounded bg-zinc-900 border border-zinc-800">
                 <div className="w-5 h-5 rounded-full bg-purple-950 border border-purple-500/40 text-purple-300 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
                   2
                 </div>
                 <div>
                   <div className="font-bold text-purple-300">NEURAL CANDIDATE PROPOSAL (STANFORD CLM)</div>
-                  <p className="text-[11px] text-slate-300 font-sans mt-0.5">
+                  <p className="text-[11px] text-zinc-300 font-sans mt-0.5">
                     Continuous logic model evaluated codebook centroids in 1.2 ms. Proposed maneuver <span className="font-mono text-white font-bold">{currentScenario.name}</span> with Δv = {currentScenario.deltaV.toFixed(2)} m/s (Confidence: {(currentScenario.confidence * 100).toFixed(1)}%).
                   </p>
                 </div>
               </div>
 
               {/* Step 3 */}
-              <div className="flex items-start gap-3 p-2.5 rounded bg-space-900 border border-space-800">
+              <div className="flex items-start gap-3 p-2.5 rounded bg-zinc-900 border border-zinc-800">
                 <div className={`w-5 h-5 rounded-full flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5 ${
                   tsiolkovskyPassed
                     ? 'bg-emerald-950 border border-cyber-green text-cyber-green'
@@ -1671,14 +1671,14 @@ ConstraintRule Rule_Perigee(cand: ManeuverCandidate, state: SpacecraftEncounterS
                   <div className={`font-bold ${tsiolkovskyPassed ? 'text-cyber-green' : 'text-alert-red'}`}>
                     SYMBOLIC EVALUATION: TSIOLKOVSKY BUDGET (RULE R1)
                   </div>
-                  <p className="text-[11px] text-slate-300 font-sans mt-0.5">
+                  <p className="text-[11px] text-zinc-300 font-sans mt-0.5">
                     {currentScenario.rules.tsiolkovsky.detail}. Outcome: <span className="font-bold font-mono">{tsiolkovskyPassed ? 'PASSED (satisfies)' : 'FAILED (violates)'}</span>.
                   </p>
                 </div>
               </div>
 
               {/* Step 4 */}
-              <div className="flex items-start gap-3 p-2.5 rounded bg-space-900 border border-space-800">
+              <div className="flex items-start gap-3 p-2.5 rounded bg-zinc-900 border border-zinc-800">
                 <div className={`w-5 h-5 rounded-full flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5 ${
                   perigeePassed
                     ? 'bg-emerald-950 border border-cyber-green text-cyber-green'
@@ -1690,7 +1690,7 @@ ConstraintRule Rule_Perigee(cand: ManeuverCandidate, state: SpacecraftEncounterS
                   <div className={`font-bold ${perigeePassed ? 'text-cyber-green' : 'text-alert-red'}`}>
                     SYMBOLIC EVALUATION: MINIMUM SAFE PERIGEE (RULE R3)
                   </div>
-                  <p className="text-[11px] text-slate-300 font-sans mt-0.5">
+                  <p className="text-[11px] text-zinc-300 font-sans mt-0.5">
                     {currentScenario.rules.perigee.detail}. Outcome: <span className="font-bold font-mono">{perigeePassed ? 'PASSED (satisfies)' : 'FAILED (violates)'}</span>.
                   </p>
                 </div>
@@ -1702,14 +1702,14 @@ ConstraintRule Rule_Perigee(cand: ManeuverCandidate, state: SpacecraftEncounterS
                   ? 'bg-cyber-green/10 border-cyber-green/50 text-cyber-green'
                   : 'bg-alert-red/10 border-alert-red/50 text-alert-red'
               }`}>
-                <div className="w-5 h-5 rounded-full bg-space-950 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
+                <div className="w-5 h-5 rounded-full bg-zinc-950 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
                   5
                 </div>
                 <div>
                   <div className="font-black text-sm uppercase">
                     ORACLE DECISION: {currentScenario.verdict}
                   </div>
-                  <p className="text-[11px] text-slate-200 font-sans mt-0.5">
+                  <p className="text-[11px] text-zinc-200 font-sans mt-0.5">
                     {currentScenario.verdictReason}
                   </p>
                 </div>

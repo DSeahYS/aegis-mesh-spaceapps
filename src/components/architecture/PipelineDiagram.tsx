@@ -136,8 +136,8 @@ export const PipelineDiagram: React.FC = () => {
           stroke: '#00d4ff',
           bg: 'rgba(0, 212, 255, 0.12)',
           border: 'border-cyan-500/40',
-          badge: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
-          text: 'text-cyan-400',
+          badge: 'bg-cyan-500/20 text-blue-300 border-cyan-500/30',
+          text: 'text-blue-400',
         };
       case 'ai':
         return {
@@ -145,7 +145,7 @@ export const PipelineDiagram: React.FC = () => {
           bg: 'rgba(0, 255, 136, 0.12)',
           border: 'border-emerald-500/40',
           badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-          text: 'text-emerald-400',
+          text: 'text-emerald-500',
         };
       case 'control':
         return {
@@ -167,16 +167,16 @@ export const PipelineDiagram: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col bg-[#0c1220] border border-cyan-950/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-md">
+    <div className="flex flex-col bg-zinc-950 border border-zinc-950/80 rounded-sm overflow-hidden shadow-xl shadow-black/40 ">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 bg-gradient-to-r from-space-900 via-slate-900 to-space-900 border-b border-cyan-900/40 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 bg-zinc-900 border-b border-zinc-900/40 gap-3">
         <div className="flex items-center space-x-2.5">
-          <Workflow className="w-5 h-5 text-cyan-400" />
+          <Workflow className="w-5 h-5 text-blue-400" />
           <div>
-            <h3 className="text-sm font-semibold tracking-wider text-slate-100 uppercase">
+            <h3 className="text-sm font-semibold tracking-wider text-zinc-100 uppercase">
               EDGE AI PROCESSING PIPELINE
             </h3>
-            <span className="text-[10px] text-slate-400 font-mono">
+            <span className="text-[10px] text-zinc-400 font-mono">
               END-TO-END AUTONOMOUS OPTICAL DETECTION TO SAFE THRUSTER ACTUATION
             </span>
           </div>
@@ -185,26 +185,26 @@ export const PipelineDiagram: React.FC = () => {
         {/* Legend */}
         <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00d4ff]" />
-            <span className="text-slate-300">Optical Sensing</span>
+            <span className="w-2 h-2 rounded-full bg-blue-500" />
+            <span className="text-zinc-300">Optical Sensing</span>
           </div>
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#00ff88]" />
-            <span className="text-slate-300">AI / ML</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="text-zinc-300">AI / ML</span>
           </div>
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ffaa00]" />
-            <span className="text-slate-300">Control & Safety</span>
+            <span className="w-2 h-2 rounded-full bg-amber-500" />
+            <span className="text-zinc-300">Control & Safety</span>
           </div>
           <div className="flex items-center space-x-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ff3355]" />
-            <span className="text-slate-300">Actuation</span>
+            <span className="w-2 h-2 rounded-full bg-red-500" />
+            <span className="text-zinc-300">Actuation</span>
           </div>
         </div>
       </div>
 
       {/* Pipeline SVG Graphic (Serpentine 2-Row Flow) */}
-      <div className="p-4 bg-[#070b14] overflow-x-auto">
+      <div className="p-4 bg-zinc-950 overflow-x-auto">
         <div className="min-w-[860px]">
           <svg
             viewBox="0 0 920 270"
@@ -395,11 +395,11 @@ export const PipelineDiagram: React.FC = () => {
       </div>
 
       {/* Selected Stage Detail Drawer */}
-      <div className="p-4 bg-slate-950/95 border-t border-cyan-900/30">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+      <div className="p-4 bg-zinc-950/95 border-t border-zinc-900/30">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-zinc-800">
           <div className="flex items-center space-x-3">
             <span
-              className={`w-7 h-7 rounded-lg flex items-center justify-center font-mono font-bold text-xs ${
+              className={`w-7 h-7 rounded-sm flex items-center justify-center font-mono font-bold text-xs ${
                 getCategoryColor(selectedStage.category).badge
               }`}
             >
@@ -408,7 +408,7 @@ export const PipelineDiagram: React.FC = () => {
             <div>
               <div className="flex items-center space-x-2">
                 <h4 className="text-sm font-bold text-white font-mono">{selectedStage.name}</h4>
-                <span className="text-slate-500 font-mono text-xs">({selectedStage.subtitle})</span>
+                <span className="text-zinc-500 font-mono text-xs">({selectedStage.subtitle})</span>
               </div>
               <span className={`text-[10px] font-mono uppercase ${getCategoryColor(selectedStage.category).text}`}>
                 CATEGORY: {selectedStage.category.toUpperCase()} • LATENCY: {selectedStage.latency}
@@ -417,7 +417,7 @@ export const PipelineDiagram: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 text-xs font-mono">
+            <span className="px-2.5 py-1 rounded bg-zinc-900 border border-zinc-700 text-zinc-300 text-xs font-mono">
               Deterministic Verification: 100%
             </span>
           </div>
@@ -425,21 +425,21 @@ export const PipelineDiagram: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 text-xs font-mono">
           <div className="md:col-span-2 space-y-1">
-            <span className="text-slate-400 text-[10px] block font-sans uppercase tracking-wider">
+            <span className="text-zinc-400 text-[10px] block font-sans uppercase tracking-wider">
               OPERATIONAL SPECIFICATION
             </span>
-            <p className="text-slate-200 text-xs leading-relaxed font-sans">
+            <p className="text-zinc-200 text-xs leading-relaxed font-sans">
               {selectedStage.description}
             </p>
           </div>
 
-          <div className="space-y-2 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+          <div className="space-y-2 bg-zinc-900 p-3 rounded-sm border border-zinc-800">
             <div>
-              <span className="text-[10px] text-slate-500 block">DATA INPUTS:</span>
-              <span className="text-cyan-300 text-[11px] block">{selectedStage.inputs}</span>
+              <span className="text-[10px] text-zinc-500 block">DATA INPUTS:</span>
+              <span className="text-blue-300 text-[11px] block">{selectedStage.inputs}</span>
             </div>
             <div>
-              <span className="text-[10px] text-slate-500 block">DATA OUTPUTS:</span>
+              <span className="text-[10px] text-zinc-500 block">DATA OUTPUTS:</span>
               <span className="text-emerald-300 text-[11px] block">{selectedStage.outputs}</span>
             </div>
           </div>

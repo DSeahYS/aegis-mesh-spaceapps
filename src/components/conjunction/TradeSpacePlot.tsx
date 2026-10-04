@@ -64,19 +64,19 @@ export const TradeSpacePlot: React.FC = () => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-slate-900/95 border border-slate-700 p-3 rounded-lg shadow-xl backdrop-blur-sm">
+        <div className="bg-zinc-900/95 border border-zinc-700 p-3 rounded-sm shadow-xl ">
           {data.isOptimal && (
-            <div className="text-cyan-400 font-bold mb-1 text-xs uppercase tracking-wider">
+            <div className="text-blue-400 font-bold mb-1 text-xs uppercase tracking-wider">
               ★ CLM Optimal Choice
             </div>
           )}
-          <p className="text-slate-300 text-xs font-mono mb-1">
+          <p className="text-zinc-300 text-xs font-mono mb-1">
             Maneuver at: <span className="text-white">T-{data.timeToTca.toFixed(1)}h</span>
           </p>
-          <p className="text-slate-300 text-xs font-mono mb-1">
+          <p className="text-zinc-300 text-xs font-mono mb-1">
             Delta-V: <span className="text-white">{data.deltaV.toFixed(3)} m/s</span>
           </p>
-          <p className="text-slate-300 text-xs font-mono font-bold" style={{ color: getColorForPc(data.pc) }}>
+          <p className="text-zinc-300 text-xs font-mono font-bold" style={{ color: getColorForPc(data.pc) }}>
             Resulting P_c: {data.pc.toExponential(2)}
           </p>
         </div>
@@ -107,11 +107,11 @@ export const TradeSpacePlot: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#0b1120] border border-cyan-950/90 rounded-2xl p-5 shadow-2xl backdrop-blur-md flex flex-col w-full h-full min-h-[350px]">
+    <div className="bg-zinc-900 border border-zinc-800 rounded-sm p-5 shadow-xl shadow-black/40  flex flex-col w-full h-full min-h-[350px]">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2.5">
-          <Layers className="w-5 h-5 text-cyan-400" />
-          <h3 className="text-sm font-bold tracking-tight text-slate-200 uppercase">
+          <Layers className="w-5 h-5 text-blue-400" />
+          <h3 className="text-sm font-bold tracking-tight text-zinc-200 uppercase">
             MANEUVER TRADE SPACE
           </h3>
         </div>
@@ -151,7 +151,7 @@ export const TradeSpacePlot: React.FC = () => {
         </ResponsiveContainer>
       </div>
       
-      <div className="mt-2 flex items-center justify-center space-x-6 text-xs font-mono text-slate-400">
+      <div className="mt-2 flex items-center justify-center space-x-6 text-xs font-mono text-zinc-400">
         <div className="flex items-center"><div className="w-3 h-3 rounded-full bg-emerald-500 opacity-70 mr-2"></div>Safe (P_c &lt; 1e-5)</div>
         <div className="flex items-center"><div className="w-3 h-3 rounded-full bg-amber-500 opacity-70 mr-2"></div>Marginal</div>
         <div className="flex items-center"><div className="w-3 h-3 rounded-full bg-red-500 opacity-70 mr-2"></div>High Risk</div>

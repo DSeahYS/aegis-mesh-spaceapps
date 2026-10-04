@@ -359,12 +359,12 @@ export const HJHeatmapCanvas: React.FC<HJHeatmapCanvasProps> = ({ hj }) => {
   };
 
   return (
-    <div className="bg-space-900 border border-space-700 rounded-lg p-4 space-y-3 font-mono">
+    <div className="bg-zinc-900 border border-space-700 rounded-sm p-4 space-y-3 font-mono">
       {/* Title & Legend Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-space-800 pb-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-2">
         <div className="flex items-center gap-2">
-          <Compass className="w-4 h-4 text-cyan-400" />
-          <span className="text-xs font-bold text-slate-200">
+          <Compass className="w-4 h-4 text-blue-400" />
+          <span className="text-xs font-bold text-zinc-200">
             ISAACS HAMILTON-JACOBI REACHABILITY VALUE FUNCTION V(y, v, τ)
           </span>
         </div>
@@ -380,7 +380,7 @@ export const HJHeatmapCanvas: React.FC<HJHeatmapCanvasProps> = ({ hj }) => {
       </div>
 
       {/* Canvas Heatmap Plot */}
-      <div className="relative w-full h-[320px] bg-space-950 rounded border border-space-800 overflow-hidden">
+      <div className="relative w-full h-[320px] bg-zinc-950 rounded border border-zinc-800 overflow-hidden">
         <canvas
           ref={canvasRef}
           onMouseMove={handleMouseMove}
@@ -391,10 +391,10 @@ export const HJHeatmapCanvas: React.FC<HJHeatmapCanvasProps> = ({ hj }) => {
         {/* Floating Tooltip */}
         {hoverInfo && (
           <div
-            className="absolute pointer-events-none transform -translate-x-1/2 -translate-y-full bg-space-900/95 border border-space-600 rounded px-2.5 py-1.5 text-[10px] text-slate-200 shadow-xl backdrop-blur"
+            className="absolute pointer-events-none transform -translate-x-1/2 -translate-y-full bg-zinc-900/95 border border-space-600 rounded px-2.5 py-1.5 text-[10px] text-zinc-200 shadow-xl backdrop-blur"
             style={{ left: hoverInfo.canvasX, top: hoverInfo.canvasY - 8 }}
           >
-            <div>Miss y: <span className="text-cyan-300 font-bold">{hoverInfo.y.toFixed(1)} m</span></div>
+            <div>Miss y: <span className="text-blue-300 font-bold">{hoverInfo.y.toFixed(1)} m</span></div>
             <div>Rate v: <span className="text-purple-300 font-bold">{hoverInfo.v.toFixed(2)} m/s</span></div>
             <div>
               Value V: <span className={`font-bold ${hoverInfo.val > 0 ? 'text-cyber-green' : 'text-alert-red'}`}>
@@ -408,8 +408,8 @@ export const HJHeatmapCanvas: React.FC<HJHeatmapCanvasProps> = ({ hj }) => {
       {/* Numerical Certificates & Solver Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[11px]">
         {/* Certificate Status */}
-        <div className="bg-space-950 border border-space-800 rounded p-2">
-          <div className="text-[10px] text-slate-500 uppercase font-bold">REACHABILITY CERTIFICATE</div>
+        <div className="bg-zinc-950 border border-zinc-800 rounded p-2">
+          <div className="text-[10px] text-zinc-500 uppercase font-bold">REACHABILITY CERTIFICATE</div>
           <div className="flex items-center gap-1.5 mt-0.5">
             {hj.maneuver_certified ? (
               <>
@@ -426,17 +426,17 @@ export const HJHeatmapCanvas: React.FC<HJHeatmapCanvasProps> = ({ hj }) => {
         </div>
 
         {/* Guaranteed Miss */}
-        <div className="bg-space-950 border border-space-800 rounded p-2">
-          <div className="text-[10px] text-slate-500 uppercase font-bold">GUARANTEED MISS DISTANCE</div>
+        <div className="bg-zinc-950 border border-zinc-800 rounded p-2">
+          <div className="text-[10px] text-zinc-500 uppercase font-bold">GUARANTEED MISS DISTANCE</div>
           <div className="text-sm font-black text-white mt-0.5">
-            {formatNumberSmart(hj.maneuver_guaranteed_miss_m)} <span className="text-xs text-slate-400 font-normal">m</span>
+            {formatNumberSmart(hj.maneuver_guaranteed_miss_m)} <span className="text-xs text-zinc-400 font-normal">m</span>
           </div>
-          <div className="text-[9px] text-slate-500">Worst-case d_max={hj.d_max_mps2} m/s²</div>
+          <div className="text-[9px] text-zinc-500">Worst-case d_max={hj.d_max_mps2} m/s²</div>
         </div>
 
         {/* BRT Containment */}
-        <div className="bg-space-950 border border-space-800 rounded p-2">
-          <div className="text-[10px] text-slate-500 uppercase font-bold">BACKWARD REACHABLE TUBE</div>
+        <div className="bg-zinc-950 border border-zinc-800 rounded p-2">
+          <div className="text-[10px] text-zinc-500 uppercase font-bold">BACKWARD REACHABLE TUBE</div>
           <div className="text-sm font-bold mt-0.5">
             {hj.in_brt ? (
               <span className="text-alert-red">INSIDE BRT (COLLISION)</span>
@@ -444,19 +444,19 @@ export const HJHeatmapCanvas: React.FC<HJHeatmapCanvasProps> = ({ hj }) => {
               <span className="text-cyber-green">OUTSIDE BRT (EVADABLE)</span>
             )}
           </div>
-          <div className="text-[9px] text-slate-500">V(state) = {formatNumberSmart(hj.value_at_state_m)} m</div>
+          <div className="text-[9px] text-zinc-500">V(state) = {formatNumberSmart(hj.value_at_state_m)} m</div>
         </div>
 
         {/* Solver Specs */}
-        <div className="bg-space-950 border border-space-800 rounded p-2">
-          <div className="text-[10px] text-slate-500 uppercase font-bold flex items-center gap-1">
-            <Info className="w-3 h-3 text-cyan-400" />
+        <div className="bg-zinc-950 border border-zinc-800 rounded p-2">
+          <div className="text-[10px] text-zinc-500 uppercase font-bold flex items-center gap-1">
+            <Info className="w-3 h-3 text-blue-400" />
             ISAACS DP SOLVER
           </div>
-          <div className="text-[10px] text-slate-300 mt-0.5">
-            Grid: <span className="text-cyan-300">{hj.solver.grid_n}×{hj.solver.grid_n}</span> &bull; dt: <span className="text-slate-200">{hj.solver.dt_s}s</span>
+          <div className="text-[10px] text-zinc-300 mt-0.5">
+            Grid: <span className="text-blue-300">{hj.solver.grid_n}×{hj.solver.grid_n}</span> &bull; dt: <span className="text-zinc-200">{hj.solver.dt_s}s</span>
           </div>
-          <div className="text-[10px] text-slate-400">
+          <div className="text-[10px] text-zinc-400">
             {hj.solver.steps} steps in <span className="text-yellow-300 font-bold">{formatDurationMs(hj.solver.solve_ms)}</span>
           </div>
         </div>

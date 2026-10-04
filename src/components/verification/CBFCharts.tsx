@@ -34,8 +34,8 @@ interface CustomTooltipProps {
 const CustomChartTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label, unit }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-space-900/95 border border-space-600 p-2.5 rounded-lg shadow-xl text-[11px] font-mono text-slate-200 backdrop-blur-md">
-        <div className="text-slate-400 font-bold border-b border-space-700 pb-1 mb-1.5">
+      <div className="bg-zinc-900/95 border border-space-600 p-2.5 rounded-sm shadow-xl text-[11px] font-mono text-zinc-200 ">
+        <div className="text-zinc-400 font-bold border-b border-space-700 pb-1 mb-1.5">
           Time t = {typeof label === 'number' ? label.toFixed(2) : label} s
         </div>
         <div className="space-y-1">
@@ -96,61 +96,61 @@ export const CBFCharts: React.FC<CBFChartsProps> = ({ cbf }) => {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
         {/* Forward Invariance Badge */}
         <div
-          className={`p-3 rounded-lg border flex flex-col justify-between ${
+          className={`p-3 rounded-sm border flex flex-col justify-between ${
             cbf.forward_invariant
               ? 'bg-cyber-green/10 border-cyber-green/40 text-cyber-green'
               : 'bg-alert-red/10 border-alert-red/40 text-alert-red'
           }`}
         >
-          <div className="text-[10px] text-slate-400 uppercase font-bold flex items-center justify-between">
+          <div className="text-[10px] text-zinc-400 uppercase font-bold flex items-center justify-between">
             <span>FORWARD INVARIANCE</span>
             <ShieldCheck className="w-3.5 h-3.5" />
           </div>
           <div className="text-sm font-black mt-1">
             {cbf.forward_invariant ? '✓ CERTIFIED INVARIANT' : '✗ SAFETY VIOLATED'}
           </div>
-          <div className="text-[10px] text-slate-400 mt-0.5">
+          <div className="text-[10px] text-zinc-400 mt-0.5">
             Min h after entry: {formatNumberSmart(cbf.min_h_after_entry)}
           </div>
         </div>
 
         {/* Interventions & Saturated Steps */}
-        <div className="p-3 rounded-lg bg-space-900 border border-space-700 flex flex-col justify-between">
-          <div className="text-[10px] text-slate-400 uppercase font-bold flex items-center justify-between">
+        <div className="p-3 rounded-sm bg-zinc-900 border border-space-700 flex flex-col justify-between">
+          <div className="text-[10px] text-zinc-400 uppercase font-bold flex items-center justify-between">
             <span>CBF INTERVENTIONS</span>
-            <span className="text-cyan-400 font-bold">{cbf.interventions} steps</span>
+            <span className="text-blue-400 font-bold">{cbf.interventions} steps</span>
           </div>
           <div className="text-lg font-black text-white mt-1">
-            {cbf.interventions} <span className="text-xs text-slate-400 font-normal">/ {cbf.t_s.length} steps</span>
+            {cbf.interventions} <span className="text-xs text-zinc-400 font-normal">/ {cbf.t_s.length} steps</span>
           </div>
-          <div className="text-[10px] text-slate-500">
+          <div className="text-[10px] text-zinc-500">
             Saturated: {cbf.saturated_steps} &bull; Keepout k: {cbf.keepout_k.toFixed(2)}σ
           </div>
         </div>
 
         {/* Filtered Final Pc */}
-        <div className="p-3 rounded-lg bg-space-900 border border-space-700 flex flex-col justify-between">
-          <div className="text-[10px] text-slate-400 uppercase font-bold">
+        <div className="p-3 rounded-sm bg-zinc-900 border border-space-700 flex flex-col justify-between">
+          <div className="text-[10px] text-zinc-400 uppercase font-bold">
             FILTERED FINAL Pc
           </div>
           <div className="text-lg font-black text-cyber-green mt-1">
             {formatProbability(cbf.final_pc_filtered)}
           </div>
-          <div className="text-[10px] text-slate-400 flex items-center gap-1">
+          <div className="text-[10px] text-zinc-400 flex items-center gap-1">
             <CheckCircle2 className="w-3 h-3 text-cyber-green" />
             Below safety threshold
           </div>
         </div>
 
         {/* Nominal Final Pc */}
-        <div className="p-3 rounded-lg bg-space-900 border border-space-700 flex flex-col justify-between">
-          <div className="text-[10px] text-slate-400 uppercase font-bold">
+        <div className="p-3 rounded-sm bg-zinc-900 border border-space-700 flex flex-col justify-between">
+          <div className="text-[10px] text-zinc-400 uppercase font-bold">
             NOMINAL UNFILTERED Pc
           </div>
           <div className="text-lg font-black text-alert-amber mt-1">
             {formatProbability(cbf.final_pc_nominal)}
           </div>
-          <div className="text-[10px] text-slate-500 flex items-center gap-1">
+          <div className="text-[10px] text-zinc-500 flex items-center gap-1">
             <AlertOctagon className="w-3 h-3 text-alert-amber" />
             Without barrier filter
           </div>
@@ -160,10 +160,10 @@ export const CBFCharts: React.FC<CBFChartsProps> = ({ cbf }) => {
       {/* Two LineCharts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Chart 1: Barrier Function h(p) */}
-        <div className="bg-space-900 border border-space-700 rounded-lg p-3.5 space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-300 font-bold border-b border-space-800 pb-2">
+        <div className="bg-zinc-900 border border-space-700 rounded-sm p-3.5 space-y-2">
+          <div className="flex items-center justify-between text-xs text-zinc-300 font-bold border-b border-zinc-800 pb-2">
             <span>HIGH-ORDER BARRIER FUNCTION h(p) = pᵀMp − k²</span>
-            <span className="text-[10px] text-slate-500 font-normal">Safe when h ≥ 0</span>
+            <span className="text-[10px] text-zinc-500 font-normal">Safe when h ≥ 0</span>
           </div>
 
           <div className="w-full h-56">
@@ -221,10 +221,10 @@ export const CBFCharts: React.FC<CBFChartsProps> = ({ cbf }) => {
         </div>
 
         {/* Chart 2: Lateral Miss Distance */}
-        <div className="bg-space-900 border border-space-700 rounded-lg p-3.5 space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-300 font-bold border-b border-space-800 pb-2">
+        <div className="bg-zinc-900 border border-space-700 rounded-sm p-3.5 space-y-2">
+          <div className="flex items-center justify-between text-xs text-zinc-300 font-bold border-b border-zinc-800 pb-2">
             <span>LATERAL MISS DISTANCE TRAJECTORY ||p(t)||</span>
-            <span className="text-[10px] text-slate-500 font-normal">Under worst-case disturbance</span>
+            <span className="text-[10px] text-zinc-500 font-normal">Under worst-case disturbance</span>
           </div>
 
           <div className="w-full h-56">

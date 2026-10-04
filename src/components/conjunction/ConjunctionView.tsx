@@ -60,23 +60,23 @@ export const ConjunctionView: React.FC = () => {
       case 'medium':
         return 'bg-yellow-500/10 text-yellow-300 border-yellow-500/30';
       default:
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+        return 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30';
     }
   };
 
   return (
-    <div className="w-full space-y-6 text-slate-100">
+    <div className="w-full space-y-6 text-zinc-100">
       {/* Top Header & Scenario Selection Bar */}
-      <div className="bg-[#0b1120] border border-cyan-950/90 rounded-2xl p-5 shadow-2xl backdrop-blur-md">
+      <div className="bg-zinc-900 border border-zinc-800 rounded-sm p-5 shadow-xl shadow-black/40 ">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2.5">
-              <ShieldAlert className="w-6 h-6 text-cyan-400" />
+              <ShieldAlert className="w-6 h-6 text-blue-400" />
               <h2 className="text-xl font-bold tracking-tight text-white uppercase">
                 CONJUNCTION ASSESSMENT & COLLISION AVOIDANCE
               </h2>
             </div>
-            <p className="text-xs text-slate-400 mt-1 font-mono">
+            <p className="text-xs text-zinc-400 mt-1 font-mono">
               REAL-TIME ORBITAL ENCOUNTER TELEMETRY • B-PLANE DISPERSION & FOSTER-HALL RISK PROJECTION
             </p>
           </div>
@@ -87,51 +87,51 @@ export const ConjunctionView: React.FC = () => {
               <select
                 value={selectedId}
                 onChange={(e) => setSelectedId(e.target.value)}
-                className="appearance-none bg-slate-900 border border-cyan-700/50 text-slate-200 text-xs font-mono rounded-lg px-4 py-2.5 pr-9 focus:outline-none focus:border-cyan-400 cursor-pointer shadow-inner"
+                className="appearance-none bg-zinc-900 border border-cyan-700/50 text-zinc-200 text-xs font-mono rounded-sm px-4 py-2.5 pr-9 focus:outline-none focus:border-cyan-400 cursor-pointer shadow-inner"
               >
                 {scenarios.map((s) => (
-                  <option key={s.id} value={s.id} className="bg-slate-900 text-slate-200">
+                  <option key={s.id} value={s.id} className="bg-zinc-900 text-zinc-200">
                     [{s.id}] {s.name.substring(0, 36)}... ({s.severity.toUpperCase()})
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-4 h-4 text-cyan-400 absolute right-3 top-3 pointer-events-none" />
+              <ChevronDown className="w-4 h-4 text-blue-400 absolute right-3 top-3 pointer-events-none" />
             </div>
 
-            <span className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase border ${getSeverityBadge(activeScenario.severity)}`}>
+            <span className={`px-3 py-1.5 rounded-sm text-xs font-mono font-bold uppercase border ${getSeverityBadge(activeScenario.severity)}`}>
               {activeScenario.severity} RISK
             </span>
           </div>
         </div>
 
         {/* Selected Scenario Metadata Strip */}
-        <div className="mt-4 pt-4 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
-          <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/70">
-            <span className="text-slate-500 text-[10px] block">PRIMARY SATELLITE</span>
+        <div className="mt-4 pt-4 border-t border-zinc-800 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+          <div className="bg-zinc-950 p-2.5 rounded-sm border border-zinc-800">
+            <span className="text-zinc-500 text-[10px] block">PRIMARY SATELLITE</span>
             <div className="flex items-center space-x-1.5 mt-0.5">
-              <Satellite className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="text-slate-200 font-bold">{activeScenario.primarySatellite}</span>
+              <Satellite className="w-3.5 h-3.5 text-blue-400" />
+              <span className="text-zinc-200 font-bold">{activeScenario.primarySatellite}</span>
             </div>
           </div>
 
-          <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/70">
-            <span className="text-slate-500 text-[10px] block">DEBRIS BODY</span>
+          <div className="bg-zinc-950 p-2.5 rounded-sm border border-zinc-800">
+            <span className="text-zinc-500 text-[10px] block">DEBRIS BODY</span>
             <div className="flex items-center space-x-1.5 mt-0.5">
               <Target className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-slate-200 font-bold">{activeScenario.debris.catalogId || 'UNCATALOGUED'}</span>
+              <span className="text-zinc-200 font-bold">{activeScenario.debris.catalogId || 'UNCATALOGUED'}</span>
             </div>
           </div>
 
-          <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/70">
-            <span className="text-slate-500 text-[10px] block">ESTIMATED SIZE</span>
-            <span className="text-slate-200 font-bold mt-0.5 block">{activeScenario.debris.estimatedSize} cm ({activeScenario.debris.type})</span>
+          <div className="bg-zinc-950 p-2.5 rounded-sm border border-zinc-800">
+            <span className="text-zinc-500 text-[10px] block">ESTIMATED SIZE</span>
+            <span className="text-zinc-200 font-bold mt-0.5 block">{activeScenario.debris.estimatedSize} cm ({activeScenario.debris.type})</span>
           </div>
 
-          <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/70">
-            <span className="text-slate-500 text-[10px] block">PLANNED MANEUVER ΔV</span>
+          <div className="bg-zinc-950 p-2.5 rounded-sm border border-zinc-800">
+            <span className="text-zinc-500 text-[10px] block">PLANNED MANEUVER ΔV</span>
             <div className="flex items-center space-x-1.5 mt-0.5">
               <Flame className="w-3.5 h-3.5 text-red-400" />
-              <span className="text-emerald-400 font-bold">
+              <span className="text-emerald-500 font-bold">
                 {activeScenario.maneuver.burnDuration > 0
                   ? `${activeScenario.maneuver.burnDuration}s burn (${activeScenario.maneuver.fuelCost} kg)`
                   : 'Zero thrust required'}

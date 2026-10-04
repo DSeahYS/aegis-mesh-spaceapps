@@ -98,25 +98,25 @@ export const DataSelectorPanel: React.FC<DataSelectorPanelProps> = ({ className 
 
   return (
     <div
-      className={`bg-space-800/90 border border-space-600/90 rounded-xl p-5 shadow-2xl backdrop-blur-md flex flex-col justify-between ${className}`}
+      className={`bg-space-800/90 border border-space-600/90 rounded-sm p-5 shadow-xl shadow-black/40  flex flex-col justify-between ${className}`}
     >
       {/* Header */}
       <div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-space-600/70 gap-2">
           <div className="flex items-center space-x-2.5">
-            <div className="p-2 rounded-lg bg-cyber-blue/10 border border-cyber-blue/40 text-cyber-blue">
+            <div className="p-2 rounded-sm bg-cyber-blue/10 border border-cyber-blue/40 text-cyber-blue">
               <Database className="w-4 h-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-semibold tracking-wider text-slate-100 uppercase font-mono">
+                <h3 className="text-sm font-semibold tracking-wider text-zinc-100 uppercase font-mono">
                   MASSIVE ORBITAL CATALOG INGESTION
                 </h3>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-cyan-950/70 border border-cyan-500/40 text-cyan-300">
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-zinc-950/70 border border-cyan-500/40 text-blue-300">
                   REAL-TIME FILTER
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 font-mono mt-0.5">
+              <p className="text-[11px] text-zinc-400 font-mono mt-0.5">
                 Dynamic synthetic injection of mega-constellations and hypervelocity ASAT debris clouds
               </p>
             </div>
@@ -124,16 +124,16 @@ export const DataSelectorPanel: React.FC<DataSelectorPanelProps> = ({ className 
 
           {/* Quick Metrics */}
           <div className="flex items-center gap-2 text-xs font-mono self-start sm:self-auto">
-            <div className="px-2.5 py-1 rounded bg-space-900 border border-space-700 flex items-center space-x-1.5">
+            <div className="px-2.5 py-1 rounded bg-zinc-900 border border-space-700 flex items-center space-x-1.5">
               <Layers className="w-3.5 h-3.5 text-cyber-green" />
-              <span className="text-slate-400">ACTIVE:</span>
+              <span className="text-zinc-400">ACTIVE:</span>
               <span className="text-cyber-green font-bold">
                 {activeCatalogCount}/{catalogList.length}
               </span>
             </div>
-            <div className="px-2.5 py-1 rounded bg-space-900 border border-space-700 flex items-center space-x-1.5">
+            <div className="px-2.5 py-1 rounded bg-zinc-900 border border-space-700 flex items-center space-x-1.5">
               <Radio className="w-3.5 h-3.5 text-cyber-blue" />
-              <span className="text-slate-400">TOTAL OBJECTS:</span>
+              <span className="text-zinc-400">TOTAL OBJECTS:</span>
               <span className="text-white font-bold">
                 {totalLoadedObjects.toLocaleString()}
               </span>
@@ -143,12 +143,12 @@ export const DataSelectorPanel: React.FC<DataSelectorPanelProps> = ({ className 
 
         {/* Quick Filter Actions */}
         <div className="flex flex-wrap items-center gap-2 py-3 border-b border-space-700/50">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mr-1 flex items-center gap-1">
-            <Zap className="w-3 h-3 text-cyan-400" /> Presets:
+          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 mr-1 flex items-center gap-1">
+            <Zap className="w-3 h-3 text-blue-400" /> Presets:
           </span>
           <button
             onClick={handleSelectConstellations}
-            className="px-2.5 py-1 text-[11px] font-mono rounded bg-cyan-950/40 hover:bg-cyan-900/60 border border-cyan-700/50 text-cyan-300 transition-all flex items-center gap-1.5"
+            className="px-2.5 py-1 text-[11px] font-mono rounded bg-zinc-950/40 hover:bg-zinc-900/60 border border-cyan-700/50 text-blue-300 transition-all flex items-center gap-1.5"
           >
             <Globe2 className="w-3 h-3" />
             <span>Constellations Only (5.6k)</span>
@@ -162,7 +162,7 @@ export const DataSelectorPanel: React.FC<DataSelectorPanelProps> = ({ className 
           </button>
           <button
             onClick={handleClearAll}
-            className="px-2.5 py-1 text-[11px] font-mono rounded bg-space-900 hover:bg-space-700/70 border border-space-700 text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5 ml-auto"
+            className="px-2.5 py-1 text-[11px] font-mono rounded bg-zinc-900 hover:bg-space-700/70 border border-space-700 text-zinc-400 hover:text-zinc-200 transition-all flex items-center gap-1.5 ml-auto"
           >
             <Trash2 className="w-3 h-3" />
             <span>Clear Catalogs</span>
@@ -178,10 +178,10 @@ export const DataSelectorPanel: React.FC<DataSelectorPanelProps> = ({ className 
               <div
                 key={catalog.id}
                 onClick={() => handleToggle(catalog.id, catalog.name, catalog.count)}
-                className={`relative group cursor-pointer p-3.5 rounded-lg border transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                className={`relative group cursor-pointer p-3.5 rounded-sm border transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                   isActive
-                    ? 'bg-space-900/90 border-space-500 shadow-md'
-                    : 'bg-space-900/40 border-space-700/60 hover:bg-space-900/70 hover:border-space-600'
+                    ? 'bg-zinc-900/90 border-space-500 shadow-md'
+                    : 'bg-zinc-900/40 border-space-700/60 hover:bg-zinc-900/70 hover:border-space-600'
                 }`}
               >
                 {/* Left: Checkbox & Name */}
@@ -192,19 +192,19 @@ export const DataSelectorPanel: React.FC<DataSelectorPanelProps> = ({ className 
                     className={`mt-0.5 sm:mt-0 p-1 rounded transition-colors ${
                       isActive
                         ? 'text-cyber-green bg-cyber-green/10'
-                        : 'text-slate-500 group-hover:text-slate-300'
+                        : 'text-zinc-500 group-hover:text-zinc-300'
                     }`}
                   >
                     {isActive ? (
                       <CheckCircle2 className="w-5 h-5 text-cyber-green drop-shadow-md" />
                     ) : (
-                      <Circle className="w-5 h-5 text-slate-600" />
+                      <Circle className="w-5 h-5 text-zinc-600" />
                     )}
                   </button>
 
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-semibold text-sm text-slate-100 group-hover:text-white transition-colors">
+                      <span className="font-semibold text-sm text-zinc-100 group-hover:text-white transition-colors">
                         {catalog.name}
                       </span>
                       <span
@@ -219,7 +219,7 @@ export const DataSelectorPanel: React.FC<DataSelectorPanelProps> = ({ className 
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-1">
+                    <p className="text-[11px] text-zinc-400 mt-0.5 line-clamp-1">
                       {catalog.description}
                     </p>
                   </div>
@@ -228,17 +228,17 @@ export const DataSelectorPanel: React.FC<DataSelectorPanelProps> = ({ className 
                 {/* Right: Technical Stats */}
                 <div className="flex items-center gap-4 sm:gap-6 text-xs font-mono shrink-0 pl-8 sm:pl-0">
                   <div className="text-right">
-                    <span className="text-[10px] text-slate-400 block">ALTITUDE / INC</span>
-                    <span className="text-slate-300 font-semibold text-[11px]">
+                    <span className="text-[10px] text-zinc-400 block">ALTITUDE / INC</span>
+                    <span className="text-zinc-300 font-semibold text-[11px]">
                       {catalog.nominalAltitudeKm} • {catalog.inclination}
                     </span>
                   </div>
 
                   <div className="text-right min-w-[70px]">
-                    <span className="text-[10px] text-slate-400 block">OBJECTS</span>
+                    <span className="text-[10px] text-zinc-400 block">OBJECTS</span>
                     <span
                       className={`text-sm font-bold font-mono ${
-                        isActive ? 'text-white' : 'text-slate-500'
+                        isActive ? 'text-white' : 'text-zinc-500'
                       }`}
                     >
                       {catalog.count.toLocaleString()}
@@ -265,17 +265,17 @@ export const DataSelectorPanel: React.FC<DataSelectorPanelProps> = ({ className 
       </div>
 
       {/* Footer Status Bar */}
-      <div className="mt-4 pt-3 border-t border-space-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] font-mono text-slate-400">
+      <div className="mt-4 pt-3 border-t border-space-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] font-mono text-zinc-400">
         <div className="flex items-center gap-2">
           <Cpu className="w-3.5 h-3.5 text-cyber-blue" />
           <span>POLARFIRE FPGA SPATIAL OCTREE CACHE:</span>
           <span className="text-cyber-green font-semibold">SYNCHRONIZED (0.4ms)</span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-slate-400">
-            Total Ephemeris RAM: <span className="text-slate-200 font-bold">~14.2 MB</span>
+          <span className="text-zinc-400">
+            Total Ephemeris RAM: <span className="text-zinc-200 font-bold">~14.2 MB</span>
           </span>
-          <span className="text-slate-400">•</span>
+          <span className="text-zinc-400">•</span>
           <span className="text-cyber-blue">InfoNCE Manifold Indexed</span>
         </div>
       </div>

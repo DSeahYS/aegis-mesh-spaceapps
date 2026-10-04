@@ -107,13 +107,13 @@ export const ThreatMatrix: React.FC = () => {
         return 'bg-cyan-500/10 text-cyber-blue border-cyan-500/30';
       case 'aborted':
       default:
-        return 'bg-slate-700/50 text-slate-400 border-slate-600/40';
+        return 'bg-slate-700/50 text-zinc-400 border-slate-600/40';
     }
   };
 
   const renderSortIcon = (field: SortField) => {
     if (sortField !== field) {
-      return <ArrowUpDown className="w-3 h-3 ml-1 text-slate-500 opacity-60 group-hover:opacity-100 transition-opacity" />;
+      return <ArrowUpDown className="w-3 h-3 ml-1 text-zinc-500 opacity-60 group-hover:opacity-100 transition-opacity" />;
     }
     return sortDirection === 'asc' ? (
       <ArrowUp className="w-3 h-3 ml-1 text-cyber-blue" />
@@ -123,12 +123,12 @@ export const ThreatMatrix: React.FC = () => {
   };
 
   return (
-    <div className="bg-space-800 border border-space-600 rounded-lg shadow-xl overflow-hidden flex flex-col">
+    <div className="bg-space-800 border border-space-600 rounded-sm shadow-xl overflow-hidden flex flex-col">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-space-600 flex items-center justify-between bg-space-900/40">
+      <div className="px-4 py-3 border-b border-space-600 flex items-center justify-between bg-zinc-900/40">
         <div className="flex items-center gap-2">
           <ShieldAlert className="w-4 h-4 text-alert-red" />
-          <h2 className="uppercase text-xs font-semibold tracking-wider text-slate-400">
+          <h2 className="uppercase text-xs font-semibold tracking-wider text-zinc-400">
             Threat Assessment Matrix
           </h2>
         </div>
@@ -139,12 +139,12 @@ export const ThreatMatrix: React.FC = () => {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-alert-red"></span>
             </span>
             <span className="text-alert-red font-semibold">{criticalCount} CRITICAL</span>
-            <span className="text-slate-500">/</span>
-            <span className="text-slate-400">{debrisScenarios.length} TOTAL</span>
+            <span className="text-zinc-500">/</span>
+            <span className="text-zinc-400">{debrisScenarios.length} TOTAL</span>
           </div>
           <button
             onClick={() => handleSort('severity')}
-            className="text-[11px] font-mono px-2 py-0.5 rounded border border-space-600 bg-space-700 text-slate-300 hover:text-white hover:border-slate-500 transition-colors flex items-center gap-1 cursor-pointer"
+            className="text-[11px] font-mono px-2 py-0.5 rounded border border-space-600 bg-space-700 text-zinc-300 hover:text-white hover:border-slate-500 transition-colors flex items-center gap-1 cursor-pointer"
             title="Sort by severity"
           >
             <span>Severity</span>
@@ -157,10 +157,10 @@ export const ThreatMatrix: React.FC = () => {
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="border-b border-space-600 bg-space-900/60 text-slate-400 font-mono text-[11px] uppercase tracking-wider select-none">
+            <tr className="border-b border-space-600 bg-zinc-900/60 text-zinc-400 font-mono text-[11px] uppercase tracking-wider select-none">
               <th
                 onClick={() => handleSort('id')}
-                className="py-2.5 px-3 font-medium cursor-pointer hover:text-slate-200 transition-colors group"
+                className="py-2.5 px-3 font-medium cursor-pointer hover:text-zinc-200 transition-colors group"
               >
                 <div className="flex items-center">
                   <span>Event ID</span>
@@ -171,7 +171,7 @@ export const ThreatMatrix: React.FC = () => {
               <th className="py-2.5 px-3 font-medium">Debris Type</th>
               <th
                 onClick={() => handleSort('missDistance')}
-                className="py-2.5 px-3 font-medium cursor-pointer hover:text-slate-200 transition-colors group text-right"
+                className="py-2.5 px-3 font-medium cursor-pointer hover:text-zinc-200 transition-colors group text-right"
               >
                 <div className="flex items-center justify-end">
                   <span>Miss Dist (m)</span>
@@ -180,7 +180,7 @@ export const ThreatMatrix: React.FC = () => {
               </th>
               <th
                 onClick={() => handleSort('pc')}
-                className="py-2.5 px-3 font-medium cursor-pointer hover:text-slate-200 transition-colors group text-right"
+                className="py-2.5 px-3 font-medium cursor-pointer hover:text-zinc-200 transition-colors group text-right"
               >
                 <div className="flex items-center justify-end">
                   <span>P<sub>c</sub></span>
@@ -189,7 +189,7 @@ export const ThreatMatrix: React.FC = () => {
               </th>
               <th
                 onClick={() => handleSort('severity')}
-                className="py-2.5 px-3 font-medium cursor-pointer hover:text-slate-200 transition-colors group text-center"
+                className="py-2.5 px-3 font-medium cursor-pointer hover:text-zinc-200 transition-colors group text-center"
               >
                 <div className="flex items-center justify-center">
                   <span>Severity</span>
@@ -212,7 +212,7 @@ export const ThreatMatrix: React.FC = () => {
                   }`}
                 >
                   {/* Event ID with blinking red dot if critical */}
-                  <td className="py-2.5 px-3 whitespace-nowrap font-semibold text-slate-200">
+                  <td className="py-2.5 px-3 whitespace-nowrap font-semibold text-zinc-200">
                     <div className="flex items-center gap-1.5">
                       {isCritical ? (
                         <span className="relative flex h-2 w-2 flex-shrink-0" title="Critical conjunction threat">
@@ -222,7 +222,7 @@ export const ThreatMatrix: React.FC = () => {
                       ) : (
                         <span className="w-2 h-2 rounded-full bg-slate-600 flex-shrink-0 opacity-40"></span>
                       )}
-                      <span className={isCritical ? 'text-alert-red' : 'text-slate-200'}>
+                      <span className={isCritical ? 'text-alert-red' : 'text-zinc-200'}>
                         {item.id}
                       </span>
                     </div>
@@ -236,12 +236,12 @@ export const ThreatMatrix: React.FC = () => {
                   </td>
 
                   {/* Debris Type */}
-                  <td className="py-2.5 px-3 text-slate-300 max-w-[190px] truncate" title={item.name}>
+                  <td className="py-2.5 px-3 text-zinc-300 max-w-[190px] truncate" title={item.name}>
                     <div className="flex flex-col">
-                      <span className="truncate font-sans text-xs text-slate-200">
+                      <span className="truncate font-sans text-xs text-zinc-200">
                         {item.name}
                       </span>
-                      <span className="text-[10px] text-slate-400">
+                      <span className="text-[10px] text-zinc-400">
                         {item.debris.catalogId ? item.debris.catalogId : 'UNCATALOGUED'} (
                         {item.debris.estimatedSize} cm)
                       </span>
@@ -264,7 +264,7 @@ export const ThreatMatrix: React.FC = () => {
                         maximumFractionDigits: 1,
                       })}
                     </span>
-                    <span className="text-[10px] text-slate-400 ml-1">m</span>
+                    <span className="text-[10px] text-zinc-400 ml-1">m</span>
                   </td>
 
                   {/* Pc in Scientific Notation */}
@@ -275,7 +275,7 @@ export const ThreatMatrix: React.FC = () => {
                           ? 'text-alert-red'
                           : item.conjunction.pc > 1e-4
                           ? 'text-alert-amber'
-                          : 'text-slate-300'
+                          : 'text-zinc-300'
                       }`}
                     >
                       {item.conjunction.pc.toExponential(2)}

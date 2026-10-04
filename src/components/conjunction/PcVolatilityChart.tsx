@@ -30,13 +30,13 @@ export const PcVolatilityChart: React.FC = () => {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-slate-900/90 border border-slate-700 p-3 rounded-lg shadow-xl backdrop-blur-sm">
-          <p className="text-slate-300 text-xs font-mono mb-2">T{label} Hours (TCA)</p>
-          <p className="text-cyan-400 text-sm font-mono font-bold">
+        <div className="bg-zinc-900 border border-zinc-700 p-3 rounded-sm shadow-xl ">
+          <p className="text-zinc-300 text-xs font-mono mb-2">T{label} Hours (TCA)</p>
+          <p className="text-blue-400 text-sm font-mono font-bold">
             P_c: {payload[0].value.toExponential(2)}
           </p>
           {payload[1] && payload[2] && (
-            <p className="text-slate-400 text-xs font-mono mt-1">
+            <p className="text-zinc-400 text-xs font-mono mt-1">
               Range: {payload[1].value.toExponential(2)} to {payload[2].value.toExponential(2)}
             </p>
           )}
@@ -47,16 +47,16 @@ export const PcVolatilityChart: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#0b1120] border border-cyan-950/90 rounded-2xl p-5 shadow-2xl backdrop-blur-md flex flex-col w-full h-full min-h-[350px]">
+    <div className="bg-zinc-900 border border-zinc-800 rounded-sm p-5 shadow-xl shadow-black/40  flex flex-col w-full h-full min-h-[350px]">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2.5">
-          <Activity className="w-5 h-5 text-cyan-400" />
-          <h3 className="text-sm font-bold tracking-tight text-slate-200 uppercase">
+          <Activity className="w-5 h-5 text-blue-400" />
+          <h3 className="text-sm font-bold tracking-tight text-zinc-200 uppercase">
             P_c VOLATILITY & DROP-OFF FORECAST
           </h3>
         </div>
-        <div className="bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-lg">
-          <span className="text-xs font-mono text-emerald-400">
+        <div className="bg-zinc-900 border border-zinc-700 px-3 py-1.5 rounded-sm">
+          <span className="text-xs font-mono text-emerald-500">
             84% chance this threat naturally resolves below the threshold as covariance shrinks without a burn
           </span>
         </div>

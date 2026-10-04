@@ -604,7 +604,7 @@ export const CLMEvasionSim: React.FC<CLMEvasionSimProps> = ({
 
   return (
     <div
-      className={`relative w-full h-full min-h-[380px] bg-[#070b14] rounded-2xl overflow-hidden border border-cyan-950/90 shadow-2xl select-none font-sans ${className}`}
+      className={`relative w-full h-full min-h-[380px] bg-zinc-950 rounded-sm overflow-hidden border border-zinc-800 shadow-xl shadow-black/40 select-none font-sans ${className}`}
     >
       {/* 3D React Three Fiber Canvas */}
       <Canvas
@@ -629,9 +629,9 @@ export const CLMEvasionSim: React.FC<CLMEvasionSimProps> = ({
 
       {/* Top Left HUD: Real-time Encounter Status & Evasion State */}
       <div className="absolute top-3.5 left-3.5 z-10 flex flex-col gap-2 pointer-events-auto">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/85 border border-slate-800/90 backdrop-blur-md shadow-xl font-mono text-xs text-white">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-zinc-950/85 border border-zinc-800  shadow-xl font-mono text-xs text-white">
           <div
-            className={`w-2.5 h-2.5 rounded-full ${
+            className={`w-2 h-2 rounded-full ${
               isEvading
                 ? 'bg-cyan-400 shadow-md '
                 : 'bg-rose-500 shadow-md '
@@ -643,7 +643,7 @@ export const CLMEvasionSim: React.FC<CLMEvasionSimProps> = ({
           <span
             className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase ${
               isEvading
-                ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/40'
+                ? 'bg-zinc-950 text-blue-300 border border-cyan-500/40'
                 : 'bg-rose-950 text-rose-300 border border-rose-500/40'
             }`}
           >
@@ -652,8 +652,8 @@ export const CLMEvasionSim: React.FC<CLMEvasionSimProps> = ({
         </div>
 
         {/* Burn Phase Badge */}
-        <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-slate-950/80 border border-slate-800 backdrop-blur-md font-mono text-[10px] text-slate-300">
-          <Zap className="w-3 h-3 text-cyan-400" />
+        <div className="flex items-center gap-2 px-2.5 py-1 rounded-sm bg-zinc-950 border border-zinc-800  font-mono text-[10px] text-zinc-300">
+          <Zap className="w-3 h-3 text-blue-400" />
           <span>FDIR Phase:</span>
           <span
             className={`font-bold uppercase ${
@@ -661,9 +661,9 @@ export const CLMEvasionSim: React.FC<CLMEvasionSimProps> = ({
                 ? 'text-amber-400 '
                 : telemetry.burnState === 'CLOSEST_APPROACH'
                 ? isEvading
-                  ? 'text-emerald-400'
+                  ? 'text-emerald-500'
                   : 'text-rose-400'
-                : 'text-cyan-300'
+                : 'text-blue-300'
             }`}
           >
             {telemetry.burnState}
@@ -678,9 +678,9 @@ export const CLMEvasionSim: React.FC<CLMEvasionSimProps> = ({
       <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5 pointer-events-auto">
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className={`p-1.5 rounded-lg border font-mono text-xs transition-all flex items-center gap-1 ${
+          className={`p-1.5 rounded-sm border font-mono text-xs transition-all flex items-center gap-1 ${
             isPlaying
-              ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border-slate-700'
+              ? 'bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border-zinc-700'
               : 'bg-emerald-950/80 text-emerald-300 border-emerald-500/50'
           }`}
           title={isPlaying ? 'Pause Simulation' : 'Play Simulation'}
@@ -690,45 +690,45 @@ export const CLMEvasionSim: React.FC<CLMEvasionSimProps> = ({
 
         <button
           onClick={() => setSimSpeed(simSpeed === 1.0 ? 0.35 : 1.0)}
-          className={`px-2 py-1 rounded-lg border font-mono text-[10px] transition-all ${
+          className={`px-2 py-1 rounded-sm border font-mono text-[10px] transition-all ${
             simSpeed < 1.0
               ? 'bg-amber-950/80 text-amber-300 border-amber-500/50'
-              : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:text-slate-200'
+              : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-zinc-200'
           }`}
           title="Toggle Slow Motion"
         >
           {simSpeed < 1.0 ? '0.35x SLOW' : '1.0x SPEED'}
         </button>
 
-        <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-950/80 border border-slate-800 font-mono text-[10px] text-slate-400">
-          <Maximize2 className="w-3 h-3 text-cyan-400" />
+        <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-sm bg-zinc-950 border border-zinc-800 font-mono text-[10px] text-zinc-400">
+          <Maximize2 className="w-3 h-3 text-blue-400" />
           <span>Rotate: Drag • Zoom: Scroll</span>
         </div>
       </div>
 
       {/* Bottom Floating Telemetry & Clearance Card */}
       <div className="absolute bottom-3 left-3 right-3 z-10 pointer-events-auto">
-        <div className="bg-slate-950/90 border border-slate-800/90 rounded-xl p-3 backdrop-blur-md shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
+        <div className="bg-zinc-950 border border-zinc-800 rounded-sm p-3  shadow-xl shadow-black/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
           {/* Live Separation Clearance */}
           <div className="flex items-center gap-3">
             <div
-              className={`p-2 rounded-lg border ${
+              className={`p-2 rounded-sm border ${
                 telemetry.isCloseDanger
                   ? 'bg-rose-950/80 border-rose-500/80 text-rose-300 '
                   : isEvading
                   ? 'bg-emerald-950/60 border-emerald-500/50 text-emerald-300'
-                  : 'bg-slate-900 border-slate-800 text-slate-400'
+                  : 'bg-zinc-900 border-zinc-800 text-zinc-400'
               }`}
             >
               {telemetry.isCloseDanger ? (
                 <ShieldAlert className="w-5 h-5 text-rose-400" />
               ) : (
-                <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                <ShieldCheck className="w-5 h-5 text-emerald-500" />
               )}
             </div>
 
             <div>
-              <div className="text-[10px] text-slate-400 uppercase tracking-wider">
+              <div className="text-[10px] text-zinc-400 uppercase tracking-wider">
                 Relative Separation Distance
               </div>
               <div className="text-base font-bold text-white flex items-center gap-2">
@@ -737,13 +737,13 @@ export const CLMEvasionSim: React.FC<CLMEvasionSimProps> = ({
                     telemetry.isCloseDanger
                       ? 'text-rose-400 text-lg'
                       : isEvading
-                      ? 'text-emerald-400'
+                      ? 'text-emerald-500'
                       : 'text-amber-300'
                   }
                 >
                   {telemetry.distanceKm.toFixed(2)} km
                 </span>
-                <span className="text-[10px] font-normal text-slate-400">
+                <span className="text-[10px] font-normal text-zinc-400">
                   ({telemetry.distanceKm < 0.4 ? 'CRITICAL PROXIMITY' : 'NOMINAL CLEARANCE'})
                 </span>
               </div>
@@ -751,28 +751,28 @@ export const CLMEvasionSim: React.FC<CLMEvasionSimProps> = ({
           </div>
 
           {/* Action Details & Thrust Vector */}
-          <div className="flex flex-wrap items-center gap-3 border-t sm:border-t-0 sm:border-l border-slate-800/80 pt-2 sm:pt-0 sm:pl-4 text-[11px]">
+          <div className="flex flex-wrap items-center gap-3 border-t sm:border-t-0 sm:border-l border-zinc-800 pt-2 sm:pt-0 sm:pl-4 text-[11px]">
             <div>
-              <span className="text-[9px] text-slate-500 block uppercase">
+              <span className="text-[9px] text-zinc-500 block uppercase">
                 Applied Action ID
               </span>
-              <span className="text-cyan-300 font-bold">{actionLabel}</span>
+              <span className="text-blue-300 font-bold">{actionLabel}</span>
             </div>
 
             <div>
-              <span className="text-[9px] text-slate-500 block uppercase">
+              <span className="text-[9px] text-zinc-500 block uppercase">
                 THRUST VECTOR (Δv)
               </span>
               <span className="text-purple-300 font-bold">
                 {dvMag.toFixed(2)} m/s
               </span>
-              <span className="text-[9px] text-slate-400 block font-normal">
+              <span className="text-[9px] text-zinc-400 block font-normal">
                 [{deltaV.map((v) => v.toFixed(2)).join(', ')}]
               </span>
             </div>
 
             <div>
-              <span className="text-[9px] text-slate-500 block uppercase">
+              <span className="text-[9px] text-zinc-500 block uppercase">
                 TCA Timer
               </span>
               <span className="text-amber-300 font-bold">

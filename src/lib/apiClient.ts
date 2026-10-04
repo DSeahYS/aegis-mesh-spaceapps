@@ -141,7 +141,8 @@ export async function parseCDM(cdmText: string): Promise<CDMData | null> {
 
 export async function fetchTLEs(params: Record<string, any>): Promise<TLEData[] | null> {
   const query = new URLSearchParams(params).toString();
-  return fetchWithTimeout(`/api/tle/query?${query}`);
+  const raw = await fetchWithTimeout<{ tles: TLEData[] }>(`/api/tle/query?${query}`);
+  return raw?.tles ?? null;
 }
 
 export async function propagateOrbit(
@@ -541,4 +542,4 @@ export async function fetchOpenSPGGraph(
       ).toString()
     : '';
   return fetchWithTimeout<OpenSPGGraphResponse>(`/api/openspg/graph${query}`, {}, DEFAULT_TIMEOUT);
-}
+}

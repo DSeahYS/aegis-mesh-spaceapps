@@ -150,15 +150,15 @@ export const ConjunctionEvent: React.FC<ConjunctionEventProps> = ({
         >
           <div className="flex flex-col items-center">
             <div
-              className={`px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider backdrop-blur-md shadow-md border ${
+              className={`px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider  shadow-md border ${
                 severity === 'critical'
                   ? 'bg-red-950/85 text-red-200 border-red-500 '
-                  : 'bg-slate-900/85 text-amber-200 border-amber-500/60'
+                  : 'bg-zinc-900/85 text-amber-200 border-amber-500/60'
               }`}
             >
               <span>{label ?? `CONJUNCTION (${severity})`}</span>
               {missDistance !== undefined && (
-                <div className="text-[9px] text-slate-300">
+                <div className="text-[9px] text-zinc-300">
                   d: {missDistance.toFixed(2)} km
                   {pc !== undefined && ` | Pc: ${pc.toExponential(1)}`}
                 </div>

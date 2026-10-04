@@ -76,7 +76,7 @@ export const PcGauge: React.FC<PcGaugeProps> = ({
   };
 
   // Color scheme based on severity
-  let readoutColor = 'text-emerald-400';
+  let readoutColor = 'text-emerald-500';
   if (pc >= 1e-2) {
     readoutColor = 'text-red-400 ';
   } else if (pc >= threshold) {
@@ -90,17 +90,17 @@ export const PcGauge: React.FC<PcGaugeProps> = ({
 
   return (
     <div
-      className={`flex flex-col bg-[#0d1424] rounded-xl overflow-hidden shadow-xl transition-all duration-300 border ${
+      className={`flex flex-col bg-zinc-950 rounded-sm overflow-hidden shadow-xl transition-all duration-300 border ${
         isExceeded
           ? 'border-red-500/60 shadow-md'
-          : 'border-cyan-950/80'
+          : 'border-zinc-950/80'
       }`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3 bg-gradient-to-r from-space-900 via-slate-900 to-space-900 border-b border-cyan-900/40">
+      <div className="flex items-center justify-between px-5 py-3 bg-zinc-900 border-b border-zinc-900/40">
         <div className="flex items-center space-x-2">
-          <Gauge className={`w-4 h-4 ${isExceeded ? 'text-red-400 ' : 'text-cyan-400'}`} />
-          <h3 className="text-xs font-semibold tracking-wider text-slate-100 uppercase">
+          <Gauge className={`w-4 h-4 ${isExceeded ? 'text-red-400 ' : 'text-blue-400'}`} />
+          <h3 className="text-xs font-semibold tracking-wider text-zinc-100 uppercase">
             COLLISION PROBABILITY (P_C)
           </h3>
         </div>
@@ -111,7 +111,7 @@ export const PcGauge: React.FC<PcGaugeProps> = ({
             <span>THRESHOLD EXCEEDED</span>
           </div>
         ) : (
-          <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-mono">
+          <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-emerald-950/50 border border-emerald-800/50 text-emerald-500 text-[10px] font-mono">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>ACCEPTABLE RISK</span>
           </div>
@@ -119,7 +119,7 @@ export const PcGauge: React.FC<PcGaugeProps> = ({
       </div>
 
       {/* Dial SVG Area */}
-      <div className="relative pt-2 pb-0 flex flex-col items-center justify-center bg-[#090e18]">
+      <div className="relative pt-2 pb-0 flex flex-col items-center justify-center bg-zinc-950">
         <svg
           viewBox="0 0 320 160"
           className="w-full max-w-[320px] h-auto select-none"
@@ -247,13 +247,13 @@ export const PcGauge: React.FC<PcGaugeProps> = ({
 
         {/* Value Readout in Scientific Notation */}
         <div className="flex flex-col items-center justify-center -mt-3 pb-3">
-          <div className="text-[11px] font-mono text-slate-400 tracking-wider uppercase">
+          <div className="text-[11px] font-mono text-zinc-400 tracking-wider uppercase">
             CALCULATED VALUE
           </div>
           <div className={`text-2xl font-mono font-bold tracking-tight ${readoutColor}`}>
             {mantissa} × 10{toSuperscript(expNumber)}
           </div>
-          <div className="text-[10px] font-mono text-slate-500">
+          <div className="text-[10px] font-mono text-zinc-500">
             Decimal: {pc < 0.0001 ? pc.toFixed(7) : pc.toFixed(4)}
           </div>
         </div>
@@ -263,7 +263,7 @@ export const PcGauge: React.FC<PcGaugeProps> = ({
       <div className={`px-4 py-2 border-t text-xs font-mono flex items-center justify-between ${
         isExceeded
           ? 'bg-red-950/40 border-red-500/40 text-red-300'
-          : 'bg-slate-950/80 border-cyan-900/30 text-slate-400'
+          : 'bg-zinc-950 border-zinc-900/30 text-zinc-400'
       }`}>
         <div className="flex items-center space-x-1.5">
           {isExceeded ? (
@@ -277,7 +277,7 @@ export const PcGauge: React.FC<PcGaugeProps> = ({
               : 'Passes safety rule: P_c within acceptable margin'}
           </span>
         </div>
-        <span className="text-[10px] text-slate-500 uppercase">
+        <span className="text-[10px] text-zinc-500 uppercase">
           T_EXEC: IMMEDIATE
         </span>
       </div>

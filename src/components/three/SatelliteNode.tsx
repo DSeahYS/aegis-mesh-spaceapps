@@ -314,16 +314,16 @@ export const SatelliteNode: React.FC<SatelliteNodeProps> = ({
           style={{ pointerEvents: 'none', userSelect: 'none' }}
         >
           <div className="flex flex-col items-center pointer-events-none select-none">
-            <div className="w-80 rounded-xl bg-slate-950/95 border border-slate-700/80 backdrop-blur-md shadow-2xl shadow-black/80 p-3 text-xs font-mono text-slate-200">
+            <div className="w-80 rounded-sm bg-zinc-950/95 border border-zinc-700/80  shadow-xl shadow-black/50 shadow-black/80 p-3 text-xs font-mono text-zinc-200">
               {/* Header: Node ID, Name, Status Badge */}
-              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+              <div className="flex items-center justify-between pb-2 border-b border-zinc-800">
                 <div className="flex items-center gap-2">
                   <span
-                    className="w-2.5 h-2.5 rounded-full inline-block animate-pulse shadow-md"
+                    className="w-2 h-2 rounded-full inline-block animate-pulse shadow-md"
                     style={{ backgroundColor: nodeColor }}
                   />
-                  <span className="font-bold text-sm text-slate-100 tracking-wide">{id}</span>
-                  {name && <span className="text-[11px] text-slate-400 font-normal">({name})</span>}
+                  <span className="font-bold text-sm text-zinc-100 tracking-wide">{id}</span>
+                  {name && <span className="text-[11px] text-zinc-400 font-normal">({name})</span>}
                 </div>
                 <span
                   className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
@@ -339,47 +339,47 @@ export const SatelliteNode: React.FC<SatelliteNodeProps> = ({
 
               {/* Orbital Telemetry */}
               <div className="mt-2">
-                <div className="text-[9px] uppercase tracking-wider text-sky-400 font-bold mb-1 flex items-center justify-between">
+                <div className="text-[9px] uppercase tracking-wider text-blue-400 font-bold mb-1 flex items-center justify-between">
                   <span>Orbital Telemetry</span>
-                  <span className="text-slate-500 font-normal">LEO Walker</span>
+                  <span className="text-zinc-500 font-normal">LEO Walker</span>
                 </div>
                 <div className="grid grid-cols-2 gap-1.5 text-[11px]">
-                  <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800/80">
-                    <div className="text-[9px] text-slate-400">ALTITUDE</div>
-                    <div className="text-sky-300 font-semibold">{altitude.toFixed(1)} km</div>
+                  <div className="bg-zinc-900 p-1.5 rounded border border-zinc-800">
+                    <div className="text-[9px] text-zinc-400">ALTITUDE</div>
+                    <div className="text-blue-300 font-semibold">{altitude.toFixed(1)} km</div>
                   </div>
-                  <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800/80">
-                    <div className="text-[9px] text-slate-400">PERIOD (T)</div>
-                    <div className="text-sky-300 font-semibold">{orbitalPeriodMin.toFixed(1)} min</div>
+                  <div className="bg-zinc-900 p-1.5 rounded border border-zinc-800">
+                    <div className="text-[9px] text-zinc-400">PERIOD (T)</div>
+                    <div className="text-blue-300 font-semibold">{orbitalPeriodMin.toFixed(1)} min</div>
                   </div>
-                  <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800/80">
-                    <div className="text-[9px] text-slate-400">SEMI-MAJOR AXIS</div>
-                    <div className="text-slate-300 font-semibold">{sma.toFixed(1)} km</div>
+                  <div className="bg-zinc-900 p-1.5 rounded border border-zinc-800">
+                    <div className="text-[9px] text-zinc-400">SEMI-MAJOR AXIS</div>
+                    <div className="text-zinc-300 font-semibold">{sma.toFixed(1)} km</div>
                   </div>
-                  <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800/80">
-                    <div className="text-[9px] text-slate-400">INCLINATION</div>
-                    <div className="text-slate-300 font-semibold">{incDeg.toFixed(1)}°</div>
+                  <div className="bg-zinc-900 p-1.5 rounded border border-zinc-800">
+                    <div className="text-[9px] text-zinc-400">INCLINATION</div>
+                    <div className="text-zinc-300 font-semibold">{incDeg.toFixed(1)}°</div>
                   </div>
-                  <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800/80">
-                    <div className="text-[9px] text-slate-400">RAAN (Ω)</div>
-                    <div className="text-slate-300 font-semibold">{raanDeg.toFixed(1)}°</div>
+                  <div className="bg-zinc-900 p-1.5 rounded border border-zinc-800">
+                    <div className="text-[9px] text-zinc-400">RAAN (Ω)</div>
+                    <div className="text-zinc-300 font-semibold">{raanDeg.toFixed(1)}°</div>
                   </div>
-                  <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800/80">
-                    <div className="text-[9px] text-slate-400">ECCENTRICITY</div>
-                    <div className="text-slate-300 font-semibold">{ecc.toFixed(4)}</div>
+                  <div className="bg-zinc-900 p-1.5 rounded border border-zinc-800">
+                    <div className="text-[9px] text-zinc-400">ECCENTRICITY</div>
+                    <div className="text-zinc-300 font-semibold">{ecc.toFixed(4)}</div>
                   </div>
                 </div>
               </div>
 
               {/* Hardware Architecture */}
-              <div className="mt-2.5 pt-2 border-t border-slate-800/70">
+              <div className="mt-2.5 pt-2 border-t border-zinc-800">
                 <div className="text-[9px] uppercase tracking-wider text-indigo-400 font-bold mb-1 flex items-center justify-between">
                   <span>Hardware Architecture</span>
-                  <span className="text-slate-500 font-normal">Payload Bus</span>
+                  <span className="text-zinc-500 font-normal">Payload Bus</span>
                 </div>
-                <div className="bg-slate-900/80 p-1.5 rounded border border-slate-800/80 space-y-1">
+                <div className="bg-zinc-900 p-1.5 rounded border border-zinc-800 space-y-1">
                   <div className="flex items-center justify-between text-[10px]">
-                    <span className="text-slate-400">PROCESSOR:</span>
+                    <span className="text-zinc-400">PROCESSOR:</span>
                     <span
                       className="text-indigo-200 font-semibold truncate max-w-[170px]"
                       title={hwProcessor}
@@ -388,21 +388,21 @@ export const SatelliteNode: React.FC<SatelliteNodeProps> = ({
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-[10px]">
-                    <span className="text-slate-400">BUS POWER:</span>
+                    <span className="text-zinc-400">BUS POWER:</span>
                     <span className="text-amber-300 font-semibold">{hwPower.toFixed(1)} W</span>
                   </div>
                   <div className="flex items-center justify-between text-[10px]">
-                    <span className="text-slate-400">ONBOARD MEMORY:</span>
-                    <span className="text-slate-200 font-semibold">{hwMemory} MB</span>
+                    <span className="text-zinc-400">ONBOARD MEMORY:</span>
+                    <span className="text-zinc-200 font-semibold">{hwMemory} MB</span>
                   </div>
                 </div>
               </div>
 
               {/* Subsystem Health & Diagnostics */}
-              <div className="mt-2.5 pt-2 border-t border-slate-800/70">
-                <div className="text-[9px] uppercase tracking-wider text-emerald-400 font-bold mb-1.5 flex items-center justify-between">
+              <div className="mt-2.5 pt-2 border-t border-zinc-800">
+                <div className="text-[9px] uppercase tracking-wider text-emerald-500 font-bold mb-1.5 flex items-center justify-between">
                   <span>Subsystem Health</span>
-                  <span className="text-slate-400 text-[10px] font-normal">
+                  <span className="text-zinc-400 text-[10px] font-normal">
                     RAD DOSE:{' '}
                     <span className="text-emerald-300 font-semibold">{radDose.toFixed(2)} Gy</span>
                   </span>
@@ -411,13 +411,13 @@ export const SatelliteNode: React.FC<SatelliteNodeProps> = ({
                 <div className="space-y-1.5">
                   {/* Power Level Bar */}
                   <div>
-                    <div className="flex justify-between text-[10px] text-slate-300 mb-0.5">
-                      <span className="text-slate-400">POWER LEVEL</span>
+                    <div className="flex justify-between text-[10px] text-zinc-300 mb-0.5">
+                      <span className="text-zinc-400">POWER LEVEL</span>
                       <span className="font-semibold" style={{ color: pwrColor }}>
                         {pwrLevel.toFixed(1)}%
                       </span>
                     </div>
-                    <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-300"
                         style={{
@@ -430,13 +430,13 @@ export const SatelliteNode: React.FC<SatelliteNodeProps> = ({
 
                   {/* Compute Load Bar */}
                   <div>
-                    <div className="flex justify-between text-[10px] text-slate-300 mb-0.5">
-                      <span className="text-slate-400">COMPUTE LOAD</span>
+                    <div className="flex justify-between text-[10px] text-zinc-300 mb-0.5">
+                      <span className="text-zinc-400">COMPUTE LOAD</span>
                       <span className="font-semibold" style={{ color: compColor }}>
                         {compLoad.toFixed(1)}%
                       </span>
                     </div>
-                    <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-300"
                         style={{
@@ -449,13 +449,13 @@ export const SatelliteNode: React.FC<SatelliteNodeProps> = ({
 
                   {/* Fuel Remaining Bar */}
                   <div>
-                    <div className="flex justify-between text-[10px] text-slate-300 mb-0.5">
-                      <span className="text-slate-400">FUEL REMAINING</span>
+                    <div className="flex justify-between text-[10px] text-zinc-300 mb-0.5">
+                      <span className="text-zinc-400">FUEL REMAINING</span>
                       <span className="font-semibold" style={{ color: fuelColor }}>
                         {fuelRem.toFixed(1)}%
                       </span>
                     </div>
-                    <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-300"
                         style={{
@@ -470,7 +470,7 @@ export const SatelliteNode: React.FC<SatelliteNodeProps> = ({
             </div>
 
             {/* Pointer arrow pointing down to satellite */}
-            <div className="w-2.5 h-2.5 bg-slate-950 rotate-45 -mt-1.5 border-r border-b border-slate-700/80 shadow-md" />
+            <div className="w-2.5 h-2.5 bg-zinc-950 rotate-45 -mt-1.5 border-r border-b border-zinc-700/80 shadow-md" />
           </div>
         </Html>
       )}
