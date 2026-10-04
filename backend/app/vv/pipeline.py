@@ -212,7 +212,7 @@ def run_vv_pipeline(user_params: dict | None = None, cara_engine: CARAEngine | N
             "miss_vector_post_m": [float(round(float(final_p_f[0]), 2)), float(round(float(final_p_f[1]), 2))],
         },
         "validation": {
-            "engine": "OpenSPG/KGDSL-style rule graph (in-process)",
+            "engine": "EPG/KGDSL-style rule graph (in-process)",
             "evaluated": int(evaluated_count),
             "rejected": int(rejected_count),
             "selected_index": selected_index,

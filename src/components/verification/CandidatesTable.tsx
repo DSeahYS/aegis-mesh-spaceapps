@@ -147,7 +147,7 @@ export const CandidatesTable: React.FC<CandidatesTableProps> = ({
               <th className="py-2.5 px-3 text-center">Direction [R, T, N]</th>
               <th className="py-2.5 px-3 text-right">Confidence</th>
               <th className="py-2.5 px-3 text-right">Score</th>
-              <th className="py-2.5 px-4 text-center">OpenSPG/KGDSL Rules (R1–R5)</th>
+              <th className="py-2.5 px-4 text-center">EPG/KGDSL Rules (R1–R5)</th>
               <th className="py-2.5 px-3 text-center w-24">Outcome</th>
             </tr>
           </thead>

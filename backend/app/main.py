@@ -9,7 +9,7 @@ from .conjunction_service import ConjunctionService
 import time
 from pydantic import BaseModel
 from typing import List, Optional
-from .vv import run_selftest, run_vv_pipeline, validate_cdm, build_openspg_knowledge_graph
+from .vv import run_selftest, run_vv_pipeline, validate_cdm, build_epg_knowledge_graph
 
 try:
     from simulators.spice_orbit_sim import (
@@ -280,7 +280,7 @@ async def validate_cdm_route(req: CDMRequest):
     return validate_cdm(req.cdmText)
 
 
-class OpenSPGRequest(BaseModel):
+class EPGRequest(BaseModel):
     propellant_mass_kg: Optional[float] = None
     max_thrust_n: Optional[float] = None
     sat_mass_kg: Optional[float] = None
@@ -295,8 +295,8 @@ class OpenSPGRequest(BaseModel):
 
 
 
-@app.get("/api/openspg/graph")
-async def get_openspg_graph(
+@app.get("/api/epg/graph")
+async def get_epg_graph(
     propellant_mass_kg: Optional[float] = None,
     max_thrust_n: Optional[float] = None,
     sat_mass_kg: Optional[float] = None,
@@ -308,7 +308,7 @@ async def get_openspg_graph(
     debris_mass_kg: Optional[float] = None,
     candidate_id: Optional[int] = None,
 ):
-    """Retrieve OpenSPG Knowledge Graph of satellite physical constraints and CLM rule reasoning state."""
+    """Retrieve EPG Knowledge Graph of satellite physical constraints and CLM rule reasoning state."""
     params = {}
     if propellant_mass_kg is not None:
         params["propellant_mass_kg"] = propellant_mass_kg
@@ -329,15 +329,15 @@ async def get_openspg_graph(
     if debris_mass_kg is not None:
         params["debris_mass_kg"] = debris_mass_kg
 
-    return build_openspg_knowledge_graph(params=params, clm_engine=clm, candidate_id=candidate_id)
+    return build_epg_knowledge_graph(params=params, clm_engine=clm, candidate_id=candidate_id)
 
 
-@app.post("/api/openspg/graph")
-async def post_openspg_graph(req: Optional[OpenSPGRequest] = None):
-    """Evaluate and return OpenSPG Knowledge Graph for submitted spacecraft & encounter parameters."""
+@app.post("/api/epg/graph")
+async def post_epg_graph(req: Optional[EPGRequest] = None):
+    """Evaluate and return EPG Knowledge Graph for submitted spacecraft & encounter parameters."""
     params = req.model_dump(exclude_unset=True) if req else {}
     candidate_id = params.pop("candidate_id", None)
-    return build_openspg_knowledge_graph(params=params, clm_engine=clm, candidate_id=candidate_id)
+    return build_epg_knowledge_graph(params=params, clm_engine=clm, candidate_id=candidate_id)
 
 
 @app.get("/api/spice/status", response_model=KernelStatusDTO)

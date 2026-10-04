@@ -4,14 +4,14 @@
  * Verifies that the frontend data architecture handles extreme scales:
  * 1. SimulationStore: 10,000 rapid telemetry messages and alerts (queue caps, memory leaks, performance)
  * 2. 10,000 CLM candidate maneuver rows (data throughput, schema validation, edge case resilience)
- * 3. Massive OpenSPG knowledge graph payloads (10,000+ nodes, 25,000+ edges, complex neuro-symbolic reasoning states)
+ * 3. Massive EPG knowledge graph payloads (10,000+ nodes, 25,000+ edges, complex neuro-symbolic reasoning states)
  * 4. Extreme astrodynamics telemetry (HJ 40,000-cell grids, CBF 100,000-step time series, NaN/Inf robustness)
  * 5. Formatting and defensive rendering resilience under malformed / extreme inputs
  */
 
 import { performance } from 'perf_hooks';
-import { useSimulationStore } from './src/store/simulationStore.ts';
-import { formatNumberSmart, formatProbability, formatDistanceM, formatDurationMs } from './src/components/verification/formatters.ts';
+import { useSimulationStore } from '../src/store/simulationStore.ts';
+import { formatNumberSmart, formatProbability, formatDistanceM, formatDurationMs } from '../src/components/verification/formatters.ts';
 
 const PASSED = '\x1b[32m[PASS]\x1b[0m';
 const FAILED = '\x1b[31m[FAIL]\x1b[0m';
@@ -222,11 +222,11 @@ assert(dtJson < 300, `JSON serialization & roundtrip parse under 300ms`, `${dtJs
 assert(deserialized.length === 10000, 'All 10,000 candidates parsed intact');
 
 // ====================================================================
-// TEST SUITE 3: Massive OpenSPG Knowledge Graph Payloads
+// TEST SUITE 3: Massive EPG Knowledge Graph Payloads
 // ====================================================================
-console.log(`\n${INFO} Test Suite 3: Massive OpenSPG Knowledge Graph Payloads`);
+console.log(`\n${INFO} Test Suite 3: Massive EPG Knowledge Graph Payloads`);
 
-function generateMassiveOpenSPGPayload(nodeCount = 10000, edgeCount = 25000) {
+function generateMassiveEPGPayload(nodeCount = 10000, edgeCount = 25000) {
   const nodes = [];
   const edges = [];
 
@@ -257,7 +257,7 @@ function generateMassiveOpenSPGPayload(nodeCount = 10000, edgeCount = 25000) {
       relation: relations[j % relations.length],
       properties: {
         weight: (j % 100) / 100,
-        provenance: 'OpenSPG-Engine-v4.2',
+        provenance: 'EPG-Engine-v4.2',
       },
     });
   }
@@ -320,13 +320,13 @@ function generateMassiveOpenSPGPayload(nodeCount = 10000, edgeCount = 25000) {
 }
 
 const t0Spg = performance.now();
-const spgPayload = generateMassiveOpenSPGPayload(10000, 25000);
+const spgPayload = generateMassiveEPGPayload(10000, 25000);
 const dtSpg = performance.now() - t0Spg;
-console.log(`  Generated massive OpenSPG payload (10,000 nodes, 25,000 edges) in ${dtSpg.toFixed(2)}ms`);
+console.log(`  Generated massive EPG payload (10,000 nodes, 25,000 edges) in ${dtSpg.toFixed(2)}ms`);
 
-assert(spgPayload.nodes.length === 10000, 'OpenSPG contains 10,000 nodes');
-assert(spgPayload.edges.length === 25000, 'OpenSPG contains 25,000 edges');
-assert(spgPayload.summary.evaluation_verdict === 'ACCEPTED', 'OpenSPG summary verdict is valid');
+assert(spgPayload.nodes.length === 10000, 'EPG contains 10,000 nodes');
+assert(spgPayload.edges.length === 25000, 'EPG contains 25,000 edges');
+assert(spgPayload.summary.evaluation_verdict === 'ACCEPTED', 'EPG summary verdict is valid');
 assert(spgPayload.reasoning_state.pruning_stats.total_candidates_screened === 10000, 'Pruning stats track 10,000 screened candidates');
 
 // ====================================================================
@@ -499,7 +499,7 @@ for (const mc of malformedCandidates) {
   assert(score === '—' || typeof score === 'string', `Safely formats score without throwing for candidate ${mc.id}`);
 }
 
-// 6.3 OpenSPG live scenario mapping with missing pipeline fields
+// 6.3 EPG live scenario mapping with missing pipeline fields
 const partialPipelineData = {
   validation: {
     candidates: [
@@ -525,7 +525,7 @@ const liveScenariosSim = partialPipelineData.validation.candidates.slice(0, 8).m
   };
 });
 
-assert(liveScenariosSim.length === 1, 'OpenSPG live mapping handles missing derived & missing rules cleanly');
+assert(liveScenariosSim.length === 1, 'EPG live mapping handles missing derived & missing rules cleanly');
 assert(Number.isFinite(liveScenariosSim[0].burnDuration), 'Burn duration safely computes fallback using default uMax');
 
 // 6.4 CBF downsampling verification

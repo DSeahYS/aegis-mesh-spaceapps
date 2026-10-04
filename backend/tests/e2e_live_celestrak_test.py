@@ -6,9 +6,9 @@ Red Team System Integration Tester:
    against a piece of Russian ASAT debris (COSMOS 1408 fragmentation).
 3. Pushes this real-world encounter payload directly through the FastAPI endpoints:
    - POST /api/vv/pipeline
-   - POST /api/openspg/graph
+   - POST /api/epg/graph
 4. Validates that the AEGIS-MESH pipeline orchestrates a live evasion maneuver
-   (Foster 1992 Pc assessment -> CLM ranking -> OpenSPG physics rules -> Hamilton-Jacobi
+   (Foster 1992 Pc assessment -> CLM ranking -> EPG physics rules -> Hamilton-Jacobi
     reachability -> Control Barrier Function forward invariance).
 5. Persists comprehensive test findings and JSON responses to live_nasa_e2e_report.json.
 """
@@ -188,8 +188,8 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
         raise AssertionError(f"POST /api/vv/pipeline failed with HTTP {resp_pipeline.status_code}: {resp_pipeline.text}")
     pipeline_data = resp_pipeline.json()
 
-    # 3B: POST /api/openspg/graph
-    openspg_request_payload = {
+    # 3B: POST /api/epg/graph
+    epg_request_payload = {
         "sat_mass_kg": 500.0,
         "propellant_mass_kg": 10.0,
         "isp_s": 220.0,
@@ -202,11 +202,11 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
         "altitude_km": float(round(iss_state["altitude_km"], 2)),
     }
 
-    print(" -> Invoking POST /api/openspg/graph ...")
-    resp_openspg = client.post("/api/openspg/graph", json=openspg_request_payload)
-    if resp_openspg.status_code != 200:
-        raise AssertionError(f"POST /api/openspg/graph failed with HTTP {resp_openspg.status_code}: {resp_openspg.text}")
-    openspg_data = resp_openspg.json()
+    print(" -> Invoking POST /api/epg/graph ...")
+    resp_epg = client.post("/api/epg/graph", json=epg_request_payload)
+    if resp_epg.status_code != 200:
+        raise AssertionError(f"POST /api/epg/graph failed with HTTP {resp_epg.status_code}: {resp_epg.text}")
+    epg_data = resp_epg.json()
 
     # Verify pipeline results
     verdict = pipeline_data.get("verdict", {})
@@ -214,7 +214,7 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
     assessment = pipeline_data.get("assessment", {})
     hj = pipeline_data.get("hj", {})
     cbf = pipeline_data.get("cbf", {})
-    reasoning = openspg_data.get("reasoning_state", {})
+    reasoning = epg_data.get("reasoning_state", {})
 
     print("\n -> V&V Pipeline Verdict: ", verdict.get("status"))
     print(" -> Selected CLM Maneuver:", selected_action.get("label"), f"({selected_action.get('delta_v_mps')} m/s)")
@@ -222,8 +222,8 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
     print(" -> Pc Post-Burn:         ", f"{assessment.get('pc_post', 0.0):.4e}")
     print(" -> HJ Maneuver Certified:", hj.get("maneuver_certified"))
     print(" -> CBF Forward Invariant:", cbf.get("forward_invariant"))
-    print(" -> OpenSPG Rule Verdict: ", reasoning.get("verdict"))
-    print(" -> Knowledge Graph Size: ", f"{len(openspg_data.get('nodes', []))} nodes, {len(openspg_data.get('edges', []))} edges")
+    print(" -> EPG Rule Verdict: ", reasoning.get("verdict"))
+    print(" -> Knowledge Graph Size: ", f"{len(epg_data.get('nodes', []))} nodes, {len(epg_data.get('edges', []))} edges")
 
     # Rigorous red-team assertions
     assert verdict.get("status") == "EXECUTE", f"Expected verdict EXECUTE, got {verdict.get('status')}"
@@ -232,7 +232,7 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
     assert assessment.get("pc_post") < assessment.get("threshold"), "Post-burn Pc failed to clear threshold"
     assert hj.get("maneuver_certified") is True, "Hamilton-Jacobi reachability failed certification"
     assert cbf.get("forward_invariant") is True, "Control Barrier Function violated forward invariance"
-    assert reasoning.get("verdict") == "ACCEPTED", "OpenSPG semantic rule evaluation did not accept vector"
+    assert reasoning.get("verdict") == "ACCEPTED", "EPG semantic rule evaluation did not accept vector"
 
     # Step 4: Persist JSON test report
     print("\n[STEP 4/4] Writing comprehensive test report to disk...")
@@ -260,11 +260,11 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
                 "request_payload": pipeline_request_payload,
                 "response": pipeline_data,
             },
-            "post_openspg_graph": {
-                "endpoint": "/api/openspg/graph",
-                "status_code": resp_openspg.status_code,
-                "request_payload": openspg_request_payload,
-                "response": openspg_data,
+            "post_epg_graph": {
+                "endpoint": "/api/epg/graph",
+                "status_code": resp_epg.status_code,
+                "request_payload": epg_request_payload,
+                "response": epg_data,
             },
         },
         "verification_verdict_summary": {
@@ -289,7 +289,7 @@ def execute_live_nasa_e2e_pipeline() -> Dict[str, Any]:
                 "foster_1992_quadrature": "CONFIRMED_BREACH",
                 "hamilton_jacobi_reachability": "CERTIFIED_SAFE",
                 "control_barrier_function": "FORWARD_INVARIANT",
-                "openspg_rule_graph": "ACCEPTED",
+                "epg_rule_graph": "ACCEPTED",
             },
         },
     }

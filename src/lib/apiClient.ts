@@ -448,7 +448,7 @@ export async function validateCDM(cdmText: string): Promise<CDMValidationRespons
   );
 }
 
-export interface OpenSPGNode {
+export interface EPGNode {
   id: string;
   label: string;
   type: 'concept' | 'rule' | 'instance';
@@ -456,14 +456,14 @@ export interface OpenSPGNode {
   description?: string;
 }
 
-export interface OpenSPGEdge {
+export interface EPGEdge {
   source: string;
   target: string;
   relation: string;
   properties?: Record<string, unknown>;
 }
 
-export interface OpenSPGReasoningState {
+export interface EPGReasoningState {
   clm_vector: {
     id: number;
     label: string;
@@ -511,14 +511,14 @@ export interface OpenSPGReasoningState {
   };
 }
 
-export interface OpenSPGGraphResponse {
-  nodes: OpenSPGNode[];
-  edges: OpenSPGEdge[];
-  reasoning_state: OpenSPGReasoningState;
+export interface EPGGraphResponse {
+  nodes: EPGNode[];
+  edges: EPGEdge[];
+  reasoning_state: EPGReasoningState;
   schema: Record<string, unknown>;
   graph: {
-    nodes: OpenSPGNode[];
-    edges: OpenSPGEdge[];
+    nodes: EPGNode[];
+    edges: EPGEdge[];
   };
   summary: {
     total_nodes: number;
@@ -530,9 +530,9 @@ export interface OpenSPGGraphResponse {
   };
 }
 
-export async function fetchOpenSPGGraph(
+export async function fetchEPGGraph(
   params?: Record<string, unknown>
-): Promise<OpenSPGGraphResponse | null> {
+): Promise<EPGGraphResponse | null> {
   const query = params
     ? '?' +
       new URLSearchParams(
@@ -541,5 +541,5 @@ export async function fetchOpenSPGGraph(
           .map(([k, v]) => [k, String(v)])
       ).toString()
     : '';
-  return fetchWithTimeout<OpenSPGGraphResponse>(`/api/openspg/graph${query}`, {}, DEFAULT_TIMEOUT);
+  return fetchWithTimeout<EPGGraphResponse>(`/api/epg/graph${query}`, {}, DEFAULT_TIMEOUT);
 }

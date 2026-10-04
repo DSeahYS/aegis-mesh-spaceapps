@@ -211,7 +211,7 @@ aegis-mesh/
 │   │       ├── cbf_filter.py        # CBF safety filter (closed-form projection)
 │   │       ├── hj_reachability.py   # HJ reachability (2-state double integrator)
 │   │       ├── physics_validator.py # Physics rules (R1, R2, R3)
-│   │       ├── openspg.py           # Symbolic physics rule graph (OpenSPG-inspired)
+│   │       ├── epg.py           # Symbolic physics rule graph (EPG-inspired)
 │   │       └── cdm_validator.py     # CDM structural validator
 │   ├── simulators/                  # Astrodynamics & hardware simulators
 │   ├── tests/                       # Pytest suite
@@ -260,7 +260,7 @@ These items are **proposed concepts, not implemented features:**
 7. Mitchell, I. M. et al.: *A Time-Dependent Hamilton-Jacobi Formulation of Reachable Sets*, IEEE TAC, 50(7), 2005. [IEEE Xplore](https://ieeexplore.ieee.org/document/1453531)
 8. Vallado, D. A. et al.: *Revisiting Spacetrack Report #3: Rev 2*, AIAA 2006-6753, 2006.
 9. CCSDS: *Conjunction Data Message*, CCSDS 508.0-B-1 / ISO 19389, 2013.
-10. Ant Group & OpenKG: *OpenSPG*, 2024. [github.com/OpenSPG/openspg](https://github.com/OpenSPG/openspg) — Our physics rule graph is inspired by the OpenSPG paradigm but does not use the OpenSPG engine.
+10. Ant Group & OpenKG: *EPG*, 2024. [github.com/EPG/epg](https://github.com/EPG/epg) — Our physics rule graph is inspired by the EPG paradigm but does not use the EPG engine.
 
 ---
 

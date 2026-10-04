@@ -20,8 +20,8 @@ interface VVHeaderStatusProps {
   lastRunId: string | null;
   lastRunTimestamp: string | null;
   lastRoundTripMs: number | null;
-  activeTab: 'pipeline' | 'openspg' | 'selftest' | 'cdm' | 'all';
-  onTabChange: (tab: 'pipeline' | 'openspg' | 'selftest' | 'cdm' | 'all') => void;
+  activeTab: 'pipeline' | 'epg' | 'selftest' | 'cdm' | 'all';
+  onTabChange: (tab: 'pipeline' | 'epg' | 'selftest' | 'cdm' | 'all') => void;
 }
 
 export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
@@ -58,7 +58,7 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
           </h1>
           <p className="text-xs text-zinc-400 mt-1 max-w-3xl">
             Live proof that AEGIS-MESH autonomous evasion is mathematically grounded: Foster 2D B-plane quadrature,
-            OpenSPG/KGDSL-style rule graph (in-process), Isaacs Hamilton-Jacobi reachability certificates, and High-Order
+            EPG/KGDSL-style rule graph (in-process), Isaacs Hamilton-Jacobi reachability certificates, and High-Order
             Control Barrier Function safety invariance.
           </p>
         </div>
@@ -152,15 +152,15 @@ export const VVHeaderStatus: React.FC<VVHeaderStatusProps> = ({
 
         <button
           type="button"
-          onClick={() => onTabChange('openspg')}
+          onClick={() => onTabChange('epg')}
           className={`flex items-center gap-2 px-3.5 py-2 rounded-sm border transition-all ${
-            activeTab === 'openspg'
+            activeTab === 'epg'
               ? 'bg-amber-500/15 border-amber-500 text-amber-300 font-bold shadow-md shadow-amber-500/10'
               : 'bg-space-800/60 border-space-700 text-zinc-400 hover:text-zinc-200 hover:bg-space-800'
           }`}
         >
           <Network className="w-4 h-4 text-amber-400" />
-          <span>OPENSPG KNOWLEDGE GRAPH</span>
+          <span>EPG KNOWLEDGE GRAPH</span>
         </button>
 
         <button

@@ -24,7 +24,7 @@ import { formatProbability, formatDurationMs } from './formatters';
 import { CandidatesTable } from './CandidatesTable';
 import { HJHeatmapCanvas } from './HJHeatmapCanvas';
 import { CBFCharts } from './CBFCharts';
-import { OpenSPGGraph } from './OpenSPGGraph';
+import { EPGGraph } from './EPGGraph';
 
 interface PipelinePanelProps {
   data: PipelineResponse | null;
@@ -120,7 +120,7 @@ export const PipelinePanel: React.FC<PipelinePanelProps> = ({
             Autonomous Evasion V&amp;V Pipeline
           </h2>
           <p className="text-xs text-zinc-400 mt-0.5 max-w-3xl font-sans">
-            <span className="text-zinc-300 font-semibold">What is being proven:</span> The end-to-end evasion pipeline validates conjunction risk with Foster 2D B-plane quadrature, ranks candidate maneuvers via CLM latent dot-product, filters them through an OpenSPG/KGDSL-style rule graph (in-process), computes an Isaacs Hamilton-Jacobi reachability certificate, and enforces High-Order Control Barrier Function forward safety invariance.
+            <span className="text-zinc-300 font-semibold">What is being proven:</span> The end-to-end evasion pipeline validates conjunction risk with Foster 2D B-plane quadrature, ranks candidate maneuvers via CLM latent dot-product, filters them through an EPG/KGDSL-style rule graph (in-process), computes an Isaacs Hamilton-Jacobi reachability certificate, and enforces High-Order Control Barrier Function forward safety invariance.
           </p>
         </div>
 
@@ -459,7 +459,7 @@ export const PipelinePanel: React.FC<PipelinePanelProps> = ({
             {/* Stage 3: Physics Rules */}
             <div className="p-2 rounded bg-zinc-900 border border-space-700">
               <div className="text-[10px] text-zinc-500 font-bold">3. PHYSICS RULES</div>
-              <div className="text-white font-bold truncate">OpenSPG/KGDSL Graph</div>
+              <div className="text-white font-bold truncate">EPG/KGDSL Graph</div>
               <div className="text-[10px] text-blue-300 mt-0.5">{formatDurationMs(timings?.validation)}</div>
             </div>
 
@@ -548,8 +548,8 @@ export const PipelinePanel: React.FC<PipelinePanelProps> = ({
             selectedCandidate={data.selected}
           />
 
-          {/* OpenSPG Neuro-Symbolic Knowledge Graph */}
-          <OpenSPGGraph
+          {/* EPG Neuro-Symbolic Knowledge Graph */}
+          <EPGGraph
             pipelineData={data}
             isBackendOnline={isBackendOnline}
           />

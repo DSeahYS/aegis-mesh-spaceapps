@@ -3,7 +3,7 @@
 Aggressively stresses core physics algorithms and verification pipelines:
 1. Foster 1992 B-plane & Polar Quadrature Engine (CARAEngine, b_plane_frame, pc_small_hbr)
 2. Hamilton-Jacobi Reachability Dynamic Programming PDE Solver (solve_hj_reachability, solve_hj_grid, analytic_value_oracle)
-3. OpenSPG Semantic Knowledge Graph & Physics Rule Engine (build_openspg_knowledge_graph, validate_candidates, evaluate_orbit_perigee, compute_keepout_k)
+3. EPG Semantic Knowledge Graph & Physics Rule Engine (build_epg_knowledge_graph, validate_candidates, evaluate_orbit_perigee, compute_keepout_k)
 4. End-to-End Closed-Loop Verification Pipeline (run_vv_pipeline)
 
 Tests extreme edge cases:
@@ -47,7 +47,7 @@ from app.vv.hj_reachability import (
     solve_hj_grid,
     solve_hj_reachability,
 )
-from app.vv.openspg import build_openspg_knowledge_graph
+from app.vv.epg import build_epg_knowledge_graph
 from app.vv.physics_validator import (
     compute_keepout_k,
     evaluate_candidate,
@@ -275,11 +275,11 @@ def stress_test_hamilton_jacobi(reporter: StressTestReporter):
 
 
 # ==============================================================================
-# 3. OPENSPG KNOWLEDGE GRAPH & PHYSICS RULES STRESS TESTS
+# 3. EPG KNOWLEDGE GRAPH & PHYSICS RULES STRESS TESTS
 # ==============================================================================
-def stress_test_openspg_and_rules(reporter: StressTestReporter):
+def stress_test_epg_and_rules(reporter: StressTestReporter):
     print("\n=======================================================")
-    print("SUITE 3: OpenSPG Knowledge Graph & Physics Rules Stress Tests")
+    print("SUITE 3: EPG Knowledge Graph & Physics Rules Stress Tests")
     print("=======================================================")
 
     # 3.1 Physics Validator Sub-Functions: evaluate_orbit_perigee & compute_keepout_k
@@ -320,8 +320,8 @@ def stress_test_openspg_and_rules(reporter: StressTestReporter):
         except Exception as e:
             reporter.record_fail(tname, f"Exception: {e}")
 
-    # 3.2 OpenSPG Full Knowledge Graph Build Across Extreme Mission Architectures
-    openspg_scenarios = [
+    # 3.2 EPG Full Knowledge Graph Build Across Extreme Mission Architectures
+    epg_scenarios = [
         ("Sub-meter encounter (0.05m miss)", {"miss_xi_m": 0.05, "miss_zeta_m": 0.05}),
         ("Direct head-on collision (0m miss)", {"miss_xi_m": 0.0, "miss_zeta_m": 0.0}),
         ("Massive Covariance (1000 km)", {"sigma_xi_m": 1e6, "sigma_zeta_m": 1e6}),
@@ -340,12 +340,12 @@ def stress_test_openspg_and_rules(reporter: StressTestReporter):
         ("Zero TCA (0.0 s)", {"tca_s": 0.0}),
     ]
 
-    for label, param_overrides in openspg_scenarios:
-        tname = f"OpenSPG Graph Build: {label}"
+    for label, param_overrides in epg_scenarios:
+        tname = f"EPG Graph Build: {label}"
         try:
             params = dict(DEFAULT_PIPELINE_PARAMS)
             params.update(param_overrides)
-            kg = build_openspg_knowledge_graph(params)
+            kg = build_epg_knowledge_graph(params)
             assert_all_finite(kg, tname)
             assert "nodes" in kg and "edges" in kg
             n_nodes = len(kg["nodes"])
@@ -413,7 +413,7 @@ def main():
 
     stress_test_foster_b_plane(reporter)
     stress_test_hamilton_jacobi(reporter)
-    stress_test_openspg_and_rules(reporter)
+    stress_test_epg_and_rules(reporter)
     stress_test_pipeline_e2e(reporter)
 
     summary = reporter.summary()

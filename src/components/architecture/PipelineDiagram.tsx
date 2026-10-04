@@ -81,9 +81,9 @@ const STAGES: PipelineStage[] = [
     outputs: 'Ranked candidate ΔV vectors & burn timings',
   },
   {
-    id: 'openspg-val',
+    id: 'epg-val',
     number: 7,
-    name: 'OpenSPG Validation',
+    name: 'EPG Validation',
     subtitle: 'Semantic Plan Verification',
     category: 'control',
     latency: '5.4 ms',

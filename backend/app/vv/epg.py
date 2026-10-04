@@ -1,9 +1,9 @@
 """
-Symbolic Physics Rule Graph (OpenSPG-inspired)
+Symbolic Physics Rule Graph (EPG-inspired)
 
-A rule-based physics validation engine inspired by the OpenSPG (Semantic-Enhanced
+A rule-based physics validation engine inspired by the EPG (Semantic-Enhanced
 Programmable Graph) paradigm. This implementation uses hand-built graph rules with
-numpy—it does not import or use Ant Group's OpenSPG engine.
+numpy—it does not import or use Ant Group's EPG engine.
 """
 
 from __future__ import annotations
@@ -17,11 +17,11 @@ from .physics_validator import compute_keepout_k, evaluate_candidate, validate_c
 from .pipeline import DEFAULT_PIPELINE_PARAMS, sanitize_json
 
 
-OPENSPG_SCHEMA: Dict[str, Any] = {
+EPG_SCHEMA: Dict[str, Any] = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "OpenSPG_KnowledgeGraph",
+    "title": "EPG_KnowledgeGraph",
     "description": (
-        "OpenSPG Semantic Knowledge Graph schema representing satellite physical constraints, "
+        "EPG Semantic Knowledge Graph schema representing satellite physical constraints, "
         "orbital domain concepts, and neuro-symbolic rule reasoning states for CLM escape vectors."
     ),
     "domain": "AEGIS.OrbitalMechanics.SafetyVerification",
@@ -62,12 +62,12 @@ OPENSPG_SCHEMA: Dict[str, Any] = {
 }
 
 
-def build_openspg_knowledge_graph(
+def build_epg_knowledge_graph(
     params: Optional[Dict[str, Any]] = None,
     clm_engine: Optional[CLMEngine] = None,
     candidate_id: Optional[int] = None,
 ) -> Dict[str, Any]:
-    """Construct the OpenSPG Knowledge Graph and evaluate the active CLM candidate vector.
+    """Construct the EPG Knowledge Graph and evaluate the active CLM candidate vector.
 
     Args:
         params: Dictionary of physical parameters (mass, propellant, thrust, TCA, etc.).
@@ -116,7 +116,7 @@ def build_openspg_knowledge_graph(
     k_keepout = compute_keepout_k(cov_2x2, hbr_m, pc_threshold)
     inv_cov_2x2 = np.linalg.pinv(cov_2x2)
 
-    # Validate candidates across OpenSPG rule graph
+    # Validate candidates across EPG rule graph
     (
         val_candidates,
         selected_cand_auto,
@@ -598,7 +598,7 @@ def build_openspg_knowledge_graph(
         "nodes": nodes,
         "edges": edges,
         "reasoning_state": reasoning_state,
-        "schema": OPENSPG_SCHEMA,
+        "schema": EPG_SCHEMA,
         "graph": {
             "nodes": nodes,
             "edges": edges,

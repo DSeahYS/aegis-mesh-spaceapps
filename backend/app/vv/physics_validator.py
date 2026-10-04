@@ -1,4 +1,4 @@
-"""OpenSPG/KGDSL-style rule graph (in-process) physics validator.
+"""EPG/KGDSL-style rule graph (in-process) physics validator.
 
 Assumptions:
 - Short horizon (TCA <= a few minutes << orbital period) => B-plane lateral motion is a double integrator.

@@ -120,9 +120,9 @@ def test_cdm_assess_urgency_endpoint():
     assert metrics["urgency_tier"] in ["TIER_1_CRITICAL", "TIER_2_HIGH"]
 
 
-def test_openspg_graph_endpoint_schema_and_structure():
-    """Verify GET /api/openspg/graph returns Knowledge Graph schema, physical constraint nodes, and CLM reasoning."""
-    resp = client.get("/api/openspg/graph")
+def test_epg_graph_endpoint_schema_and_structure():
+    """Verify GET /api/epg/graph returns Knowledge Graph schema, physical constraint nodes, and CLM reasoning."""
+    resp = client.get("/api/epg/graph")
     assert resp.status_code == 200
     data = resp.json()
 
@@ -183,9 +183,9 @@ def test_openspg_graph_endpoint_schema_and_structure():
     assert reasoning["verdict"] == "ACCEPTED"
 
 
-def test_openspg_graph_propellant_evaluation_pruning():
+def test_epg_graph_propellant_evaluation_pruning():
     """Verify that insufficient propellant triggers Propellant_Mass VIOLATED and PRUNED verdict."""
-    resp = client.get("/api/openspg/graph?propellant_mass_kg=0.01")
+    resp = client.get("/api/epg/graph?propellant_mass_kg=0.01")
     assert resp.status_code == 200
     data = resp.json()
 
@@ -199,9 +199,9 @@ def test_openspg_graph_propellant_evaluation_pruning():
     assert reasoning["verdict"] == "PRUNED"
 
 
-def test_openspg_graph_thrust_evaluation_pruning():
+def test_epg_graph_thrust_evaluation_pruning():
     """Verify that insufficient thrust authority triggers Thrust_Capacity VIOLATED and PRUNED verdict."""
-    resp = client.get("/api/openspg/graph?max_thrust_n=0.05")
+    resp = client.get("/api/epg/graph?max_thrust_n=0.05")
     assert resp.status_code == 200
     data = resp.json()
 
@@ -215,8 +215,8 @@ def test_openspg_graph_thrust_evaluation_pruning():
     assert reasoning["verdict"] == "PRUNED"
 
 
-def test_openspg_graph_post_endpoint():
-    """Verify POST /api/openspg/graph correctly processes request body parameters."""
+def test_epg_graph_post_endpoint():
+    """Verify POST /api/epg/graph correctly processes request body parameters."""
     payload = {
         "candidate_id": 12,
         "sat_mass_kg": 180.0,
@@ -224,7 +224,7 @@ def test_openspg_graph_post_endpoint():
         "max_thrust_n": 25.0,
         "tca_s": 50.0,
     }
-    resp = client.post("/api/openspg/graph", json=payload)
+    resp = client.post("/api/epg/graph", json=payload)
     assert resp.status_code == 200
     data = resp.json()
     assert data["reasoning_state"]["clm_vector"]["id"] == 12

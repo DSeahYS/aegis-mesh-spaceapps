@@ -23,7 +23,7 @@ import type {
 import { DEFAULT_PIPELINE_REQUEST } from '../../lib/apiClient';
 import { formatProbability } from './formatters';
 
-export interface OpenSPGScenario {
+export interface EPGScenario {
   id: string;
   name: string;
   badge: string;
@@ -69,7 +69,7 @@ export interface OpenSPGScenario {
 }
 
 // Built-in demonstration scenarios (illustrating both satisfied and violated rules)
-const PRESET_SCENARIOS: OpenSPGScenario[] = [
+const PRESET_SCENARIOS: EPGScenario[] = [
   {
     id: 'preset-optimal-radial',
     name: 'Candidate #1: Optimal Radial Boost',
@@ -248,7 +248,7 @@ const PRESET_SCENARIOS: OpenSPGScenario[] = [
   },
 ];
 
-interface OpenSPGGraphProps {
+interface EPGGraphProps {
   pipelineData?: PipelineResponse | null;
   isBackendOnline?: boolean;
   compact?: boolean;
@@ -256,7 +256,7 @@ interface OpenSPGGraphProps {
 
 type SelectedNodeType = 'telemetry' | 'candidate' | 'rule_tsiolkovsky' | 'rule_perigee' | 'verdict' | null;
 
-export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
+export const EPGGraph: React.FC<EPGGraphProps> = ({
   pipelineData,
   isBackendOnline = false,
   compact = false,
@@ -265,8 +265,8 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
   const [selectedNode, setSelectedNode] = useState<SelectedNodeType>('candidate');
   const [activeTab, setActiveTab] = useState<'graph' | 'kgdsl' | 'trace'>('graph');
 
-  // Convert live pipeline candidates into OpenSPGScenario list
-  const liveScenarios = useMemo<OpenSPGScenario[]>(() => {
+  // Convert live pipeline candidates into EPGScenario list
+  const liveScenarios = useMemo<EPGScenario[]>(() => {
     if (!pipelineData?.validation?.candidates || pipelineData.validation.candidates.length === 0) {
       return [];
     }
@@ -340,7 +340,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
   }, [pipelineData]);
 
   // Combine live candidates with illustrative preset scenarios
-  const allScenarios = useMemo<OpenSPGScenario[]>(() => {
+  const allScenarios = useMemo<EPGScenario[]>(() => {
     if (liveScenarios.length > 0) {
       // Prepend live candidates, plus fault injection examples for demonstration
       return [
@@ -352,7 +352,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
   }, [liveScenarios]);
 
   // Active scenario
-  const currentScenario = useMemo<OpenSPGScenario>(() => {
+  const currentScenario = useMemo<EPGScenario>(() => {
     const found = allScenarios.find((s) => s.id === selectedScenarioId);
     return found || allScenarios[0] || PRESET_SCENARIOS[0];
   }, [allScenarios, selectedScenarioId]);
@@ -425,7 +425,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
               SYMBOLIC PHYSICS RULE GRAPH
             </span>
             <span className="text-xs text-zinc-500">•</span>
-            <span className="text-xs text-zinc-400">OPENSPG-INSPIRED ASTRODYNAMIC REASONING</span>
+            <span className="text-xs text-zinc-400">EPG-INSPIRED ASTRODYNAMIC REASONING</span>
             <span className="text-xs text-zinc-500">•</span>
             <span className="text-[10px] text-blue-400 bg-zinc-950/40 px-2 py-0.5 rounded border border-cyan-500/20">
               ZERO PHYSICAL HALLUCINATIONS
@@ -448,7 +448,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
           </h2>
 
           <p className="text-xs text-zinc-400 mt-1 max-w-4xl font-sans leading-relaxed">
-            <span className="text-zinc-300 font-semibold">How it works:</span> Edge Retrieval Models (CLM) propose candidate collision avoidance maneuvers based on continuous telemetry embeddings (<span className="text-blue-300 font-mono">proposes</span>). The Symbolic Physics Rule Graph (OpenSPG-inspired) evaluates every candidate against symbolic astrodynamic invariance laws (<span className="text-purple-300 font-mono">evaluates_against</span>): Tsiolkovsky propellant mass budgets and Vis-viva minimum safe perigee. Any violation immediately prunes the candidate (<span className="text-alert-red font-mono">violates</span>), ensuring execution occurs only when all constraints hold (<span className="text-cyber-green font-mono">satisfies</span>).
+            <span className="text-zinc-300 font-semibold">How it works:</span> Edge Retrieval Models (CLM) propose candidate collision avoidance maneuvers based on continuous telemetry embeddings (<span className="text-blue-300 font-mono">proposes</span>). The Symbolic Physics Rule Graph (EPG-inspired) evaluates every candidate against symbolic astrodynamic invariance laws (<span className="text-purple-300 font-mono">evaluates_against</span>): Tsiolkovsky propellant mass budgets and Vis-viva minimum safe perigee. Any violation immediately prunes the candidate (<span className="text-alert-red font-mono">violates</span>), ensuring execution occurs only when all constraints hold (<span className="text-cyber-green font-mono">satisfies</span>).
           </p>
         </div>
 
@@ -1528,7 +1528,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
                       PROVENANCE METADATA
                     </div>
                     <div className="text-zinc-300 text-[10px] bg-zinc-950 p-2 rounded border border-zinc-800">
-                      <div>Protocol: Symbolic Physics Rule Graph (OpenSPG-inspired) / KGDSL</div>
+                      <div>Protocol: Symbolic Physics Rule Graph (EPG-inspired) / KGDSL</div>
                       <div>Deterministic: 100% formal replayable</div>
                     </div>
                   </div>
@@ -1546,7 +1546,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
               <span className="text-purple-300 font-bold flex items-center gap-2">
                 <Code2 className="w-4 h-4" />
-                Symbolic Physics Rule Graph Schema &amp; Declarative Rules (OpenSPG-inspired KGDSL)
+                Symbolic Physics Rule Graph Schema &amp; Declarative Rules (EPG-inspired KGDSL)
               </span>
               <span className="text-[10px] text-zinc-400">
                 ACTIVE SCENARIO: {currentScenario.name}
@@ -1555,7 +1555,7 @@ export const OpenSPGGraph: React.FC<OpenSPGGraphProps> = ({
 
             <pre className="text-zinc-300 overflow-x-auto text-[11px] leading-relaxed p-2 bg-zinc-900/60 rounded border border-zinc-800 font-mono">
 {`// -------------------------------------------------------------
-// Symbolic Physics Rule Graph (OpenSPG-inspired) Ontology Definition
+// Symbolic Physics Rule Graph (EPG-inspired) Ontology Definition
 // -------------------------------------------------------------
 EntityType SpacecraftEncounterState {
     altitude_km: Float
@@ -1722,4 +1722,4 @@ ConstraintRule Rule_Perigee(cand: ManeuverCandidate, state: SpacecraftEncounterS
   );
 };
 
-export default OpenSPGGraph;
+export default EPGGraph;
