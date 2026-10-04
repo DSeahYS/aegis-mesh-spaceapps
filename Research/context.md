@@ -1,7 +1,7 @@
 # Project AEGIS-MESH — System Context & Executive Brief
 
 > **Autonomous Edge Guidance & ISL Swarm Mesh for Decentralized Space Domain Awareness & Collision Avoidance**  
-> *NASA Space Apps Challenge 2026*
+> *Autonomous Space Domain Awareness & Evasion*
 
 ---
 

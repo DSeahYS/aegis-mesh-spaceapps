@@ -520,7 +520,7 @@ class SpaceTrackClient:
         self.session.mount("https://", adapter)
         self.session.mount("http://", adapter)
         self.session.headers.update({
-            "User-Agent": "AEGIS-MESH-FlightSoftware/1.0 (NASA Space Apps Challenge 2026)"
+            "User-Agent": "AEGIS-MESH-FlightSoftware/1.0"
         })
 
         # Resolve fallback file paths

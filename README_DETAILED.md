@@ -2,7 +2,6 @@
 
 ### Autonomous Edge Guidance & ISL Swarm Mesh for Decentralized Space Domain Awareness & Collision Avoidance
 
-[![NASA Space Apps Challenge 2026](https://img.shields.io/badge/NASA%20Space%20Apps-2026-blue.svg?style=for-the-badge&)](https://www.spaceappschallenge.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![React 18](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![Three.js](https://img.shields.io/badge/Three.js-r170-black?style=for-the-badge&logo=three.js)](https://threejs.org/)
@@ -15,7 +14,7 @@
 
 ---
 
-> 🔬 **FOR NASA SPACE APPS CHALLENGE JUDGES: LIVE MATHEMATICAL VALIDATION & VERIFICATION (V&V)**
+> 🔬 **SYSTEM REPRODUCIBILITY: LIVE MATHEMATICAL VALIDATION & VERIFICATION (V&V)**
 >
 > **We did not just write equations in a concept paper — every single mathematical formulation in AEGIS-MESH is implemented in code and validated by automated tests.**
 >
@@ -189,9 +188,9 @@ By pushing optical processing, conjunction assessment, neuro-symbolic reasoning,
 
 ---
 
-## 🔬 Verification & Validation (V&V) Proof for Judges ("The Proof")
+## 🔬 Verification & Validation (V&V) Engine ("The Mathematical Proof")
 
-A primary evaluation criterion for the NASA Space Apps Challenge is **scientific rigor and technical credibility**. Rather than presenting abstract mockups or theoretical claims, AEGIS-MESH implements the complete mathematical pipeline in Python (`backend/app/vv`) verified by automated test suites.
+A cornerstone of the AEGIS-MESH architecture is **absolute mathematical rigor and physical credibility**. Rather than presenting abstract mockups or ungrounded machine learning inferences, AEGIS-MESH implements the complete astrodynamics and optimal control pipeline in Python (`backend/app/vv`) verified by automated test suites against analytical oracles and standard benchmarks.
 
 ### 16 Mathematical & Physics Oracles (`selftest.py`)
 
@@ -761,7 +760,7 @@ The AEGIS-MESH frontend is an authentic aerospace mission control operations sui
 ---
 
 <p align="center">
-  <b>Project AEGIS-MESH</b> • Developed for the <b>NASA Space Apps Challenge 2026</b><br>
-  <i>Decentralizing Space Domain Awareness for a Sustainable Orbital Future.</i><br>
+  <b>Project AEGIS-MESH</b> • <b>Autonomous Space Domain Awareness & Evasion</b><br>
+  <i>Decentralizing Space Traffic Management for a Sustainable Orbital Future.</i><br>
   <sub>React 18 + Three.js Frontend • FastAPI Edge Backend • PolarFire SWaP Emulation • 63 Automated Math & Physics Tests</sub>
 </p>

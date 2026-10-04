@@ -55,7 +55,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
             <span className="text-xs text-zinc-500">•</span>
             <span className="text-xs font-mono text-zinc-400">LEO ORBITAL SHELL 53.2° INCLINATION</span>
             <span className="text-xs text-zinc-500">•</span>
-            <span className="text-xs font-mono text-blue-400 font-semibold">NASA SPACE APPS 2026</span>
+            <span className="text-xs font-mono text-emerald-400 font-semibold">AUTONOMOUS ORBITAL MESH</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight text-white mt-1">
             Autonomous Space Traffic Management & Edge Avoidance
@@ -78,7 +78,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
         </div>
       </div>
 
-      {/* NASA Space Apps 2026 Evaluation Hero & V&V Proof Callout */}
+      {/* Autonomous Mission V&V Proof Callout */}
       <div className="relative overflow-hidden rounded-sm border border-cyber-green/40 bg-zinc-900 p-5 shadow-xl shadow-black/40 ">
         {/* Glow backdrop accents */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-cyber-green/10 rounded-full blur-3xl pointer-events-none" />
@@ -88,9 +88,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
           <div className="space-y-3.5 max-w-3xl">
             {/* Badges strip */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-950/90 border border-blue-500/50 text-xs font-mono font-semibold tracking-wider text-blue-200 shadow-[0_0_12px_rgba(59,130,246,0.25)]">
-                <Award className="w-3.5 h-3.5 text-blue-400" />
-                NASA SPACE APPS 2026
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-950/90 border border-emerald-500/50 text-xs font-mono font-semibold tracking-wider text-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+                <Award className="w-3.5 h-3.5 text-emerald-400" />
+                MISSION VERIFIED
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyber-green/10 border border-cyber-green/40 text-xs font-mono font-medium text-cyber-green">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyber-green animate-ping" />
@@ -107,7 +107,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ className = '' }) 
                 Decentralized In-Orbit Collision Avoidance with Proven Mathematical Rigor
               </h2>
               <p className="mt-2 text-sm text-zinc-300 leading-relaxed">
-                <strong className="text-cyber-green font-semibold">For NASA Space Apps Judges:</strong> Don't take our word for it—verify the live astrodynamics math (Foster B-plane, Hamilton-Jacobi, CBF) in the{' '}
+                <strong className="text-cyber-green font-semibold">Live Mathematical Verification:</strong> Verify the live astrodynamics math (Foster B-plane, Hamilton-Jacobi, CBF) in the{' '}
                 <button
                   type="button"
                   onClick={() => setActiveView('verification')}

@@ -271,7 +271,7 @@ class SpiceKernelManager:
         try:
             req = urllib.request.Request(
                 url,
-                headers={"User-Agent": "AEGIS-MESH-Astrodynamics-Simulator/1.0 (NASA Space Apps)"}
+                headers={"User-Agent": "AEGIS-MESH-Astrodynamics-Simulator/1.0"}
             )
             with urllib.request.urlopen(req, timeout=timeout_sec) as response, open(dest_path, "wb") as out_file:
                 chunk_size = 65536

@@ -2,11 +2,11 @@
 
 > **Autonomous Edge Guidance & ISL Swarm Mesh for Decentralized Space Domain Awareness & Collision Avoidance**
 >
-> *NASA Space Apps Challenge 2026*
+> *Autonomous Space Domain Awareness & Evasion*
 
 ---
 
-> 🔬 **FOR NASA SPACE APPS JUDGES: LIVE MATHEMATICAL VALIDATION & VERIFICATION ("V&V PROOF" TAB)**
+> 🔬 **SYSTEM REPRODUCIBILITY: LIVE MATHEMATICAL VALIDATION & VERIFICATION ("V&V PROOF" TAB)**
 > 
 > **We did not just write about the math — we implemented and verified every equation live.**
 > 

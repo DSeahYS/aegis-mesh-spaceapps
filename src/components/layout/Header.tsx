@@ -44,7 +44,7 @@ export const Header: FC = () => {
 
   return (
     <header className="h-12 bg-zinc-900 border-b border-zinc-800 px-3 flex items-center justify-between z-20 shrink-0 select-none">
-      {/* Left: AEGIS-MESH Title + NASA Space Apps Badge + Current View Name */}
+      {/* Left: AEGIS-MESH Title + Status Badge + Current View Name */}
       <div className="flex items-center gap-2 sm:gap-3">
         <div className="flex items-center gap-2">
           <span className="font-mono font-bold text-sm tracking-widest text-zinc-100">
@@ -56,10 +56,10 @@ export const Header: FC = () => {
           </span>
         </div>
 
-        {/* NASA Space Apps 2026 Pro Badge */}
+        {/* Autonomous Edge C2 Pro Badge */}
         <div className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-none bg-zinc-800 border border-zinc-700 text-[10px] font-mono tracking-wider text-zinc-300">
-          <span className="w-1.5 h-1.5 rounded-none bg-blue-500" />
-          <span className="font-bold tracking-wider text-zinc-100">NASA SPACE APPS 2026</span>
+          <span className="w-1.5 h-1.5 rounded-none bg-emerald-500" />
+          <span className="font-bold tracking-wider text-zinc-100">AUTONOMOUS EDGE C2</span>
         </div>
 
         <span className="hidden 2xl:inline-flex items-center px-2 py-0.5 rounded-none text-[10px] font-mono tracking-wider bg-zinc-800 border border-zinc-700 text-zinc-400">

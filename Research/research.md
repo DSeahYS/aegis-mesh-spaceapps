@@ -1,18 +1,18 @@
 # System Architecture and Optimization of AEGIS-MESH: Decentralized Space Domain Awareness and Edge-AI Autonomous Collision Avoidance
 
 > **Autonomous Edge Guidance & ISL Swarm Mesh for Decentralized Space Domain Awareness & Collision Avoidance**  
-> *Technical Research Monograph • Prepared for the NASA Space Apps Challenge 2026 Judging Committee*
+> *Technical Research Monograph • Autonomous Space Domain Awareness & Evasion*
 
 ---
 
-> 🔬 **NASA SPACE APPS JUDGE VERIFICATION NOTICE — LIVE MATHEMATICAL IMPLEMENTATION**  
+> 🔬 **SYSTEM REPRODUCIBILITY & INDEPENDENT VERIFICATION NOTICE — LIVE MATHEMATICAL IMPLEMENTATION**  
 > 
 > **Every mathematical formulation presented in this research paper is backed by working code, not theoretical speculation.**  
 > 
-> The complete 5-stage closed loop—Foster (1992) Gauss-Legendre polar quadrature, EPG neuro-symbolic physics constraints, Hamilton-Jacobi reachability via the Isaacs PDE, and High-Order Control Barrier Functions (HOCBFs)—is **fully implemented in Python (`backend/app/vv`) and verified by 27 automated unit tests** (`pytest backend/tests -v`).
+> The complete 5-stage closed loop—Foster (1992) Gauss-Legendre polar quadrature, EPG neuro-symbolic physics constraints, Hamilton-Jacobi reachability via the Isaacs PDE, and High-Order Control Barrier Functions (HOCBFs)—is **fully implemented in Python (`backend/app/vv`) and verified by automated unit tests** (`pytest backend/tests -v`).
 > 
 > **Interactive Verification in Frontend:**  
-> Judges can verify this live mathematics directly in the web application:
+> Reviewers can verify this live mathematics directly in the web application:
 > 1. Launch the frontend (`http://localhost:5173`) and ensure the backend is running on `:8000`.
 > 2. Navigate to the **"V&V Proof"** tab in the sidebar (tagged with the `V&V` badge).
 > 3. Click **"RUN VERIFICATION SUITE"** to execute the **16 automated mathematical test oracles** (analytical Rician oracle, SGP4 Vallado benchmarks, Isaacs PDE characteristics, and HOCBF forward invariance).
@@ -307,9 +307,9 @@ In `backend/app/vv/pipeline.py`, the system coordinates the end-to-end lifecycle
 4. **Stage 4 (HJ Reachability Safety Verification):** Computes the Backward Reachable Tube (BRT) via the Isaacs PDE to certify avoidance under worst-case disturbances.
 5. **Stage 5 (High-Order Control Barrier Function):** Filters the final trajectory through a QP projective filter to enforce relative degree 2 forward invariance during physical execution.
 
-### 11.3 Interactive Verification for Judges
-Judges can verify these results live:
-- **CLI Verification:** Run `pytest backend/tests -v` to execute all 27 unit tests synchronously in under 7 seconds.
+### 11.3 Interactive Verification & Inspection
+Researchers and evaluators can verify these results live:
+- **CLI Verification:** Run `pytest backend/tests -v` to execute all 63 unit tests synchronously in under 10 seconds.
 - **Frontend Dashboard:** Launch the platform and select the **"V&V Proof"** tab to run the full test suite in real time, inspect the interactive 5-stage pipeline, and view the live HTML5 `<canvas>` Hamilton-Jacobi heatmap.
 
 ---

@@ -2,38 +2,24 @@
 
 ### Autonomous Edge Guidance & ISL Swarm Mesh for Decentralized Space Domain Awareness & Collision Avoidance
 
-**NASA Space Apps Challenge 2026** · [Challenge: Be An Earth System Trend Detective!](https://www.spaceappschallenge.org/)
-
-[![Space Apps 2026](https://img.shields.io/badge/Space%20Apps-2026-blue.svg?style=for-the-badge)](https://www.spaceappschallenge.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![React 18](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![Three.js](https://img.shields.io/badge/Three.js-r170-black?style=for-the-badge&logo=three.js)](https://threejs.org/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-green.svg?style=for-the-badge)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
 > **One-sentence pitch:** AEGIS-MESH pushes collision assessment and evasion planning from ground stations to the satellite's own edge processor, cutting the decision loop from hours to sub-second—demonstrated with a verified Foster Pc engine, a physics rule pipeline, and a live 3D visualization.
 
-
-### 🌍 Challenge Alignment: Earth System Trend Detective
-Low Earth Orbit (the exosphere) is a critical layer of the Earth's interconnected environmental system, and it is currently undergoing a drastic, human-driven environmental change: the exponential accumulation of orbital debris (Kessler Syndrome). 
-AEGIS-MESH detects and responds to this **orbital environmental trend**. We ingest live space traffic data to visualize the density of conjunctions over time, proving that the environmental shift is so significant that traditional ground-in-the-loop collision avoidance is no longer sustainable. We propose a decentralized, edge-compute software mesh to help satellites autonomously survive this changing Earth system.
-
-
-🚀 **[Are you a judge looking for the hardcore math and architecture? Read the Super Detailed README (Nerd's Guide) here!](README_DETAILED.md)**
+🚀 **[Looking for deep mathematical proofs and system architecture? Read the Detailed Technical Guide (Nerd's Guide) here!](README_DETAILED.md)**
 
 <!-- TODO: Replace with a demo GIF or 30-second video link -->
 <!-- ![Demo](docs/images/screenshot.png) -->
 
 ---
 
-## Team
+## Authors & Attributions
 
-| Member | Role |
-|--------|------|
-| _[TODO: Add team members]_ | _[TODO: Add roles]_ |
-
-> **AI Disclosure:** This project used AI coding assistants (GitHub Copilot, Antigravity) for code generation and documentation. All scientific formulations were human-designed and human-verified.
-
-> **[Space Apps Team Page](https://www.spaceappschallenge.org/)** ← _TODO: Link to your actual team page_
+> **AI Disclosure:** This project used AI coding assistants (GitHub Copilot, Antigravity) for code generation, formatting, and test scaffolding. All scientific formulations, orbital dynamics equations, and architecture designs were human-directed and human-verified.
 
 ---
 
@@ -169,7 +155,7 @@ docker compose up --build
 
 ## Verification & Validation
 
-The V&V Proof tab in the UI runs live backend tests judges can verify:
+The V&V Proof tab in the UI runs live backend tests against analytical oracles and Monte Carlo benchmarks:
 
 | Test | What it Checks | Tolerance |
 | ------ | ---------------- | ----------- |
@@ -198,7 +184,7 @@ The frontend provides 9 specialized views:
 6. **Edge Retrieval Lab** — Interactive codebook matching playground (prototype, untrained)
 7. **Hardware Profiler** — ⚠️ **Simulated** GPU/FPGA metrics for demonstration only
 8. **Backend Console** — Live API testing, Celestrak TLE fetch, CDM parsing
-9. **V&V Proof** — Live mathematical verification suite (for judges)
+9. **V&V Proof** — Live mathematical verification suite and 5-stage pipeline tester
 
 ---
 
@@ -274,7 +260,7 @@ These items are **proposed concepts, not implemented features:**
 ---
 
 <p align="center">
-  <b>Project AEGIS-MESH</b> • <b>NASA Space Apps Challenge 2026</b><br>
-  <i>Decentralizing Space Domain Awareness for a Sustainable Orbital Future.</i><br>
+  <b>Project AEGIS-MESH</b> • <b>Autonomous Space Domain Awareness & Evasion</b><br>
+  <i>Decentralizing Space Traffic Management for a Sustainable Orbital Future.</i><br>
   <sub>React 18 + Three.js • FastAPI • Verified Foster Pc + Physics Rules + CBF + HJ</sub>
 </p>
