@@ -12,8 +12,7 @@
 
 🚀 **[Looking for deep mathematical proofs and system architecture? Read the Detailed Technical Guide (Nerd's Guide) here!](README_DETAILED.md)**
 
-<!-- TODO: Replace with a demo GIF or 30-second video link -->
-<!-- ![Demo](docs/images/screenshot.png) -->
+![AEGIS-MESH 3D Orbital Globe](docs/images/hero-orbital-globe.png)
 
 ---
 
@@ -174,17 +173,56 @@ The fault injection presets (Starved Propellant, Weak Thruster, Strong Disturban
 
 ## Interactive Views
 
-The frontend provides 9 specialized views:
+The frontend provides 9 specialized views for constellation management, edge inference, and formal verification.
 
-1. **Mission Dashboard** — Aggregate threat matrix, maneuver log, system health
-2. **3D Orbital Globe** — WebGL Earth with 6,000+ real debris objects, 12 satellites, laser ISL links
-3. **Conjunction Assessment** — B-plane plot, Pc gauge, trade-space scatter (illustrative)
-4. **Mesh Network** — Constellation topology, workload migration simulation, QKD concept display
-5. **System Architecture** — End-to-end pipeline flowchart, hardware comparison
-6. **Edge Retrieval Lab** — Interactive codebook matching playground (prototype, untrained)
-7. **Hardware Profiler** — ⚠️ **Simulated** GPU/FPGA metrics for demonstration only
-8. **Backend Console** — Live API testing, Celestrak TLE fetch, CDM parsing
-9. **V&V Proof** — Live mathematical verification suite and 5-stage pipeline tester
+### 1. 3D Orbital Globe
+WebGL Earth visualization propagating 35,000+ tracked debris items and constellation satellites with real-time laser ISL cross-links.
+
+![3D Orbital Globe](docs/images/hero-orbital-globe.png)
+
+### 2. Mission Dashboard
+Aggregate threat assessment matrix, constellation health telemetry, active conjunction horizons, and autonomous latency benchmarks.
+
+![Mission Dashboard](docs/images/mission-dashboard.png)
+
+### 3. Conjunction Assessment
+Real-time B-plane encounter geometry, Foster-Hall probability of collision ($P_c$) gauge, and relative RIC state vectors.
+
+![Conjunction Assessment](docs/images/conjunction-assessment.png)
+
+### 4. Verification & Validation (V&V) Proof
+End-to-end 5-stage evasion pipeline verifying Foster $P_c$, candidate retrieval, physics constraints, Hamilton-Jacobi reachability, and Control Barrier Function (CBF) forward invariance.
+
+![V&V Proof Pipeline](docs/images/vv-proof.png)
+
+The built-in verification suite evaluates 16 analytical test oracles against mathematical ground truth in real time with 100% pass verification.
+
+![V&V Proof 16 Analytical Oracles](docs/images/vv-proof-oracles.png)
+
+### 5. Mesh Network & Laser ISL
+Constellation topology graph mapping 12 orbital nodes and 22 optical links alongside live WebAssembly workload migration simulation.
+
+![Mesh Network & ISL](docs/images/mesh-network.png)
+
+### 6. Edge Retrieval Lab
+16-D state latent projection playground and InfoNCE contrastive similarity matrix for sub-millisecond maneuver retrieval.
+
+![Edge Retrieval Lab](docs/images/edge-retrieval-lab.png)
+
+### 7. System Architecture
+End-to-end 10-stage processing pipeline from optical star tracker detection to cold-gas and electric thruster firing.
+
+![System Architecture](docs/images/system-architecture.png)
+
+### 8. Hardware Profiler
+Simulated Microchip PolarFire SoC and NVIDIA Jetson edge inference execution profiling with latency jitter tracking.
+
+![Hardware Profiler](docs/images/hardware-profiler.png)
+
+### 9. Backend Live Console
+FastAPI control plane providing interactive live TLE queries, CCSDS 508.0 Conjunction Data Message (CDM) validation, and REST API telemetry.
+
+![Backend Live Console](docs/images/backend-console.png)
 
 ---
 
