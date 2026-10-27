@@ -14,11 +14,13 @@
 
 ---
 
+![AEGIS-MESH 3D Orbital Globe](docs/images/hero-orbital-globe.png)
+
 > 🔬 **SYSTEM REPRODUCIBILITY: LIVE MATHEMATICAL VALIDATION & VERIFICATION (V&V)**
 >
 > **We did not just write equations in a concept paper — every single mathematical formulation in AEGIS-MESH is implemented in code and validated by automated tests.**
 >
-> The AEGIS-MESH repository features an end-to-end, deterministic closed-loop avoidance engine implemented in Python (`backend/app/vv`) with **63 automated verification tests passing** (`pytest backend/tests -v`) and a Red-Team frontend stress test with **69/69 invariant checks passing** (`node test_ui_data_flow.mjs`).
+> The AEGIS-MESH repository features an end-to-end, deterministic closed-loop avoidance engine implemented in Python (`backend/app/vv`) with **63 automated verification tests passing** (`pytest backend/tests -v`) and a Red-Team frontend stress test with **69/69 invariant checks passing** (`npm test`).
 >
 > **How to verify the live math in your browser:**
 >
@@ -254,7 +256,7 @@ backend/tests/test_vv.py::* (5 pipeline/cdm/clm tests)                   PASSED 
 To guarantee that the mission control interface does not crash or freeze during extreme real-time telemetry bursts:
 
 ```bash
-node test_ui_data_flow.mjs
+npm test
 ```
 
 - **Test Suite 1: High-Throughput Queue Bounding** — 10,000 rapid messages ingested at 218,000 msgs/sec; memory safely bounded.
@@ -282,6 +284,10 @@ node test_ui_data_flow.mjs
    - Inspect the live HTML5 `<canvas>` **Hamilton-Jacobi Value Function Heatmap** showing the safe regions vs. Backward Reachable Tube.
    - View the interactive Recharts **Control Barrier Function safety envelope** proving forward invariance ($h(t) \ge 0$).
    - Test **Fault Injection**: reduce propellant to $0.02\text{ kg}$ and watch EPG reject all burns with `ABORT_NO_SAFE_MANEUVER`.
+
+![V&V Proof Pipeline](docs/images/vv-proof.png)
+
+![16 Analytical Oracles](docs/images/vv-proof-oracles.png)
 
 ---
 
@@ -341,6 +347,8 @@ graph TD
     style U fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff
     style X fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff
 ```
+
+![System Architecture](docs/images/system-architecture.png)
 
 ### Stage 1: Optical Detection & Foster 2D B-Plane Assessment
 - **Optical Anomaly Extraction:** Sidereal tracking keeps celestial background static. Streaks are isolated via Fast Fourier Transform (FFT) modulus and Radon/Hough transforms. The NASA NAIF SPICE toolkit provides exact solar phase angles and localized Earth albedo to dynamically normalize the optical noise floor.

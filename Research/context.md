@@ -15,7 +15,7 @@ Space debris in Low Earth Orbit (LEO) has reached an unprecedented density. Grou
 
 ## 2. Key Architecture: The 5-Stage Closed-Loop Evasion Pipeline
 
-Located in [`backend/app/vv/pipeline.py`](file:///c:/VSCode%20Folder/NASASpaceApps2026/backend/app/vv/pipeline.py), the end-to-end autonomous evasion lifecycle operates in 5 deterministic stages:
+Located in [`backend/app/vv/pipeline.py`](backend/app/vv/pipeline.py), the end-to-end autonomous evasion lifecycle operates in 5 deterministic stages:
 
 1. **Stage 1 (CARA Conjunction Assessment):** Evaluates collision probability $P_c$ from the relative state vector and combined covariance using Gauss-Legendre polar quadrature over the 2D B-plane encounter ellipse. If $P_c \ge 10^{-4}$, the autonomous sequence triggers.
 2. **Stage 2 (CLM Maneuver Retrieval):** Executes high-speed dot-product similarity search against a pre-cached action embedding database, retrieving the top-3 candidate $\Delta\mathbf{v}$ escape vectors in $< 16\text{ ms}$.
@@ -43,6 +43,6 @@ Every mathematical model and safety guarantee is fully implemented and verifiabl
 
 ## 4. Key Documents & Cross-References
 
-- **Executive & Detailed Guide:** [`README.md`](file:///c:/VSCode%20Folder/NASASpaceApps2026/README.md) & [`README_DETAILED.md`](file:///c:/VSCode%20Folder/NASASpaceApps2026/README_DETAILED.md)
-- **Deep Astrodynamics Research Paper:** [`Research/research.md`](file:///c:/VSCode%20Folder/NASASpaceApps2026/Research/research.md)
-- **Architecture & Concept Document:** [`Research/Concept.md`](file:///c:/VSCode%20Folder/NASASpaceApps2026/Research/Concept.md)
+- **Executive & Detailed Guide:** [`README.md`](README.md) & [`README_DETAILED.md`](README_DETAILED.md)
+- **Deep Astrodynamics Research Paper:** [`Research/research.md`](Research/research.md)
+- **Architecture & Concept Document:** [`Research/Concept.md`](Research/Concept.md)

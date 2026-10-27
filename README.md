@@ -244,28 +244,30 @@ aegis-mesh/
 │   │       ├── cbf_filter.py        # CBF safety filter (closed-form projection)
 │   │       ├── hj_reachability.py   # HJ reachability (2-state double integrator)
 │   │       ├── physics_validator.py # Physics rules (R1, R2, R3)
-│   │       ├── epg.py           # Symbolic physics rule graph (EPG-inspired)
+│   │       ├── epg.py               # Symbolic physics rule graph (EPG-inspired)
 │   │       └── cdm_validator.py     # CDM structural validator
 │   ├── simulators/                  # Astrodynamics & hardware simulators
-│   ├── tests/                       # Pytest suite
+│   ├── tests/                       # Pytest suite (62 math & physics tests)
 │   ├── requirements.txt
 │   └── Dockerfile
 ├── src/                             # React 18 + Three.js frontend
-│   ├── components/                  # UI components (9 views)
+│   ├── components/                  # UI components (9 specialized views)
 │   ├── lib/                         # Orbital mechanics, retrieval engine, API client
 │   ├── data/                        # Constellation, debris scenarios, hardware specs
 │   └── store/                       # Zustand global state
+├── tests/                           # Red-team frontend UI stress test suite (69 invariants)
+├── scripts/                         # Documentation screenshot capture automation
 ├── benchmark/                       # Latency benchmark suite
 ├── Research/                        # Concept docs & research paper
-├── docs/                            # Extended documentation
-│   ├── math.md                      # Mathematical derivations (moved from README)
+├── docs/                            # Extended documentation & screenshots
+│   ├── images/                      # High-resolution screenshots of all 9 live views
+│   ├── math.md                      # Mathematical derivations
 │   ├── api.md                       # API reference
-│   └── simulators.md               # Simulator deep-dive
+│   └── simulators.md                # Simulator deep-dive
 ├── docker-compose.yml               # Resource-constrained container
 ├── LICENSE                          # Apache 2.0
 └── package.json
 ```
-
 ---
 
 ## Future Work
